@@ -61,21 +61,28 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 4.1.0'
+  gem 'web-console', '>= 4.1.0' # https://github.com/rails/web-console
   # Display performance information such as SQL time and flame graphs for each request in your browser.
-  # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
+  # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Replaces standard Rails error page with a more useful error page
+  gem 'better_errors' # https://github.com/BetterErrors/better_errors
+  # binding_of_caller is optional, but is necessary to use Better Errors' advanced features
+  gem 'binding_of_caller' # https://github.com/banister/binding_of_caller
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
+  # Capybara: Test web applications by simulating how a real user would interact with your app
+  gem 'capybara', '>= 3.26' # https://github.com/teamcapybara/capybara
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers' # https://github.com/titusfortner/webdrivers
+  # Provides one-liners to test common rails functionality, that, if written by hand, would be much longer
+  gem 'shoulda-matchers', '~> 5.0' # https://github.com/thoughtbot/shoulda-matchers
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -7,3 +7,5 @@ Things you may want to cover:
 
 * https://fontawesome.com/v5.15/icons
 * https://getbootstrap.com/docs/5.0
+* Add test
+* Add factorybot test
