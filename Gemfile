@@ -35,14 +35,11 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Additional core gems
 #
 
-# # Use devise as an authentication solution
-# gem 'devise' # https://github.com/plataformatec/devise
-# gem 'devise-i18n' # https://github.com/tigrish/devise-i18n
-# gem 'devise-bootstrap-views' # https://github.com/hisea/devise-bootstrap-views
-# gem 'devise-i18n-bootstrap' # https://github.com/maximalink/devise-i18n-bootstrap
-
-# State of the art fixtures
-# gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
+# Use devise as an authentication solution
+gem 'devise' # https://github.com/plataformatec/devise
+gem 'devise-i18n' # https://github.com/tigrish/devise-i18n
+gem 'devise-bootstrap-views' # https://github.com/hisea/devise-bootstrap-views
+gem 'devise-i18n-bootstrap' # https://github.com/maximalink/devise-i18n-bootstrap
 
 #
 # Gems that are loaded depending on the environment (development/test/production)
@@ -83,6 +80,11 @@ group :test do
   gem 'webdrivers' # https://github.com/titusfortner/webdrivers
   # Provides one-liners to test common rails functionality, that, if written by hand, would be much longer
   gem 'shoulda-matchers', '~> 5.0' # https://github.com/thoughtbot/shoulda-matchers
+end
+
+group :production do
+  # https://devcenter.heroku.com/articles/sqlite3
+  gem 'pg' # production database runs on postgres
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

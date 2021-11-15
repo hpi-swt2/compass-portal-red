@@ -1,0 +1,13 @@
+<%# https://getbootstrap.com/docs/5.1/components/alerts/ %>
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show notice" role="alert">
+    <i class="fas fa-check"></i> <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+<% if alert %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <i class="fas fa-exclamation-triangle"></i> <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
