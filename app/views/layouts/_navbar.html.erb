@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><i class="fas fa-compass"></i> HPI Compass Portal</a>
+    <span class="navbar-brand"><i class="fas fa-compass"></i> HPI Compass Portal</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,14 +9,18 @@
         <li class="nav-item">
           <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
         </li>
-        <li class="nav-item">
-          <%= link_to edit_user_registration_path, class: 'nav-link' do %>
-            <i class="fas fa-user"></i> <%= current_user.email %>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=""><i class="fab fa-bootstrap"></i> Bootstrap documentation</a>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to edit_user_registration_path, class: 'nav-link' do %>
+              <i class="fas fa-user"></i> <%= current_user.email %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, class: 'nav-link', method: :delete do %>
+              <i class="fas fa-sign-out-alt"></i> Sign out
+            <% end %>
+          </li>
+        <% end %> <%# user_signed_in?%>
         <li class="nav-item">
           <a class="nav-link" href="https://getbootstrap.com/docs/5.0/components/navbar/"><i class="fab fa-bootstrap"></i> Bootstrap documentation</a>
         </li>
