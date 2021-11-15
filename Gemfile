@@ -54,6 +54,14 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0' # https://github.com/rspec/rspec-rails
   # Factories instead of test fixtures
   gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
+  # Ruby static code analyzer (aka linter)
+  gem 'rubocop', '~> 1.23', require: false # https://github.com/rubocop-hq/rubocop
+  # Rails Extension for Rubocop
+  gem 'rubocop-rails', require: false # https://github.com/rubocop-hq/rubocop-rails
+  # rspec Extension for Rubocop
+  gem 'rubocop-rspec', require: false # https://github.com/rubocop-hq/rubocop-rspec
+  # Performance optimization analysis for your projects
+  gem 'rubocop-performance', require: false # https://github.com/rubocop-hq/rubocop-performance
 end
 
 group :development do

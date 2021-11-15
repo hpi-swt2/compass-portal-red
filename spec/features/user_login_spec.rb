@@ -1,18 +1,18 @@
 require "rails_helper"
 
-RSpec.feature "User details", type: :feature do
+RSpec.describe "User login", type: :feature do
   let(:user) { FactoryBot.create(:user) }
 
-  scenario "are not viewable before login" do
+  it "prohibits viewing account details when not logged in" do
     visit edit_user_registration_path
     expect(page).to have_css('.alert-danger')
-    expect(page).to_not have_current_path(edit_user_registration_path)
+    expect(page).not_to have_current_path(edit_user_registration_path)
   end
 
-  scenario "are viewable after login" do
+  it "allows viewing account details after login" do
     sign_in user
     visit edit_user_registration_path
-    expect(page).to_not have_css('.alert-danger')
+    expect(page).not_to have_css('.alert-danger')
     expect(page).to have_current_path(edit_user_registration_path)
   end
 end
