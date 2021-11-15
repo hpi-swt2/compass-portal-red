@@ -80,6 +80,8 @@ group :test do
   gem 'webdrivers' # https://github.com/titusfortner/webdrivers
   # Provides one-liners to test common rails functionality, that, if written by hand, would be much longer
   gem 'shoulda-matchers', '~> 5.0' # https://github.com/thoughtbot/shoulda-matchers
+  # Code coverage analysis tool for Ruby
+  gem 'simplecov', require: false # https://github.com/simplecov-ruby/simplecov
 end
 
 group :production do
