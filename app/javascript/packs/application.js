@@ -8,6 +8,11 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+// Import Bootstrap in the webpack entry point file
+import 'bootstrap'; 
+// Fontawesome: https://fontawesome.com/
+import "@fortawesome/fontawesome-free/js/all";
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

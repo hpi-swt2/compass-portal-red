@@ -3,34 +3,60 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
+#
+# Rails essentials
+#
+
+# The application framework
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
-# Use Puma as the app server
+# Use Puma as the development server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+# Transpile app-like JavaScript, Webpacker is the default JavaScript compiler for Rails 6
+# Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# Turbolinks makes navigating your web application faster.
+# When you follow a link, Turbolinks automatically fetches the page, swaps in its <body>, and merges its <head>
+# Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.4.4', require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+#
+# Additional core gems
+#
+
+# # Use devise as an authentication solution
+# gem 'devise' # https://github.com/plataformatec/devise
+# gem 'devise-i18n' # https://github.com/tigrish/devise-i18n
+# gem 'devise-bootstrap-views' # https://github.com/hisea/devise-bootstrap-views
+# gem 'devise-i18n-bootstrap' # https://github.com/maximalink/devise-i18n-bootstrap
+
+# State of the art fixtures
+# gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
+
+#
+# Gems that are loaded depending on the environment (development/test/production)
+#
 
 group :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.4' # https://www.sqlite.org/index.html
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw] # https://github.com/deivid-rodriguez/byebug
+  # RSpec testing framework as a drop-in alternative to Rails' default testing framework, Minitest
+  gem 'rspec-rails', '~> 5.0.0' # https://github.com/rspec/rspec-rails
+  # Factories instead of test fixtures
+  gem 'factory_bot_rails' # https://github.com/thoughtbot/factory_bot_rails
 end
 
 group :development do
