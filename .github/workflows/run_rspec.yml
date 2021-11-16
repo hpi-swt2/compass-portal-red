@@ -1,0 +1,51 @@
+name: Run RSpec
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  # Name of the job
+  test:
+    runs-on: ubuntu-latest
+
+    # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+    # Service containers to run with job `test`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test
+          # should not be empty
+          # https://stackoverflow.com/questions/60618118#answer-60618750
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # https://github.com/ruby/setup-ruby
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7 # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Install yarn packages
+        run: yarn install --check-files
+
+      - name: Run tests (PostgreSQL)
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+          RAILS_ENV: test
+        # Don't run RSpec with . https://olivierlacan.com/posts/a-tiny-little-dot/
+        run: |
+          cp config/database.ci.yml config/database.yml
+          bundle exec rails db:setup
+          bundle exec rspec spec/ --format documentation
