@@ -9,6 +9,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
         </li>
+        <li class="nav-item">
+          <%= link_to protected_path, class: 'nav-link' do %>
+            <i class="fas fa-lock"></i> Protected page
+          <% end %>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to edit_user_registration_path, class: 'nav-link' do %>
@@ -22,10 +27,14 @@
           </li>
         <% end %> <%# user_signed_in?%>
         <li class="nav-item">
-          <a class="nav-link" href="https://getbootstrap.com/docs/5.0/components/navbar/"><i class="fab fa-bootstrap"></i> Bootstrap documentation</a>
+          <a class="nav-link" href="https://getbootstrap.com/docs/5.0/components/navbar/" target="_blank">
+            <i class="fab fa-bootstrap"></i> Bootstrap
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://fontawesome.com/v5.15/icons"><i class="fab fa-fonticons-fi"></i> FontAwesome Icons</a>
+          <a class="nav-link" href="https://fontawesome.com/v5.15/icons" target="_blank">
+            <i class="fab fa-fonticons-fi"></i> FontAwesome Icons
+          </a>
         </li>
       </ul>
     </div>
