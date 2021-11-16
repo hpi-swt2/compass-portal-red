@@ -62,6 +62,8 @@ group :development, :test do
   gem 'rubocop-rspec', require: false # https://github.com/rubocop-hq/rubocop-rspec
   # Performance optimization analysis for your projects
   gem 'rubocop-performance', require: false # https://github.com/rubocop-hq/rubocop-performance
+  # RSpec formatter compatible with GitHub Action's annotations
+  gem 'rspec-github', require: false # https://github.com/Drieam/rspec-github
 end
 
 group :development do

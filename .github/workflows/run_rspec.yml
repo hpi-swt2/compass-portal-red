@@ -49,7 +49,8 @@ jobs:
           POSTGRES_DB: test
           RAILS_ENV: test
         # Don't run RSpec with . https://olivierlacan.com/posts/a-tiny-little-dot/
+        # Show rspec errors as GH annotations https://github.com/Drieam/rspec-github#usage
         run: |
           cp config/database.ci.yml config/database.yml
           bundle exec rails db:setup
-          bundle exec rspec spec/ --format documentation
+          bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
