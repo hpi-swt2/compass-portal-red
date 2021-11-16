@@ -9,5 +9,7 @@ class WelcomeController < ApplicationController
 
   def protected
     # Only accessible by logged in users, see `before_action` call
+    # https://guides.rubyonrails.org/action_controller_overview.html#flash-now
+    flash.now[:notice] = "You have reached the protected page! This is a flash message."
   end
 end
