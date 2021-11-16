@@ -1,5 +1,7 @@
 # Compass Portal
 
+[![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg)](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A web application for finding your way, written in [Ruby on Rails](https://rubyonrails.org/).
