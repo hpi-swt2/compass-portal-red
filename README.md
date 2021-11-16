@@ -9,3 +9,4 @@ Things you may want to cover:
 * https://getbootstrap.com/docs/5.0
 * Add test
 * Add factorybot test
+* bin/rubocop
