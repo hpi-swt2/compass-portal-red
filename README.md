@@ -1,6 +1,7 @@
 # Compass Portal — 🟦 Edition
+`dev` branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml) [![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue)
 
-main branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml) | dev branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml) | deployed main: [Heroku](https://compass-blue.herokuapp.com/)
+`main` branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml), live app: [Heroku](https://compass-blue.herokuapp.com/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
