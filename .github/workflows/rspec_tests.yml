@@ -2,7 +2,7 @@ name: RSpec tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   # Allow manual triggering
   workflow_dispatch:
 
@@ -54,3 +54,22 @@ jobs:
           cp config/database.ci.yml config/database.yml
           bundle exec rails db:setup
           bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
+
+  # Name of the job
+  deploy:
+    # Deploy the main branch
+    if: github.ref == 'refs/heads/main'
+    # job 'test' must succeed before this job is started
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # https://github.com/marketplace/actions/deploy-to-heroku
+      - name: Deploy main to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "compass-blue" #Must be unique in Heroku
+          heroku_email: "hpi.swt2+heroku@gmail.com"
