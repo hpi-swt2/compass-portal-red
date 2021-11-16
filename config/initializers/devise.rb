@@ -272,6 +272,25 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # https://github.com/m0n9oose/omniauth_openid_connect#usage
+  config.omniauth :openid_connect,
+    name: :openid_connect,
+    scope: [:openid, :email, :profile],
+    response_type: :code,
+    client_options: {
+      port: 443,
+      scheme: 'https',
+      host: 'oidc.hpi.de',
+      identifier: '91bbbe5a-5311-49a9-b195-9eadc35fd007',
+      # identifier: Rails.application.credentials.hpi_openid.try(:[], :client_id),
+      secret: '621036740d83d644574980f1fe56f20c669b43ca0980e980c241840f6284b733d646587a84b0e544864c21d9e4c38f4901fa082e5770a853634043682dac1599',
+      # secret: Rails.application.credentials.hpi_openid.try(:[], :client_secret),
+      redirect_uri: 'http://localhost:3000/users/auth/openid_connect/callback',
+      # redirect_uri: Rails.application.credentials.hpi_openid.try(:[], :redirect_uri),
+      authorization_endpoint: '/auth'
+    },
+    client_auth_method: :other,
+    discovery: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -40,6 +40,9 @@ gem 'devise' # https://github.com/plataformatec/devise
 gem 'devise-i18n' # https://github.com/tigrish/devise-i18n
 gem 'devise-bootstrap-views' # https://github.com/hisea/devise-bootstrap-views
 gem 'devise-i18n-bootstrap' # https://github.com/maximalink/devise-i18n-bootstrap
+# Libraries for openID Connect authentication
+gem 'omniauth' # https://github.com/omniauth/omniauth
+gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_connect
 
 #
 # Gems that are loaded depending on the environment (development/test/production)

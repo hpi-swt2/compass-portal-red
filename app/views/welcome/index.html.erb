@@ -9,6 +9,8 @@
       <%= link_to new_user_registration_path, class: 'btn btn-secondary btn-md', id: "signup" do %>
         <i class="fas fa-user-plus"></i> Sign Up
       <% end %>
+      <%= link_to "Sign in HPI OpenID Connect", user_openid_connect_omniauth_authorize_path %>
+      <%# link_to "Sign in HPI OpenID Connect", user_openid_connect_omniauth_authorize_path, method: :post %>
     </p>
   </div>
 </div>
