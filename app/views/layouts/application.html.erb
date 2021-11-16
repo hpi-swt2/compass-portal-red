@@ -13,7 +13,10 @@
   <body>
     <%= render 'layouts/navbar' %>
     <%= render 'layouts/alerts' %>
-
-    <%= yield %>
+    <%# https://getbootstrap.com/docs/5.0/layout/containers/ %>
+    <%# https://getbootstrap.com/docs/5.0/utilities/spacing/ %>
+    <div class="container mt-5"> <%# mt-5 == margin-top: 5*spacer %>
+      <%= yield %>
+    </div>
   </body>
 </html>

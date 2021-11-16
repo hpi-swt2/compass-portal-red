@@ -10,3 +10,4 @@ Things you may want to cover:
 * Add test
 * Add factorybot test
 * bin/rubocop
+* rspec --format documentation

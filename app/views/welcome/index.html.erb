@@ -1,18 +1,14 @@
-<main>
-  <section class="py-5 text-center container">
-    <div class="row">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Welcome to the HPI Compass Portal!</i></h1>
-        <p class="lead text-muted">Something short and concise about the value of the HPI Compass Portal. Short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <%= link_to new_user_session_path, class: 'btn btn-primary btn-md', id: "signin" do %>
-            <i class="fas fa-sign-in-alt"></i> Sign In
-          <% end %>
-          <%= link_to new_user_registration_path, class: 'btn btn-secondary btn-md', id: "signup" do %>
-            <i class="fas fa-user-plus"></i> Sign Up
-          <% end %>
-        </p>
-      </div>
-    </div>
-  </section>
-</main>
+<div class="row">
+  <div class="col-lg-6 col-md-6 mx-auto">
+    <h1 class="fw-light">Welcome to the HPI Compass Portal!</h1>
+    <p class="lead text-muted">Something short and concise about the value of the HPI Compass Portal. Short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+    <p>
+      <%= link_to new_user_session_path, class: 'btn btn-primary btn-md', id: "signin" do %>
+        <i class="fas fa-sign-in-alt"></i> Log In
+      <% end %>
+      <%= link_to new_user_registration_path, class: 'btn btn-secondary btn-md', id: "signup" do %>
+        <i class="fas fa-user-plus"></i> Sign Up
+      <% end %>
+    </p>
+  </div>
+</div>
