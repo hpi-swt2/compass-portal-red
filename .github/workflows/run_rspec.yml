@@ -3,6 +3,8 @@ name: Run RSpec
 on:
   push:
     branches: [ main ]
+  # Allow manual triggering
+  workflow_dispatch:
 
 jobs:
   # Name of the job
@@ -12,10 +14,10 @@ jobs:
     # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
     # Service containers to run with job `test`
     services:
-      # Label used to access the service container
       postgres:
         # Docker Hub image
         image: postgres
+        env:
           POSTGRES_USER: postgres
           POSTGRES_DB: test
           # should not be empty
