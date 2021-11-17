@@ -33,6 +33,7 @@ Ensure you have access to a Unix-like environment through:
 * [Fontawesome](https://fontawesome.com/v5.15/icons) icons
 * [Bootstrap](https://getbootstrap.com/docs/5.0) for layout and styling
 * [Devise](https://github.com/heartcombo/devise) library for authentication
+* [OmniAuth](https://github.com/omniauth/omniauth) & [OmniAuth OpenID Connect](https://github.com/m0n9oose/omniauth_openid_connect) for HPI OpenID
 * [FactoryBot](https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#defining-factories) to generate test data
 * [Capybara](https://github.com/teamcapybara/capybara#the-dsl) for feature testing
 * [shoulda](https://github.com/thoughtbot/shoulda-matchers#matchers) for additional RSpec matchers
@@ -71,3 +72,8 @@ Ensure you have access to a Unix-like environment through:
 ### Generating
 * `rails g migration DoSomething` Create migration _db/migrate/*_DoSomething.rb_
 * `rails generate` takes a `--pretend` / `-p` option that shows what will be generated without changing anything
+
+### HPI OpenID Connect Configuration
+* `config/initializers/devise.rb` contains the [OmniAuth OpenID Connect](https://github.com/m0n9oose/omniauth_openid_connect) config for the HPI OIDC service
+* An OpenID Connect client for `localhost:3000` is set up for local development. Clients can be registered at [oidc.hpi.de](https://oidc.hpi.de/)
+* `app/controllers/users/omniauth_callbacks_controller.rb` handles data returned by the service
