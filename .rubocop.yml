@@ -40,6 +40,14 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - 'config/**/*'
 
+# Configs can complex options, may need custom layout
+Layout/ArgumentAlignment:
+  Exclude:
+    - 'config/**/*'
+Layout/HashAlignment:
+  Exclude:
+    - 'config/**/*'
+
 # Only check "Missing top-level class documentation comment" for models
 Style/Documentation:
   Include:
@@ -49,6 +57,11 @@ Style/Documentation:
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
+
+# Okay for special controllers interacting with devise
+Style/ClassAndModuleChildren:
+  Exclude:
+    - app/controllers/users/*.rb
 
 #
 # Ignoring entire rules

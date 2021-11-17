@@ -1,3 +1,4 @@
+# The model representing a user who can log in
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -19,7 +20,7 @@ class User < ApplicationRecord
       # `first_name` & `last_name` are also available
       # user.first_name = auth.info.first_name
       # user.last_name = auth.info.last_name
-      # If you are using confirmable and the provider(s) you use validate emails, 
+      # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
@@ -28,8 +29,8 @@ class User < ApplicationRecord
   # https://github.com/heartcombo/devise/wiki/OmniAuth:-Overview
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.openid_connect_data"] && session["devise.openid_connect_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+      if (data = session["devise.openid_connect_data"]) && user.email.blank?
+        user.email = data["email"]
       end
     end
   end

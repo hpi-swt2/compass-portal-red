@@ -1,4 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  # No overriding of methods
 
   protected
 
@@ -13,4 +14,3 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params.except("current_password"))
   end
 end
-  
