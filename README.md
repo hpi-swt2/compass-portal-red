@@ -75,5 +75,6 @@ Ensure you have access to a Unix-like environment through:
 
 ### HPI OpenID Connect Configuration
 * `config/initializers/devise.rb` contains the [OmniAuth OpenID Connect](https://github.com/m0n9oose/omniauth_openid_connect) config for the HPI OIDC service
-* An OpenID Connect client for `localhost:3000` is set up for local development. Clients can be registered at [oidc.hpi.de](https://oidc.hpi.de/)
-* `app/controllers/users/omniauth_callbacks_controller.rb` handles data returned by the service
+* An OpenID Connect client for `localhost:3000` is set up for local development. Additional clients registrable at [oidc.hpi.de](https://oidc.hpi.de/)
+* For deployment `OPENID_CONNECT_CLIENT_ID`, `OPENID_CONNECT_CLIENT_SECRET` & `OPENID_CONNECT_REDIRECT_URI` need to be provided
+* `app/controllers/users/omniauth_callbacks_controller.rb` handles data returned by the OIDC service
