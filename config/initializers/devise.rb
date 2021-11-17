@@ -282,7 +282,7 @@ Devise.setup do |config|
       scheme: 'https',
       host: 'oidc.hpi.de',
       # Instead of env vars, could also use Rails credentials store
-      # env vars are set on deployed Heroku instance, default to HPI OpenID config setup for local dev
+      # env vars are set on deployed Heroku instance, default to HPI OpenID client setup for local dev
       # Requires server to be running on port 3000, as that is also set on the remote OIDC config (and is checked)
       identifier: ENV.fetch('OPENID_CONNECT_CLIENT_ID','91bbbe5a-5311-49a9-b195-9eadc35fd007'),
       secret: ENV.fetch('OPENID_CONNECT_CLIENT_SECRET', '621036740d83d644574980f1fe56f20c669b43ca0980e980c241840f6284b733d646587a84b0e544864c21d9e4c38f4901fa082e5770a853634043682dac1599'),
