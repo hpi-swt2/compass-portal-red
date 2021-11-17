@@ -1,4 +1,4 @@
-name: RSpec tests
+name: Test and deploy
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   # Name of the job
-  test:
+  rspec-test:
     runs-on: ubuntu-latest
 
     # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
@@ -59,8 +59,8 @@ jobs:
   deploy:
     # Deploy the main branch
     if: github.ref == 'refs/heads/main'
-    # job 'test' must succeed before this job is started
-    needs: test
+    # test job must succeed before this job is started
+    needs: rspec-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
