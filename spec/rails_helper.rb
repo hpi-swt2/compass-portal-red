@@ -4,7 +4,8 @@
 # https://github.com/simplecov-ruby/simplecov
 require 'simplecov'
 SimpleCov.start 'rails' do
-  enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
+  # Unfortunately only for simplecov versions > 0.18
+  # enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
 end
 
 require 'spec_helper'
