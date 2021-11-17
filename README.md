@@ -25,7 +25,7 @@ Ensure you have access to a Unix-like environment through:
 * `node --version; yarn --version` Ensure [Node.js and Yarn installation](https://guides.rubyonrails.org/getting_started.html#installing-node-js-and-yarn)
 * `bundle --version` Ensure [Bundler](https://rubygems.org/gems/bundler) installation (`gem install bundler`)
 * `bundle config set without 'production' && bundle install` Install gem dependencies from `Gemfile`
-* `yarn install --check-files` Install JS dependencies from `package.json`
+* `yarn install` Install JS dependencies from `package.json`
 * `rails db:migrate` Setup the database, run migrations
 * `rails s` Start dev server (default port _3000_ required for local [HPI OpenID Connect](https://oidc.hpi.de/))
 * `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
