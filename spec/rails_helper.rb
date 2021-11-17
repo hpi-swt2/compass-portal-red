@@ -5,7 +5,7 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
   # Unfortunately only for simplecov versions > 0.18
-  # enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
+  enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
 end
 
 # Only submit to codecov if running in CI
