@@ -5,9 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[openid_connect]
 
+  # Called from app/controllers/users/omniauth_callbacks_controller.rb
+  # Match OpenID Connect data to a local user object
   def self.from_omniauth(auth)
+    # Check if user with provider ('openid_connect') and uid is in db, otherwise create it
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
+      # All information returned by OpenID Connect is passed in `auth` param
       user.email = auth.info.email
+      # Generate random password, default length is 20
+      # https://www.rubydoc.info/github/plataformatec/devise/Devise.friendly_token
       user.password = Devise.friendly_token[0, 20]
       # user.first_name = auth.info.first_name
       # user.last_name = auth.info.last_name
