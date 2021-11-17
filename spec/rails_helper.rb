@@ -7,9 +7,14 @@ SimpleCov.start 'rails' do
   # Unfortunately only for simplecov versions > 0.18
   # enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
 end
-# https://github.com/codecov/example-ruby#codecov-ruby-example
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
+# Only submit to codecov if running in CI
+# https://github.com/codecov/codecov-ruby#advanced-usage
+# https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+if ENV['CI'] == 'true'
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
