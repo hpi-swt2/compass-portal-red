@@ -56,7 +56,7 @@ jobs:
         run: yarn install
 
       - name: Compile assets
-        run: bin/rails webpacker:compile
+        run: bundle exec bin/rails webpacker:compile
 
       - name: Run tests (PostgreSQL)
         env:
