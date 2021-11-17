@@ -95,6 +95,8 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0' # https://github.com/thoughtbot/shoulda-matchers
   # Code coverage analysis tool for Ruby
   gem 'simplecov', '~> 0.17.0', require: false # https://github.com/simplecov-ruby/simplecov
+  # Online coverage tool: https://github.com/codecov/example-ruby#codecov-ruby-example
+  gem 'codecov', require: false
 end
 
 group :production do

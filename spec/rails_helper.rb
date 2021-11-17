@@ -7,6 +7,9 @@ SimpleCov.start 'rails' do
   # Unfortunately only for simplecov versions > 0.18
   # enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
 end
+# https://github.com/codecov/example-ruby#codecov-ruby-example
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
