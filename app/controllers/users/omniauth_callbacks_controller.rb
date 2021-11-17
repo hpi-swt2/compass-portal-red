@@ -8,7 +8,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication # this will throw if @user is not activated
-      set_flash_message(:notice, :success, kind: 'OpenID Connect', reason: 'Logged in using OpenId Connect') if is_navigational_format?
+      # devise helper: https://www.rubydoc.info/github/plataformatec/devise/DeviseController:set_flash_message 
+      set_flash_message(:notice, :success, kind: 'OpenID Connect', reason: 'HPI OIDC login') if is_navigational_format?
     else
       session["devise.openid_connect_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
       redirect_to new_user_registration_url
@@ -16,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    set_flash_message(:alert, :failure, kind: 'OpenID Connect', reason: 'OpenID Connect login failed')
+    set_flash_message(:alert, :failure, kind: 'OpenID Connect', reason: 'HPI OIDC login')
     redirect_to root_path
   end
 end

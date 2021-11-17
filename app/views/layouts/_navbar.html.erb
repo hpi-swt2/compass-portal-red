@@ -14,6 +14,7 @@
             <i class="fas fa-lock"></i> Protected page
           <% end %>
         </li>
+        <%# devise helper: https://github.com/heartcombo/devise#controller-filters-and-helpers %>
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to edit_user_registration_path, class: 'nav-link' do %>
