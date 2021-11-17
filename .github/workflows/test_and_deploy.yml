@@ -56,6 +56,9 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install
 
+      - name: Compile assets
+        run: bin/rails assets:precompile
+
       - name: Run tests (PostgreSQL)
         env:
           POSTGRES_USER: postgres
