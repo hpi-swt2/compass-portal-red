@@ -60,9 +60,6 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: 0aca64e6290e0914c1cdb2f6625d284052f24deb20b0ecd51595f5101e0e4960
 
-      - name: Publish code coverage to codecov
-        uses: codecov/codecov-action@v2
-
   # Name of the job
   deploy:
     # Deploy the main branch
