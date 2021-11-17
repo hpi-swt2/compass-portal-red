@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 mx-auto">
-    <h1 class="fw-light">Welcome to the HPI Compass Portal!</h1>
+    <h1 class="fw-light">
+      Welcome to the HPI Compass Portal<%= current_user.username.blank? ? '' : ", #{current_user.username}" %>!
+    </h1>
     <p class="lead text-muted">Something short and concise about the value of the HPI Compass Portal. Short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
     <p>
       <%= button_to(user_openid_connect_omniauth_authorize_path,
