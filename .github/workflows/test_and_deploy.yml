@@ -39,8 +39,8 @@ jobs:
           ruby-version: 2.7 # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Compile assets
-        run: bin/rails assets:precompile
+      - name: Setup yarn dependencies
+        run: yarn install
 
       - name: Run tests (PostgreSQL)
         env:
