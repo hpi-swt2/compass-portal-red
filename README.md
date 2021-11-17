@@ -1,7 +1,10 @@
 # Compass Portal — 🟦 Edition
-`dev` branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml) [![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue)
+`dev` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/17a1b08229ec715e5b54/test_coverage)](https://codeclimate.com/github/hpi-swt2/compass-portal-blue/test_coverage)
 
-`main` branch: [![RSpec tests](https://github.com/hpi-swt2/compass-portal/actions/workflows/rspec_tests.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/rspec_tests.yml), live app: [Heroku](https://compass-blue.herokuapp.com/)
+`main` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
+, live app: [Heroku](https://compass-blue.herokuapp.com/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
