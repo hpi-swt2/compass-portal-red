@@ -3,10 +3,13 @@
     <h1 class="fw-light">Protected page</h1>
     <p class="lead text-muted">This page can only be accessed when logged in.</p>
     <p>
-      You are currently logged in (check says: <%= user_signed_in? %>) as <%= current_user %> with the email <%= current_user.email %> and id <%= current_user.id %>
+      Authentication in this project is handled by the <a href="https://github.com/heartcombo/devise#controller-filters-and-helpers" target="_blank"><code>devise</code></a> library together with <a href="https://github.com/omniauth/omniauth" target="_blank"><code>OmniAuth</code></a>, which handles HPI OpenID Connect integration.
     </p>
     <p>
-      You can log out by sending a DELETE request to the `destroy_user_session_path`, which the following link does:
+      You are currently logged in (check says: <code><%= user_signed_in? %></code>) as <code><%= current_user %></code> with the email <code><%= current_user.email %></code> and id <code><%= current_user.id %></code>. Current session information is: <code><%= user_session %></code>.
+    </p>
+    <p>
+      You can log out by sending a DELETE request to the <code>destroy_user_session_path</code>, which the following link does:
       <%= link_to destroy_user_session_path, method: :delete do %>
         <i class="fas fa-sign-out-alt"></i> Log out
       <% end %>
