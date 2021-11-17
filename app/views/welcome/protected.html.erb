@@ -1,12 +1,14 @@
 <div class="row">
-  <div class=" mx-auto">
+  <div class="mx-auto">
     <h1 class="fw-light">Protected page</h1>
     <p class="lead text-muted">This page can only be accessed when logged in.</p>
     <p>
       Authentication in this project is handled by the <a href="https://github.com/heartcombo/devise#controller-filters-and-helpers" target="_blank"><code>devise</code></a> library together with <a href="https://github.com/omniauth/omniauth" target="_blank"><code>OmniAuth</code></a>, which handles HPI OpenID Connect integration.
     </p>
     <p>
-      You are currently logged in (check says: <code><%= user_signed_in? %></code>) as <code><%= current_user %></code> with the email <code><%= current_user.email %></code> and id <code><%= current_user.id %></code>. Current session information is: <code><%= user_session %></code>.
+      You are currently logged in (check says: <code><%= user_signed_in? %></code>) as <code><%= current_user %></code> with the email <code><%= current_user.email %></code> and id <code><%= current_user.id %></code>.<br>
+      Your username is set to <code><%= current_user.username %></code>. You were signed in using <code><%= current_user.provider || 'local login' %></code>.
+      Current session information is: <code><%= user_session %></code>.
     </p>
     <p>
       You can log out by sending a DELETE request to the <code>destroy_user_session_path</code>, which the following link does:

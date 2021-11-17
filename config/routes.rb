@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # https://github.com/plataformatec/devise#configuring-routes
   devise_for :users, path: 'users',
     controllers: {
+      registrations: 'users/registrations',
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
 

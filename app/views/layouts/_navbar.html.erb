@@ -18,7 +18,7 @@
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to edit_user_registration_path, class: 'nav-link' do %>
-              <i class="fas fa-user"></i> <%= current_user.email %>
+              <i class="fas fa-user"></i> <%= current_user.username.blank? ? 'User profile' : current_user.username %>
             <% end %>
           </li>
           <li class="nav-item">

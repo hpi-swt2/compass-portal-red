@@ -15,6 +15,8 @@ class User < ApplicationRecord
       # Generate random password, default length is 20
       # https://www.rubydoc.info/github/plataformatec/devise/Devise.friendly_token
       user.password = Devise.friendly_token[0, 20]
+      user.username = auth.info.name
+      # `first_name` & `last_name` are also available
       # user.first_name = auth.info.first_name
       # user.last_name = auth.info.last_name
       # If you are using confirmable and the provider(s) you use validate emails, 
