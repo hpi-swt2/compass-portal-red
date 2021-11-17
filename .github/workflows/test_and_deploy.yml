@@ -60,7 +60,7 @@ jobs:
         id: assets-cache
         with:
           path: public/packs-test
-          key: ${{ runner.os }}-assets-${{ hashFiles('public/packs-test/manifest.json') }}
+          key: ${{ runner.os }}-assets-${{ hashFiles('**/public/packs-test/manifest.json') }}
 
       - name: Compile assets
         if: steps.assets-cache.outputs.cache-hit != 'true'
