@@ -59,7 +59,7 @@ jobs:
         uses: actions/cache@v2
         id: assets-cache
         with:
-          path: public/packs-test
+          path: public/
           key: ${{ runner.os }}-assets-${{ hashFiles('**/public/packs-test/manifest.json') }}
 
       - name: Compile assets
