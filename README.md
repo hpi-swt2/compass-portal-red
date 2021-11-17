@@ -1,7 +1,7 @@
 # Compass Portal — 🟦 Edition
 `dev` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
 [![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/17a1b08229ec715e5b54/test_coverage)](https://codeclimate.com/github/hpi-swt2/compass-portal-blue/test_coverage)
+[![codecov](https://codecov.io/gh/hpi-swt2/compass-portal-blue/branch/dev/graph/badge.svg?token=NG1CX0412L)](https://codecov.io/gh/hpi-swt2/compass-portal-blue)
 
 `main` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
 , live app: [Heroku](https://compass-blue.herokuapp.com/)
