@@ -18,8 +18,17 @@
   <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
 <% end %>
 
+<hr>
+
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), method: :post %><br />
+      <%= button_to(omniauth_authorize_path(resource_name, provider),
+        class: 'btn btn-primary btn-md', id: "#{provider}-signin",
+        method: :post,
+        # disable button after click: https://apidock.com/rails/ActionView/Helpers/UrlHelper/button_to
+        data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Logging in..."}) do %>
+          <%= "Sign in with #{OmniAuth::Utils.camelize(provider)}" %>
+      <% end %>
+      <br />
   <% end %>
 <% end %>
