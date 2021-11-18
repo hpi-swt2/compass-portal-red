@@ -52,6 +52,10 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+  # https://github.com/omniauth/omniauth/wiki/Integration-Testing#omniauthconfigtest_mode
+  # Use Omni auth test mode to stub authentication requests
+  OmniAuth.config.test_mode = true
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
