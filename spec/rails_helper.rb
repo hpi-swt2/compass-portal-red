@@ -6,6 +6,10 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   # Unfortunately only for simplecov versions > 0.18
   enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
+  # Ignore source files with less than 5 lines for code coverage
+  add_filter do |source_file|
+    source_file.lines.count < 5
+  end
 end
 
 # Only submit to codecov if running in CI
