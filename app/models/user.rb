@@ -27,11 +27,13 @@ class User < ApplicationRecord
   end
 
   # https://github.com/heartcombo/devise/wiki/OmniAuth:-Overview
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if (data = session["devise.openid_connect_data"]) && user.email.blank?
-        user.email = data["email"]
-      end
-    end
-  end
+  # Implement the following if you want to enable copying over data from an
+  # OmniAuth provider after a user alsready has a session, i.e. is already logged in
+  # def self.new_with_session(params, session)
+  #   super.tap do |user|
+  #     if (data = session["devise.openid_connect_data"]) && user.email.blank?
+  #       user.email = data["email"]
+  #     end
+  #   end
+  # end
 end
