@@ -1,10 +1,10 @@
-# Compass Portal — 🟦 Edition
-`dev` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-blue)
-[![codecov](https://codecov.io/gh/hpi-swt2/compass-portal-blue/branch/dev/graph/badge.svg?token=NG1CX0412L)](https://codecov.io/gh/hpi-swt2/compass-portal-blue)
+# Compass Portal — 🟥 Edition
+`dev` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-red/actions/workflows/test_and_deploy.yml/badge.svg?branch=dev)](https://github.com/hpi-swt2/compass-portal-red/actions/workflows/test_and_deploy.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-red/badge)](https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-red)
+[![codecov](https://codecov.io/gh/hpi-swt2/compass-portal-red/branch/dev/graph/badge.svg?token=NG1CX0412L)](https://codecov.io/gh/hpi-swt2/compass-portal-red)
 
-`main` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-blue/actions/workflows/test_and_deploy.yml)
-, live app: [Heroku](https://compass-blue.herokuapp.com/)
+`main` branch: [![Test and deploy](https://github.com/hpi-swt2/compass-portal-red/actions/workflows/test_and_deploy.yml/badge.svg?branch=main)](https://github.com/hpi-swt2/compass-portal-red/actions/workflows/test_and_deploy.yml)
+, live app: [Heroku](https://compass-red.herokuapp.com/)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
