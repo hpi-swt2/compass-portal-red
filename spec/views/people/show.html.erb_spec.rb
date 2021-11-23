@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe "people/show", type: :view do
-  before(:each) do
+  before do
     @person = assign(:person, Person.create!(
-      name: "Name",
-      surname: "Surname",
-      title: "Title",
-      email: "Email",
-      phone: "Phone",
-      office: "Office",
-      website: "Website",
-      image: "Image",
-      chair: "Chair",
-      office_hours: "Office Hours",
-      telegram_handle: "Telegram Handle",
-      knowledge: "Knowledge"
-    ))
+                                name: "Name",
+                                surname: "Surname",
+                                title: "Title",
+                                email: "Email",
+                                phone: "Phone",
+                                office: "Office",
+                                website: "Website",
+                                image: "Image",
+                                chair: "Chair",
+                                office_hours: "Office Hours",
+                                telegram_handle: "Telegram Handle",
+                                knowledge: "Knowledge"
+                              ))
   end
 
   it "renders attributes in <p>" do
