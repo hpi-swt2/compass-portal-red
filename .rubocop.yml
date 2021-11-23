@@ -17,12 +17,14 @@ AllCops:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/*.rb'
+    - 'spec/views/*.rb'
 
 # Okay to have more than one expectation in a single block, default: 1
 RSpec/MultipleExpectations:
   Max: 2
   Exclude:
     - 'spec/features/*.rb'
+    - 'spec/views/*.rb'
 
 # Ignore LineLength for config files (e.g. with long secret strings)
 Layout/LineLength:
