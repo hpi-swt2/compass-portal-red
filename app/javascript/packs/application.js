@@ -13,6 +13,9 @@ import 'bootstrap';
 // Fontawesome: https://fontawesome.com/
 import "@fortawesome/fontawesome-free/js/all";
 
+require('leaflet');
+// require(L.Control.Locate)
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
