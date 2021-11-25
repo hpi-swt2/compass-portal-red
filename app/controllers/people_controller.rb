@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/hpi_web_scraper.rb"
+
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
 
@@ -65,7 +67,7 @@ class PeopleController < ApplicationController
       item = {}
       # Get name
       name_hash = webscraper.getNames(name)
-      
+
       # Scrape and get info
       info_hash = webscraper.getScrapingInfo(url)
 
