@@ -65,7 +65,7 @@ class PeopleController < ApplicationController
       item = {}
       # Get name
       name_hash = webscraper.getNames(name)
-
+      
       # Scrape and get info
       info_hash = webscraper.getScrapingInfo(url)
 
