@@ -125,6 +125,8 @@ GEM
       activesupport (>= 4.2)
       aes_key_wrap
       bindata
+    leaflet-rails (1.7.0)
+      rails (>= 4.2.0)
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -352,6 +354,7 @@ DEPENDENCIES
   devise-i18n-bootstrap
   factory_bot_rails
   jbuilder (~> 2.7)
+  leaflet-rails
   listen (~> 3.3)
   omniauth
   omniauth_openid_connect

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   # '/protected'
   get '/protected', to: 'welcome#protected'
+  get '/map', to: 'welcome#map'
 
   # '/'
   # Sets `root_url`, devise gem requires this to be set
