@@ -54,6 +54,42 @@ class PeopleController < ApplicationController
     end
   end
 
+  def scrape
+    # Read url file
+    lines = [['', '']]
+
+    # Call HpiWebScraper for every (name, url) pair
+    webscraper = HpiWebScraper.new
+    
+    lines.each do |name, url|
+      item = {}
+      # Get name
+      name_hash = webscraper.getNames(name)
+
+      # Scrape and get info
+      info_hash = webscraper.getScrapingInfo(url)
+
+      item = item.merge(name_hash).merge(info_hash)
+
+      # If person exists update non-existant attributes, else create new person
+      person = Person.find_by(name: item[:name], surname: item[:surname])
+      if person then
+        if !person.email then
+          person.email = item[:email]
+        end
+        if !person.phone then
+          person.phone = item[:phone]
+        end
+        if !person.office then
+          person.office = item[:office]
+        end
+        person.save
+      else
+        Person.where(item).first_or_create
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
