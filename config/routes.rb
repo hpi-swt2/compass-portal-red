@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # '/protected'
   get '/protected', to: 'welcome#protected'
 
+  # '/search'
+  get '/search', to: 'search#index'
+
   # '/'
   # Sets `root_url`, devise gem requires this to be set
   root to: "welcome#index"
