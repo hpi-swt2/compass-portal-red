@@ -58,18 +58,19 @@ class PeopleController < ApplicationController
 
   def scrape
     # Read url file
-    lines = [['', '']]
+    url_records = Url.all
 
     # Call HpiWebScraper for every (name, url) pair
     webscraper = HpiWebScraper.new
     
-    lines.each do |name, url|
+    url_records.each do |record|
       item = {}
+      
       # Get name
-      name_hash = webscraper.getNames(name)
+      name_hash = webscraper.getNames(record[:name])
 
       # Scrape and get info
-      info_hash = webscraper.getScrapingInfo(url)
+      info_hash = webscraper.getScrapingInfo(record[:url])
 
       item = item.merge(name_hash).merge(info_hash)
 
