@@ -38,3 +38,8 @@ Let's say your new Polygon is called `HPIMainBuilding`, the following command wo
 L.geoJSON(HPIMainBuilding, {style: HPIStyle}).addTo(mymap);
 ```
 The style option defines what color the highlight will be, for now we have two defined styles, `HPIStyle` and `UniPotsdamStyle` which result in orange and dark blue highlights.
+
+## Modifying an existing Polygon
+Should you want to edit an existing Polygon, we recommend Geoman.io:
+- https://geoman.io/geojson-editor
+Just drag and drop/copy-paste your GeoJSON file into the editor on the right and navigate to the HPI campus on the map. On the left, a number of tools is available, should you e.g. want to remove Nodes from the Polygon, you can use the cutting-tool and select nodes on the Polygon (and even somewhere inbetween two nodes, on a line) to remove them from the GeoJSON. The change will immediately be visible on the right. You can of course also create new Polygons in case that a building is not available in OSM.
