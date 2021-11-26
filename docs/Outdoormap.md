@@ -29,7 +29,11 @@ and choose `build and run query`. If the name was correctly entered, the Relatio
 
 ## Highlighting an imported Polygon
 After having declared a variable for the Polygon, you need to add it as a layer to the map (in the future, we will try and introduce LayerGroups to group together e.g. Campus I buildings).
-Our map is defined in `app/views/map.html.erb`. Let's say your new Polygon is called `HPIMainBuilding`, the following command would add it to the map:
+Our map is defined in `app/views/map.html.erb`. Make sure to first include your variable by using 
+```console
+<%= javascript_include_tag 'CampusGeometry/FileWithTheVariable' %>
+```
+Let's say your new Polygon is called `HPIMainBuilding`, the following command would add it to the map:
 ```console
 L.geoJSON(HPIMainBuilding, {style: HPIStyle}).addTo(mymap);
 ```
