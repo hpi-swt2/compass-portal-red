@@ -1,5 +1,134 @@
 //Geometry data of the Uni Potsdam buildings
 
+var uniPotsdamGriebnitzseeHaus7 = {
+	"type": "FeatureCollection",
+	"generator": "overpass-ide",
+	"copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+	"timestamp": "2021-11-26T13:54:50Z",
+	"features": [
+	  {
+		"type": "Feature",
+		"properties": {
+		  "@id": "way/202284137",
+		  "addr:city": "Potsdam",
+		  "addr:country": "DE",
+		  "addr:housename": "Haus 7",
+		  "addr:housenumber": "89",
+		  "addr:postcode": "14482",
+		  "addr:street": "August-Bebel-Straße",
+		  "addr:suburb": "Babelsberg",
+		  "building": "university",
+		  "building:levels": "3",
+		  "contact:email": "kontakt@potsdam-transfer.de",
+		  "contact:facebook": "https://www.facebook.com/Potsdam-Transfer-224047610956097/",
+		  "contact:fax": "+49 331 977 3872",
+		  "contact:phone": "+49 331 977 4037",
+		  "contact:website": "https://www.uni-potsdam.de/potsdam-transfer/",
+		  "name": "Haus 7",
+		  "operator": "Universität Potsdam",
+		  "operator:type": "public",
+		  "operator:wikidata": "Q153012",
+		  "operator:wikipedia": "de:Universität Potsdam",
+		  "roof:shape": "gabled",
+		  "smoking": "outside",
+		  "wheelchair": "yes"
+		},
+		"geometry": {
+		  "type": "Polygon",
+		  "coordinates": [
+			[
+			  [
+				13.1294361,
+				52.3934404
+			  ],
+			  [
+				13.1293624,
+				52.3931601
+			  ],
+			  [
+				13.1293158,
+				52.3931591
+			  ],
+			  [
+				13.1292915,
+				52.3931585
+			  ],
+			  [
+				13.1292556,
+				52.3931576
+			  ],
+			  [
+				13.1290633,
+				52.3931529
+			  ],
+			  [
+				13.1290546,
+				52.3930806
+			  ],
+			  [
+				13.1290774,
+				52.3930248
+			  ],
+			  [
+				13.1293615,
+				52.3930026
+			  ],
+			  [
+				13.1293754,
+				52.3930021
+			  ],
+			  [
+				13.1293821,
+				52.3929876
+			  ],
+			  [
+				13.1294346,
+				52.3928727
+			  ],
+			  [
+				13.1295803,
+				52.3928517
+			  ],
+			  [
+				13.1296109,
+				52.3928473
+			  ],
+			  [
+				13.1296118,
+				52.3929401
+			  ],
+			  [
+				13.1295686,
+				52.3930606
+			  ],
+			  [
+				13.1295658,
+				52.3930684
+			  ],
+			  [
+				13.129567,
+				52.3930749
+			  ],
+			  [
+				13.1296112,
+				52.3933096
+			  ],
+			  [
+				13.1296081,
+				52.3934691
+			  ],
+			  [
+				13.1294361,
+				52.3934404
+			  ]
+			]
+		  ]
+		},
+		"id": "way/202284137"
+	  }
+	]
+  }
+
 var uniPotsdamGriebnitzseeHaus1 = {
 	"type": "Feature",
 	"geometry": {
