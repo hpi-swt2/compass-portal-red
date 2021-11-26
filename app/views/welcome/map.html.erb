@@ -6,21 +6,15 @@
 
 <div class="row">
   	<div id="map" style="width: 100%; height: 600px;"></div>
-	<%= javascript_include_tag 'HPIGeometry' %>
-	<%= javascript_include_tag 'UniPotsdamGeometry' %>
+	<%= javascript_include_tag 'CampusGeometry/HPIGeometry' %>
+	<%= javascript_include_tag 'CampusGeometry/UniPotsdamGeometry' %>
   	<script>
-	  	var backgroundLayer = L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e6b144cfc47a48fd928dad578eb026a6', {
+	  	var mymap = L.map('map').setView([52.39300, 13.12900], 17);
+
+	  	L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e6b144cfc47a48fd928dad578eb026a6', {
 		  	maxZoom: 22, //22 is the maximum for the thunderforest tiles
 		  	attribution: 'Schnavigator'
-	  	});
-
-		var campus = L.layerGroup([uniPotsdamGriebnitzseeHaus1, HPICampusI]);
-
-		var mymap = L.map('map', {
-			center: [52.39300, 13.12900],
-			zoom: 17,
-			layers: [backgroundLayer, campus]
-		});
+	  	}).addTo(mymap);
 
 		var UniPotsdamStyle = {
 				"fillColor": "Blue",
@@ -36,8 +30,7 @@
 				"opacity": 0.3
   			};
 
-
-    	L.geoJSON(campusI, {style: HPIStyle}).addTo(mymap);
+    	L.geoJSON(HPICampusI, {style: HPIStyle}).addTo(mymap);
 		L.geoJSON(uniPotsdamGriebnitzseeHaus1, {style: UniPotsdamStyle}).addTo(mymap);
   </script>
 </div>
