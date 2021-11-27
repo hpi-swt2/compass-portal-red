@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Point, type: :model do
-  it "has a constructor that can create point instances" do
-    point = described_class.new
-    expect(point).to be_an_instance_of(described_class)
+  it "has a constructor that can create instances" do
+    instance = described_class.new
+    expect(instance).to be_an_instance_of(described_class)
   end
 
   describe "it should be valid" do
