@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_110203) do
+ActiveRecord::Schema.define(version: 2021_11_27_113611) do
+
+  create_table "point_of_interests", force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["point_id"], name: "index_point_of_interests_on_point_id"
+  end
 
   create_table "points", force: :cascade do |t|
     t.float "x"
@@ -34,4 +41,5 @@ ActiveRecord::Schema.define(version: 2021_11_27_110203) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "point_of_interests", "points"
 end
