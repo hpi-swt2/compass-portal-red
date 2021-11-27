@@ -8,6 +8,11 @@ RSpec.describe Point, type: :model do
 
   describe "it should be valid" do
     it "with x- and y-value" do
+      point = described_class.new(x: 1.0, y: -1.5)
+      expect(point).to be_valid
+    end
+
+    it "when using the factory" do
       point = build :point
       expect(point).to be_valid
     end
