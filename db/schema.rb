@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_122445) do
+ActiveRecord::Schema.define(version: 2021_11_27_135451) do
 
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
+  end
+
+  create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
+    t.integer "room_id", null: false
+    t.integer "point_of_interest_id", null: false
   end
 
   create_table "points", force: :cascade do |t|
@@ -26,8 +31,23 @@ ActiveRecord::Schema.define(version: 2021_11_27_122445) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "points_rooms", id: false, force: :cascade do |t|
+    t.integer "room_id", null: false
+    t.integer "point_id", null: false
+  end
+
   create_table "points_walls", id: false, force: :cascade do |t|
     t.integer "point_id", null: false
+    t.integer "wall_id", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms_walls", id: false, force: :cascade do |t|
+    t.integer "room_id", null: false
     t.integer "wall_id", null: false
   end
 
