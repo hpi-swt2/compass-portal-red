@@ -69,3 +69,7 @@ yarn-debug.log*
 
 # Node modules
 node_modules
+
+#ignore .idea
+.idea
+.idea/*
