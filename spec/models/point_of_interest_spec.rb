@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe PointOfInterest, type: :model do
-  it "has a constructor that can create point of interest instances" do
-    point_of_interest = described_class.new
-    expect(point_of_interest).to be_an_instance_of(described_class)
+  it "has a constructor that can create instances" do
+    instance = described_class.new
+    expect(instance).to be_an_instance_of(described_class)
   end
 
   describe "it should be valid" do
