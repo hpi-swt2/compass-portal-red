@@ -25,20 +25,3 @@
     </p>
   </div>
 </div>
-<div id="map" style="height: 450px">
-<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-<script language="JavaScript">
-    var map = L.map('map').setView([52.39418, 13.13290], 30);
-    mapLink = '<a href="http://openstreetmap.org/%22%3EOpenStreetMap</a>';
-    L.tileLayer(
-      'http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; ' + mapLink,
-        maxZoom: 18,
-      }).addTo(map);
-    L.control.locate({
-        locateOptions: {
-               watch: true,
-               enableHighAccuracy: true
-        }
-      }).addTo(map);
-</script>
