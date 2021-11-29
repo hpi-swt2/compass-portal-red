@@ -35,5 +35,10 @@
         attribution: 'Map data &copy; ' + mapLink,
         maxZoom: 18,
       }).addTo(map);
-    L.control.locate().addTo(map);
+    L.control.locate({
+        locateOptions: {
+               watch: true,
+               enableHighAccuracy: true
+        }
+      }).addTo(map);
 </script>
