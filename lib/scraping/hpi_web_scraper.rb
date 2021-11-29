@@ -16,10 +16,9 @@ class HpiWebScraper
         raise "Function has to be overriden."
     end
 
-    # TODO + If
     def downloadImage(person_image_div)
         image = person_image_div.at_css('img')
-        if !img_src then # No image on website
+        if !image then # No image on website
             return    
         end
 
@@ -31,12 +30,12 @@ class HpiWebScraper
         file_name = img_src[index + 1, img_src.length - 1]
 
         relative_file_path = "/app/assets/images/people/#{file_name}"
-        file_path = Rails.root + relative_file_path
+        file_path = "#{Rails.root}#{relative_file_path}"
         File.open(file_path, 'wb') do |f|
             f.write open(img_src).read 
         end 
 
         return relative_file_path
-
     end
+
 end
