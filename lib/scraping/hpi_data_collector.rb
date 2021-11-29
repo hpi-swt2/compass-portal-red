@@ -27,6 +27,7 @@ class HpiDataCollector
         person_text_div = person_div.css('.csc-textpic-text')
         person_image_div = person_div.css('.csc-textpic-imagewrap')
 
+        person[:website] = @@base_url + url
         person[:email] = person_text_div.css('.mail').text
 
         person_info = {}
@@ -43,7 +44,7 @@ class HpiDataCollector
         # TODO
 
         person_info = scraper.scrape(scrapeEmail=(person[:email] == ''))
-        # person[:image] = scraper.downloadImage(person_image_div)
+        person[:image] = scraper.downloadImage(person_image_div)
         person = person.merge(person_info)
 
         return person

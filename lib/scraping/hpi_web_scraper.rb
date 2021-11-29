@@ -1,6 +1,6 @@
 require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 
-# Abstract class
+# "Abstract" class
 class HpiWebScraper
     @@phone_words = ['Tel.:', 'Telefon:', 'telephone:', 'Telephone:', 'phone:', 'Phone:', 'Phone.:']
     @@office_words = ['office:', 'Office:', 'Raum:', 'Room:']
@@ -16,15 +16,27 @@ class HpiWebScraper
         raise "Function has to be overriden."
     end
 
-    # TODO
+    # TODO + If
     def downloadImage(person_image_div)
-        img_src = person_image_div.at_css('img').attr('src')
+        image = person_image_div.at_css('img')
+        if !img_src then # No image on website
+            return    
+        end
+
+        img_src = image.attr('src')
         img_src = @@base_url + img_src
-        File.open('person.png', 'wb') do |f|
+
+        # Get the file name without complete file path
+        index = img_src.rindex("/")
+        file_name = img_src[index + 1, img_src.length - 1]
+
+        relative_file_path = "/app/assets/images/people/#{file_name}"
+        file_path = Rails.root + relative_file_path
+        File.open(file_path, 'wb') do |f|
             f.write open(img_src).read 
         end 
 
-        return 'person.png'
+        return relative_file_path
 
     end
 end
