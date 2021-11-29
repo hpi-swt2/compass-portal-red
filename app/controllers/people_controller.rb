@@ -1,5 +1,5 @@
-require "#{Rails.root}/lib/hpi_data_collector.rb"
-require "#{Rails.root}/lib/scraping_exception.rb"
+require "#{Rails.root}/lib/scraping/hpi_data_collector.rb"
+require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
@@ -107,59 +107,43 @@ class PeopleController < ApplicationController
     ['Tobias Rohloff', '/meinel/lehrstuhl/team/current-phd-students/tobias-rohloff'], 
     ['Dr. Alexander Albrecht', '/naumann/dr-alexander-albrecht']]
 
-
-    i = 1
+    # url_records.each do |record|
     urls.each do |url|
+
+      item = {}
+      
+      # Get name
+      # name_hash = dataCollector.getNames(record[:name])
+      name_hash = dataCollector.getNames(url[0])
+      
       begin
-        dataCollector.getScrapingInfo(url[1])
+        # Scrape and get info
+        # info_hash = dataCollector.getScrapingInfo(record[:url])
+        info_hash = dataCollector.getScrapingInfo(url[1])
       rescue ScrapingException => e
         next
       end
 
-      i = i + 1
+      item = item.merge(name_hash).merge(info_hash)
+
+      # If person exists update non-existant attributes, else create new person
+      person = Person.find_by(name: item[:name], surname: item[:surname])
+      if person then
+        if !person.email then
+          person.email = item[:email]
+        end
+        if !person.phone then
+          person.phone = item[:phone]
+        end
+        if !person.office then
+          person.office = item[:office]
+        end
+        person.save
+      else
+        Person.where(item).first_or_create
+      end
+
     end
-
-    print i
-
-
-
-
-
-
-
-
-
-
-
-    
-    # url_records.each do |record|
-    #   item = {}
-      
-    #   # Get name
-    #   name_hash = dataCollector.getNames(record[:name])
-
-    #   # Scrape and get info
-    #   info_hash = dataCollector.getScrapingInfo(record[:url])
-
-    #   item = item.merge(name_hash).merge(info_hash)
-
-    #   # If person exists update non-existant attributes, else create new person
-    #   person = Person.find_by(name: item[:name], surname: item[:surname])
-    #   if person then
-    #     if !person.email then
-    #       person.email = item[:email]
-    #     end
-    #     if !person.phone then
-    #       person.phone = item[:phone]
-    #     end
-    #     if !person.office then
-    #       person.office = item[:office]
-    #     end
-    #     person.save
-    #   else
-    #     Person.where(item).first_or_create
-    #   end
-    # end
   end
 
   private

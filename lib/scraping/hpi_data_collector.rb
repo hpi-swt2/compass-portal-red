@@ -1,12 +1,8 @@
-require "#{Rails.root}/lib/scraping_exception.rb"
-require "#{Rails.root}/lib/hpi_table_scraper.rb"
-require "#{Rails.root}/lib/hpi_paragraph_scraper.rb"
+require "#{Rails.root}/lib/scraping/scraping_exception.rb"
+require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
+require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-    @@phone_words = ['Tel.:', 'Telefon:', 'telephone:', 'Telephone:', 'phone:', 'Phone:', 'Phone.:']
-    @@office_words = ['office:', 'Office:', 'Raum:', 'Room:']
-    @@email_words = ['Email:', 'E-mail:', 'E-Mail:']
-    
     @@base_url = 'https://hpi.de'
 
     def getNames(name)
@@ -24,7 +20,6 @@ class HpiDataCollector
     def getScrapingInfo(url)
         person = {}
 
-        # Scrape websites
         document = getHTMLDocument(url)
 
         # Get divs that contain the data
@@ -35,38 +30,24 @@ class HpiDataCollector
         person[:email] = person_text_div.css('.mail').text
 
         person_info = {}
+        scraper = ""
+
         # Page contains table
         if person_text_div.css('table').any? then
-            tableScraper = HpiTableScraper.new(person_text_div)
-            person_info = tableScraper.scrape()
-        end
+            scraper = HpiTableScraper.new(person_text_div)
         # Page contains paragraphs instead
         else
-            paragraphScraper = HpiParagraphScraper.new(person_text_div)
-            person_info = paragraphScraper.new(person_text_div)
+            scraper = HpiParagraphScraper.new(person_text_div)
         end
         # Page contains multiple people
         # TODO
 
+        person_info = scraper.scrape(scrapeEmail=(person[:email] == ''))
+        # person[:image] = scraper.downloadImage(person_image_div)
         person = person.merge(person_info)
 
-        # Download and save image
-        # person[:image] = downloadImage(person_image_div)
-
         return person
-    end
-
-    # TODO
-    def downloadImage(person_image_div)
-        img_src = person_image_div.at_css('img').attr('src')
-        img_src = @@base_url + img_src
-        File.open('person.png', 'wb') do |f|
-            f.write open(img_src).read 
-        end 
-
-        return 'person.png'
-
-    end
+    end    
 
     def getHTMLDocument(url)
         document = ''

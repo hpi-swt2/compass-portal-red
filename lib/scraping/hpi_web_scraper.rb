@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/scraping_exception.rb"
+require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 
 # Abstract class
 class HpiWebScraper
@@ -12,7 +12,19 @@ class HpiWebScraper
         @html = html_document
     end 
 
-    def scrape
+    def scrape(scrapeEmail=false)
         raise "Function has to be overriden."
+    end
+
+    # TODO
+    def downloadImage(person_image_div)
+        img_src = person_image_div.at_css('img').attr('src')
+        img_src = @@base_url + img_src
+        File.open('person.png', 'wb') do |f|
+            f.write open(img_src).read 
+        end 
+
+        return 'person.png'
+
     end
 end
