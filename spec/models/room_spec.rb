@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-# TODO: add some demo outerShape-points, walls and points of interests to the factory
-# TODO: test that newly created rooms are valid and that factory-created rooms are valid
 RSpec.describe Room, type: :model do
   let(:point1) { create :point }
   let(:point2) { create :point, x: -1.5 }
@@ -60,9 +58,9 @@ RSpec.describe Room, type: :model do
     let(:room) { create :room }
 
     it "allows adding points to the shape" do
+      db_room = described_class.find(room.id)
       room.outerShape = [point1, point2]
       room.save!
-      db_room = described_class.find(room.id)
 
       expect(db_room.outerShape.size).to eq(2)
       expect(db_room.outerShape[0].id).to eq(point1.id)
