@@ -1,6 +1,17 @@
 class IndoorController < ApplicationController
     def demo
-        @point = [50, 70]
-        @line = [0, 0, 20, 50]
+        @room = Room.new(
+            outerShape: [
+                Point.new(x: 30, y: 80),
+                Point.new(x: 30, y: 30),
+                Point.new(x: 80, y: 30),
+                Point.new(x: 80, y: 80)
+            ],
+            point_of_interests: [PointOfInterest.new(point: Point.new(x: 20, y: 50))],
+            walls: [ Wall.new(points: [
+                Point.new(x: 30, y: 30),
+                Point.new(x: 80, y: 80)
+            ]) ]
+        )
     end
 end

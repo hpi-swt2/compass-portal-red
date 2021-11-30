@@ -1,0 +1,19 @@
+<g class="outer-shape">
+    <%= render 'polygon', 
+        points: room.outerShape
+    %>
+</g>
+<g class="walls">
+    <% room.walls.each  do |wall| %>
+        <%= render 'polyline',
+            points: wall.points
+        %>
+    <% end %>
+</g>
+<g class="points-of-interest">
+    <% room.point_of_interests.each  do |point_of_intereset| %>
+        <%= render 'point',
+            point: point_of_intereset.point
+        %>
+    <% end %>
+</g>
