@@ -1,8 +1,10 @@
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiTableScraper < HpiWebScraper
-    def scrape(scrapeEmail=false)
+    def scrape()
         item = {}
+
+        item[:email] = @html.css('.mail').text
 
         td_tags = @html.css('td')
         td_tags.each do |td|

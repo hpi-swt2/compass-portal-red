@@ -1,9 +1,11 @@
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
-    def scrape(scrapeEmail=false)
+    def scrape()
         item = {}
 
+        item[:email] = @html.css('.mail').text
+        
         p_tags = @html.css('p')
         p_tags.each do |p|
             # Converting each <br> to line breaks as p.text ignores <br> and inserts no whitespaces
@@ -40,7 +42,7 @@ class HpiParagraphScraper < HpiWebScraper
             end
 
             # Email
-            if scrapeEmail then # Pages that have their email not in a .mail class
+            if item[:email] == '' then # Pages that have their email not in a .mail class
                 email_words_intersection = split_p & @@email_words
                 if email_words_intersection.any? then
                     index = split_p.find_index(email_words_intersection[0])
@@ -56,5 +58,6 @@ class HpiParagraphScraper < HpiWebScraper
 
         return item
     end
+
 end
 

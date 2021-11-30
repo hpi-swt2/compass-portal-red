@@ -12,7 +12,7 @@ class HpiWebScraper
         @html = html_document
     end 
 
-    def scrape(scrapeEmail=false)
+    def scrape()
         raise "Function has to be overriden."
     end
 

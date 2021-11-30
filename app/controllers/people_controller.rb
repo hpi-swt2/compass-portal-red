@@ -61,28 +61,27 @@ class PeopleController < ApplicationController
     # Read urls from database (TODO)
     # url_records = Url.all
 
-    dataCollector = HpiDataCollector.new
-
-    urls = []
+    dataCollector = HpiDataCollector.new   
 
     # url_records.each do |record|
     urls.each do |url|
 
       item = {}
       
-      # Get name
       # name_hash = dataCollector.getNames(record[:name])
       name_hash = dataCollector.getNames(url[0])
       
+      title_hash = dataCollector.getTitle(url[0])
+
       begin
         # Scrape and get info
         # info_hash = dataCollector.getScrapingInfo(record[:url])
-        info_hash = dataCollector.getScrapingInfo(url[1])
+        info_hash = dataCollector.getScrapingInfo(url[0], url[1])
       rescue ScrapingException => e
         next
       end
 
-      item = item.merge(name_hash).merge(info_hash)
+      item = item.merge(name_hash).merge(title_hash).merge(info_hash)
 
       # If person exists update non-existant attributes, else create new person
       person = Person.find_by(name: item[:name], surname: item[:surname])
