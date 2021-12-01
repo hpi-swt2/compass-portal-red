@@ -26,11 +26,11 @@ class HpiParagraphScraper < HpiWebScraper
         phone_number = ''
         (index..(split_p.length - 1)).each do |n|
           # If next element starts with a number (or symbol) it has to be part of a phone number...
-          break unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any?
-
+          break unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any? || split_p[n] == '' # For some reason split_p[n][0] == '' does not work
+          
           phone_number = "#{phone_number}#{split_p[n]} "
         end
-
+ 
         item[:phone] = phone_number
       end
 
@@ -57,10 +57,10 @@ class HpiParagraphScraper < HpiWebScraper
       next unless email_words_intersection.any?
 
       index = split_p.find_index(email_words_intersection[0])
-      # In case the next elements are &nsbp;
-      while item[:email] == ''
+      # In case the next elements are &nbsp; or whitespaces within email
+      while item[:email] == ''  || ((item[:email].exclude? '.de') && (item[:email].exclude? '.com'))
         index += 1
-        item[:email] = split_p[index]
+        item[:email] += split_p[index] if split_p != ' '
       end
     end
 
