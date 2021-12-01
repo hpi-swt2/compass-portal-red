@@ -77,20 +77,7 @@ class PeopleController < ApplicationController
         next
       end
 
-      handle_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
-    end
-  end
-
-  def handle_person(item)
-    # If person exists update non-existent attributes, else create new person
-    person = Person.find_by(name: item[:name], surname: item[:surname])
-    if person
-      person.email = item[:email] unless person.email
-      person.phone = item[:phone] unless person.phone
-      person.office = item[:office] unless person.office
-      person.save
-    else
-      Person.where(item).first_or_create
+      save_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
     end
   end
 
@@ -105,5 +92,18 @@ class PeopleController < ApplicationController
   def person_params
     params.require(:person).permit(:name, :surname, :title, :email, :phone, :office, :website, :image, :chair,
                                    :office_hours, :telegram_handle, :knowledge)
+  end
+
+  def save_person(item)
+    # If person exists update non-existent attributes, else create new person
+    person = Person.find_by(name: item[:name], surname: item[:surname])
+    if person
+      person.email = item[:email] unless person.email
+      person.phone = item[:phone] unless person.phone
+      person.office = item[:office] unless person.office
+      person.save
+    else
+      Person.where(item).first_or_create
+    end
   end
 end

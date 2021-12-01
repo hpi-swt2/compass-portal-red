@@ -55,12 +55,17 @@ class HpiParagraphScraper < HpiWebScraper
       # Pages that have their email not in a .mail class
       email_words_intersection = split_p & @@email_words
       next unless email_words_intersection.any?
-
+      
       index = split_p.find_index(email_words_intersection[0])
       # In case the next elements are &nbsp; or whitespaces within email
       while item[:email] == ''  || ((item[:email].exclude? '.de') && (item[:email].exclude? '.com'))
         index += 1
-        item[:email] += split_p[index] if split_p != ' '
+
+        if index >= split_p.length
+            break
+        end
+        
+        item[:email] += split_p[index] if split_p[index] != ' '
       end
     end
 

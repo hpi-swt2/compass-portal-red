@@ -15,8 +15,15 @@ class HpiTableScraper < HpiWebScraper
       end
       # Office
       if ([td.text] & @@office_words).any?
-          index = td_tags.find_index(td) 
-          item[:office] = td_tags[index+1].text 
+        index = td_tags.find_index(td) 
+        item[:office] = td_tags[index+1].text 
+        item[:office] = td_tags[index+2].text if item[:office] == '' # In case of separator
+      end
+      # Email
+      next unless item[:email] == ''
+      if ([td.text] & @@email_words).any?
+        index = td_tags.find_index(td) 
+        item[:email] = td_tags[index+1].text 
       end
     end
 

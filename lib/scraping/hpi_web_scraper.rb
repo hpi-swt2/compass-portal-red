@@ -2,7 +2,7 @@ require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 
 # "Abstract" class
 class HpiWebScraper
-  @@phone_words = %w[Tel.: Telefon: telephone: Telephone: phone: Phone: Phone.:]
+  @@phone_words = %w[Tel.: Telefon: telephone: Telephone: phone: Phone: Phone.: Tel:]
   @@office_words = %w[office: Office: Raum: Room:]
   @@email_words = %w[Email: E-mail: E-Mail: e-mail:]
 

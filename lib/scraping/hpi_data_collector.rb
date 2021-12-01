@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
 require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-  @@title_words = %w[Prof. Dr.]
+  @@title_words = %w[Prof. Dr. MSc.]
 
   def initialize(base_url = 'https://hpi.de')
     @base_url = base_url
@@ -53,6 +53,8 @@ class HpiDataCollector
 
       # Some pages have the peoples' names in h3 not in h2
       name_header ||= content.at("h3:contains('#{name}')")
+
+      print 'AAAAAAAAAAAA'
 
       if name_header
         person_text_div = name_header.parent.parent.parent
