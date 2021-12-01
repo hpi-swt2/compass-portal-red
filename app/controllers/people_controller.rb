@@ -61,7 +61,7 @@ class PeopleController < ApplicationController
   def scrape
     # Read urls from database (TODO)
     # url_records = PersonUrl.all
-   
+
     urls = []
 
     data_collector = HpiDataCollector.new
@@ -76,7 +76,7 @@ class PeopleController < ApplicationController
         # Scrape and get info
         # info_hash = dataCollector.get_scraping_info(record[:url])
         info_hash = data_collector.get_scraping_info(url[0], url[1])
-      rescue ScrapingException => e
+      rescue ScrapingException
         next
       end
 

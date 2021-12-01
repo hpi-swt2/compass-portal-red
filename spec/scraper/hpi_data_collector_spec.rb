@@ -62,5 +62,5 @@ RSpec.describe "HpiDataCollector", type: :feature do
     expect(person_data[:image]).to eq '/app/assets/images/people/Lisa_R%C3%BCppner_180x240.jpg'
 
   end
-  
+
 end

@@ -5,10 +5,10 @@ require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
 require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-  @@title_words = %w[Prof. Dr. MSc. h.c.]
-  @@professsor_pages = %w[
+  @title_words = %w[Prof. Dr. MSc. h.c.]
+  @professsor_pages = %w[
     /das-hpi/personen/professoren/prof-dr-holger-giese /das-hpi/personen/professoren/prof-dr-holger-karl
-    /das-hpi/personen/professoren/prof-dr-christian-doerr /das-hpi/personen/professoren/prof-dr-erwin-boettinger 
+    /das-hpi/personen/professoren/prof-dr-christian-doerr /das-hpi/personen/professoren/prof-dr-erwin-boettinger
     /das-hpi/personen/professoren/prof-dr-christoph-lippert /das-hpi/personen/professoren/prof-dr-tobias-friedrich
     /das-hpi/personen/professoren/prof-dr-falk-uebernickel /das-hpi/personen/professoren/prof-dr-tilmann-rabl
     /das-hpi/personen/professoren/prof-dr-mathias-weske /das-hpi/personen/professoren/prof-dr-bernhard-renard
@@ -18,7 +18,8 @@ class HpiDataCollector
     /das-hpi/personen/professoren/prof-dr-andreas-polze /das-hpi/personen/professoren/prof-dr-felix-naumann
     /das-hpi/personen/professoren/prof-dr-juergen-doellner /das-hpi/personen/professoren/prof-dr-patrick-baudisch
     /das-hpi/personen/professoren/prof-dr-robert-hirschfeld /das-hpi/personen/professoren/prof-dr-katharina-hoelzle
-    /das-hpi/personen/professoren/prof-dr-anja-lehmann]
+    /das-hpi/personen/professoren/prof-dr-anja-lehmann
+  ]
 
   def initialize(base_url = 'https://hpi.de')
     @base_url = base_url
@@ -28,7 +29,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    filtered_name_list = name_list - @@title_words
+    filtered_name_list = name_list - @title_words
 
     person[:surname] = filtered_name_list.first
     person[:name] = filtered_name_list.last
@@ -40,7 +41,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    titles_list = name_list & @@title_words
+    titles_list = name_list & @title_words
     person[:title] = titles_list.join(" ")
 
     person
@@ -58,7 +59,7 @@ class HpiDataCollector
     person_image_div = person_div.css('.csc-textpic-imagewrap')
 
     scraper = ""
-    
+
     # Page contains table
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
@@ -76,9 +77,9 @@ class HpiDataCollector
       end
 
       scraper = HpiParagraphScraper.new(person_text_div)
-      
+
     # Professor's page
-    elsif @@professsor_pages.include? url
+    elsif @professsor_pages.include? url
       name_strong = content.at("strong:contains('#{name}')")
       person_text_div = name_strong.parent.parent if name_strong
 
@@ -101,13 +102,12 @@ class HpiDataCollector
     begin
       document = Nokogiri::HTML(URI.open(@base_url + url, allow_redirections: :all))
       raise ScrapingException, "Redirect" if document.title == 'Hasso-Plattner-Institut' # Redirect due to non-existance
-    rescue OpenURI::HTTPError => e
+    rescue OpenURI::HTTPError
       raise ScrapingException, "HTTPError"
-    rescue SocketError => e
+    rescue SocketError
       raise ScrapingException, "SocketError"
     end
 
     document
   end
-
 end
