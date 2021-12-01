@@ -26,10 +26,10 @@ class HpiWebScraper
     img_src = image.attr('src')
     img_src = @@base_url + img_src
 
-    get_image_file_path(img_src)
+    get_image_file_path_and_save(img_src)
   end
 
-  def get_image_file_path(img_src)
+  def get_image_file_path_and_save(img_src)
     # Get the file name without complete file path
     index = img_src.rindex("/")
     file_name = img_src[index + 1, img_src.length - 1]

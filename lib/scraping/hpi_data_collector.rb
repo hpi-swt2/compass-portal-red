@@ -47,10 +47,11 @@ class HpiDataCollector
     # Page contains table
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
-      # Page contains multiple people
+    # Page contains multiple people
     elsif person_text_div.length > 1
       name_header = content.at("h2:contains('#{name}')")
 
+      # Some pages have the peoples' names in h3 not in h2
       name_header ||= content.at("h3:contains('#{name}')")
 
       if name_header
@@ -59,7 +60,7 @@ class HpiDataCollector
       end
 
       scraper = HpiParagraphScraper.new(person_text_div)
-      # Page contains paragraphs
+    # Page contains paragraphs
     else
       scraper = HpiParagraphScraper.new(person_text_div)
     end

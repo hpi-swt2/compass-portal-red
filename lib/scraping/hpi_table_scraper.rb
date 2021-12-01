@@ -16,9 +16,8 @@ class HpiTableScraper < HpiWebScraper
   end
 
   def scrape_phone(element, td_tags)
-    return unless ([element.text] & @@phone_words).any?
-
-    # Check if td_text is one of those words
+    return unless ([element.text] & @@phone_words).any? # Check if td_text is one of those words
+    
     index = td_tags.find_index(element) # Save the index of the td in the td_tags array
     td_tags[index + 1].text # Next td in the array has to contain the phone number
   end
