@@ -3,5 +3,5 @@ class Point < ApplicationRecord
   validates :y, presence: true
 
   has_many :point_of_interests, dependent: :destroy
-  has_and_belongs_to_many :walls
+  has_and_belongs_to_many :polylines
 end
