@@ -3,6 +3,7 @@ require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
+  http_basic_authenticate_with name: "red", password: "secret"
 
   # GET /people or /people.json
   def index
@@ -59,7 +60,9 @@ class PeopleController < ApplicationController
 
   def scrape
     # Read urls from database (TODO)
-    # url_records = Url.all
+    # url_records = PersonUrl.all
+   
+    urls = []
 
     data_collector = HpiDataCollector.new
     # url_records.each do |record|

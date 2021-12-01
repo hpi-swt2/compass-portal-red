@@ -1,3 +1,7 @@
+#   This code is ugly but it tries its best and fulfils its purpose.
+#   Please keep that in mind when trying to understand it.
+
+
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
@@ -6,7 +10,7 @@ class HpiParagraphScraper < HpiWebScraper
   def scrape
     item = {}
 
-    item[:email] = @html.css('.mail').text
+    item[:email] = @html.at_css('.mail')&.text
 
     p_tags = @html.css('p')
     p_tags.each do |p|

@@ -1,9 +1,24 @@
+#   If you think this code is ugly try looking at hpi_paragraph_scraper.rb!
+
 require "#{Rails.root}/lib/scraping/scraping_exception.rb"
 require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
 require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-  @@title_words = %w[Prof. Dr. MSc.]
+  @@title_words = %w[Prof. Dr. MSc. h.c.]
+  @@professsor_pages = %w[
+    /das-hpi/personen/professoren/prof-dr-holger-giese /das-hpi/personen/professoren/prof-dr-holger-karl
+    /das-hpi/personen/professoren/prof-dr-christian-doerr /das-hpi/personen/professoren/prof-dr-erwin-boettinger 
+    /das-hpi/personen/professoren/prof-dr-christoph-lippert /das-hpi/personen/professoren/prof-dr-tobias-friedrich
+    /das-hpi/personen/professoren/prof-dr-falk-uebernickel /das-hpi/personen/professoren/prof-dr-tilmann-rabl
+    /das-hpi/personen/professoren/prof-dr-mathias-weske /das-hpi/personen/professoren/prof-dr-bernhard-renard
+    /das-hpi/personen/professoren/prof-ulrich-weinberg /das-hpi/personen/professoren/prof-dr-gerard-de-melo
+    /das-hpi/personen/professoren/prof-dr-hc-hasso-plattner /das-hpi/personen/professoren/prof-dr-christoph-meinel
+    /das-hpi/personen/professoren/emeriti/zorn /das-hpi/personen/professoren/emeriti/prof-dr-siegfried-wendt
+    /das-hpi/personen/professoren/prof-dr-andreas-polze /das-hpi/personen/professoren/prof-dr-felix-naumann
+    /das-hpi/personen/professoren/prof-dr-juergen-doellner /das-hpi/personen/professoren/prof-dr-patrick-baudisch
+    /das-hpi/personen/professoren/prof-dr-robert-hirschfeld /das-hpi/personen/professoren/prof-dr-katharina-hoelzle
+    /das-hpi/personen/professoren/prof-dr-anja-lehmann]
 
   def initialize(base_url = 'https://hpi.de')
     @base_url = base_url
@@ -43,10 +58,11 @@ class HpiDataCollector
     person_image_div = person_div.css('.csc-textpic-imagewrap')
 
     scraper = ""
-
+    
     # Page contains table
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
+
     # Page contains multiple people
     elsif person_text_div.length > 1
       name_header = content.at("h2:contains('#{name}')")
@@ -54,14 +70,20 @@ class HpiDataCollector
       # Some pages have the peoples' names in h3 not in h2
       name_header ||= content.at("h3:contains('#{name}')")
 
-      print 'AAAAAAAAAAAA'
-
       if name_header
         person_text_div = name_header.parent.parent.parent
         person_image_div = person_text_div.previous
       end
 
       scraper = HpiParagraphScraper.new(person_text_div)
+      
+    # Professor's page
+    elsif @@professsor_pages.include? url
+      name_strong = content.at("strong:contains('#{name}')")
+      person_text_div = name_strong.parent.parent if name_strong
+
+      scraper = HpiParagraphScraper.new(person_text_div)
+
     # Page contains paragraphs
     else
       scraper = HpiParagraphScraper.new(person_text_div)
