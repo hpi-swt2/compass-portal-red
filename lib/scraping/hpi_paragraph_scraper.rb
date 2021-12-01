@@ -4,7 +4,7 @@
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
-  @delimiter = '***'
+  @@delimiter = '***'
 
   def scrape
     item = {}
@@ -15,13 +15,13 @@ class HpiParagraphScraper < HpiWebScraper
     p_tags.each do |p|
       # Converting each <br> to line breaks as p.text ignores <br> and inserts no whitespaces
       p.css('br').each do |node|
-        node.replace(Nokogiri::XML::Text.new("\n#{@delimiter}\n", p))
+        node.replace(Nokogiri::XML::Text.new("\n#{@@delimiter}\n", p))
       end
 
       split_p = p.text.split(/[[:space:]]/)
 
       # Phone
-      phone_words_intersection = split_p & @phone_words # Check if one of those words is in split_p
+      phone_words_intersection = split_p & @@phone_words # Check if one of those words is in split_p
       if phone_words_intersection.any?
         index = split_p.find_index(phone_words_intersection[0]) # Get the index of the first of those words
         split_p.delete(phone_words_intersection[0]) # Delete it
@@ -40,14 +40,14 @@ class HpiParagraphScraper < HpiWebScraper
       end
 
       # Office
-      office_words_intersection = split_p & @office_words
+      office_words_intersection = split_p & @@office_words
       if office_words_intersection.any?
         index = split_p.find_index(office_words_intersection[0])
         split_p.delete(office_words_intersection[0])
 
         # Get all words until line break
         office = ''
-        while (split_p[index] != @delimiter) && (index < split_p.length)
+        while (split_p[index] != @@delimiter) && (index < split_p.length)
           office = "#{office}#{split_p[index]} "
           index += 1
         end
@@ -58,7 +58,7 @@ class HpiParagraphScraper < HpiWebScraper
       next unless item[:email] == ''
 
       # Pages that have their email not in a .mail class
-      email_words_intersection = split_p & @email_words
+      email_words_intersection = split_p & @@email_words
       next unless email_words_intersection.any?
 
       index = split_p.find_index(email_words_intersection[0])

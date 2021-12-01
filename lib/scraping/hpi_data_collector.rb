@@ -5,8 +5,8 @@ require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
 require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-  @title_words = %w[Prof. Dr. MSc. h.c.]
-  @professsor_pages = %w[
+  @@title_words = %w[Prof. Dr. MSc. h.c.]
+  @@professsor_pages = %w[
     /das-hpi/personen/professoren/prof-dr-holger-giese /das-hpi/personen/professoren/prof-dr-holger-karl
     /das-hpi/personen/professoren/prof-dr-christian-doerr /das-hpi/personen/professoren/prof-dr-erwin-boettinger
     /das-hpi/personen/professoren/prof-dr-christoph-lippert /das-hpi/personen/professoren/prof-dr-tobias-friedrich
@@ -29,7 +29,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    filtered_name_list = name_list - @title_words
+    filtered_name_list = name_list - @@title_words
 
     person[:surname] = filtered_name_list.first
     person[:name] = filtered_name_list.last
@@ -41,7 +41,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    titles_list = name_list & @title_words
+    titles_list = name_list & @@title_words
     person[:title] = titles_list.join(" ")
 
     person
@@ -79,7 +79,7 @@ class HpiDataCollector
       scraper = HpiParagraphScraper.new(person_text_div)
 
     # Professor's page
-    elsif @professsor_pages.include? url
+    elsif @@professsor_pages.include? url
       name_strong = content.at("strong:contains('#{name}')")
       person_text_div = name_strong.parent.parent if name_strong
 
