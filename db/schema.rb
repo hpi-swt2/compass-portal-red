@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_201948) do
+ActiveRecord::Schema.define(version: 2021_12_01_205856) do
+
+  create_table "buildings", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
@@ -45,6 +50,8 @@ ActiveRecord::Schema.define(version: 2021_12_01_201948) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
+    t.integer "building_id"
+    t.index ["building_id"], name: "index_rooms_on_building_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
 
@@ -76,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_12_01_201948) do
   end
 
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
 end
