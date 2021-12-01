@@ -1,6 +1,8 @@
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
+  @@delimiter = '***'
+
   def scrape
     item = {}
 
@@ -10,7 +12,7 @@ class HpiParagraphScraper < HpiWebScraper
     p_tags.each do |p|
       # Converting each <br> to line breaks as p.text ignores <br> and inserts no whitespaces
       p.css('br').each do |node|
-        node.replace(Nokogiri::XML::Text.new("\n", p))
+        node.replace(Nokogiri::XML::Text.new("\n#{@@delimiter}\n", p))
       end
 
       split_p = p.text.split(/[[:space:]]/)
@@ -37,7 +39,14 @@ class HpiParagraphScraper < HpiWebScraper
       if office_words_intersection.any?
         index = split_p.find_index(office_words_intersection[0])
         split_p.delete(office_words_intersection[0])
-        item[:office] = split_p[index]
+
+        # Get all words until line break
+        office = ''
+        while (split_p[index] != @@delimiter) && (index < split_p.length) do
+            office = "#{office}#{split_p[index]} "
+            index += 1
+        end
+        item[:office] = office       
       end
 
       # Email
