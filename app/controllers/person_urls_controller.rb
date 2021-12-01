@@ -21,17 +21,21 @@ class PersonUrlsController < ApplicationController
 
   # POST /person_urls or /person_urls.json
   def create
-    @person_url = PersonUrl.new(person_url_params)
+    #@person_url = PersonUrl.new(person_url_params)
 
-    respond_to do |format|
-      if @person_url.save
-        format.html { redirect_to @person_url, notice: "Person url was successfully created." }
-        format.json { render :show, status: :created, location: @person_url }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @person_url.errors, status: :unprocessable_entity }
+    begin
+      PersonUrl.transaction do
+        @person_url = PersonUrl.create!(person_url_params)
       end
+    rescue ActiveRecord::RecordInvalid => exception
+      @person_url = {
+        error: {
+          status: 422,
+          message: exception
+        }
+      }
     end
+    render json: @person_url
   end
 
   # PATCH/PUT /person_urls/1 or /person_urls/1.json
@@ -64,6 +68,7 @@ class PersonUrlsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_url_params
-      params.require(:person_url).permit(:name, :url)
+      #params.require(:person_url).permit(:name, :url)
+      params.permit(person_urls: [:name, :urls]).require(:person_urls)
     end
 end
