@@ -12,8 +12,8 @@ RSpec.describe Polyline, type: :model do
   end
 
   it "creates new polylines with an empty list of points" do
-    polylines = described_class.new
-    expect(polylines.points).to eq([])
+    polyline = described_class.new
+    expect(polyline.points).to eq([])
   end
 
   describe "it should be valid" do

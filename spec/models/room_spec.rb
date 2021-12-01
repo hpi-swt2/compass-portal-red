@@ -9,6 +9,16 @@ RSpec.describe Room, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
+  it "can have a building" do
+    building = create :building
+    room = create :room
+    room.building = building
+    room.save!
+
+    db_room = described_class.find(room.id)
+    expect(db_room.building).to eq(building)
+  end
+
   describe "it should create new rooms with an empty list of" do
     it "points in the outer shape" do
       room = described_class.new
@@ -51,6 +61,12 @@ RSpec.describe Room, type: :model do
     it "with walls, outer shape, point of interests" do
       expect(room.outer_shape).to eq(outer_shape)
       expect(room.point_of_interests).to eq([point_of_interest])
+    end
+
+    it "even without a building" do
+      room = build :room
+      room.building = nil
+      expect(room).to be_valid
     end
 
     it "unless there is no outer shape" do
