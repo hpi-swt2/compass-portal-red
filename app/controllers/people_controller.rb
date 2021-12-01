@@ -61,45 +61,36 @@ class PeopleController < ApplicationController
     # Read urls from database (TODO)
     # url_records = Url.all
 
-    dataCollector = HpiDataCollector.new   
-
+    data_collector = HpiDataCollector.new
     # url_records.each do |record|
     urls.each do |url|
-
       item = {}
-      
-      # name_hash = dataCollector.getNames(record[:name])
-      name_hash = dataCollector.getNames(url[0])
-      
-      title_hash = dataCollector.getTitle(url[0])
+      # name_hash = dataCollector.get_names(record[:name])
+      name_hash = data_collector.get_names(url[0])
+      title_hash = data_collector.get_title(url[0])
 
       begin
         # Scrape and get info
-        # info_hash = dataCollector.getScrapingInfo(record[:url])
-        info_hash = dataCollector.getScrapingInfo(url[0], url[1])
+        # info_hash = dataCollector.get_scraping_info(record[:url])
+        info_hash = data_collector.get_scraping_info(url[0], url[1])
       rescue ScrapingException => e
         next
       end
 
-      item = item.merge(name_hash).merge(title_hash).merge(info_hash)
+      handle_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
+    end
+  end
 
-      # If person exists update non-existant attributes, else create new person
-      person = Person.find_by(name: item[:name], surname: item[:surname])
-      if person then
-        if !person.email then
-          person.email = item[:email]
-        end
-        if !person.phone then
-          person.phone = item[:phone]
-        end
-        if !person.office then
-          person.office = item[:office]
-        end
-        person.save
-      else
-        Person.where(item).first_or_create
-      end
-
+  def handle_person(item)
+    # If person exists update non-existent attributes, else create new person
+    person = Person.find_by(name: item[:name], surname: item[:surname])
+    if person
+      person.email = item[:email] unless person.email
+      person.phone = item[:phone] unless person.phone
+      person.office = item[:office] unless person.office
+      person.save
+    else
+      Person.where(item).first_or_create
     end
   end
 
