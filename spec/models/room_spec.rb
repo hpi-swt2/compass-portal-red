@@ -12,7 +12,7 @@ RSpec.describe Room, type: :model do
   describe "it should create new rooms with an empty list of" do
     it "points in the empty shape" do
       room = described_class.new
-      expect(room.outerShape).to eq([])
+      expect(room.outer_shape).to eq([])
     end
 
     it "walls" do
@@ -31,15 +31,15 @@ RSpec.describe Room, type: :model do
     let(:outer_shape) { [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2] }
     let(:room) do
       create :room,
-             outerShape: outer_shape,
+             outer_shape: outer_shape,
              point_of_interests: [point_of_interest],
              walls: [ (build :wall) ]
     end
 
     it "when using the factory" do
-      room = build :room, outerShape: outer_shape, point_of_interests: [point_of_interest], walls: []
+      room = build :room, outer_shape: outer_shape, point_of_interests: [point_of_interest], walls: []
       expect(room).to be_valid
-      expect(room.outerShape).to eq(outer_shape)
+      expect(room.outer_shape).to eq(outer_shape)
       expect(room.walls).to eq([])
       expect(room.point_of_interests).to eq([point_of_interest])
     end
@@ -49,7 +49,7 @@ RSpec.describe Room, type: :model do
     end
 
     it "with walls, outer shape, point of interests" do
-      expect(room.outerShape).to eq(outer_shape)
+      expect(room.outer_shape).to eq(outer_shape)
       expect(room.point_of_interests).to eq([point_of_interest])
     end
   end
@@ -59,12 +59,12 @@ RSpec.describe Room, type: :model do
 
     it "allows adding points to the shape" do
       db_room = described_class.find(room.id)
-      room.outerShape = [point1, point2]
+      room.outer_shape = [point1, point2]
       room.save!
 
-      expect(db_room.outerShape.size).to eq(2)
-      expect(db_room.outerShape[0].id).to eq(point1.id)
-      expect(db_room.outerShape[1].id).to eq(point2.id)
+      expect(db_room.outer_shape.size).to eq(2)
+      expect(db_room.outer_shape[0].id).to eq(point1.id)
+      expect(db_room.outer_shape[1].id).to eq(point2.id)
     end
   end
 end
