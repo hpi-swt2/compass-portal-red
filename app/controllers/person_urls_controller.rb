@@ -1,6 +1,7 @@
 class PersonUrlsController < ApplicationController
   before_action :set_person_url, only: %i[ show edit update destroy ]
-
+  #For avoiding authenticity checking:
+  skip_before_action :verify_authenticity_token 
   # GET /person_urls or /person_urls.json
   def index
     @person_urls = PersonUrl.all
@@ -68,7 +69,6 @@ class PersonUrlsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_url_params
-      #params.require(:person_url).permit(:name, :url)
-      params.permit(person_urls: [:name, :urls]).require(:person_urls)
+      params.permit( [:name, :url]).require(:person_urls)
     end
 end
