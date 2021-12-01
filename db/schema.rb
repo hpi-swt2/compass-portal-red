@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_135451) do
+ActiveRecord::Schema.define(version: 2021_12_01_200141) do
 
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
@@ -31,14 +31,19 @@ ActiveRecord::Schema.define(version: 2021_11_27_135451) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "points_polylines", id: false, force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.integer "polyline_id", null: false
+  end
+
   create_table "points_rooms", id: false, force: :cascade do |t|
     t.integer "room_id", null: false
     t.integer "point_id", null: false
   end
 
-  create_table "points_walls", id: false, force: :cascade do |t|
-    t.integer "point_id", null: false
-    t.integer "wall_id", null: false
+  create_table "polylines", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -69,7 +74,10 @@ ActiveRecord::Schema.define(version: 2021_11_27_135451) do
   create_table "walls", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "polyline_id", null: false
+    t.index ["polyline_id"], name: "index_walls_on_polyline_id"
   end
 
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "walls", "polylines"
 end
