@@ -11,6 +11,11 @@ RSpec.describe Wall, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
+  it "creates new walls with an empty polyline" do
+    wall = described_class.new
+    expect(wall.polyline.points).to eq([])
+  end
+
   describe "it should be valid" do
     it "when using the factory" do
       wall = build :wall

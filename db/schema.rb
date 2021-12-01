@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_01_200141) do
+ActiveRecord::Schema.define(version: 2021_12_01_201948) do
 
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
@@ -36,11 +36,6 @@ ActiveRecord::Schema.define(version: 2021_12_01_200141) do
     t.integer "polyline_id", null: false
   end
 
-  create_table "points_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_id", null: false
-  end
-
   create_table "polylines", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -49,6 +44,8 @@ ActiveRecord::Schema.define(version: 2021_12_01_200141) do
   create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "outer_shape_id", null: false
+    t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
 
   create_table "rooms_walls", id: false, force: :cascade do |t|
@@ -79,5 +76,6 @@ ActiveRecord::Schema.define(version: 2021_12_01_200141) do
   end
 
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
 end

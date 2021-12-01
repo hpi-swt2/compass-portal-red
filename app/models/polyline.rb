@@ -3,4 +3,5 @@ class Polyline < ApplicationRecord
   # so that there is a line between A and B.
   has_and_belongs_to_many :points
   has_many :walls
+  has_many :rooms
 end
