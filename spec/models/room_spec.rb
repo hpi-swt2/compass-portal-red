@@ -10,9 +10,9 @@ RSpec.describe Room, type: :model do
   end
 
   describe "it should create new rooms with an empty list of" do
-    it "points in the empty shape" do
+    it "points in the outer shape" do
       room = described_class.new
-      expect(room.outer_shape).to eq([])
+      expect(room.outer_shape.points).to eq([])
     end
 
     it "walls" do
@@ -28,12 +28,12 @@ RSpec.describe Room, type: :model do
 
   describe "it should be valid" do
     let(:point_of_interest) { create :point_of_interest, point: point1 }
-    let(:outer_shape) { [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2] }
+    let(:outer_shape) { create :polyline, points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2] }
     let(:room) do
       create :room,
              outer_shape: outer_shape,
              point_of_interests: [point_of_interest],
-             walls: [ (build :wall) ]
+             walls: [(build :wall)]
     end
 
     it "when using the factory" do
@@ -52,6 +52,11 @@ RSpec.describe Room, type: :model do
       expect(room.outer_shape).to eq(outer_shape)
       expect(room.point_of_interests).to eq([point_of_interest])
     end
+
+    it "unless there is no outer shape" do
+      room.outer_shape = nil
+      expect(room).not_to be_valid
+    end
   end
 
   describe "db interaction" do
@@ -59,12 +64,12 @@ RSpec.describe Room, type: :model do
 
     it "allows adding points to the shape" do
       db_room = described_class.find(room.id)
-      room.outer_shape = [point1, point2]
+      room.outer_shape.points = [point1, point2]
       room.save!
 
-      expect(db_room.outer_shape.size).to eq(2)
-      expect(db_room.outer_shape[0].id).to eq(point1.id)
-      expect(db_room.outer_shape[1].id).to eq(point2.id)
+      expect(db_room.outer_shape.points.size).to eq(2)
+      expect(db_room.outer_shape.points[0].id).to eq(point1.id)
+      expect(db_room.outer_shape.points[1].id).to eq(point2.id)
     end
   end
 end
