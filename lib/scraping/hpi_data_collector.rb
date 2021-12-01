@@ -3,8 +3,11 @@ require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
 require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
 
 class HpiDataCollector
-    @@base_url = 'https://hpi.de'
     @@title_words = ['Prof.', 'Dr.']
+
+    def initialize(base_url='https://hpi.de')
+        @base_url = base_url
+    end
 
     def getNames(name)
         person = {}
@@ -64,7 +67,7 @@ class HpiDataCollector
             scraper = HpiParagraphScraper.new(person_text_div)
         end
 
-        person[:website] = @@base_url + url
+        person[:website] = @base_url + url
         person_info = scraper.scrape()
         if person_image_div then
             person[:image] = scraper.downloadImage(person_image_div)
@@ -78,7 +81,7 @@ class HpiDataCollector
         document = ''
 
         begin
-            document = Nokogiri::HTML(URI.open(@@base_url + url, :allow_redirections => :all))
+            document = Nokogiri::HTML(URI.open(@base_url + url, :allow_redirections => :all))
             if document.title == 'Hasso-Plattner-Institut' # Redirect due to non-existance
                 raise ScrapingException.new("Redirect")
             end
