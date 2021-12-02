@@ -47,4 +47,11 @@ RSpec.describe Person, type: :model do
     person = FactoryBot.create :person
     expect(person.chairs.length).to eq(0)
   end
+  
+  it "has a user relation" do
+    person = FactoryBot.create :person
+    user = FactoryBot.create :user
+    person.user = user
+    expect(person.user.id).to eq(user.id)
+  end
 end
