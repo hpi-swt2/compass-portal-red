@@ -9,16 +9,6 @@ RSpec.describe Room, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
-  it "can have a building" do
-    building = create :building
-    room = create :room
-    room.building = building
-    room.save!
-
-    db_room = described_class.find(room.id)
-    expect(db_room.building).to eq(building)
-  end
-
   describe "it should create new rooms with an empty list of" do
     it "points in the outer shape" do
       room = described_class.new
@@ -36,56 +26,91 @@ RSpec.describe Room, type: :model do
     end
   end
 
-  describe "it should be valid" do
+  describe "should be valid" do
     let(:point_of_interest) { create :point_of_interest, point: point1 }
-    let(:outer_shape) { create :polyline, points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2] }
-    let(:room) do
-      create :room,
-             outer_shape: outer_shape,
-             point_of_interests: [point_of_interest],
-             walls: [(build :wall)]
+    let(:outer_shape) do
+      create :polyline,
+             points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
     end
 
-    it "when using the factory" do
-      room = build :room, outer_shape: outer_shape, point_of_interests: [point_of_interest], walls: []
-      expect(room).to be_valid
-      expect(room.outer_shape).to eq(outer_shape)
-      expect(room.walls).to eq([])
-      expect(room.point_of_interests).to eq([point_of_interest])
+    shared_examples "with" do
+      it "wall" do
+        expect(room.walls).to eq([])
+      end
+
+      it "points of interest" do
+        expect(room.point_of_interests).to eq([point_of_interest])
+      end
+
+      it "outer shape" do
+        expect(room.outer_shape).to eq(outer_shape)
+      end
+
+      it "validation passed" do
+        expect(room).to be_valid
+      end
+
+      it "a building" do
+        building = create :building
+        room.building = building
+        room.save!
+
+        db_room = described_class.find(room.id)
+        expect(db_room.building).to eq(building)
+      end
     end
 
-    it "when created" do
-      expect(room).to be_valid
+    context "when using the factory" do
+      let(:room) do
+        build :room,
+              outer_shape: outer_shape,
+              point_of_interests: [point_of_interest],
+              walls: []
+      end
+
+      it_behaves_like "with"
     end
 
-    it "with walls, outer shape, point of interests" do
-      expect(room.outer_shape).to eq(outer_shape)
-      expect(room.point_of_interests).to eq([point_of_interest])
-    end
+    context "when created" do
+      let(:room) do
+        create :room,
+               outer_shape: outer_shape,
+               point_of_interests: [point_of_interest],
+               walls: []
+      end
 
-    it "even without a building" do
-      room = build :room
-      room.building = nil
-      expect(room).to be_valid
-    end
+      it_behaves_like "with"
 
-    it "unless there is no outer shape" do
-      room.outer_shape = nil
-      expect(room).not_to be_valid
+      it "even without a building" do
+        room.building = nil
+        expect(room).to be_valid
+      end
+
+      it "unless there is no outer shape" do
+        room.outer_shape = nil
+        expect(room).not_to be_valid
+      end
     end
   end
 
   describe "db interaction" do
     let(:room) { create :room }
+    let(:db_room) { described_class.find(room.id) }
 
-    it "allows adding points to the shape" do
-      db_room = described_class.find(room.id)
-      room.outer_shape.points = [point1, point2]
-      room.save!
+    context "when adding points to the shape" do
+      before do
+        room.outer_shape.points = [point1, point2]
+        room.save!
+      end
 
-      expect(db_room.outer_shape.points.size).to eq(2)
-      expect(db_room.outer_shape.points[0].id).to eq(point1.id)
-      expect(db_room.outer_shape.points[1].id).to eq(point2.id)
+      it "has correct amount of points" do
+        expect(db_room.outer_shape.points.size).to eq(2)
+      end
+
+      it "keeps point order" do
+        expect(db_room.outer_shape.points[0].id).to eq(point1.id)
+        expect(db_room.outer_shape.points[1].id).to eq(point2.id)
+      end
     end
   end
 end
