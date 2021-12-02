@@ -17,8 +17,7 @@ RSpec.describe Building, type: :model do
 
   it "can have multiple rooms" do
     building = create :building, rooms: rooms
-    expect(building.rooms).not_to eq([])
-    expect(rooms[0].building).to eq(building)
+    expect(building.rooms).not_to be_empty
     expect(rooms[0].building.id).to eq(building.id)
   end
 
