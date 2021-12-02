@@ -2,6 +2,20 @@
   	<title>HPI Map</title>
   	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<style>
+		.marker_label {
+			position: absolute;
+			background-color: transparent;
+			border: None;
+			box-shadow: None;
+		}
+		.leaflet-tooltip-top:before, 
+		.leaflet-tooltip-bottom:before, 
+		.leaflet-tooltip-left:before, 
+		.leaflet-tooltip-right:before {
+			border: none !important;
+		}
+	</style>
 </head>
 
 <div class="row">
@@ -38,55 +52,56 @@
 			layers[feature.properties.campus].addLayer(L.geoJSON(feature, {style: UniPotsdamStyle}));
 		}
 		// defining icons to be used:
-		// var hpi_icon = L.icon({
-		// 	iconUrl: "<%= asset_path('hpi_logo.png') %>",
+		var hpi_icon = L.icon({
+			iconUrl: "<%= asset_path('hpi_logo.png') %>",
 
-		// 	iconSize:     [25, 25], // size of the icon
-		// 	iconAnchor:   [10,7], // point of the icon which will correspond to marker's location
-		// 	popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
-		// });
+			iconSize:     [25, 25], // size of the icon
+			iconAnchor:   [10,7], // point of the icon which will correspond to marker's location
+			popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
+		});
 
-		// var	coffee_icon = L.icon({
-		// 	iconUrl: "<%= asset_path('coffee_filled.png') %>",
+		var	coffee_icon = L.icon({
+			iconUrl: "<%= asset_path('coffee_filled.png') %>",
 
-		// 	iconSize:     [25, 25], // size of the icon
-		// 	iconAnchor:   [10, 15], // point of the icon which will correspond to marker's location
-		// 	popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
-		// });
+			iconSize:     [25, 25], // size of the icon
+			iconAnchor:   [10, 15], // point of the icon which will correspond to marker's location
+			popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
+		});
 
-		// // setting markers for all buildings
-		// var lecture_hall = L.marker([52.39409166931323, 13.132475963321651],{icon: hpi_icon}).bindPopup('Lecture Hall'),
-		// 	main_building = L.marker([52.39404, 13.1335],{icon: hpi_icon}).bindPopup('Main buidling'),
-		// 	a_building = L.marker([52.39339227922372, 13.131546237196904], {icon: hpi_icon}).bindPopup('House A'),
-		// 	b_building = L.marker([52.393558941568166, 13.131887626670613], {icon: hpi_icon}).bindPopup('House B'),
-		// 	c_building = L.marker([52.39338533494571, 13.132304880471814], {icon: hpi_icon}).bindPopup('House C'),
-		// 	villa = L.marker([52.39216025176346, 13.123802617690352], {icon: hpi_icon}).bindPopup('Villa'),
-		// 	e_house = L.marker([52.39219135147654, 13.124181479713926], {icon: hpi_icon}).bindPopup('House E'),
-		// 	f_house = L.marker([52.392550303654076, 13.124220721222631], {icon: hpi_icon}).bindPopup('House F'),
-		// 	g_house = L.marker([52.39467384536523, 13.124835506138366], {icon: hpi_icon}).bindPopup('House G');
-		// 	j_house = L.marker([52.39467384536523, 13.124835506138366], {icon: hpi_icon}).bindPopup('House J'); //couldn't find geo coordinates
+		// setting markers for all buildings
+		var lecture_hall = L.marker([52.39409166931323, 13.132475963321651],{opacity: 0.5}).bindTooltip('Lecture Hall', {permanent: true, className: "marker_label", direction: "center"}),
+			main_building = L.marker([52.39404, 13.1335],{icon: hpi_icon, opacity: 0.01}).bindTooltip('Main buidling', {permanent: true, className: "marker_label", direction: "center"}),
+			a_building = L.marker([52.39339227922372, 13.131546237196904], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House A', {permanent: true, className: "marker_label", direction: "center"}),
+			b_building = L.marker([52.393558941568166, 13.131887626670613], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House B', {permanent: true, className: "marker_label", direction: "center"}),
+			c_building = L.marker([52.39338533494571, 13.132304880471814], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House C', {permanent: true, className: "marker_label", direction: "center"}),
+			villa = L.marker([52.39216025176346, 13.123802617690352], {icon: hpi_icon, opacity: 0.01}).bindTooltip('Villa', {permanent: true, className: "marker_label", direction: "center"}),
+			e_house = L.marker([52.39219135147654, 13.124181479713926], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House E', {permanent: true, className: "marker_label", direction: "center"}),
+			f_house = L.marker([52.392550303654076, 13.124220721222631], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House F', {permanent: true, className: "marker_label", direction: "center"}),
+			g_house = L.marker([52.39467384536523, 13.124835506138366], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House G', {permanent: true, className: "marker_label", direction: "center"}),
+			j_house = L.marker([52.38440527873472, 13.118941324549606], {icon: hpi_icon, opacity: 0.01}).bindTooltip('House J', {permanent: true, className: "marker_label", direction: "center"});
+
+		// grouping buildings by campus
+		var buildings_campus_I = L.layerGroup([lecture_hall, main_building, a_building, b_building, c_building, j_house]);
+		var buildings_campus_II = L.layerGroup([e_house, f_house, villa]);
+		var buildings_campus_III = L.layerGroup([g_house]);
 		
-		// // grouping buildings by campus
-		// var buildings_campus_I = L.layerGroup([lecture_hall, main_building, a_building, b_building, c_building]);
-		// var buildings_campus_II = L.layerGroup([e_house, f_house, villa]);
-		// var buildings_campus_III = L.layerGroup([g_house]);
+		// setting markers for interesting eat-in places
+		var ulf = L.marker([52.39333033686638, 13.131310644592734],{icon: coffee_icon, opacity: 0.01}).bindTooltip('Ulf\'s coffee', {permanent: true, className: "marker_label", direction: "center"}),
+			mensa_griebnitzsee = L.marker([52.393092597902964, 13.129241382236938],{icon: coffee_icon, opacity: 0.01}).bindTooltip('Mensa Griebnitzsee', {permanent: true, className: "marker_label", direction: "center"}),
+			mensa_movie = L.marker([52.38983920408487, 13.116905316298654],{icon: coffee_icon, opacity: 0.01}).bindTooltip('Movie Mensa', {permanent: true, className: "marker_label", direction: "center"});
+
+		// grouping eat-in places
+		var eating = L.layerGroup([ulf, mensa_griebnitzsee, mensa_movie]);
+
+		// adding everything to an overlay
+		var overlay_poi = {
+    		"Campus I": buildings_campus_I,
+			"Campus II": buildings_campus_II,
+			"Campus III": buildings_campus_III,
+			"Eating": eating
+		};
+
 		
-		// // setting markers for interesting eat-in places
-		// var ulf = L.marker([52.39333033686638, 13.131310644592734],{icon: coffee_icon}).bindPopup('Ulf\'s coffee'),
-		// 	mensa_griebnitzsee = L.marker([52.393092597902964, 13.129241382236938],{icon: coffee_icon}).bindPopup('Mensa Griebnitzsee'),
-		// 	mensa_movie = L.marker([52.38983920408487, 13.116905316298654],{icon: coffee_icon}).bindPopup('Movie Mensa');
-
-		// // grouping eat-in places
-		// var eating = L.layerGroup([ulf, mensa_griebnitzsee, mensa_movie]);
-
-		// // adding everything to an overlay
-		// var overlay_poi = {
-    	// 	"Campus I": buildings_campus_I,
-		// 	"Campus II": buildings_campus_II,
-		// 	"Campus III": buildings_campus_III,
-		// 	"Eating": eating
-		// };
-
-		L.control.layers(null, layers).addTo(mymap);
+		L.control.layers(null, overlay_poi).addTo(mymap);
   </script>
 </div>
