@@ -48,7 +48,7 @@ RSpec.describe Polyline, type: :model do
     it "has the polyline saved in the db" do
       db_polyline = described_class.find(polyline.id)
       expect(db_polyline).to be_an_instance_of(described_class)
-      expect(db_polyline.id).to eq(db_polyline.id)
+      expect(db_polyline.id).to eq(polyline.id)
     end
 
     it "contains exactly the added points" do
