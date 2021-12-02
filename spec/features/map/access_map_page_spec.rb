@@ -10,7 +10,7 @@ RSpec.describe "Map Page", type: :feature do
     expect(page).to have_link(nil, href: map_path)
   end
 
-  it "it contains a map container" do
+  it "contains a map container" do
     visit map_path
     expect(page).to have_css('.map')
   end

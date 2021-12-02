@@ -15,9 +15,9 @@ RSpec.describe "Search Page", type: :feature do
     expect(page).to have_field("search")
   end
 
-  it "should render a list when @query is not empty" do 
+  it "renders a list when @query is not empty" do
     # This test will fail once the method in the controller is changed or the database changes
-    visit search_path + '?query=D&commit=Search'
+    visit "#{search_path}?query=D&commit=Search"
     expect(page).to have_link 'Dan'
     expect(page).to have_link 'Djamal'
     expect(page).to have_link 'Daniel'
