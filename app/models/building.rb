@@ -3,8 +3,8 @@ class Building < ApplicationRecord
 
   def to_geojson
     {
-      :type => "FeatureCollection",
-      :features => rooms.map{ |room| room.to_geojson }
+      type: "FeatureCollection",
+      features: rooms.map(&:to_geojson)
     }
   end
 end

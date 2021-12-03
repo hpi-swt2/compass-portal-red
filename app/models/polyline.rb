@@ -7,10 +7,10 @@ class Polyline < ApplicationRecord
 
   def to_geojson
     {
-      :type => "Feature",
-      :geometry => {
-          :type => "LineString",
-          :coordinates => points.map { |point| [point.x, point.y] }
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: points.map { |point| [point.x, point.y] }
       }
     }
   end
