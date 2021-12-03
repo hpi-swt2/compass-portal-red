@@ -3,13 +3,13 @@ class PointOfInterest < ApplicationRecord
 
   def to_geojson
     {
-      :type => "Feature",
-      :geometry => {
-          :type => "Point",
-          :coordinates => [point.x, point.y]
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [point.x, point.y]
       },
-      :properties => {
-        :class => "point-of-interest"
+      properties: {
+        class: "point-of-interest"
       }
     }
   end
