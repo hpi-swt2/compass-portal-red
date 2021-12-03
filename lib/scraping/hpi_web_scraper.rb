@@ -35,7 +35,7 @@ class HpiWebScraper
     file_name = img_src[index + 1, img_src.length - 1]
 
     relative_file_path = "/app/assets/images/people/#{file_name}"
-    file_path = "#{Rails.root}#{relative_file_path}"
+    file_path = Rails.root.join(relative_file_path)
     File.open(file_path, 'wb') do |f|
       f.write open(img_src).read
     end
