@@ -4,14 +4,4 @@ class Polyline < ApplicationRecord
   has_and_belongs_to_many :points
   has_many :walls
   has_many :rooms
-
-  def to_geojson
-    {
-      :type => "Feature",
-      :geometry => {
-          :type => "LineString",
-          :coordinates => points.map { |point| [point.x, point.y] }
-      }
-    }
-  end
 end
