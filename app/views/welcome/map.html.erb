@@ -33,12 +33,12 @@
 
 <div class="row">
   	<div id="map" style="width: 100%; height: 600px;"></div>
-	<%= javascript_include_tag 'CampusGeometry/HPIGeometry' %>
-	<%= javascript_include_tag 'CampusGeometry/UniPotsdamGeometry' %>
 	<%= javascript_include_tag 'CampusGeometry/campus' %>
   	<script>
+		//Set the leaflet map with center and zoom-level
 	  	var mymap = L.map('map').setView([52.39300, 13.12900], 17);
 
+		//Tileserver to be used as background. Needs to be one without building names for any building that is to be highlighted
 	  	L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e6b144cfc47a48fd928dad578eb026a6', {
 		  	maxZoom: 22, //22 is the maximum for the thunderforest tiles
 		  	attribution: 'Schnavigator'
@@ -57,15 +57,50 @@
 				"color": "Orange",
 				"opacity": 0.3
   			};
+		
+		var DormStyle = {
+				"fillColor": "Green",
+				"fillOpacity": 0.65,
+				"color": "Green",
+				"opacity": 0.3
+  			};
+
 		let layers = {}
-		for (const feature of buildings){
-			if(!layers[feature.properties.campus])
+		//buildings includes all geometry-data extracted from OSM, see campus.js
+		//layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
+		for (const feature of buildings) {
+			//If the current campus (=group of buildings) is unknown, create a layergroup for it
+			if(!layers[feature.properties.campus]) {
 				layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
-				console.log(feature.properties.name);
-			const lazer = L.geoJSON(feature, {style: UniPotsdamStyle});
-			lazer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label'})
-			layers[feature.properties.campus].addLayer(lazer);
+				console.log("Added the following campus to layers: ", feature.properties.campus);
+			}
+
+			//Determine Style (highlighting-colour) dependent of group
+			let layerStyle = UniPotsdamStyle;
+			switch(feature.properties.campus) {
+				case 'UP Campus Griebnitzsee': layerStyle = UniPotsdamStyle;
+					break;
+				case "Campus I": layerStyle = HPIStyle;
+					break;
+				case "Campus II": layerStyle = HPIStyle;
+					break;
+				case 'Campus III': layerStyle = HPIStyle;
+					break;
+				case "Studentendorf Stahnsdorfer Straße": layerStyle = DormStyle;
+					break;
+				default: console.log("This building does not belong to a known campus: ", feature);
+					break;
+			}
+
+			//Add the building as a layer
+			const layer = L.geoJSON(feature, {style: layerStyle});
+			//Add a tooltip displaying the name of the building, taken from the GeoJSON
+			layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label'})
+			//Add the building to its campus layergroup
+			layers[feature.properties.campus].addLayer(layer);
 		}
+
+
 		// defining icons to be used:
 		var hpi_icon = L.icon({
 			iconUrl: "<%= asset_path('hpi_logo.png') %>",
