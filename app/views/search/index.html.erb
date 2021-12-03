@@ -3,6 +3,7 @@
     <h1 class="fw-light">
       Welcome to the HPI Compass Portal<%= ", #{current_user.username}" if user_signed_in? && current_user.username.present? %>!
     </h1>
+    <p class="lead text-muted">Search for anything you want to know more about. That can be people but also places at HPI. Or use the interactive map to find what you are looking for.</p>
     
     <%= form_with url: search_path, method: :get do |f| %>
       <div class="mb-3">
