@@ -18,7 +18,6 @@ RSpec.describe PersonUrlsController, type: :routing do
       expect(get: "/person_urls/1/edit").to route_to("person_urls#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/person_urls").to route_to("person_urls#create")
     end
