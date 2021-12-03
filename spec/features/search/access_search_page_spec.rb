@@ -10,7 +10,7 @@ RSpec.describe "Search Page", type: :feature do
     expect(page).to have_link(nil, href: search_path)
   end
 
-  it "it contains a search field" do
+  it "contains a search field" do
     visit search_path
     expect(page).to have_field("search")
   end
