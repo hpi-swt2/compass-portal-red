@@ -1,6 +1,9 @@
-<head>
+<!DOCTYPE html>
+<html>
+  <head>
   	<title>HPI Map</title>
-  	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<style>
 		/* .marker_label {
@@ -29,20 +32,25 @@
 			border: none !important;
 		}
 	</style>
-</head>
+  </head>
 
-<div class="leaflet">
+  <body>
+  <div class="leaflet">
   	<div id="map" style="width: 100%; height: 600px;"></div>
 	<%= javascript_include_tag 'OutdoorMap/geometry' %>
   	<script>
 		//Set the leaflet map with center and zoom-level
 	  	var mymap = L.map('map').setView([52.39300, 13.12900], 17);
 
-		//Tileserver to be used as background. Needs to be one without building names for any building that is to be highlighted
-	  	L.tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=e6b144cfc47a48fd928dad578eb026a6', {
-		  	maxZoom: 22, //22 is the maximum for the thunderforest tiles
-		  	attribution: 'Schnavigator'
-	  	}).addTo(mymap);
+		//Tileserver to be used as background
+	  	L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX',{
+			tileSize: 512,
+			zoomOffset: -1,
+			minZoom: 1,
+			maxZoom: 23,
+			attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e | Schnavigator",
+			crossOrigin: true
+		}).addTo(mymap);
 
 		var UniPotsdamStyle = {
 				"fillColor": "Blue",
@@ -220,5 +228,7 @@
 		// });
 		
 		L.control.layers(null, layers).addTo(mymap);
-  </script>
-</div>
+  	</script>
+  </div>
+  </body>
+</html>
