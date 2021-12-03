@@ -1,12 +1,12 @@
 <g class="outer-shape">
     <%= render 'polygon', 
-        points: room.outerShape
+        polyline: room.outer_shape
     %>
 </g>
 <g class="walls">
     <% room.walls.each  do |wall| %>
         <%= render 'polyline',
-            points: wall.points
+            polyline: wall.polyline
         %>
     <% end %>
 </g>
