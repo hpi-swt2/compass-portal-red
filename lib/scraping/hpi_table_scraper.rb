@@ -4,6 +4,8 @@ class HpiTableScraper < HpiWebScraper
   def scrape
     item = {}
 
+    item[:email] = @html.css('.mail').text
+
     td_tags = @html.css('td')
     td_tags.each do |td|
       # Phone
@@ -17,9 +19,10 @@ class HpiTableScraper < HpiWebScraper
         item[:office] = td_tags[index + 1].text
         item[:office] = td_tags[index + 2].text if item[:office] == '' # In case of separator
       end
-
       # Email
-      if ([td.text] & @@email_words).any? && (@html.css('.mail').text != '')
+      next unless item[:email] == ''
+
+      if ([td.text] & @@email_words).any?
         index = td_tags.find_index(td)
         item[:email] = td_tags[index + 1].text
       end
