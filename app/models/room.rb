@@ -11,5 +11,13 @@ class Room < ApplicationRecord
 
   def init
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
+  
+  include IndoorHelper
+
+  def to_geojson
+    {
+      :type => "FeatureCollection",
+      :features => [geojson_for_polygon(outerShape)] + walls.map { |wall| wall.to_geojson } + point_of_interests.map { |point| point.to_geojson }
+    }
   end
 end
