@@ -37,6 +37,8 @@
   <body>
   <div class="leaflet">
   	<div id="map" style="width: 100%; height: 600px;"></div>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 	<%= javascript_include_tag 'OutdoorMap/geometry' %>
   	<script>
 		//Set the leaflet map with center and zoom-level
@@ -52,6 +54,13 @@
 			crossOrigin: true
 		}).addTo(mymap);
 
+		L.control.locate({
+			locateOptions: {
+				watch: true,
+				enableHighAccuracy: true
+			}
+		}).addTo(mymap);
+		
 		var UniPotsdamStyle = {
 				"fillColor": "Blue",
 				"fillOpacity": 0.65,

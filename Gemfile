@@ -9,6 +9,7 @@ ruby '2.7.4'
 
 # for working with the map
 gem 'leaflet-rails'
+gem 'leaflet-locatecontrol-rails', git: 'https://gitlab.com/kendrikat/leaflet-locatecontrol-rails.git'
 
 # The application framework
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
