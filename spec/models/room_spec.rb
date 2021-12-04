@@ -101,8 +101,7 @@ RSpec.describe Room, type: :model do
         room.walls.push(wall)
         room.save!
 
-        wall.destroy
-        expect(room).to be_valid
+        expect { wall.destroy }.not_to raise_error
       end
     end
   end
