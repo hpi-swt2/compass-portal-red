@@ -17,23 +17,28 @@ RSpec.describe Building, type: :model do
 
   it "can have multiple rooms" do
     building = create :building, rooms: rooms
+    expect(building.rooms.size).to be > 1
+  end
+
+  it "can access the building from the room" do
+    building = create :building, rooms: rooms
     expect(building.rooms).not_to be_empty
     expect(rooms[0].building.id).to eq(building.id)
   end
 
-  describe "it should be valid" do
-    it "when using the factory" do
+  describe "validation" do
+    it "builds valid instances in the factory" do
       building = build :building
       expect(building).to be_valid
     end
 
-    it "when created" do
+    it "creates valid instances in the factory" do
       building = create :building, rooms: rooms
       expect(building).to be_valid
       expect(building.rooms).to eq(rooms)
     end
 
-    it "when created with the constructor" do
+    it "is valid when created with the constructor" do
       building = described_class.new(rooms: rooms)
       expect(building).to be_valid
       expect(building.rooms).to eq(rooms)
