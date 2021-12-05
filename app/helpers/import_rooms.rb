@@ -28,7 +28,8 @@ rooms.each do |name, array|
     polygon = Hash[polygon.sort_by{ |key, value| key.to_i }]
     room = Room.new(building: building)
     room.outer_shape = Polyline.create
-    room.outer_shape.points.push(points.values)
+    room.outer_shape.points.push(polygon.values)
+    room.outer_shape.points.push(polygon['1'])
     room.save
 end
 
