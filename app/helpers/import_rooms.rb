@@ -7,28 +7,29 @@ require 'polyline'
 rooms = ['A','B','C','D','E','F','G','H','I']
 building = Building.create
 
-csv_text = File.read('app/assets/data/test2.csv')
+csv_text = File.read('app/assets/data/importBuilding1.csv')
 csv = CSV.parse(csv_text)
+points = Hash.new
 rooms.each do |name, array|
-    room = Room.new(building: building)
-    points = Hash.new
+    polygon = Hash.new
     csv.each do |row|
-    #reihenfolge ? 
-        if row[0..3].include? name.to_s
-            puts 'hahah'
-            id = row[0..3].select {|e| e.include? name.to_s}
-            puts id
-            number = id[1]
-            points[number] = Point.create(x: row[4], y: row[5])
-            #find column id 
-            #seperate number from char 
-            #speicher point in ordered list mit key der nummer 
-            
+        if row[0..3].collect{|x| x.to_s[0] }.include? name.to_s
+            key = row[0].to_s + row[1].to_s + row[2].to_s
+            id = row[0..3].select{|e| e.to_s[0] == name.to_s}[0]
+            number = id[1..id.length-1]
+            if points.key? key
+                polygon[number] = points[key]
+            else
+                points[key] = Point.create(x: row[4], y: row[5])
+                polygon[number] = points[key]
+            end
         end
-        #points.sort()
-        #room.outer_shape = Polyline.create
-        #room.outer_shape.points.push(points.value)
-        #room.save()
     end
+    polygon = Hash[polygon.sort_by{ |key, value| key.to_i }]
+    room = Room.new(building: building)
+    room.outer_shape = Polyline.create
+    room.outer_shape.points.push(points.values)
+    room.save
 end
+
 
