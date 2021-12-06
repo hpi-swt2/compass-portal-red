@@ -14,9 +14,9 @@ rooms.each do |name, array|
     polygon = Hash.new
     csv.each do |row|
         if row[0..3].collect{|x| x.to_s[0] }.include? name.to_s
-            key = row[0].to_s + row[1].to_s + row[2].to_s
+            key = row[0].to_s + row[1].to_s + row[2].to_s + row[3].to_s
             id = row[0..3].select{|e| e.to_s[0] == name.to_s}[0]
-            number = id[1..id.length-1]
+            number = id[1..id.length-1] #will not work if more than 24 rooms (can be fixed with regex)
             if points.key? key
                 polygon[number] = points[key]
             else
