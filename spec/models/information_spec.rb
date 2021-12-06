@@ -7,13 +7,19 @@ RSpec.describe Information, type: :model do
     expect(information.value).to eq("@handle")
   end
 
-  it "returns not valid because of empty fields" do
+  it "returns not valid because of empty value" do
     information = described_class.new(key: "Telegram")
     information.create_person(last_name: "Mustermann", first_name: "Max")
     expect(information).not_to be_valid
+  end
+
+  it "returns not valid because of empty key" do
     information = described_class.new(value: "@handle")
     information.create_person(last_name: "Mustermann", first_name: "Max")
     expect(information).not_to be_valid
+  end
+
+  it "returns not valid because of empty person-relation" do
     information = described_class.new(key: "Telegram", value: "@handle")
     expect(information).not_to be_valid
   end

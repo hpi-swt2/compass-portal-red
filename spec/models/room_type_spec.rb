@@ -7,7 +7,7 @@ RSpec.describe RoomType, type: :model do
   end
 
   it "returns not valid because name is empty" do
-    room_type = described_class.new()
+    room_type = described_class.new
     expect(room_type).not_to be_valid
   end
 

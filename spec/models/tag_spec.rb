@@ -7,7 +7,7 @@ RSpec.describe Tag, type: :model do
   end
 
   it "returns not valid because name is empty" do
-    tag = described_class.new()
+    tag = described_class.new
     expect(tag).not_to be_valid
   end
 
