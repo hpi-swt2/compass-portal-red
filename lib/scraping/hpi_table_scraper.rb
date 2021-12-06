@@ -3,9 +3,11 @@ require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 class HpiTableScraper < HpiWebScraper
   def scrape
     item = {}
-
+    
+    # Check the whole document for a `.mail` tag
     item[:email] = @html.css('.mail').text
 
+    # Loop over all table cells and check for phone, office, email (if missing)
     td_tags = @html.css('td')
     td_tags.each do |td|
       # Phone
