@@ -26,19 +26,19 @@ RSpec.describe Building, type: :model do
     expect(rooms[0].building.id).to eq(building.id)
   end
 
-  describe "validation" do
-    it "builds valid instances in the factory" do
+  context "with valid arguments" do
+    it "is valid when using the factory" do
       building = build :building
       expect(building).to be_valid
     end
 
-    it "creates valid instances in the factory" do
+    it "is valid with persistence" do
       building = create :building, rooms: rooms
       expect(building).to be_valid
       expect(building.rooms).to eq(rooms)
     end
 
-    it "is valid when created with the constructor" do
+    it "is valid when using the constructor" do
       building = described_class.new(rooms: rooms)
       expect(building).to be_valid
       expect(building.rooms).to eq(rooms)

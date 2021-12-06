@@ -6,27 +6,27 @@ RSpec.describe Point, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
-  describe "it should be valid" do
-    it "with x- and y-value" do
+  context "with valid arguments" do
+    it "is valid with x- and y-value" do
       point = described_class.new(x: 1.0, y: -1.5)
       expect(point).to be_valid
     end
 
-    it "when using the factory" do
+    it "is valid with factory" do
       point = build :point
       expect(point).to be_valid
     end
   end
 
-  describe "it should not be valid" do
+  context "with invalid arguments" do
     let(:point) { build :point }
 
-    it "without x-value" do
+    it "is invalid with missing x-value" do
       point.x = nil
       expect(point).not_to be_valid
     end
 
-    it "without y-value" do
+    it "is invalid with missing y-value" do
       point.y = nil
       expect(point).not_to be_valid
     end
