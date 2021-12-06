@@ -96,3 +96,9 @@ Style/SymbolArray:
 # Okay to use Rails.root.join('tmp', 'caching-dev.txt')
 Rails/FilePath:
   Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Enabled: false
