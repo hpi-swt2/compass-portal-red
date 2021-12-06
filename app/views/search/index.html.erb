@@ -5,19 +5,19 @@
         Welcome to the HPI Compass Portal<%= ", #{current_user.username}" if user_signed_in? && current_user.username.present? %>!
       </h1>
     </div>
-    <%= form_with url: search_path, method: :get do |form| %>
+  <%= form_with url: search_path, method: :get do |form| %>
       <div class="row align-items-end mb-3">
         <div class="col">
           <div class="form-group">
             <%= form.label :query, "Search", class: 'form-label' %>
-            <%= form.text_field :query, class: 'form-control', autofocus: true, id: "search" %>
+            <%= form.text_field :query, class: 'form-control', autofocus: true, value: @params, id: "search" %>
           </div>
         </div>
         <div class="col-auto">
-          <%= form.submit "Search", class: 'btn btn-primary' %>
+          <%= form.submit "Search", class: 'btn btn-primary', id: "submit" %>
         </div>
       </div>
-    <% end %>
+  <% end %> 
     <div class="row">
       <div class="col">
         <% if @query %>

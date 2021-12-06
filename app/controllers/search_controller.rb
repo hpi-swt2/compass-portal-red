@@ -13,6 +13,7 @@ class SearchController < ApplicationController
     # print('================================')
     # print(@query)
     @query
+    @params = params[:query]
   end
 
   helper_method :index
