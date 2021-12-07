@@ -4,7 +4,7 @@ class Building < ApplicationRecord
   def to_geojson
     {
       type: "FeatureCollection",
-      features: rooms.map(&:to_geojson)
+      features: rooms.map(&:to_geojson).flatten
     }
   end
 end
