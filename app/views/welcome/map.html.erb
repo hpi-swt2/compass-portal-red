@@ -21,7 +21,7 @@
 			padding-right: 0px;
 			font-weight: bold;
 			border: None;
-			color: white;
+			color: black;
 			box-shadow: None;
 			font-family: Roboto, "Open Sans", sans-serif;
 		}
@@ -112,7 +112,7 @@
 			//Add the building as a layer
 			const layer = L.geoJSON(feature, {style: layerStyle});
 			//Add a tooltip displaying the name of the building, taken from the GeoJSON
-			layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label'})
+			layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: feature.properties.offset})
 			//Add the building to its campus layergroup
 			layers[feature.properties.campus].addLayer(layer);
 		}
