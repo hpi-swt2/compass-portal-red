@@ -5,7 +5,7 @@ require 'building'
 require 'polyline'
 
 rooms = %w[A B C D E F G H I]
-# extend to import more rooms 
+# extend to import more rooms
 building = Building.create
 
 csv_text = File.read('app/assets/data/importBuilding1.csv')
