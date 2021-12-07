@@ -17,4 +17,10 @@ class Room < ApplicationRecord
   def init
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
+
+  def to_geojson
+    walls.map(&:to_geojson) +
+      point_of_interests.map(&:to_geojson) +
+      [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
+  end
 end

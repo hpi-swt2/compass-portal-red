@@ -16,6 +16,22 @@ RSpec.describe Polyline, type: :model do
     expect(polyline.points).to eq([])
   end
 
+  context "with valid geojson" do
+    let(:polyline) { build :polyline }
+
+    it "has geometry type Polygon when polygon=true" do
+      expect(polyline.to_geojson(polygon: true)[:geometry][:type]).to eq("Polygon")
+    end
+
+    it "has geometry type LineString when polygon=false" do
+      expect(polyline.to_geojson(polygon: false)[:geometry][:type]).to eq("LineString")
+    end
+
+    it "has correct amount of coordinates" do
+      expect(polyline.to_geojson(polygon: false)[:geometry][:coordinates].length).to eq(polyline.points.length)
+    end
+  end
+
   context "with valid arguments" do
     it "is valid with factory" do
       polyline = build :polyline, points: points

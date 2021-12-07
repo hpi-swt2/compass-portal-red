@@ -46,6 +46,18 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  context "with valid geojson" do
+    let(:room) { build :room }
+
+    it "has geometry type Polygon" do
+      expect(room.to_geojson[1][:geometry][:type]).to eq("Polygon")
+    end
+
+    it "has class outer-shape" do
+      expect(room.to_geojson[1][:properties][:class]).to eq("outer-shape")
+    end
+  end
+
   describe "validation" do
     let(:point_of_interest) { create :point_of_interest, point: point1 }
     let(:outer_shape) do
@@ -113,7 +125,7 @@ RSpec.describe Room, type: :model do
 
       it "restricts to delete outer shape" do
         outer_shape = Polyline.find(room.outer_shape.id)
-        expect { outer_shape.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+        expect { outer_shape.delete }.to raise_error(ActiveRecord::InvalidForeignKey)
       end
 
       it "allows to delete wall" do
@@ -121,7 +133,7 @@ RSpec.describe Room, type: :model do
         room.walls.push(wall)
         room.save!
 
-        expect { wall.destroy }.not_to raise_error
+        expect { wall.delete }.not_to raise_error
       end
     end
   end
