@@ -67,7 +67,6 @@ RSpec.describe Polyline, type: :model do
       db_polyline = described_class.find(polyline.id)
 
       expect(db_polyline.points.size).to eq(points.size + 1)
-      expect(db_polyline.points[points.size].id).to eq(point1.id)
     end
   end
 end
