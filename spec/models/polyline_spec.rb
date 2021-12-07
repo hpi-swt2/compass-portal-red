@@ -20,15 +20,15 @@ RSpec.describe Polyline, type: :model do
     let(:polyline) { build :polyline }
 
     it "has geometry type Polygon when polygon=true" do
-      expect(polyline.to_geojson(true)[:geometry][:type]).to eq("Polygon")
+      expect(polyline.to_geojson(polygon: true)[:geometry][:type]).to eq("Polygon")
     end
 
     it "has geometry type LineString when polygon=false" do
-      expect(polyline.to_geojson(false)[:geometry][:type]).to eq("LineString")
+      expect(polyline.to_geojson(polygon: false)[:geometry][:type]).to eq("LineString")
     end
 
     it "has correct amount of coordinates" do
-      expect(polyline.to_geojson(false)[:geometry][:coordinates].length).to eq(polyline.points.length)
+      expect(polyline.to_geojson(polygon: false)[:geometry][:coordinates].length).to eq(polyline.points.length)
     end
   end
 

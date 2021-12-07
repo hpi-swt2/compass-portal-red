@@ -9,7 +9,7 @@ class Polyline < ApplicationRecord
     points.map { |point| [point.x, point.y] }
   end
 
-  def to_geojson(polygon = true)
+  def to_geojson(polygon: true)
     raise "Polygon needs same start and end point." if polygon && points[0] != points[-1]
 
     {
