@@ -49,6 +49,7 @@ class HpiDataCollector
 
   def get_scraping_info(name, url)
     person = {}
+    person[:website] = @base_url + url
 
     document = get_html_document(url)
 
@@ -61,7 +62,7 @@ class HpiDataCollector
     # Page contains table
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
-      save_data(person, scraper, person_image_div)
+      collect(person, scraper, person_image_div)
 
     # Page contains multiple people
     elsif person_text_div.length > 1
@@ -69,20 +70,19 @@ class HpiDataCollector
 
       # Some pages have the peoples' names in h3 not in h2
       name_header ||= content.at("h3:contains('#{name}')")
-      multiple_people_site(person, person_text_div, name_header)
+      scrape_multiple_people_page(person, person_text_div, name_header)
 
     # Professor's page
     elsif @@professor_pages.include? url
       name_strong = content.at("strong:contains('#{name}')")
-      professor_site(person, person_text_div, person_image_div, name_strong)
+      scrape_professor_page(person, person_image_div, name_strong)
 
     # Page contains paragraphs
     else
       scraper = HpiParagraphScraper.new(person_text_div)
-      save_data(person, scraper, person_image_div)
+      collect(person, scraper, person_image_div)
     end
-
-    person[:website] = @base_url + url
+    
   end
 
   def get_html_document(url)
@@ -100,24 +100,24 @@ class HpiDataCollector
     document
   end
 
-  def multiple_people_site(person, person_text_div, name_header)
+  def scrape_multiple_people_page(person, person_text_div, name_header)
     if name_header
       person_text_div = name_header.parent.parent.parent
       person_image_div = person_text_div.previous
     end
 
     scraper = HpiParagraphScraper.new(person_text_div)
-    save_data(person, scraper, person_image_div)
+    collect(person, scraper, person_image_div)
   end
 
-  def professor_site(person, person_text_div, person_image_div, name_strong)
+  def scrape_professor_page(person, person_image_div, name_strong)
     person_text_div = name_strong.parent.parent if name_strong
 
     scraper = HpiParagraphScraper.new(person_text_div)
-    save_data(person, scraper, person_image_div)
+    collect(person, scraper, person_image_div)
   end
 
-  def save_data(person, scraper, person_image_div)
+  def collect(person, scraper, person_image_div)
     person_info = scraper.scrape
     person[:image] = scraper.download_image(person_image_div) if person_image_div
     person.merge(person_info)

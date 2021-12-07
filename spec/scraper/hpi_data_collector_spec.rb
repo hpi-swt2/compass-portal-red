@@ -35,7 +35,7 @@ RSpec.describe "HpiDataCollector", type: :feature do
     expect(person_data[:phone]).to eq '+49 (331) 5509-566'
     expect(person_data[:office]).to eq 'Campus II (Villa), V-2.18'
 
-    expect(person_data[:image]).to eq '/app/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
+    expect(person_data[:image]).to eq 'app/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
   end
 
   it "scrapes an HPI web page where people data is stored in an HTML paragraph" do
@@ -47,7 +47,7 @@ RSpec.describe "HpiDataCollector", type: :feature do
     expect(person_data[:phone]).to eq '+49-(0) 331 5509 - 4865 '
     expect(person_data[:office]).to eq 'F-1.06 '
 
-    expect(person_data[:image]).to eq '/app/assets/images/people/csm_HMarienwald_a0d164a1a3.jpg'
+    expect(person_data[:image]).to eq 'app/assets/images/people/csm_HMarienwald_a0d164a1a3.jpg'
   end
 
   it "scrapes an HPI web page where multiple people share the same page" do
@@ -59,7 +59,7 @@ RSpec.describe "HpiDataCollector", type: :feature do
     expect(person_data[:phone]).to eq '+49-(0)331 5509-120 '
     expect(person_data[:office]).to eq 'B-1.12 '
 
-    expect(person_data[:image]).to eq '/app/assets/images/people/Lisa_R%C3%BCppner_180x240.jpg'
+    expect(person_data[:image]).to eq 'app/assets/images/people/Lisa_R%C3%BCppner_180x240.jpg'
 
   end
 
