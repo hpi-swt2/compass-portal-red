@@ -21,6 +21,11 @@ RSpec.describe Building, type: :model do
     expect(rooms[0].building.id).to eq(building.id)
   end
 
+  it "can create a geojson containing the correct number of features" do
+    building = create :building
+    expect(building.to_geojson.length).to eq(6)
+  end
+
   describe "it should be valid" do
     it "when using the factory" do
       building = build :building
