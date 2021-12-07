@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="no-js">
+<head>
+
+<meta charset="utf-8">
+<!-- 
+	TYPO3: die_schnittsteller <http://www.schnittsteller.de>
+			Agentur für Interaktion und Kommunikation
+
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2021 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at https://typo3.org/
+-->
+
+<base href="https://hpi.de/">
+
+<title>Hannah Marienwald</title>
+<meta name="generator" content="TYPO3 CMS" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<meta name="twitter:card" content="summary" />
+
+
+<link rel="stylesheet" type="text/css" href="/typo3temp/assets/css/1a788a9a49.css?1582119707" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/ext_bibsonomy_csl/Resources/Public/Styles/tx_extbibsonomycsl.css?1634156850" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/webfont.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/lagecy/csc.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/bootstrap_hpi.css?1635773147" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/colorbox/colorbox.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/flowplayer/flowplayer.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/ext/tx_dscoverview.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/responsiveslides.css?1582106612" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/doubleclick_player/Resources/Public/Styles/doubleclickVideo.css?1609929133" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/yb_hpiutils/Resources/Public/css/googlesearch.css?1391695411" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/yb_videoplayer/Resources/Public/css/videoplayer.css?1555315197" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/hpi/css/we_cookie_consent/we_cookie_consent_style.css?1607511672" media="all">
+<link rel="stylesheet" type="text/css" href="/typo3conf/ext/ci_university/Resources/Public/Styles/university.css?1537427088" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/screen_microsite.css?1520425431" media="all">
+<link rel="stylesheet" type="text/css" href="/fileadmin/templates/css/screen_meinel.css?1418729639" media="all">
+
+
+
+
+<script src="/typo3conf/ext/ext_bibsonomy_csl/Resources/Public/Scripts/tx_extbibsonomycsl.js?1634156850" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/jquery-1.10.x-1.10.x.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/basic-jquery-slider.min.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/responsiveslides.min.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/yb_hpiutils/Resources/Public/js/googlesearchde.js?1391774674" type="text/javascript"></script>
+<script src="/typo3conf/ext/yb_videoplayer/Resources/Public/openhpi_player/es6/webcomponents-bundle.js?1525824061" type="text/javascript"></script>
+<script src="/typo3conf/ext/yb_videoplayer/Resources/Public/openhpi_player/es6/video-player.js?1555057384" type="text/javascript"></script>
+<script src="/typo3conf/ext/yb_videoplayer/Resources/Public/JS/yb_videoplayer.js?1585214780" type="text/javascript"></script>
+<script src="/fileadmin/templates/js/script_microsite.js?1418729641" type="text/javascript"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+/*_scriptCode*/
+
+			/* decrypt helper function */
+		function decryptCharcode(n,start,end,offset) {
+			n = n + offset;
+			if (offset > 0 && n > end) {
+				n = start + (n - end - 1);
+			} else if (offset < 0 && n < start) {
+				n = end - (start - n - 1);
+			}
+			return String.fromCharCode(n);
+		}
+			/* decrypt string */
+		function decryptString(enc,offset) {
+			var dec = "";
+			var len = enc.length;
+			for(var i=0; i < len; i++) {
+				var n = enc.charCodeAt(i);
+				if (n >= 0x2B && n <= 0x3A) {
+					dec += decryptCharcode(n,0x2B,0x3A,offset);	/* 0-9 . , - + / : */
+				} else if (n >= 0x40 && n <= 0x5A) {
+					dec += decryptCharcode(n,0x40,0x5A,offset);	/* A-Z @ */
+				} else if (n >= 0x61 && n <= 0x7A) {
+					dec += decryptCharcode(n,0x61,0x7A,offset);	/* a-z */
+				} else {
+					dec += enc.charAt(i);
+				}
+			}
+			return dec;
+		}
+			/* decrypt spam-protected emails */
+		function linkTo_UnCryptMailto(s) {
+			location.href = decryptString(s,-1);
+		}
+		
+
+/*]]>*/
+</script>
+
+
+
+		<!-- Global site tag (gtag.js) - Google Analytics --><script type="opt-in" data-type="text/javascript" data-name="google-analytics-2" data-src="https://www.googletagmanager.com/gtag/js?id=1"></script><script type="opt-in" data-type="text/javascript" data-name="google-analytics-2">
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '1', {anonymize_ip: true});
+    </script><script type="opt-in" data-type="text/javascript" data-name="matomo-1">
+        var _paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="https://hpi.de//";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', 1]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+	
+<link rel="stylesheet" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/screen.css" type="text/css" /><link rel="stylesheet" href="/typo3conf/ext/hpi_distribution/Resources/Public/Default/css/print.css" media="print" type="text/css" /><style type="text/css">      .bigheader div.inner {
+        background: linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 40%,#ffffff 80%);
+      }  
+</style><link rel="alternate" type="application/rss+xml" title="HPI Pressemitteilungen" href="https://hpi.de/rabl/home.html?type=200&feedid=4" /><link rel="alternate" type="application/rss+xml" title="HPI Neuigkeiten" href="https://hpi.de/rabl/home.html?type=200&feedid=5" /><link rel="alternate" type="application/rss+xml" title="News des Fachgebietes Informationssysteme" href="https://hpi.de/rabl/home.html?type=200&feedid=6" /><link rel="alternate" type="application/rss+xml" title="News der School of Design Thinking" href="https://hpi.de/rabl/home.html?type=200&feedid=7" /><link rel="alternate" type="application/rss+xml" title="News des Fachgebietes Algorithm Engineering" href="https://hpi.de/rabl/home.html?type=200&feedid=9" /><link rel="alternate" type="application/rss+xml" title="News des Fachgebietes Systemanalyse und Modellierung" href="https://hpi.de/rabl/home.html?type=200&feedid=10" /><link rel="alternate" type="application/rss+xml" title="News des Fachgebietes Knowledge Discovery and Data Mining" href="https://hpi.de/rabl/home.html?type=200&feedid=11" /><link rel="alternate" type="application/rss+xml" title="HPI Veranstaltungen" href="https://hpi.de/rabl/home.html?type=200&feedid=12" /><link rel="alternate" type="application/rss+xml" title="News des Fachgebiets Computergrafische Systeme" href="https://hpi.de/rabl/home.html?type=200&feedid=14" /><link rel="alternate" type="application/rss+xml" title="Test" href="https://hpi.de/rabl/home.html?type=200&feedid=16" />
+<link rel="alternate" hreflang="en-US" href="https://hpi.de/rabl/team/hannah-marienwald.html"/>
+<link rel="alternate" hreflang="en-US" href="https://hpi.de/en/rabl/team/hannah-marienwald.html"/>
+<link rel="alternate" hreflang="x-default" href="https://hpi.de/rabl/team/hannah-marienwald.html"/>
+
+<link rel="canonical" href="https://hpi.de/rabl/team/hannah-marienwald.html"/>
+
+
+</head>
+<body class="theme4  sub">
+
+<div class="pagebg"><img src="/fileadmin/user_upload/KayH20180504-_A3A0874.jpg" width="2000" height="1333"   alt="" ></div>
+
+<div class="headbg">
+    <div class="headtop">
+        <div class="smallheader headwrapper"><span class="h1"><a href="/rabl/home.html">Data Engineering Systems</a></span></div><div class="subsitebackhead"><div><span class="h1"><a href="http://www.hpi.de/" target="_blank"><img src="/fileadmin/templates/img/hpi_header_logo_neg_srgb.png" width="235" height="44"   alt="Hasso-Plattner-Institut" ></a></span><div id="social"><a href="https://www.facebook.com/HassoPlattnerInstitute" target="_blank" class="facebook"></a><a href="https://twitter.com/HPI_DE" target="_blank" class="twitter"></a><a href="https://www.instagram.com/hpi_de/" target="_blank" class="instagram"></a><a href="https://www.youtube.com/hpitv1" target="_blank" class="youtube"></a><span><a href="/medien/publikationen/rss-feeds.html" class="rss">&nbsp;</a></span><a href="https://de.linkedin.com/school/hasso-plattner-institute/" target="_blank" style="background-image: url('../typo3conf/ext/hpi_distribution/Resources/Public/Default/img/linkedin_website_24x24.png'); background-position: center; background-size: 100%;"></a></div></div></div>
+
+        <div class="bigheader">
+            <div class="inner">
+                <a href="/rabl/home.html"><img src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/img/hpi_logo_srgb_wb_sl1_web80.png" width="175" height="100"   alt="Hasso-Plattner-Institut" ></a><div class="professorname">Prof. Dr. Tilmann Rabl</div><div class="clearer"></div>
+                <div id="bottom_stuff">
+                    <div id="social"><a href="https://www.facebook.com/HassoPlattnerInstitute" target="_blank" class="facebook"></a><a href="https://twitter.com/HPI_DE" target="_blank" class="twitter"></a><a href="https://www.instagram.com/hpi_de/" target="_blank" class="instagram"></a><a href="https://www.youtube.com/hpitv1" target="_blank" class="youtube"></a><span><a href="/medien/publikationen/rss-feeds.html" class="rss">&nbsp;</a></span><a href="https://de.linkedin.com/school/hasso-plattner-institute/" target="_blank" style="background-image: url('../typo3conf/ext/hpi_distribution/Resources/Public/Default/img/linkedin_website_24x24.png'); background-position: center; background-size: 100%;"></a></div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="navbar-header">
+            <button class="navbar-toggle" id="menu" type="button" data-toggle="collapse" data-target="#head_bottom">
+                Navigation aufklappen/zuklappen
+            </button>
+        </div>
+    </div>
+
+    <div class="headbottom">
+        <div class="hideSubmenuMouseOver">&nbsp;</div>
+        <div id="head_bottom" class="collapse navbar-collapse">
+            <ul id="site_nav" class="site_nav"><li><a href="/rabl/home.html" class="theme2">Home</a></li><li><a href="/rabl/teaching.html" class="theme3">Teaching</a></li><li class="active"><a href="/rabl/team.html" class="theme4">Team</a></li><li><a href="/rabl/publications.html" class="theme1">Publications</a></li><li><a href="/rabl/projects.html" class="theme5">Projects</a></li><li><a href="/rabl/all-news.html" class="theme2">All News</a></li><li class="search"><form action="suche.html"><input type="text" placeholder="Suchbegriff" name="q"><button class="btn btn-default btn-xs">Suchen</button></form></li></ul><ul class="lang_switcher"><li><span>de</span></li><li><span><a href="/en/rabl/team/hannah-marienwald.html">en</a></span></li></ul>
+        </div>
+    </div>
+</div>
+
+<!-- Being submenus -->
+<div class="submenu theme2 "><div class="clearfix"><div><p>Teaser Text</p></div><div class="subsubmenu"></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div><div class="submenu theme3 "><div class="clearfix"><div><p></p></div><div class="submenuli"><ul><li data-uid="116912"><a href="/rabl/teaching/winter-term-2021-2022.html">Current Courses</a></li><li data-uid="116913"><a href="/rabl/teaching/course-archive.html">Course Archive</a></li><li data-uid="116925"><a href="/rabl/teaching/master-theses/general-theses-information.html">Master Theses</a></li><li data-uid="116965"><a href="/rabl/teaching/master-projects.html">Master Projects</a></li><li data-uid="116915"><a href="/rabl/teaching/bachelor-projects.html">Bachelor Projects</a></li></ul></div><div class="subsubmenu"><div data-uid="116912"></div><div data-uid="116913"></div><div data-uid="116925"><ul><li><a href="/rabl/teaching/master-theses/general-theses-information.html">General theses information</a></li><li><a href="/rabl/teaching/master-theses/ongoing-masters-theses.html">Ongoing master's theses</a></li><li><a href="/rabl/teaching/master-theses/completed-masters-theses.html">Completed master's theses</a></li></ul></div><div data-uid="116965"></div><div data-uid="116915"></div></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div><div class="submenu theme4 "><div class="clearfix"><div><p></p></div><div class="submenuli"><ul><li data-uid="117270"><a href="/rabl/team/all-people.html">All People</a></li><li data-uid="116898"><a href="/rabl/team/prof-dr-tilmann-rabl.html">Prof. Dr. Tilmann Rabl</a></li><li data-uid="131794"><a href="/rabl/team/anna-zobel.html">Anna Zobel</a></li><li data-uid="116918"><a href="/rabl/team/diana-stephan.html">Diana Stephan</a></li><li data-uid="117708"><a href="/rabl/team/lawrence-benson.html">Lawrence Benson</a></li><li data-uid="128865"><a href="/rabl/team/hannah-marienwald.html">Hannah Marienwald</a></li><li data-uid="129680"><a href="/rabl/team/rafael-moczalla.html">Rafael Moczalla</a></li><li data-uid="131684"><a href="/rabl/team/nils-strassenburg.html">Nils Straßenburg</a></li><li data-uid="127806"><a href="/rabl/team/ilin-tolovski.html">Ilin Tolovski</a></li><li data-uid="117872"><a href="/rabl/team/wang-yue.html">Wang Yue</a></li><li data-uid="131265"><a href="/rabl/team/moritz-manner.html">Moritz Manner</a></li><li data-uid="129662"><a href="/rabl/team/alumni.html">Alumni</a></li><li data-uid="116911"><a href="/rabl/team/open-positions.html">Open positions</a></li></ul></div><div class="subsubmenu"><div data-uid="117270"></div><div data-uid="116898"></div><div data-uid="131794"></div><div data-uid="116918"></div><div data-uid="117708"></div><div data-uid="128865"></div><div data-uid="129680"></div><div data-uid="131684"></div><div data-uid="127806"></div><div data-uid="117872"></div><div data-uid="131265"></div><div data-uid="129662"><ul><li><a href="/rabl/team/alumni/paula-marten.html">Paula Marten</a></li><li><a href="/rabl/team/alumni/lars-jonas-bollmeier.html">Lars Jonas Bollmeier</a></li><li><a href="/rabl/team/alumni/maximilian-boether.html">Maximilian Böther</a></li><li><a href="/rabl/team/alumni/nina-ihde.html">Nina Ihde</a></li><li><a href="/rabl/team/alumni/leon-papke.html">Leon Papke</a></li><li><a href="/rabl/team/alumni/dr-pedro-silva.html">Dr. Pedro Silva</a></li></ul></div><div data-uid="116911"><ul><li><a href="/rabl/team/open-positions/phd-positions.html">PhD Positions</a></li></ul></div></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div><div class="submenu theme1 "><div class="clearfix"><div><p></p></div><div class="subsubmenu"></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div><div class="submenu theme5 "><div class="clearfix"><div><p></p></div><div class="subsubmenu"></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div><div class="submenu theme2 "><div class="clearfix"><div><p></p></div><div class="subsubmenu"></div></div><div class="closeX">schließen<a href="#0" class="close" data-toggle="tooltip" data-placement="top" title="schließen"></a></div></div>
+<!-- END menus -->
+
+
+        <div class="container">
+            
+            <div id="content"><div class="breadcrumbOuter"><ol class="breadcrumb"><li><a href="/rabl/home.html" title="Rabl">HOME</a></li><li>&nbsp;&gt;&nbsp;<a href="/rabl/team.html" title="Team">Team</a></li><li>&nbsp;&gt;&nbsp;Hannah Marienwald</li></ol></div>
+
+<div class="wrapper-8 teaser"><div class="col-md-8"><div class="csc-frame csc-frame-default " ><a id="c205784"></a><div class="csc-textpic csc-textpic-intext-left "><div class="csc-textpic-imagewrap" data-csc-cols="1" data-csc-images="1"><div class="csc-textpic-imagerow"><div class="csc-textpic-imagecolumn csc-textpic-firstcol csc-textpic-lastcol"><figure class="csc-textpic-image"><img src="/fileadmin/_processed_/c/6/csm_HMarienwald_a0d164a1a3.jpg" width="150" height="147" alt="" /></figure></div></div></div><div class="csc-textpic-text"><h2>Hannah Marienwald</h2><p><strong>Ph.D. Student</strong><br> Room: F-1.06<br> Phone: +49-(0) 331 5509 - 4865<br> E-Mail: <a href="javascript:linkTo_UnCryptMailto(%27nbjmup%2BIboobi%5C%2FNbsjfoxbmeAiqj%5C%2Fef%27);" class="mail">Hannah.Marienwald(at)hpi.de</a></p><p><a href="/rabl/team/hannah-marienwald.html" class="internal">Full profile</a></p></div></div></div></div></div>
+
+<div class="clearer"></div></div>
+            <div class="wrapper-4 teaser sidebar"><div class="col-md-4">
+
+<div class="csc-frame csc-frame-default " ><a id="c192275"></a><header><h1 class="">
+				Chair
+			</h1></header><div class="csc-textpic-text"><p><strong>Prof. Dr. Tilmann Rabl</strong><br> Data Engineering Systems<br> Room: F-1.03<br> E-Mail: <a href="javascript:linkTo_UnCryptMailto(%27nbjmup%2Bujmnboo%5C%2FsbcmAiqj%5C%2Fef%27);" class="mail">tilmann.rabl(at)hpi.de</a></p><p>&nbsp;</p><p><strong>Administrative Assistant: Anna Zobel</strong><br> Office: Campus II, Building F, Room F-2.01<br> Tel.: +49-(0)331 5509-280<br> Fax: +49-(0)331 5509-287<br> E-Mail: office-rabl(at)hpi.de</p></div></div>
+
+</div><div class="col-md-4">
+
+<div class="csc-frame csc-frame-default " ><a id="c192421"></a><header><h1 class="">
+				Open Positions
+			</h1></header><div class="csc-textpic csc-textpic-left "><div class="csc-textpic-text"><h3><a href="/rabl/team/open-positions.html" class="internal">Fully-funded PhD positions</a></h3><p>&nbsp;</p></div></div></div>
+
+</div><div class="col-md-4">
+
+<div class="csc-frame csc-frame-default " ><a id="c192278"></a><header><h1 class=""><a href="/rabl/all-news.html">News</a></h1></header><h2><a href="/rabl/news/2021/vision-paper-darwin-scale-in-stream-processing-accepted-at-cidr-22.html">
+                01.11.2021
+                | <b>Vision Paper &quot;Darwin: Scale-In Stream Processing&quot; accepted at CIDR &#039;22</b></a></h2><p><a href="/rabl/news/2021/vision-paper-darwin-scale-in-stream-processing-accepted-at-cidr-22.html">&gt;
+                Zum Artikel
+            </a></p><h2><a href="/rabl/news/2021/data-engineering-systems-at-vldb-2021.html">
+                01.09.2021
+                | <b>Data Engineering Systems at VLDB 2021</b></a></h2><p><a href="/rabl/news/2021/data-engineering-systems-at-vldb-2021.html">&gt;
+                Zum Artikel
+            </a></p><h2><a href="/rabl/news/2021/reproducibility-badge-awarded-to-sigmod-2020-paper.html">
+                16.06.2021
+                | <b>Reproducibility Badge awarded to SIGMOD 2020 Paper</b></a></h2><p><a href="/rabl/news/2021/reproducibility-badge-awarded-to-sigmod-2020-paper.html">&gt;
+                Zum Artikel
+            </a></p><h2><a href="/rabl/news/2021/pmem-vs-nvme-database-performance-paper-accepted-at-damon-21.html">
+                04.05.2021
+                | <b>PMem vs. NVMe Database Performance Paper accepted at DaMoN &#039;21</b></a></h2><p><a href="/rabl/news/2021/pmem-vs-nvme-database-performance-paper-accepted-at-damon-21.html">&gt;
+                Zum Artikel
+            </a></p><h2><a href="/rabl/news/2020/icde-2021-best-paper-award-congratulations.html">
+                22.04.2021
+                | <b>ICDE 2021 Best Paper Award - Congratulations!</b></a></h2><p><a href="/rabl/news/2020/icde-2021-best-paper-award-congratulations.html">&gt;
+                Zum Artikel
+            </a></p></div>
+
+</div><div class="col-md-4">
+
+<div class="csc-frame csc-frame-default " ><a id="c192420"></a><header><h1 class="">
+				Directions
+			</h1></header><div class="csc-textpic csc-textpic-center "><div class="csc-textpic-text"><p>Hasso Plattner Institute<br> Campus II, Building F, 1st Floor<br> August-Bebel-Str. 88<br> 14482 Potsdam</p><p><strong>To visit us, please see these <a href="/fileadmin/user_upload/fachgebiete/rabl/Logos_Misc/Direction_HouseF_1stFloor.pdf" class="download">directions</a>.</strong></p><p><strong><a href="/fileadmin/user_upload/fachgebiete/rabl/Logos_Misc/campusplan_update.PNG" class="download"><strong><img src="/fileadmin/_processed_/a/d/csm_campusplan_update_6109297f3c.png" width="374" height="236"></strong></a></strong></p></div></div></div>
+
+</div></div>
+            
+        </div>
+    
+
+<footer>
+    <div class="container">
+        <div><ul class="footer-links"><li>Copyright Hasso-Plattner-Institut 2021</li><li><a href="/en/imprint.html"><span>Impressum</span></a></li><li><a href="/en/data-privacy.html"><span>Datenschutz</span></a></li><li><a href="/en/contact.html"><span>Kontakt</span></a></li><li><a href="/en/search.html"><span>Suche</span></a></li><li><a href="/en/sitemap.html"><span>Sitemap</span></a></li></ul></div>
+    </div>
+</footer>
+
+<div class="tx-we-cookie-consent">
+    
+		
+	
+</div>
+
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/jquery.colorbox-min.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/tab.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/carousel.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/collapse.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/dropdown.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/transition.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/tooltip.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/hpi.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/jquery.mobile.custom.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/jquery.menu-aim.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/anchorScroll.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/flowplayer/flowplayer.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/js/script.js?1582106612" type="text/javascript"></script>
+<script src="/typo3conf/ext/doubleclick_player/Resources/Public/Scripts/doubleclickVideo.js?1568879186" type="text/javascript"></script>
+
+
+
+		<script type="text/javascript" src="/typo3conf/ext/we_cookie_consent/Resources/Public/JavaScript/Controller/ConsentController.js"></script><script type="text/javascript">var klaroConfig = {"elementID":"klaro","storageMethod":"cookie","cookieName":"hpi_klaro","cookieExpiresAfterDays":"365","privacyPolicy":"https:\/\/hpi.de\/datenschutz.html","default":false,"mustConsent":false,"hideDeclineAll":true,"hideLearnMore":false,"lang":"en","poweredBy":"https:\/\/consent.websedit.de","translations":{"en":{"consentModal":{"title":"Datenschutzeinstellungen","description":"Sie k\u00f6nnen nachfolgend Ihre Datenschutzeinstellungen festlegen.","privacyPolicy":{"text":"Detaillierte Informationen und wie Sie Ihre Einwilligung jederzeit widerrufen k\u00f6nnen, finden Sie in unserer {privacyPolicy}.","name":"Datenschutzerkl\u00e4rung"}},"consentNotice":{"description":"Um unsere Webseiten f\u00fcr Sie optimal zu gestalten und fortlaufend zu verbessern, verwenden wir Cookies. Durch Best\u00e4tigen des Buttons \u201eCookies akzeptieren\" stimmen Sie der Verwendung zu. \u00dcber den Button \u201eEinstellungen bearbeiten\" k\u00f6nnen Sie ausw\u00e4hlen, welche Cookies Sie zulassen wollen. Einige davon sind essenziell, andere helfen uns dabei, diese Website und Ihre Erfahrung zu optimieren. Sie k\u00f6nnen Ihre Einwilligung jederzeit widerrufen und Cookies deaktivieren. Weitere Informationen erhalten Sie in unserer [privacyPage].","changeDescription":"Seit Ihrem letzten Besuch gab es \u00c4nderungen an den Datenschutzeinstellungen. Bitte aktualisieren Sie Ihre Einstellungen.","learnMore":"Einstellungen bearbeiten","title":"Diese Webseite verwendet Cookies","subtitle":"Ihre Zustimmung k\u00f6nnen Sie jederzeit widerrufen."},"app":{"disableAll":{"title":"Alle akzeptieren","description":"Sie haben jederzeit das Recht Ihre Einwilligungen einzeln oder in G\u00e4nze zu widerrufen. Werden Einwilligungen zur Datenverarbeitung widerrufen, sind die bis zum Widerruf rechtm\u00e4\u00dfig erhobenen Daten vom Anbieter weiterhin verarbeitbar."},"optOut":{"title":"(Opt-Out)1","description":"Diese Anwendung wird standardm\u00e4\u00dfig geladen (aber Sie k\u00f6nnen sie deaktivieren)"},"required":{"title":"(immer notwendig)","description":"Diese Anwendung wird immer ben\u00f6tigt"},"purpose":"Zweck","purposes":"Zwecke"},"purposes":{"unknown":"Nicht zugeordnet"},"ok":"Cookies akzeptieren","save":"Einstellungen speichern","acceptSelected":"Einstellungen speichern","decline":"Ablehnen","close":"Schlie\u00dfen","poweredBy":"Bereitgestellt von websedit"}},"apps":[]}</script><script type="text/javascript">
+    klaroConfig.apps.push({
+        name: 'other-3',
+        title: 'Technisch notwendige Cookies',
+        description: 'Cookies dieser Kategorie sind für die Grundfunktionen der Webseite erforderlich. Sie dienen der sicheren und einwandfreien Nutzung und können daher nicht deaktiviert werden.',
+        default: true,
+        defaultIfNoConsent: true,
+        required: true,
+        optOut: false,
+        purposes: [],
+        cookies: [['hpi_klaro', '/', ''], ['piwik_ignore', '/', ''], ['MATOMO_SESSID', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.apps.push({
+        name: 'google-analytics-2',
+        title: 'Marketing',
+        description: 'Cookies dieser Kategorie werden von Drittanbietern und Publishern verwendet, um personalisierte Anzeigen und Inhalte anzuzeigen, die zu Ihren Bedürfnissen passen. Sie tun dies, indem sie Besucher über Websites hinweg verfolgen.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        purposes: [],
+        cookies: [['1P_JAR', '/', ''], ['NID', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript">
+    klaroConfig.apps.push({
+        name: 'matomo-1',
+        title: 'Nutzungsanalyse',
+        description: 'Cookies dieser Kategorie dienen der anonymen Webanalyse und damit der Optimierung unseres Webauftritts für die User. Dazu nutzen wir den Webanalysedienst Matomo. Es ist für uns zu keinem Zeitpunkt möglich, auf einzelne Personen zurückzuschließen.',
+        default: false,
+        defaultIfNoConsent: true,
+        required: false,
+        optOut: false,
+        purposes: [],
+        cookies: [['_pk_id', '/', ''], ['_pk_ses', '/', '']],
+        callback: ConsentApp.consentChanged,
+        ownCallback:'',
+        gtm:{trigger:'',variable:''}
+    });
+</script><script type="text/javascript" src="/typo3conf/ext/we_cookie_consent/Resources/Public/Library/klaro/klaro.js" data-style-prefix="klaro we_cookie_consent"></script>
+	
+<!-- No Piwik-Tracking code, because you're logged in as BEUser -->		<script type="text/javascript">
+			var tx_dscclipclap_conf = {
+				'animationEffect': 'slide',
+				'animationSpeed': 'normal',
+				'collapseAll': 0
+			};
+var noJQueryMessage = '';		</script>
+		<script src="/typo3conf/ext/hpi_distribution/Resources/Public/Default/Ext/dsc_clipclap/ext_dscclipclap.js" type="text/javascript"></script>
+
+</body>
+</html>

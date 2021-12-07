@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_105448) do
+ActiveRecord::Schema.define(version: 2021_11_23_131100) do
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "title"
+    t.string "email"
+    t.string "phone"
+    t.string "office"
+    t.string "website"
+    t.string "image"
+    t.string "chair"
+    t.string "office_hours"
+    t.string "telegram_handle"
+    t.string "knowledge"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+ActiveRecord::Schema.define(version: 2021_11_30_185202) do
+
+  create_table "person_urls", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

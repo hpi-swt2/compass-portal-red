@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @person.name %>
+</p>
+
+<p>
+  <strong>Surname:</strong>
+  <%= @person.surname %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @person.title %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @person.phone %>
+</p>
+
+<p>
+  <strong>Office:</strong>
+  <%= @person.office %>
+</p>
+
+<p>
+  <strong>Website:</strong>
+  <%= @person.website %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @person.image %>
+</p>
+
+<p>
+  <strong>Chair:</strong>
+  <%= @person.chair %>
+</p>
+
+<p>
+  <strong>Office hours:</strong>
+  <%= @person.office_hours %>
+</p>
+
+<p>
+  <strong>Telegram handle:</strong>
+  <%= @person.telegram_handle %>
+</p>
+
+<p>
+  <strong>Knowledge:</strong>
+  <%= @person.knowledge %>
+</p>
+
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>

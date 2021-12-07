@@ -69,3 +69,6 @@ yarn-debug.log*
 
 # Node modules
 node_modules
+
+# Images
+app/assets/images/people/*
