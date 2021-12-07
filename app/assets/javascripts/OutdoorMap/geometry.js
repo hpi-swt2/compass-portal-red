@@ -1000,9 +1000,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Hörsaalgebäude",
+          "name":"Lecture hall",
           "campus":"Campus I",
-          "offset": [0, 0]
+          "offset": [-45, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1061,7 +1061,7 @@ let buildings = JSON.parse(`[
        "properties":{
           "name":"Villa",
           "campus":"Campus II",
-          "offset": [0, 0]
+          "offset": [-15, -3]
        },
        "geometry":{
           "type":"Polygon",
@@ -1325,9 +1325,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Hauptgebäude",
+          "name":"main<br>building",
           "campus":"Campus I",
-          "offset": [0, 0]
+          "offset": [3, -30]
        },
        "geometry":{
           "type":"Polygon",
@@ -1452,9 +1452,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"",
+          "name":"Building D",
           "campus":"Campus II",
-          "offset": [0, 0]
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1491,9 +1491,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus G",
+          "name":"Building G",
           "campus":"Campus III",
-          "offset": [0, 0]
+          "offset": [-35, 5]
        },
        "geometry":{
           "type":"Polygon",
@@ -1610,9 +1610,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus E",
+          "name":"Building E",
           "campus":"Campus II",
-          "offset": [0, 0]
+          "offset": [-15, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1764,9 +1764,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus F",
+          "name":"Building F",
           "campus":"Campus II",
-          "offset": [0, 0]
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2202,9 +2202,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus C",
+          "name":"Building C",
           "campus":"Campus I",
-          "offset": [0, 0]
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2273,9 +2273,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus B",
+          "name":"Building B",
           "campus":"Campus I",
-          "offset": [0, 0]
+          "offset": [-38, -5]
        },
        "geometry":{
           "type":"Polygon",
@@ -2340,9 +2340,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus A",
+          "name":"Building A",
           "campus":"Campus I",
-          "offset": [0, 0]
+          "offset": [-36, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2415,5 +2415,40 @@ let buildings = JSON.parse(`[
              ]
           ]
        }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+              "name":"Building J",
+               "campus":"Campus I",
+               "offset":[-35,0]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.118866682052612,
+              52.38422765152492
+            ],
+            [
+              13.119145631790161,
+              52.38415234385835
+            ],
+            [
+              13.119328022003172,
+              52.3847580757983
+            ],
+            [
+              13.119038343429564,
+              52.38477117261334
+            ],
+            [
+              13.118866682052612,
+              52.38422765152492
+            ]
+          ]
+        ]
+      }
     }
  ]`)

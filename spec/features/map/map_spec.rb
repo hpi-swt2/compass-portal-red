@@ -7,6 +7,6 @@ describe "map page", type: :feature do
 
   it "should have a leaflet div" do
     visit map_path
-	expect(page).to have_css 'div.leaflet'	
+	  expect(page).to have_css 'div.leaflet'
   end
 end
