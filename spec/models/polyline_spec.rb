@@ -32,20 +32,20 @@ RSpec.describe Polyline, type: :model do
     end
   end
 
-  describe "it should be valid" do
-    it "when using the factory" do
+  context "with valid arguments" do
+    it "is valid with factory" do
       polyline = build :polyline, points: points
       expect(polyline).to be_valid
       expect(polyline.points).to eq(points)
     end
 
-    it "when created" do
+    it "is valid with persistence" do
       polyline = create :polyline, points: points
       expect(polyline).to be_valid
       expect(polyline.points).to eq(points)
     end
 
-    it "when created with the constructor" do
+    it "is valid with constructor" do
       polyline = described_class.new(points: points)
       expect(polyline).to be_valid
       expect(polyline.points).to eq(points)
@@ -83,7 +83,6 @@ RSpec.describe Polyline, type: :model do
       db_polyline = described_class.find(polyline.id)
 
       expect(db_polyline.points.size).to eq(points.size + 1)
-      expect(db_polyline.points[points.size].id).to eq(point1.id)
     end
   end
 end

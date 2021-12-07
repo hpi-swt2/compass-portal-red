@@ -28,24 +28,25 @@ RSpec.describe Wall, type: :model do
     end
   end
 
-  describe "it should be valid" do
-
-    it "when using the factory" do
+  context "with valid arguments" do
+    it "is valid when using the factory" do
       wall = build :wall
       expect(wall).to be_valid
     end
 
-    it "when created" do
+    it "is valid with persistence" do
       wall = create :wall
       expect(wall).to be_valid
     end
 
-    it "when using the constructor" do
+    it "is valid when using the constructor" do
       wall = described_class.new(polyline: polyline)
       expect(wall).to be_valid
     end
+  end
 
-    it "unless there is no polyline" do
+  context "with invalid arguments" do
+    it "is valid unless there is no polyline" do
       wall = build :wall
       wall.polyline = nil
       expect(wall).not_to be_valid

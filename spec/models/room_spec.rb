@@ -38,14 +38,14 @@ RSpec.describe Room, type: :model do
     end
   end
 
-  describe "should be valid" do
+  describe "validation" do
     let(:point_of_interest) { create :point_of_interest, point: point1 }
     let(:outer_shape) do
       create :polyline,
              points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
     end
 
-    shared_examples "with" do
+    shared_examples "room with corresponding argument" do
       it "wall" do
         expect(room.walls).to eq([])
       end
@@ -58,7 +58,7 @@ RSpec.describe Room, type: :model do
         expect(room.outer_shape).to eq(outer_shape)
       end
 
-      it "validation passed" do
+      it "valid" do
         expect(room).to be_valid
       end
 
@@ -80,10 +80,10 @@ RSpec.describe Room, type: :model do
               walls: []
       end
 
-      it_behaves_like "with"
+      it_behaves_like "room with corresponding argument"
     end
 
-    context "when created" do
+    context "when persisted" do
       let(:room) do
         create :room,
                outer_shape: outer_shape,
@@ -91,7 +91,7 @@ RSpec.describe Room, type: :model do
                walls: []
       end
 
-      it_behaves_like "with"
+      it_behaves_like "room with corresponding argument"
 
       it "even without a building" do
         room.building = nil
@@ -101,6 +101,19 @@ RSpec.describe Room, type: :model do
       it "unless there is no outer shape" do
         room.outer_shape = nil
         expect(room).not_to be_valid
+      end
+
+      it "restricts to delete outer shape" do
+        outer_shape = Polyline.find(room.outer_shape.id)
+        expect { outer_shape.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+      end
+
+      it "allows to delete wall" do
+        wall = build :wall
+        room.walls.push(wall)
+        room.save!
+
+        expect { wall.destroy }.not_to raise_error
       end
     end
   end
