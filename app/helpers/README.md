@@ -15,6 +15,6 @@
 
 ### Importing
 - Place your .csv file in app/assets/data
-- Import the building by adding the path to the file in the `import_rooms.rb` and running the script with `rails runner app/helpers/import_rooms.rb`
+- Import the building by changing the path in `import_rooms.rb` to your csv file's path and running the script with `rails runner app/helpers/import_rooms.rb`
 - If you only want to import the already labeled building (importBuilding1.csv) you don't need to change anything and can just run `import_rooms.rb`
-- With the import script you can only import one building floor at a time
+- With the import script you can only import one building floor at a time (which must be labeled in one csv file)
