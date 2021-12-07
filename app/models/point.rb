@@ -4,4 +4,8 @@ class Point < ApplicationRecord
 
   has_many :point_of_interests, dependent: :destroy
   has_and_belongs_to_many :polylines
+
+  def ==(other)
+    x == other.x and y == other.y
+  end
 end

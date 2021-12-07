@@ -5,13 +5,24 @@ class Polyline < ApplicationRecord
   has_many :walls
   has_many :rooms
 
-  def to_geojson
-    {
-      type: "Feature",
-      geometry: {
-        type: "LineString",
-        coordinates: points.map { |point| [point.x, point.y] }
+  def to_geojson(polygon=true)
+    if polygon
+      raise "Polygon needs same start and end point." unless points[0] == points[-1]
+      {
+        type: "Feature",
+        geometry: {
+          type: "Polygon",
+          coordinates: [points.map { |point| [point.x, point.y] } ]
+        }
       }
-    }
+    else
+      {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: points.map { |point| [point.x, point.y] }
+        }
+      }
+    end
   end
 end
