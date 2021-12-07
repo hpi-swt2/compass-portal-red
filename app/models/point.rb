@@ -1,3 +1,4 @@
+# Point has horizontal and vertical position (x,y) on a map
 class Point < ApplicationRecord
   validates :x, presence: true
   validates :y, presence: true

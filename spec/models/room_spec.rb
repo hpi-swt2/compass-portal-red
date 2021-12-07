@@ -105,7 +105,7 @@ RSpec.describe Room, type: :model do
 
       it "restricts to delete outer shape" do
         outer_shape = Polyline.find(room.outer_shape.id)
-        expect { outer_shape.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+        expect { outer_shape.delete }.to raise_error(ActiveRecord::InvalidForeignKey)
       end
 
       it "allows to delete wall" do
@@ -113,7 +113,7 @@ RSpec.describe Room, type: :model do
         room.walls.push(wall)
         room.save!
 
-        expect { wall.destroy }.not_to raise_error
+        expect { wall.delete }.not_to raise_error
       end
     end
   end
