@@ -1,6 +1,3 @@
-#   This code is ugly but it tries its best and fulfils its purpose.
-#   Please keep that in mind when trying to understand it.
-
 require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
@@ -9,18 +6,32 @@ class HpiParagraphScraper < HpiWebScraper
   def scrape
     item = {}
 
-    item[:email] = @html.at_css('.mail')&.text
-
     p_tags = @html.css('p')
     p_tags.each do |p|
-      # Converting each <br> to line breaks as p.text ignores <br> and inserts no whitespaces
+      # Converting each <br> to delimiter as p.text ignores <br> and inserts no whitespaces
       p.css('br').each do |node|
         node.replace(Nokogiri::XML::Text.new("\n#{@@delimiter}\n", p))
       end
+    end
+
+    item[:phone] = scrape_phone(p_tags, item)
+    item[:office] = scrape_office(p_tags, item)
+    
+    # Check the whole document for a `.mail` tag
+    item[:email] = @html.at_css('.mail')&.text
+    # In case '.mail' class does not exist on the whole web page
+    item[:email] = scrape_mail(p_tags, item) if item[:email] == ''
+
+    item
+  end
+
+  private
+
+  def scrape_phone(p_tags, item)
+    p_tags.each do |p|
 
       split_p = p.text.split(/[[:space:]]/)
 
-      # Phone
       phone_words_intersection = split_p & @@phone_words # Check if one of those words is in split_p
       if phone_words_intersection.any?
         index = split_p.find_index(phone_words_intersection[0]) # Get the index of the first of those words
@@ -38,8 +49,16 @@ class HpiParagraphScraper < HpiWebScraper
 
         item[:phone] = phone_number
       end
+    end
 
-      # Office
+    item[:phone]
+  end
+
+  def scrape_office(p_tags, item)
+    p_tags.each do |p|
+
+      split_p = p.text.split(/[[:space:]]/)
+
       office_words_intersection = split_p & @@office_words
       if office_words_intersection.any?
         index = split_p.find_index(office_words_intersection[0])
@@ -54,10 +73,16 @@ class HpiParagraphScraper < HpiWebScraper
         item[:office] = office
       end
 
-      # Email
-      next unless item[:email] == ''
+    end
 
-      # Pages that have their email not in a .mail class
+    item[:office]
+  end
+
+  def scrape_mail(p_tags, item)
+    p_tags.each do |p|
+
+      split_p = p.text.split(/[[:space:]]/)
+      
       email_words_intersection = split_p & @@email_words
       next unless email_words_intersection.any?
 
@@ -72,6 +97,7 @@ class HpiParagraphScraper < HpiWebScraper
       end
     end
 
-    item
+    item[:email]
   end
+
 end

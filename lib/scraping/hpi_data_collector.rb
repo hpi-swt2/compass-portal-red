@@ -87,6 +87,8 @@ class HpiDataCollector
     
   end
 
+  private
+  
   def get_html_document(url)
     document = ''
 

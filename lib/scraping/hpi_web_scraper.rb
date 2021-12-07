@@ -29,6 +29,8 @@ class HpiWebScraper
     get_image_file_path_and_save(img_src)
   end
 
+  private
+  
   def get_image_file_path_and_save(img_src)
     # Get the file name without complete file path
     index = img_src.rindex("/")
