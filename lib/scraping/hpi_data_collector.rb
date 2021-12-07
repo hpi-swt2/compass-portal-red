@@ -48,6 +48,7 @@ class HpiDataCollector
   end
 
   def get_scraping_info(name, url)
+    puts "Scraping #{name} @ #{url}"
     person = {}
     person[:website] = @base_url + url
 
@@ -74,8 +75,9 @@ class HpiDataCollector
 
     # Professor's page
     elsif @@professor_pages.include? url
+      # Some pages have professor name written bold, which lets us limit the person_text_div to it.
       name_strong = content.at("strong:contains('#{name}')")
-      scrape_professor_page(person, person_image_div, name_strong)
+      scrape_professor_page(person, person_image_div, person_text_div, name_strong)
 
     # Page contains paragraphs
     else
@@ -110,7 +112,7 @@ class HpiDataCollector
     collect(person, scraper, person_image_div)
   end
 
-  def scrape_professor_page(person, person_image_div, name_strong)
+  def scrape_professor_page(person, person_image_div, person_text_div, name_strong)
     person_text_div = name_strong.parent.parent if name_strong
 
     scraper = HpiParagraphScraper.new(person_text_div)
