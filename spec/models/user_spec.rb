@@ -16,4 +16,10 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  it "has a person relation" do
+    person = FactoryBot.create :person
+    user.person = person
+    expect(user.person.id).to eq(person.id)
+  end
 end
