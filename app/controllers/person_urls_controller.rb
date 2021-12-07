@@ -22,7 +22,6 @@ class PersonUrlsController < ApplicationController
 
   # POST /person_urls or /person_urls.json
   def create
-    # @person_url = PersonUrl.new(person_url_params)
     PersonUrl.delete_all
     begin
       PersonUrl.transaction do
