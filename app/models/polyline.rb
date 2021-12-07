@@ -5,9 +5,10 @@ class Polyline < ApplicationRecord
   has_many :walls
   has_many :rooms
 
-  def to_geojson(polygon=true)
+  def to_geojson(polygon = true)
     if polygon
       raise "Polygon needs same start and end point." unless points[0] == points[-1]
+
       {
         type: "Feature",
         geometry: {

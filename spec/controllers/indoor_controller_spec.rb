@@ -12,12 +12,12 @@ RSpec.describe IndoorController, type: :controller do
     end
 
     it "responds with valid JSON body" do
-        expect { JSON.parse(response.body).with_indifferent_access }.not_to raise_exception
-      end 
+      expect { JSON.parse(response.body).with_indifferent_access }.not_to raise_exception
+    end
 
     context "when responding with valid JSON body" do
       let(:body) { JSON.parse(response.body).with_indifferent_access }
-    
+
       it "contains correct attributes" do
         expect(body.keys).to match_array(%w[type features])
       end

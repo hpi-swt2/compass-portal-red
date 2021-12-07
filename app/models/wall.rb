@@ -13,6 +13,6 @@ class Wall < ApplicationRecord
   has_and_belongs_to_many :points
 
   def to_geojson
-    polyline.to_geojson(polygon=false).merge({ properties: { class: "wall" } })
+    polyline.to_geojson(false).merge({ properties: { class: "wall" } })
   end
 end
