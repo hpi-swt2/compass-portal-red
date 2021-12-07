@@ -1,7 +1,7 @@
 #   If you think this code is ugly try looking at hpi_paragraph_scraper.rb!
-require_relative 'scraping_exception.rb'
-require_relative 'hpi_table_scraper.rb'
-require_relative 'hpi_paragraph_scraper.rb'
+require_relative 'scraping_exception'
+require_relative 'hpi_table_scraper'
+require_relative 'hpi_paragraph_scraper'
 
 class HpiDataCollector
   @@title_words = %w[Prof. Dr. MSc. h.c.]
@@ -83,11 +83,10 @@ class HpiDataCollector
       scraper = HpiParagraphScraper.new(person_text_div)
       collect(person, scraper, person_image_div)
     end
-    
   end
 
   private
-  
+
   def get_html_document(url)
     document = ''
 

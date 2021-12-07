@@ -1,4 +1,4 @@
-require_relative "scraping_exception.rb"
+require_relative "scraping_exception"
 
 # "Abstract" class
 class HpiWebScraper
@@ -30,7 +30,7 @@ class HpiWebScraper
   end
 
   private
-  
+
   def get_image_file_path_and_save(img_src)
     # Get the file name without complete file path
     index = img_src.rindex("/")

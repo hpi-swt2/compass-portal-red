@@ -1,4 +1,4 @@
-require_relative 'hpi_data_collector.rb'
+require_relative 'hpi_data_collector'
 
 # Root scraper class which handles scraping for all URLs
 class Scraper
@@ -24,8 +24,6 @@ class Scraper
       save_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
     end
   end
-
-  private
 
   def self.save_person(item)
     # If person exists update non-existent attributes, else create new person

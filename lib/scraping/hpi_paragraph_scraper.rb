@@ -1,4 +1,4 @@
-require_relative "hpi_web_scraper.rb"
+require_relative "hpi_web_scraper"
 
 class HpiParagraphScraper < HpiWebScraper
   @@delimiter = '***'
@@ -33,22 +33,22 @@ class HpiParagraphScraper < HpiWebScraper
       split_p = p.text.split(/[[:space:]]/)
 
       phone_words_intersection = split_p & @@phone_words # Check if one of those words is in split_p
-      if phone_words_intersection.any?
-        index = split_p.find_index(phone_words_intersection[0]) # Get the index of the first of those words
-        split_p.delete(phone_words_intersection[0]) # Delete it
+      next unless phone_words_intersection.any?
 
-        phone_number = ''
-        (index..(split_p.length - 1)).each do |n|
-          # If next element starts with a number (or symbol) it has to be part of a phone number...
-          unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any? || split_p[n] == '' # For some reason split_p[n][0] == '' does not work
-            break
-          end 
+      index = split_p.find_index(phone_words_intersection[0]) # Get the index of the first of those words
+      split_p.delete(phone_words_intersection[0]) # Delete it
 
-          phone_number = "#{phone_number}#{split_p[n]} "
+      phone_number = ''
+      (index..(split_p.length - 1)).each do |n|
+        # If next element starts with a number (or symbol) it has to be part of a phone number...
+        unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any? || split_p[n] == ''
+          break
         end
 
-        item[:phone] = phone_number
+        phone_number = "#{phone_number}#{split_p[n]} "
       end
+
+      item[:phone] = phone_number
     end
 
     item[:phone]
@@ -60,18 +60,18 @@ class HpiParagraphScraper < HpiWebScraper
       split_p = p.text.split(/[[:space:]]/)
 
       office_words_intersection = split_p & @@office_words
-      if office_words_intersection.any?
-        index = split_p.find_index(office_words_intersection[0])
-        split_p.delete(office_words_intersection[0])
+      next unless office_words_intersection.any?
 
-        # Get all words until line break
-        office = ''
-        while (split_p[index] != @@delimiter) && (index < split_p.length)
-          office = "#{office}#{split_p[index]} "
-          index += 1
-        end
-        item[:office] = office
+      index = split_p.find_index(office_words_intersection[0])
+      split_p.delete(office_words_intersection[0])
+
+      # Get all words until line break
+      office = ''
+      while (split_p[index] != @@delimiter) && (index < split_p.length)
+        office = "#{office}#{split_p[index]} "
+        index += 1
       end
+      item[:office] = office
 
     end
 
@@ -82,7 +82,7 @@ class HpiParagraphScraper < HpiWebScraper
     p_tags.each do |p|
 
       split_p = p.text.split(/[[:space:]]/)
-      
+
       email_words_intersection = split_p & @@email_words
       next unless email_words_intersection.any?
 
@@ -99,5 +99,4 @@ class HpiParagraphScraper < HpiWebScraper
 
     item[:email]
   end
-
 end

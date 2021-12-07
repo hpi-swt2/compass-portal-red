@@ -1,9 +1,9 @@
-require_relative "hpi_web_scraper.rb"
+require_relative "hpi_web_scraper"
 
 class HpiTableScraper < HpiWebScraper
   def scrape
     item = {}
-    
+
     td_tags = @html.css('td')
 
     item[:phone] = scrape_phone(td_tags, item)
@@ -30,11 +30,11 @@ class HpiTableScraper < HpiWebScraper
 
   def scrape_office(td_tags, item)
     td_tags.each do |td|
-      if ([td.text] & @@office_words).any?
-        index = td_tags.find_index(td)
-        item[:office] = td_tags[index + 1].text
-        item[:office] = td_tags[index + 2].text if item[:office] == '' # In case of separator
-      end
+      next unless ([td.text] & @@office_words).any?
+
+      index = td_tags.find_index(td)
+      item[:office] = td_tags[index + 1].text
+      item[:office] = td_tags[index + 2].text if item[:office] == '' # In case of separator
     end
 
     item[:office]
@@ -50,5 +50,4 @@ class HpiTableScraper < HpiWebScraper
 
     item[:mail]
   end
-
 end
