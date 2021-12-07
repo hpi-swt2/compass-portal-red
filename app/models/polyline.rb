@@ -3,5 +3,5 @@
 class Polyline < ApplicationRecord
   has_and_belongs_to_many :points
   has_many :walls, dependent: :destroy
-  has_many :rooms, dependent: :restrict_with_error if Room.pluck(:outer_shape_id).include? self.ids
+  has_many :rooms, dependent: :restrict_with_error if Room.pluck(:outer_shape_id).include? ids
 end
