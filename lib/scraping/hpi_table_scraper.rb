@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
+require_relative "hpi_web_scraper.rb"
 
 class HpiTableScraper < HpiWebScraper
   def scrape

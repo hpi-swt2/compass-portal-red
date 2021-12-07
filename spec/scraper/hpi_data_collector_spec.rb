@@ -1,5 +1,5 @@
 require 'rails_helper'
-require "#{Rails.root}/lib/scraping/hpi_data_collector.rb"
+require "./lib/scraping/hpi_data_collector.rb"
 
 RSpec.describe "HpiDataCollector", type: :feature do
   before do

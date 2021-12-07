@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
+require_relative "hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
   @@delimiter = '***'
@@ -16,7 +16,7 @@ class HpiParagraphScraper < HpiWebScraper
 
     item[:phone] = scrape_phone(p_tags, item)
     item[:office] = scrape_office(p_tags, item)
-    
+
     # Check the whole document for a `.mail` tag
     item[:email] = @html.at_css('.mail')&.text
     # In case '.mail' class does not exist on the whole web page

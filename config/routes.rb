@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :people do
-    post '/scrape', to: 'people#scrape', on: :collection
-  end
+  resources :people
 
   resources :person_urls
 
