@@ -7,13 +7,13 @@ RSpec.describe Chair, type: :model do
   end
 
   it "returns valid" do
-    chair = described_class.new(name: "Test")
+    chair = FactoryBot.create :chair
     expect(chair).to be_valid
   end
 
   it "has a person relation" do
     chair = FactoryBot.create :chair
-    expect(chair.people.length).to eq(0)
+    expect(chair.people.length).to eq(1)
   end
 
   it "has a room relation" do

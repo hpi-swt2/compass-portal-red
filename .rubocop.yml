@@ -94,3 +94,7 @@ Style/SymbolArray:
 # Okay to use Rails.root.join('tmp', 'caching-dev.txt')
 Rails/FilePath:
   Enabled: false
+
+# Okay to use has_and_belongs_to_many for many-to-many relationships
+Rails/HasAndBelongsToMany:
+  Enabled: false
