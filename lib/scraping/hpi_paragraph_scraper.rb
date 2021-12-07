@@ -1,7 +1,7 @@
 #   This code is ugly but it tries its best and fulfils its purpose.
 #   Please keep that in mind when trying to understand it.
 
-require "#{Rails.root}/lib/scraping/hpi_web_scraper.rb"
+require_relative "hpi_web_scraper.rb"
 
 class HpiParagraphScraper < HpiWebScraper
   @@delimiter = '***'

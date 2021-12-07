@@ -1,8 +1,7 @@
 #   If you think this code is ugly try looking at hpi_paragraph_scraper.rb!
-
-require "#{Rails.root}/lib/scraping/scraping_exception.rb"
-require "#{Rails.root}/lib/scraping/hpi_table_scraper.rb"
-require "#{Rails.root}/lib/scraping/hpi_paragraph_scraper.rb"
+require_relative 'scraping_exception.rb'
+require_relative 'hpi_table_scraper.rb'
+require_relative 'hpi_paragraph_scraper.rb'
 
 class HpiDataCollector
   @@title_words = %w[Prof. Dr. MSc. h.c.]

@@ -1,4 +1,4 @@
-require "#{Rails.root}/lib/scraping/scraping_exception.rb"
+require_relative "scraping_exception.rb"
 
 # "Abstract" class
 class HpiWebScraper
