@@ -55,6 +55,6 @@ class PersonUrlsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_url_params
-    params.permit([:name, :url]).require(:person_urls)
+    params.permit(person_urls: [:name, :url], person_url: {}).require(:person_urls)
   end
 end
