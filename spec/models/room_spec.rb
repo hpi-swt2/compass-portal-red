@@ -4,6 +4,26 @@ RSpec.describe Room, type: :model do
   let(:point1) { create :point }
   let(:point2) { create :point, x: -1.5 }
 
+  it "has a chair relation" do
+    room = FactoryBot.create :room
+    expect(room.chairs.length).to eq(0)
+  end
+
+  it "has a person relation" do
+    room = FactoryBot.create :room
+    expect(room.people.length).to eq(0)
+  end
+
+  it "has a tag relation" do
+    room = FactoryBot.create :room
+    expect(room.tags.length).to eq(0)
+  end
+
+  it "has a room type relation" do
+    room = FactoryBot.create :room
+    expect(room.room_types.length).to eq(0)
+  end
+
   it "has a constructor that can create instances" do
     instance = described_class.new
     expect(instance).to be_an_instance_of(described_class)

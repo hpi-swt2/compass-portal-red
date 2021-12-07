@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :room do
+    number { "42" }
+    floor { "E" }
+    full_name { "H-E.42" }
     outer_shape do
       (build :polyline, points: [(build :point),
                                  (build :point, x: -1.5),
