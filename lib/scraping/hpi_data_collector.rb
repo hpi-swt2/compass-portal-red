@@ -47,7 +47,7 @@ class HpiDataCollector
   end
 
   def get_scraping_info(name, url)
-    puts "Scraping #{name} @ #{url}"
+    Rails.logger.debug { "Scraping #{name} @ #{url}" }
     person = {}
     person[:website] = @base_url + url
 

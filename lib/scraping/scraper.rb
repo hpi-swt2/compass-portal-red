@@ -17,7 +17,7 @@ class Scraper
         info_hash = data_collector.get_scraping_info(record[:name], record[:url])
       rescue ScrapingException
         # If scraping fails, skip and log a message
-        puts "Scraping failed for #{record[:name]} @ #{record[:url]}:"
+        Rails.logger.debug { "Scraping failed for #{record[:name]} @ #{record[:url]}:" }
         next
       end
 

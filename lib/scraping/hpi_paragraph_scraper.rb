@@ -41,9 +41,7 @@ class HpiParagraphScraper < HpiWebScraper
       phone_number = ''
       (index..(split_p.length - 1)).each do |n|
         # If next element starts with a number (or symbol) it has to be part of a phone number...
-        unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any? || split_p[n] == ''
-          break
-        end
+        break unless ([split_p[n][0]] & %w[- + ( 0 1 2 3 4 5 6 7 8 9]).any? || split_p[n] == ''
 
         phone_number = "#{phone_number}#{split_p[n]} "
       end
