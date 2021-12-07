@@ -35,4 +35,14 @@ RSpec.describe Person, type: :model do
     person.user = user
     expect(person.user.id).to eq(user.id)
   end
+
+  it "calculates its name correctly" do
+    person = FactoryBot.create :person
+    expect(person.name).to eq("#{person.first_name} #{person.last_name}")
+  end
+
+  it "calculates its full name correctly" do
+    person = FactoryBot.create :person
+    expect(person.full_name).to eq("#{person.title} #{person.first_name} #{person.last_name}")
+  end
 end
