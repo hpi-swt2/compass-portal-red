@@ -16,7 +16,20 @@ RSpec.describe Wall, type: :model do
     expect(wall.polyline.points).to eq([])
   end
 
+  context "with valid geojson" do
+    let(:wall) { build :wall }
+
+    it "has geometry type LineString" do
+      expect(wall.to_geojson[:geometry][:type]).to eq("LineString")
+    end
+
+    it "has class wall" do
+      expect(wall.to_geojson[:properties][:class]).to eq("wall")
+    end
+  end
+
   describe "it should be valid" do
+
     it "when using the factory" do
       wall = build :wall
       expect(wall).to be_valid

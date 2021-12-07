@@ -26,6 +26,18 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  context "with valid geojson" do
+    let(:room) { build :room }
+
+    it "has geometry type Polygon" do
+      expect(room.to_geojson[1][:geometry][:type]).to eq("Polygon")
+    end
+
+    it "has class outer-shape" do
+      expect(room.to_geojson[1][:properties][:class]).to eq("outer-shape")
+    end
+  end
+
   describe "should be valid" do
     let(:point_of_interest) { create :point_of_interest, point: point1 }
     let(:outer_shape) do
