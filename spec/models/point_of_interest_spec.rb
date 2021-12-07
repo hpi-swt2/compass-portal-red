@@ -6,21 +6,21 @@ RSpec.describe PointOfInterest, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
-  describe "it should be valid" do
-    it "with a point" do
+  context "with valid arguments" do
+    it "is valid with a point" do
       point = build :point
       point_of_interest = described_class.new(point: point)
       expect(point_of_interest).to be_valid
     end
 
-    it "when using the factory" do
+    it "is valid when using the factory" do
       point_of_interest = build :point_of_interest
       expect(point_of_interest).to be_valid
     end
   end
 
-  describe "it should not be valid" do
-    it "without a point" do
+  context "with invalid arguments" do
+    it "is invalid without a point" do
       point_of_interest = build :point_of_interest
       point_of_interest.point = nil
       expect(point_of_interest).not_to be_valid
