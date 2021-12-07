@@ -59,23 +59,17 @@ class PeopleController < ApplicationController
   end
 
   def scrape
-    # Read urls from database (TODO)
-    # url_records = PersonUrl.all
-
-    urls = []
+    url_records = PersonUrl.all
 
     data_collector = HpiDataCollector.new
-    # url_records.each do |record|
-    urls.each do |url|
+    url_records.each do |record|
       item = {}
-      # name_hash = dataCollector.get_names(record[:name])
-      name_hash = data_collector.get_names(url[0])
-      title_hash = data_collector.get_title(url[0])
+      name_hash = dataCollector.get_names(record[:name])
+      title_hash = dataCollector.get_title(record[:name])
 
       begin
         # Scrape and get info
-        # info_hash = dataCollector.get_scraping_info(record[:url])
-        info_hash = data_collector.get_scraping_info(url[0], url[1])
+        info_hash = dataCollector.get_scraping_info(record[:name], record[:url])
       rescue ScrapingException
         next
       end
