@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Information, type: :model do
-  it "creates an information" do
-    information = described_class.new(key: "Telegram", value: "@handle")
-    expect(information.key).to eq("Telegram")
-    expect(information.value).to eq("@handle")
-  end
-
   it "returns not valid because of empty value" do
     information = described_class.new(key: "Telegram")
     information.create_person(last_name: "Mustermann", first_name: "Max")

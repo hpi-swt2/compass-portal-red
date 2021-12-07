@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-  it "creates a Tag" do
-    tag = described_class.new(name: "ruhig")
-    expect(tag.name).to eq("ruhig")
-  end
-
   it "returns not valid because name is empty" do
     tag = described_class.new
     expect(tag).not_to be_valid

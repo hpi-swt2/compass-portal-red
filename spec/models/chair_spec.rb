@@ -1,11 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Chair, type: :model do
-  it "creates a chair" do
-    chair = described_class.new(name: "Test")
-    expect(chair.name).to eq("Test")
-  end
-
   it "returns not valid because name is empty" do
     chair = described_class.new
     expect(chair).not_to be_valid
