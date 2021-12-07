@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+
   resources :people do
     post '/scrape', to: 'people#scrape', on: :collection
   end
+
+  resources :person_urls
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # '/users/...'

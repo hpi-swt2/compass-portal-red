@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 2021_11_23_131100) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+ActiveRecord::Schema.define(version: 2021_11_30_185202) do
+
+  create_table "person_urls", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
