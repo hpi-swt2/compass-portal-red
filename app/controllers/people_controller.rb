@@ -1,9 +1,5 @@
-require "#{Rails.root}/lib/scraping/hpi_data_collector.rb"
-require "#{Rails.root}/lib/scraping/scraping_exception.rb"
-
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
-  http_basic_authenticate_with name: "red", password: "secret", only: [:scrape]
 
   # GET /people or /people.json
   def index
@@ -58,27 +54,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def scrape
-    url_records = PersonUrl.all
-
-    data_collector = HpiDataCollector.new
-
-    url_records.each do |record|
-      item = {}
-      name_hash = data_collector.get_names(record[:name])
-      title_hash = data_collector.get_title(record[:name])
-
-      begin
-        # Scrape and get info
-        info_hash = data_collector.get_scraping_info(record[:name], record[:url])
-      rescue ScrapingException
-        next
-      end
-
-      save_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
-    end
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -90,18 +65,5 @@ class PeopleController < ApplicationController
   def person_params
     params.require(:person).permit(:name, :surname, :title, :email, :phone, :office, :website, :image, :chair,
                                    :office_hours, :telegram_handle, :knowledge)
-  end
-
-  def save_person(item)
-    # If person exists update non-existent attributes, else create new person
-    person = Person.find_by(name: item[:name], surname: item[:surname])
-    if person
-      person.email = item[:email] unless person.email
-      person.phone = item[:phone] unless person.phone
-      person.office = item[:office] unless person.office
-      person.save
-    else
-      Person.where(item).first_or_create
-    end
   end
 end

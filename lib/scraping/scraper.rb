@@ -1,3 +1,5 @@
+require_relative 'hpi_data_collector.rb'
+
 # Root scraper class which handles scraping for all URLs
 class Scraper
   def self.scrape
