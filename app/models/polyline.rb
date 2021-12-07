@@ -5,25 +5,19 @@ class Polyline < ApplicationRecord
   has_many :walls, dependent: :destroy
   has_many :rooms, dependent: :restrict_with_error if Room.pluck(:outer_shape_id).include? ids
 
-  def to_geojson(polygon = true)
-    if polygon
-      raise "Polygon needs same start and end point." unless points[0] == points[-1]
+  def points_coordinates
+    points.map { |point| [point.x, point.y] }
+  end
 
-      {
-        type: "Feature",
-        geometry: {
-          type: "Polygon",
-          coordinates: [points.map { |point| [point.x, point.y] } ]
-        }
+  def to_geojson(polygon: true)
+    raise "Polygon needs same start and end point." if polygon && points[0] != points[-1]
+
+    {
+      type: "Feature",
+      geometry: {
+        type: polygon ? "Polygon" : "LineString",
+        coordinates: polygon ? [points_coordinates] : points_coordinates
       }
-    else
-      {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: points.map { |point| [point.x, point.y] }
-        }
-      }
-    end
+    }
   end
 end
