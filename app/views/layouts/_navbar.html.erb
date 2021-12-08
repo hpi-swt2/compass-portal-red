@@ -1,19 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
   <div class="container-fluid">
-    <span class="navbar-brand"><i class="fas fa-compass"></i> HPI Compass Portal</span>
+    <a class="navbar-brand"><i class="fas fa-compass"></i> HPI Compass Portal</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
-        </li>
-        <li class="nav-item">
-          <%= link_to protected_path, class: 'nav-link' do %>
-            <i class="fas fa-lock"></i> Protected page
+          <%= link_to search_path, class: 'nav-link' do %>
+            <i class="fas fa-search"></i> Search
           <% end %>
         </li>
+        <li class="nav-item">
+          <%= link_to map_path, class: 'nav-link' do %>
+            <i class="fas fa-map-marked-alt"></i> Map
+          <% end %>
+        </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
         <%# devise helper: https://github.com/heartcombo/devise#controller-filters-and-helpers %>
         <% if user_signed_in? %>
           <li class="nav-item">
@@ -26,17 +30,13 @@
               <i class="fas fa-sign-out-alt"></i> Sign out
             <% end %>
           </li>
-        <% end %> <%# user_signed_in?%>
-        <li class="nav-item">
-          <a class="nav-link" href="https://getbootstrap.com/docs/5.0/components/navbar/" target="_blank">
-            <i class="fab fa-bootstrap"></i> Bootstrap
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://fontawesome.com/v5.15/icons" target="_blank">
-            <i class="fab fa-fonticons-fi"></i> FontAwesome Icons
-          </a>
-        </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: 'nav-link' do %>
+              <i class="fas fa-sign-in-alt"></i> Log in
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
