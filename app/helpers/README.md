@@ -6,7 +6,7 @@
 - Create a label for each point
 - Label Fomat
     - Every room is identified by a letter, the number after the letter is the position of a point in the surrounding polygon
-    - A point can be part of a maximum of four rooms. This is why a label is made up of four parts, seperated by commas.
+    - For now, we are only modeling scenarios where a point can be part of up to 4 rooms. They are defined by the four parts, separated by commas. If a point should be part of more than 4 rooms, the script should be adapted.
     - Example 1: A1,B2,C4,D6 is the label for a point that is part of rooms A, B, C and D. It is the first point in room A the second point in room B, the fourth point in room C and so on. 
     - Example 2: If a point is part of less than 4 rooms you still need the comma. For example, if a point is only point of A and it is the first point in A, the label would be A1,,,
 
