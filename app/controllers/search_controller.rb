@@ -1,7 +1,4 @@
 class SearchController < ApplicationController
-  # def index
-  # Search page, accessible without login
-  # end
 
   def index
     # basic array to test live search functionality
