@@ -16,11 +16,10 @@ RSpec.describe "Search Page", type: :feature do
   end
 
   it "renders a list when @query is not empty" do
-    # This test will fail once the method in the controller is changed or the database changes
-    visit "#{search_path}?query=D&commit=Search"
-    expect(page).to have_link 'Dan'
-    expect(page).to have_link 'Djamal'
-    expect(page).to have_link 'Daniel'
-
+    FactoryBot.create :person
+    FactoryBot.create(:person, first_name: 'Micha', last_name: 'Perscheid', title: 'Not doctor')
+    visit "#{search_path}?query=Mich&commit=Search"
+    expect(page).to have_link 'Dr. Michael Perscheid'
+    expect(page).to have_link 'Not doctor Micha Perscheid'
   end
 end
