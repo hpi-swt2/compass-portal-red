@@ -1,0 +1,2 @@
+module IndoorHelper
+end
