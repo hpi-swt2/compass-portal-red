@@ -10,8 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2021_12_09_141734) do
 
-ActiveRecord::Schema.define(version: 2021_12_01_205856) do
+  create_table "buildings", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "data_problems", force: :cascade do |t|
+    t.string "url"
+    t.string "description"
+    t.string "field"
+    t.integer "rooms_id", null: false
+    t.integer "people_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["people_id"], name: "index_data_problems_on_people_id"
+    t.index ["rooms_id"], name: "index_data_problems_on_rooms_id"
+  end
 
   create_table "people", force: :cascade do |t|
     t.string "name"
@@ -28,16 +44,23 @@ ActiveRecord::Schema.define(version: 2021_12_01_205856) do
     t.string "knowledge"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "human_verified_name"
+    t.datetime "human_verified_surname"
+    t.datetime "human_verified_title"
+    t.datetime "human_verified_email"
+    t.datetime "human_verified_phone"
+    t.datetime "human_verified_office"
+    t.datetime "human_verified_website"
+    t.datetime "human_verified_image"
+    t.datetime "human_verified_chair"
+    t.datetime "human_verified_office_hours"
+    t.datetime "human_verified_telegram_handle"
+    t.datetime "human_verified_knowledge"
   end
 
   create_table "person_urls", force: :cascade do |t|
     t.string "name"
     t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -85,7 +108,6 @@ ActiveRecord::Schema.define(version: 2021_12_01_205856) do
     t.integer "wall_id", null: false
   end
 
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -108,6 +130,8 @@ ActiveRecord::Schema.define(version: 2021_12_01_205856) do
     t.index ["polyline_id"], name: "index_walls_on_polyline_id"
   end
 
+  add_foreign_key "data_problems", "people", column: "people_id"
+  add_foreign_key "data_problems", "rooms", column: "rooms_id"
   add_foreign_key "point_of_interests", "points"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"

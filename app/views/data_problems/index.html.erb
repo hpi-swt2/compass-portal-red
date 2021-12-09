@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Data Problems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Type</th>
+      <th>Field</th>
+      <th>Rooms</th>
+      <th>People</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @data_problems.each do |data_problem| %>
+      <tr>
+        <td><%= data_problem.url %></td>
+        <td><%= data_problem.description %></td>
+        <td><%= data_problem.field %></td>
+        <td><%= data_problem.rooms_id %></td>
+        <td><%= data_problem.people_id %></td>
+        <td><%= link_to 'Show', data_problem %></td>
+        <td><%= link_to 'Edit', edit_data_problem_path(data_problem) %></td>
+        <td><%= link_to 'Destroy', data_problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Data Problem', new_data_problem_path %>
