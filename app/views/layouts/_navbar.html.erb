@@ -12,8 +12,13 @@
           <% end %>
         </li>
         <li class="nav-item">
-          <%= link_to map_path, class: 'nav-link' do %>
-            <i class="fas fa-map-marked-alt"></i> Map
+          <%= link_to map_path, class: 'nav-link', data: {turbolinks: false} do %>
+            <i class="fas fa-map"></i> Map
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to protected_path, class: 'nav-link' do %>
+            <i class="fas fa-lock"></i> Protected page
           <% end %>
         </li>
       </ul>

@@ -1,1 +1,243 @@
-<div class="map"></div>
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>HPI Map</title>
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<style>
+		/* .marker_label {
+			position: absolute;
+			background-color: transparent;
+			border: None;
+			box-shadow: None;
+			color: white;
+			font-size: 100px;
+		} */
+		.leaflet-tooltip.marker_label{
+			border-radius: 20px;
+			background-color: transparent;
+			padding-left: 0px;
+			padding-right: 0px;
+			font-weight: bold;
+			border: None;
+			color: white;
+			box-shadow: None;
+			font-family: Roboto, "Open Sans", sans-serif;
+		}
+		.leaflet-tooltip-top:before, 
+		.leaflet-tooltip-bottom:before, 
+		.leaflet-tooltip-left:before, 
+		.leaflet-tooltip-right:before {
+			border: none !important;
+		}
+	</style>
+  </head>
+
+  <body>
+  <div class="leaflet">
+  	<div id="map" style="width: 100%; height: 600px;"></div>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+	<%= javascript_include_tag 'OutdoorMap/geometry' %>
+  	<script>
+		//Set the leaflet map with center and zoom-level
+	  	var mymap = L.map('map').setView([52.39300, 13.12900], 17);
+
+		//Tileserver to be used as background
+	  	L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX',{
+			tileSize: 512,
+			zoomOffset: -1,
+			minZoom: 1,
+			maxZoom: 23,
+			attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e | Schnavigator",
+			crossOrigin: true
+		}).addTo(mymap);
+
+		L.control.locate({
+			locateOptions: {
+				watch: true,
+				enableHighAccuracy: true
+			}
+		}).addTo(mymap);
+		
+		var UniPotsdamStyle = {
+				"fillColor": "Blue",
+				"fillOpacity": 0.65,
+				"color": "Blue",
+				"opacity": 0.3
+  			};
+
+		var HPIStyle = {
+				"fillColor": "Orange",
+				"fillOpacity": 0.65,
+				"color": "Orange",
+				"opacity": 0.3
+  			};
+		
+		var DormStyle = {
+				"fillColor": "Green",
+				"fillOpacity": 0.65,
+				"color": "Green",
+				"opacity": 0.3
+  			};
+
+		let layers = {}
+		//buildings includes all geometry-data extracted from OSM, see campus.js
+		//layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
+		for (const feature of buildings) {
+			//If the current campus (=group of buildings) is unknown, create a layergroup for it
+			if(!layers[feature.properties.campus]) {
+				layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
+				console.log("Added the following campus to layers: ", feature.properties.campus);
+			}
+
+			//Determine Style (highlighting-colour) dependent of group
+			let layerStyle = UniPotsdamStyle;
+			switch(feature.properties.campus) {
+				case 'UP Campus Griebnitzsee': layerStyle = UniPotsdamStyle;
+					break;
+				case "Campus I": layerStyle = HPIStyle;
+					break;
+				case "Campus II": layerStyle = HPIStyle;
+					break;
+				case 'Campus III': layerStyle = HPIStyle;
+					break;
+				case "Studentendorf Stahnsdorfer Straße": layerStyle = DormStyle;
+					break;
+				default: console.log("This building does not belong to a known campus: ", feature);
+					break;
+			}
+
+			//Add the building as a layer
+			const layer = L.geoJSON(feature, {style: layerStyle});
+			//Add a tooltip displaying the name of the building, taken from the GeoJSON
+			layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label'})
+			//Add the building to its campus layergroup
+			layers[feature.properties.campus].addLayer(layer);
+		}
+
+
+		// defining icons to be used:
+		var hpi_icon = L.icon({
+			iconUrl: "<%= asset_path('hpi_logo.png') %>",
+
+			iconSize:     [25, 25], // size of the icon
+			iconAnchor:   [10,7], // point of the icon which will correspond to marker's location
+			popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
+		});
+
+		var	coffee_icon = L.icon({
+			iconUrl: "<%= asset_path('coffee_filled.png') %>",
+
+			iconSize:     [25, 25], // size of the icon
+			iconAnchor:   [10, 15], // point of the icon which will correspond to marker's location
+			popupAnchor:  [10, 0] // point from which the popup should open relative to the iconAnchor
+		});
+
+		// setting markers for all buildings
+		// var lecture_hall = L.marker([52.39399288886858, 13.132312999476358],{opacity: 0.5}).bindTooltip('Lecture Hall', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	main_building = L.marker([52.39404, 13.1335],{opacity: 0.5}).bindTooltip('Main buidling', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	a_building = L.marker([52.39339227922372, 13.131546237196904], {opacity: 0.5}).bindTooltip('House A', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	b_building = L.marker([52.393558941568166, 13.131887626670613], {opacity: 0.5}).bindTooltip('House B', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	c_building = L.marker([52.39338533494571, 13.132304880471814], {opacity: 0.5}).bindTooltip('House C', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	villa = L.marker([52.39216025176346, 13.123802617690352], {opacity: 0.5}).bindTooltip('Villa', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	e_house = L.marker([52.39219135147654, 13.124181479713926], {opacity: 0.5}).bindTooltip('House E', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	f_house = L.marker([52.392550303654076, 13.124220721222631], {opacity: 0.5}).bindTooltip('House F', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	g_house = L.marker([52.39467384536523, 13.124835506138366], {opacity: 0.5}).bindTooltip('House G', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	j_house = L.marker([52.38440527873472, 13.118941324549606], {opacity: 0.5}).bindTooltip('House J', {permanent: true, className: "marker_label", direction: "center"});
+
+		// // grouping buildings by campus
+		// var buildings_campus_I = L.layerGroup([main_building, lecture_hall, a_building, b_building, c_building, j_house]);
+		// var buildings_campus_II = L.layerGroup([e_house, f_house, villa]);
+		// var buildings_campus_III = L.layerGroup([g_house]);
+		
+		// // setting markers for interesting eat-in places
+		// var ulf = L.marker([52.39333033686638, 13.131310644592734],{opacity: 0.0}).bindTooltip('Ulf\'s coffee', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	mensa_griebnitzsee = L.marker([52.393092597902964, 13.129241382236938],{opacity: 0.0}).bindTooltip('Mensa <br> Griebnitzsee', {permanent: true, className: "marker_label", direction: "center"}),
+		// 	mensa_movie = L.marker([52.38983920408487, 13.116905316298654],{opacity: 0.0}).bindTooltip('Movie Mensa', {permanent: true, className: "marker_label", direction: "center"});
+
+		// // grouping eat-in places
+		// var eating = L.layerGroup([ulf, mensa_griebnitzsee, mensa_movie]);
+
+		// // adding everything to an overlay
+		// var overlay_poi = {
+    	// 	"Campus I": buildings_campus_I,
+		// 	"Campus II": buildings_campus_II,
+		// 	"Campus III": buildings_campus_III,
+		// 	"Eating": eating
+		// };
+
+		// labels = L.layerGroup([buildings_campus_I, buildings_campus_II, buildings_campus_III, eating]);
+		// labels.eachLayer(function (layer) {
+		// 	if (!mymap.hasLayer(layer)){
+		// 		mymap.addLayer(layer);
+				
+		// 	}
+		// });
+
+
+		// // add labels only when zoomed in
+		// mymap.on('zoomend', function() {
+		// var zoomlevel = mymap.getZoom();
+		// 	if (zoomlevel > 16 && zoomlevel < 20){
+		// 		// these is the range where we want to show the text
+		// 		labels.eachLayer(function (layer) {
+		// 			if (mymap.hasLayer(layer)){
+		// 				console.log("layer already added");
+		// 			} else {
+		// 				mymap.addLayer(layer);
+		// 			}
+		// 		})
+		// 	}
+		// 	else {
+		// 		labels.eachLayer(function (layer) {
+		// 			if (mymap.hasLayer(layer)){
+		// 				mymap.removeLayer(layer);
+		// 			} else {
+		// 				console.log("layer already added");
+		// 			}
+		// 		})
+		// 	}
+		// //console.log("Current Zoom Level =" + zoomlevel)
+		// });
+
+
+
+
+		// // control font sizes
+		// mymap.on('zoomend', function () {
+		// 	var zoomLevel = mymap.getZoom();
+		// 	var tooltip = document.querySelector(".leaflet-tooltip");
+
+		// 	console.log(zoomLevel);
+		// 	switch (zoomLevel) {
+		// 		case 17:
+		// 			tooltip.style.fontSize = "3pt";
+		// 			break;
+		// 		case 18:
+		// 			tooltip.style.fontSize = "50pt";
+		// 			break;
+		// 		case 19:
+		// 			tooltip.style.fontSize = "18px";
+		// 			break;
+		// 		case 20:
+		// 			tooltip.style.fontSize = "20px";
+		// 			break;
+		// 		case 21:
+		// 			tooltip.style.fontSize = "20px";
+		// 			break;
+		// 		case 22:
+		// 			tooltip.style.fontSize = "22px";
+		// 			break;
+		// 		default:
+		// 			tooltip.style.fontSize = "14px";
+		// 			break;
+		// 	}
+		// });
+		
+		L.control.layers(null, layers).addTo(mymap);
+  	</script>
+  </div>
+  </body>
+</html>
