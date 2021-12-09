@@ -1,17 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "Map Page", type: :feature do
-  it "is accessible" do
+  it "should exist and render without error" do
     visit map_path
   end
 
-  it "is accessible through navbar" do
+  it "should be accessible through navbar" do
     visit root_path
     expect(page).to have_link(nil, href: map_path)
   end
 
-  it "contains a map container" do
+  it "should contain a leaflet container" do
     visit map_path
-    expect(page).to have_css('.map')
+    expect(page).to have_css '.leaflet'
   end
 end
