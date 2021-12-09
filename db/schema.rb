@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_141734) do
+ActiveRecord::Schema.define(version: 2021_12_09_160350) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2021_12_09_141734) do
     t.string "url"
     t.string "description"
     t.string "field"
-    t.integer "rooms_id", null: false
-    t.integer "people_id", null: false
+    t.integer "rooms_id"
+    t.integer "people_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["people_id"], name: "index_data_problems_on_people_id"
