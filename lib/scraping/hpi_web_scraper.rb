@@ -40,7 +40,7 @@ class HpiWebScraper
     more_relative_file_path = 'public' + relative_file_path
     file_path = Rails.root.join(more_relative_file_path)
     File.open(file_path, 'wb') do |f|
-      f.write open(img_src).read
+      f.write URI.open(img_src).read
     end
 
     relative_file_path
