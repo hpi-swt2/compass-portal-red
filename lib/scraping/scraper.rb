@@ -27,14 +27,46 @@ class Scraper
 
   def self.save_person(item)
     # If person exists update non-existent attributes, else create new person
-    person = Person.find_by(name: item[:name], surname: item[:surname])
+    person = Person.find_by(last_name: item[:last_name], first_name: item[:first_name])
     if person
       person.email = item[:email] unless person.email
-      person.phone = item[:phone] unless person.phone
-      person.office = item[:office] unless person.office
+      person.title = item[:title] unless person.title
+      person.image = item[:image] unless person.image
+      person.informations.build({
+        key: 'phone',
+        value: item[:phone]
+      }) unless person.informations.get_value('phone')
+      person.informations.build({
+        key: 'website',
+        value: item[:website]
+      }) unless person.informations.get_value('website')
+      add_room(person, item[:office]) unless (person.room || !item[:office])
       person.save
     else
-      Person.where(item).first_or_create
+      newPerson = Person.new({
+        'title' => item[:title],
+        'first_name' => item[:first_name],
+        'last_name' => item[:last_name],
+        'email' => item[:email],
+        'image' => item[:image]
+      })
+      newPerson.informations.build([
+        {
+          key: 'phone',
+          value: item[:phone]
+        }, {
+          key: 'website',
+          value: item[:website]
+        }
+      ])
+      add_room(newPerson, item[:office]) unless !item[:office]
+      newPerson.save
     end
+  end
+
+  # Save room on person
+  def self.add_room(person, room)
+    room = Room.find_or_create_by(number: room)
+    person.room = room
   end
 end

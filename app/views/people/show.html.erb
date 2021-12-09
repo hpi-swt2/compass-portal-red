@@ -1,14 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @person.name %>
+  <strong>First Name:</strong>
+  <%= @person.first_name %>
 </p>
 
 <p>
-  <strong>Surname:</strong>
-  <%= @person.surname %>
+  <strong>Lastname:</strong>
+  <%= @person.last_name %>
 </p>
+
+<%# Only show room when room is not nil %>
+<% if @person.room %>
+  <p>
+    <strong>Room:</strong>
+    <%= @person.room.display_name %>
+  </p>
+<% end %>
 
 <p>
   <strong>Title:</strong>
@@ -21,44 +29,22 @@
 </p>
 
 <p>
-  <strong>Phone:</strong>
-  <%= @person.phone %>
-</p>
-
-<p>
-  <strong>Office:</strong>
-  <%= @person.office %>
-</p>
-
-<p>
-  <strong>Website:</strong>
-  <%= @person.website %>
-</p>
-
-<p>
   <strong>Image:</strong>
   <%= @person.image %>
 </p>
 
 <p>
-  <strong>Chair:</strong>
-  <%= @person.chair %>
+  <strong>Status:</strong>
+  <%= @person.status %>
 </p>
 
+<% @person.informations.each do |information| %>
 <p>
-  <strong>Office hours:</strong>
-  <%= @person.office_hours %>
+  <strong><%= information.key %>:</strong>
+  <%= information.value %>
 </p>
+<% end %>
 
-<p>
-  <strong>Telegram handle:</strong>
-  <%= @person.telegram_handle %>
-</p>
-
-<p>
-  <strong>Knowledge:</strong>
-  <%= @person.knowledge %>
-</p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

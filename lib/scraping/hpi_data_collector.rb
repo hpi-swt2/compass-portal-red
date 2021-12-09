@@ -30,8 +30,8 @@ class HpiDataCollector
     name_list = name.split
     filtered_name_list = name_list - @@title_words
 
-    person[:surname] = filtered_name_list.first
-    person[:name] = filtered_name_list.last
+    person[:first_name] = filtered_name_list.first
+    person[:last_name] = filtered_name_list.last
 
     person
   end
@@ -49,6 +49,8 @@ class HpiDataCollector
   def get_scraping_info(name, url)
     Rails.logger.debug { "Scraping #{name} @ #{url}" }
     person = {}
+
+    # TODO: Store as information
     person[:website] = @base_url + url
 
     document = get_html_document(url)

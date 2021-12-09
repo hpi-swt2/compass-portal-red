@@ -7,7 +7,10 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1 or /people/1.json
-  def show; end
+  def show
+    @person = Person.includes(:informations).find(params[:id])
+    puts @person
+  end
 
   # GET /people/new
   def new
@@ -63,7 +66,8 @@ class PeopleController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_params
-    params.require(:person).permit(:name, :surname, :title, :email, :phone, :office, :website, :image, :chair,
+    # TODO: Update for new schema
+    params.require(:person).permit(:first_name, :last_name, :title, :email, :phone, :office, :website, :image, :chair,
                                    :office_hours, :telegram_handle, :knowledge)
   end
 end

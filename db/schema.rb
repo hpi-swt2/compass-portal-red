@@ -12,30 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2021_12_02_144305) do
 
-  create_table "people", force: :cascade do |t|
-    t.string "name"
-    t.string "surname"
-    t.string "title"
-    t.string "email"
-    t.string "phone"
-    t.string "office"
-    t.string "website"
-    t.string "image"
-    t.string "chair"
-    t.string "office_hours"
-    t.string "telegram_handle"
-    t.string "knowledge"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "person_urls", force: :cascade do |t|
-    t.string "name"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -78,6 +54,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "room_id"
     t.integer "user_id"
     t.index ["user_id"], name: "index_people_on_user_id"
+  end
+
+  create_table "person_urls", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "point_of_interests", force: :cascade do |t|
