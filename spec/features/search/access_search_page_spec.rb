@@ -14,4 +14,13 @@ RSpec.describe "Search Page", type: :feature do
     visit search_path
     expect(page).to have_field("search")
   end
+
+  it "renders a list when @query is not empty" do
+    FactoryBot.create :person
+    FactoryBot.create(:person, first_name: 'Micha', last_name: 'Perscheid', title: 'Not doctor')
+    visit "#{search_path}?query=Mich&commit=Search"
+    expect(page).to have_link 'Dr. Michael Perscheid'
+    expect(page).to have_link 'Not doctor Micha Perscheid'
+  end
+
 end
