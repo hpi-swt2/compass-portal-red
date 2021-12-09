@@ -6,6 +6,12 @@ RSpec.describe Point, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
+  it "can be compared to another point with ==" do
+    point1 = create :point
+    point2 = create :point
+    expect(point1 == point2).to be_truthy
+  end
+
   context "with valid arguments" do
     it "is valid with x- and y-value" do
       point = described_class.new(x: 1.0, y: -1.5)
