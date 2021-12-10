@@ -80,16 +80,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "polyline_id", null: false
   end
 
-  create_table "points_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_id", null: false
-  end
-
-  create_table "points_walls", id: false, force: :cascade do |t|
-    t.integer "point_id", null: false
-    t.integer "wall_id", null: false
-  end
-
   create_table "polylines", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -107,6 +97,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.string "number"
+    t.string "floor"
+    t.string "full_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
