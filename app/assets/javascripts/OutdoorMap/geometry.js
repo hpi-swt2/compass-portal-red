@@ -1,4 +1,4 @@
-let buildings = JSON.parse(`[
+const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{

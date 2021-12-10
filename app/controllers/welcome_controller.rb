@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
   def map
     # to display the map
   end
-  
+
   def protected
     # Only accessible by logged in users, see `before_action` call
   end
