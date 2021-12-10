@@ -1,5 +1,5 @@
 # The model representing a room associated with the HPI
-class Room < ApplicationRecord
+class Room < SearchableRecord
   # validates :full_name, presence: true
   # validates :room_types, presence: true
 

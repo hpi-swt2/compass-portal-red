@@ -1,5 +1,5 @@
 # The model representing a person associated with the HPI
-class Person < ApplicationRecord
+class Person < SearchableRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 

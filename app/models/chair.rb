@@ -1,4 +1,4 @@
-class Chair < ApplicationRecord
+class Chair < SearchableRecord
   validates :name, presence: true
   validates :people, presence: true
 
