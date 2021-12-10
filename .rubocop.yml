@@ -13,18 +13,10 @@ AllCops:
 # Specific excludes & includes
 #
 
-# Okay to have long examples in feature tests, there are usually many steps
-RSpec/ExampleLength:
-  Exclude:
-    - 'spec/features/*.rb'
-    - 'spec/views/*.rb'
-
-# Okay to have more than one expectation in a single block, default: 1
-RSpec/MultipleExpectations:
-  Max: 2
-  Exclude:
-    - 'spec/features/*.rb'
-    - 'spec/views/*.rb'
+# Using instance variables might make tests fail based on their order.
+RSpec/InstanceVariable:
+   AssignmentOnly: true
+   Enabled: true
 
 # Ignore LineLength for config files (e.g. with long secret strings)
 Layout/LineLength:
@@ -68,6 +60,14 @@ Style/ClassAndModuleChildren:
 #
 # Ignoring entire rules
 #
+
+# Okay to have long examples
+RSpec/ExampleLength:
+  Enabled: false
+
+# Okay to have more than one expectation in a single block
+RSpec/MultipleExpectations:
+  Enabled: false
 
 # Okay to have empty lines around code blocks
 Layout/EmptyLinesAroundBlockBody:
