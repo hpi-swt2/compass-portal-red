@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
   end
 
   create_table "rooms", force: :cascade do |t|
+    t.string "house"
     t.string "number"
     t.string "floor"
     t.string "full_name"
