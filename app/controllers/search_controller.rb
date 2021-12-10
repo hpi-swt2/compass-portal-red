@@ -2,10 +2,11 @@ class SearchController < ApplicationController
   def index
     return if params[:query].nil?
 
-    @persons = Person.where("first_name like ? or last_name like ?", "%#{params[:query]}%", "%#{params[:query]}%")
-    @rooms = Room.where("full_name like ?", "%#{params[:query]}%")
-    @chairs = Chair.where("name like ?", "%#{params[:query]}%")
-
+    @persons = Person.search(params[:query])
+    #@rooms = Room.search(params[:query])
+    @rooms = []
+    #@chairs = Chair.search(params[:query])
+    @chairs = []
     @params = params[:query]
   end
 
