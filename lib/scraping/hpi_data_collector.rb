@@ -4,8 +4,8 @@ require_relative 'hpi_table_scraper'
 require_relative 'hpi_paragraph_scraper'
 
 class HpiDataCollector
-  @@title_words = %w[Prof. Dr. MSc. h.c.]
-  @@professor_pages = %w[
+  TITLE_WORDS = %w[Prof. Dr. MSc. h.c.].freeze
+  PROF_PAGES = %w[
     /das-hpi/personen/professoren/prof-dr-holger-giese /das-hpi/personen/professoren/prof-dr-holger-karl
     /das-hpi/personen/professoren/prof-dr-christian-doerr /das-hpi/personen/professoren/prof-dr-erwin-boettinger
     /das-hpi/personen/professoren/prof-dr-christoph-lippert /das-hpi/personen/professoren/prof-dr-tobias-friedrich
@@ -18,7 +18,7 @@ class HpiDataCollector
     /das-hpi/personen/professoren/prof-dr-juergen-doellner /das-hpi/personen/professoren/prof-dr-patrick-baudisch
     /das-hpi/personen/professoren/prof-dr-robert-hirschfeld /das-hpi/personen/professoren/prof-dr-katharina-hoelzle
     /das-hpi/personen/professoren/prof-dr-anja-lehmann
-  ]
+  ].freeze
 
   def initialize(base_url = 'https://hpi.de')
     @base_url = base_url
@@ -28,7 +28,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    filtered_name_list = name_list - @@title_words
+    filtered_name_list = name_list - TITLE_WORDS
 
     person[:first_name] = filtered_name_list.first
     person[:last_name] = filtered_name_list.last
@@ -40,7 +40,7 @@ class HpiDataCollector
     person = {}
 
     name_list = name.split
-    titles_list = name_list & @@title_words
+    titles_list = name_list & TITLE_WORDS
     person[:title] = titles_list.join(" ")
 
     person
@@ -58,6 +58,13 @@ class HpiDataCollector
     # Get divs that contain the data
     content = document.css('#content')
     person_div = content.css('.csc-textpic')
+
+    scrape_conditionally(person, name, url, content, person_div)
+  end
+
+  private
+
+  def scrape_conditionally(person, name, url, content, person_div)
     person_text_div = person_div.css('.csc-textpic-text')
     person_image_div = person_div.css('.csc-textpic-imagewrap')
 
@@ -65,29 +72,20 @@ class HpiDataCollector
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
       collect(person, scraper, person_image_div)
-
-    # Page contains multiple people
+      # Page contains multiple people
     elsif person_text_div.length > 1
-      name_header = content.at("h2:contains('#{name}')")
+      scrape_multiple_people_page(person, name, content, person_text_div)
 
-      # Some pages have the peoples' names in h3 not in h2
-      name_header ||= content.at("h3:contains('#{name}')")
-      scrape_multiple_people_page(person, person_text_div, name_header)
+      # Professor's page
+    elsif PROF_PAGES.include? url
+      scrape_professor_page(person, name, content, person_image_div, person_text_div)
 
-    # Professor's page
-    elsif @@professor_pages.include? url
-      # Some pages have professor name written bold, which lets us limit the person_text_div to it.
-      name_strong = content.at("strong:contains('#{name}')")
-      scrape_professor_page(person, person_image_div, person_text_div, name_strong)
-
-    # Page contains paragraphs
+      # Page contains paragraphs
     else
       scraper = HpiParagraphScraper.new(person_text_div)
       collect(person, scraper, person_image_div)
     end
   end
-
-  private
 
   def get_html_document(url)
     document = ''
@@ -104,7 +102,10 @@ class HpiDataCollector
     document
   end
 
-  def scrape_multiple_people_page(person, person_text_div, name_header)
+  def scrape_multiple_people_page(person, name, content, person_text_div)
+    # Some pages have the peoples' names in h3 not in h2
+    name_header = content.at("h2:contains('#{name}')") || content.at("h3:contains('#{name}')")
+
     if name_header
       person_text_div = name_header.parent.parent.parent
       person_image_div = person_text_div.previous
@@ -114,9 +115,9 @@ class HpiDataCollector
     collect(person, scraper, person_image_div)
   end
 
-  def scrape_professor_page(person, person_image_div, person_text_div, name_strong)
-    person_text_div = name_strong.parent.parent if name_strong
-
+  def scrape_professor_page(person, name, content, person_image_div, person_text_div)
+    # Some pages have professor name written bold, which lets us limit the person_text_div to it.
+    person_text_div = content.at("strong:contains('#{name}')")&.parent&.parent || person_text_div
     scraper = HpiParagraphScraper.new(person_text_div)
     collect(person, scraper, person_image_div)
   end

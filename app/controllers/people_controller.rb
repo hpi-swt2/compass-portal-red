@@ -9,7 +9,6 @@ class PeopleController < ApplicationController
   # GET /people/1 or /people/1.json
   def show
     @person = Person.includes(:informations).find(params[:id])
-    puts @person
   end
 
   # GET /people/new

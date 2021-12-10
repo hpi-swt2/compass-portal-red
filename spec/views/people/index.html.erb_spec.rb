@@ -4,20 +4,20 @@ RSpec.describe "people/index", type: :view do
   before do
     assign(:people, [
              Person.create!(
-              email: "Email",
-              last_name: "Lastname",
-              first_name: "Firstname",
-              title: "Title",
-              image: "Image",
-              status: "Xyz"
+               email: "Email",
+               last_name: "Lastname",
+               first_name: "Firstname",
+               title: "Title",
+               image: "Image",
+               status: "Xyz"
              ),
              Person.create!(
-              email: "Email",
-              last_name: "Lastname",
-              first_name: "Firstname",
-              title: "Title",
-              image: "Image",
-              status: "Xyz"
+               email: "Email",
+               last_name: "Lastname",
+               first_name: "Firstname",
+               title: "Title",
+               image: "Image",
+               status: "Xyz"
              )
            ])
   end
