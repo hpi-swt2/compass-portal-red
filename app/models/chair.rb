@@ -4,4 +4,8 @@ class Chair < SearchableRecord
 
   has_and_belongs_to_many :people
   has_and_belongs_to_many :rooms
+
+  def to_string
+    name
+  end
 end

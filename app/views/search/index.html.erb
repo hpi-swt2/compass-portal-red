@@ -21,14 +21,10 @@
     <div class="row">
       <div class="col">
         <div class="list-group">
-          <% @persons.each do |person|%>
-              <a href="#" class="list-group-item list-group-item-action" ><%= person.title %> <%= person.first_name %> <%= person.last_name %></a>
-          <% end %>
-          <% @rooms.each do |room|%>
-              <a href="#" class="list-group-item list-group-item-action" ><%= room.house %>-<%= room.floor %>.<%= room.number %> <%= room.full_name %></a>
-          <% end %>
-          <% @chairs.each do |chair|%>
-              <a href="#" class="list-group-item list-group-item-action" ><%= chair.name %></a>
+          <%if @results %>
+            <% @results.each do |result|%>
+                <a href="#" class="list-group-item list-group-item-action" ><%= result.to_string %></a>
+            <% end %>
           <% end %>
         </div>
       </div>

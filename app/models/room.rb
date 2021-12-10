@@ -18,6 +18,10 @@ class Room < SearchableRecord
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
 
+  def to_string
+    "#{house}-#{floor}.#{number} #{full_name}"
+  end
+
   def to_geojson
     walls.map(&:to_geojson) +
       point_of_interests.map(&:to_geojson) +

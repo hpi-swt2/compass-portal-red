@@ -15,4 +15,8 @@ class Person < SearchableRecord
   def full_name
     "#{title} #{name}"
   end
+
+  def to_string
+    "#{title} #{first_name} #{last_name}"
+  end
 end

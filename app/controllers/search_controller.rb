@@ -2,11 +2,9 @@ class SearchController < ApplicationController
   def index
     return if params[:query].nil?
 
-    @persons = Person.search(params[:query])
-    #@rooms = Room.search(params[:query])
-    @rooms = []
-    #@chairs = Chair.search(params[:query])
-    @chairs = []
+    @results = Person.search(params[:query])
+    # @results += Room.search(params[:query])
+    # @results += Chair.search(params[:query])
     @params = params[:query]
   end
 
