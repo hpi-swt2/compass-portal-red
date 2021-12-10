@@ -47,7 +47,7 @@ end
 bundle = person_collection.zip chair_list
 
 bundle.each do |person, chair|
-  chair = Chair.create(name: chair, people: [person])
+  Chair.create(name: chair, people: [person])
 end
 
 bundle = person_collection.zip information_list
