@@ -1,7 +1,8 @@
+# The base class for all searchable models
 class SearchableRecord < ApplicationRecord
   self.abstract_class = true
 
-  def searchable_attributes
+  def self.searchable_attributes
     []
   end
 
@@ -10,6 +11,8 @@ class SearchableRecord < ApplicationRecord
   end
 
   def self.search(query)
-    where("first_name like ?", "%#{query}%")
+    attributes = searchable_attributes.map { |attribute| "#{attribute} like \"%#{query}%\"" }
+    search_string = attributes.join(" or ")
+    where(search_string)
   end
 end

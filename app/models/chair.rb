@@ -8,4 +8,8 @@ class Chair < SearchableRecord
   def to_string
     name
   end
+
+  def self.searchable_attributes
+    ["name"]
+  end
 end

@@ -19,4 +19,8 @@ class Person < SearchableRecord
   def to_string
     "#{title} #{first_name} #{last_name}"
   end
+
+  def self.searchable_attributes
+    %w[title first_name last_name]
+  end
 end

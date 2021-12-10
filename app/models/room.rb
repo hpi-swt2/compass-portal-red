@@ -27,4 +27,8 @@ class Room < SearchableRecord
       point_of_interests.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
   end
+
+  def self.searchable_attributes
+    %w[house floor number full_name]
+  end
 end
