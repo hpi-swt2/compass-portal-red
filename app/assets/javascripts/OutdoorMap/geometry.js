@@ -3,7 +3,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -113,7 +114,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
          "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -219,7 +221,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -337,7 +340,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -427,7 +431,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -517,7 +522,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
          "name":"", 
-         "campus":"Studentendorf Stahnsdorfer Straße"
+         "campus":"Studentendorf Stahnsdorfer Straße",
+         "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -623,7 +629,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -729,7 +736,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -851,7 +859,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Studentendorf Stahnsdorfer Straße"
+          "campus":"Studentendorf Stahnsdorfer Straße",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -940,8 +949,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Universitätsbibliothek",
-          "campus":"UP Campus Griebnitzsee"
+          "name":"",
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -990,8 +1000,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Hörsaalgebäude",
-          "campus":"Campus I"
+          "name":"Lecture hall",
+          "campus":"Campus I",
+          "offset": [-45, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1049,7 +1060,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"Villa",
-          "campus":"Campus II"
+          "campus":"Campus II",
+          "offset": [-15, -3]
        },
        "geometry":{
           "type":"Polygon",
@@ -1131,7 +1143,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"UP Campus Griebnitzsee"
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1312,8 +1325,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Hauptgebäude",
-          "campus":"Campus I"
+          "name":"main<br>building",
+          "campus":"Campus I",
+          "offset": [3, -30]
        },
        "geometry":{
           "type":"Polygon",
@@ -1438,8 +1452,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"",
-          "campus":"Campus II"
+          "name":"Building D",
+          "campus":"Campus II",
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1476,8 +1491,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"name",
-          "campus":"Campus III"
+          "name":"Building G",
+          "campus":"Campus III",
+          "offset": [-35, 5]
        },
        "geometry":{
           "type":"Polygon",
@@ -1594,8 +1610,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus E",
-          "campus":"Campus II"
+          "name":"Building E",
+          "campus":"Campus II",
+          "offset": [-15, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1649,7 +1666,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"UP Campus Griebnitzsee"
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1746,8 +1764,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus F",
-          "campus":"Campus II"
+          "name":"Building F",
+          "campus":"Campus II",
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1785,7 +1804,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"UP Campus Griebnitzsee"
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -1903,7 +1923,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"UP Campus Griebnitzsee"
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2029,7 +2050,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"UP Campus Griebnitzsee"
+          "campus":"UP Campus Griebnitzsee",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2087,7 +2109,8 @@ let buildings = JSON.parse(`[
        "type":"Feature",
        "properties":{
           "name":"",
-          "campus":"Campus III"
+          "campus":"Campus III",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2132,8 +2155,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus G",
-          "campus":"Campus III"
+          "name":"",
+          "campus":"Campus III",
+          "offset": [0, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2178,8 +2202,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus C",
-          "campus":"Campus I"
+          "name":"Building C",
+          "campus":"Campus I",
+          "offset": [-35, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2248,8 +2273,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus B",
-          "campus":"Campus I"
+          "name":"Building B",
+          "campus":"Campus I",
+          "offset": [-38, -5]
        },
        "geometry":{
           "type":"Polygon",
@@ -2314,8 +2340,9 @@ let buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Haus A",
-          "campus":"Campus I"
+          "name":"Building A",
+          "campus":"Campus I",
+          "offset": [-36, 0]
        },
        "geometry":{
           "type":"Polygon",
@@ -2388,5 +2415,40 @@ let buildings = JSON.parse(`[
              ]
           ]
        }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+              "name":"Building J",
+               "campus":"Campus I",
+               "offset":[-35,0]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.118866682052612,
+              52.38422765152492
+            ],
+            [
+              13.119145631790161,
+              52.38415234385835
+            ],
+            [
+              13.119328022003172,
+              52.3847580757983
+            ],
+            [
+              13.119038343429564,
+              52.38477117261334
+            ],
+            [
+              13.118866682052612,
+              52.38422765152492
+            ]
+          ]
+        ]
+      }
     }
  ]`)
