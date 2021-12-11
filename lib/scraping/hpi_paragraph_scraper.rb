@@ -1,7 +1,7 @@
 require_relative "hpi_web_scraper"
 
 class HpiParagraphScraper < HpiWebScraper
-  @delimiter = '***'.freeze
+  @@delimiter = '***'.freeze
 
   def scrape
     item = {}
@@ -10,7 +10,7 @@ class HpiParagraphScraper < HpiWebScraper
     p_tags.each do |p|
       # Converting each <br> to delimiter as p.text ignores <br> and inserts no whitespaces
       p.css('br').each do |node|
-        node.replace(Nokogiri::XML::Text.new("\n#{@delimiter}\n", p))
+        node.replace(Nokogiri::XML::Text.new("\n#{@@delimiter}\n", p))
       end
     end
 
@@ -65,7 +65,7 @@ class HpiParagraphScraper < HpiWebScraper
 
       # Get all words until line break
       office = ''
-      while (split_p[index] != @delimiter) && (index < split_p.length)
+      while (split_p[index] != @@delimiter) && (index < split_p.length)
         office = "#{office}#{split_p[index]} "
         index += 1
       end
