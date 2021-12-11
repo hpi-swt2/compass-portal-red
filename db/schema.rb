@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.string "description"
     t.string "name"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
+    t.index ["room_id"], name: "index_point_of_interests_on_room_id"
   end
 
   create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
@@ -187,6 +188,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
   add_foreign_key "data_problems", "people"
   add_foreign_key "data_problems", "rooms"
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "point_of_interests", "rooms"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
