@@ -40,7 +40,6 @@ class Scraper
   end
 
   def self.update_person(person, item)
-    # %w[email title image].each { |info_name| save_if_not_exists(person, item, info_name) }
     save_if_not_exists(person, item, "email")
     save_if_not_exists(person, item, "title")
     save_if_not_exists(person, item, "image")
