@@ -80,11 +80,20 @@ for (const feature of buildings) {
     layers[feature.properties.campus].addLayer(layer);
 }
 
+layers['Points of Interest'] = L.layerGroup().addTo(mymap);
+for(const feature of points_of_interest) {
+    const layer = L.geoJSON(feature);
+    layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: feature.properties.offset, direction: 'right'})
+    layer.bindPopup(feature.properties.description);
+    layers['Points of Interest'].addLayer(layer);
+}
+
 // make names disappeared when zoomed out
 var lastZoom;
 mymap.on('zoomend', function() {
     var zoom = mymap.getZoom();
     if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
+        mymap.removeLayer(layers['Points of Interest']);
         mymap.eachLayer(function(layer) {
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();
@@ -92,8 +101,9 @@ mymap.on('zoomend', function() {
                     permanent: false
                 })
             }
-        })
+        });
     } else if (zoom >= standardZoomLevel && zoom <= indoorZoomLevel && (!lastZoom || (lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel))) {
+        mymap.addLayer(layers['Points of Interest']);
         mymap.eachLayer(function(layer) {
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();

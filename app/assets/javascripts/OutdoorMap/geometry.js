@@ -2452,3 +2452,19 @@ const buildings = JSON.parse(`[
       }
     }
  ]`)
+ const points_of_interest = JSON.parse(`[
+   {
+       "type": "Feature",
+       "properties": {
+           "name":"Mr Net",
+           "description":"This is Mr. Net",
+           "offset": [-14, 0]
+       },
+       "geometry": {
+           "type": "Point",
+           "coordinates": [
+               13.131646, 52.393869
+            ]
+       }
+   }
+]`)
