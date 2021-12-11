@@ -6,8 +6,8 @@ Feature: Search functionality
   Background:
     Given a person was created
 
-  Scenario: searching on a chair, a room and a person on home page
-    Given I am on the home page
+  Scenario: searching a chair, a room and a person
+    Given I am on the search page
     When I enter "Michael"
     And I start the search
     Then I see the search result "Dr Michael Perscheid"

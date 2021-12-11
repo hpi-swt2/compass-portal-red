@@ -6,7 +6,7 @@ Given 'a person was created' do
   create_person
 end
 
-Given('I am on the home page') do
+Given('I am on the search page') do
   visit search_path
   puts Person.first.first_name
 end
