@@ -1,4 +1,3 @@
-#   If you think this code is ugly try looking at hpi_paragraph_scraper.rb!
 require_relative 'scraping_exception'
 require_relative 'hpi_table_scraper'
 require_relative 'hpi_paragraph_scraper'
@@ -67,7 +66,7 @@ class HpiDataCollector
     person_text_div = person_div.css('.csc-textpic-text')
     person_image_div = person_div.css('.csc-textpic-imagewrap')
 
-      # Page contains table
+    # Page contains table
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
       collect(person, scraper, person_image_div)
