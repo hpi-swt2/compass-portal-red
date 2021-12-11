@@ -91,7 +91,7 @@ class HpiDataCollector
     document = ''
 
     begin
-      document = Nokogiri::HTML(URI.open(@base_url + url, allow_redirections: :all))
+      document = Nokogiri::HTML(URI.parse(@base_url + url).open(allow_redirections: :all))
       raise ScrapingException, "Redirect" if document.title == 'Hasso-Plattner-Institut' # Redirect due to non-existance
     rescue OpenURI::HTTPError
       raise ScrapingException, "HTTPError"
