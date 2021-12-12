@@ -23,4 +23,8 @@ class Room < ApplicationRecord
       point_of_interests.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
   end
+
+  def display_name
+    full_name || number
+  end
 end
