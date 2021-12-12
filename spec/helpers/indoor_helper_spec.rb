@@ -1,5 +1,4 @@
 require "spec_helper"
-require "nokogiri"
 
 RSpec.describe IndoorHelper, type: :helper do
   let(:latitudes) { [52.39426575042, 52.39410268895, 52.39425695289] }
@@ -39,7 +38,8 @@ RSpec.describe IndoorHelper, type: :helper do
   describe "room builder" do
     let(:name) { 'HS Triangle' }
     let(:room_node) do
-      Nokogiri::XML("<root><trk><name>#{name}</name><trkseg>#{point_descriptions.join}</trkseg></trk></root>").root.children.first
+      xml = Nokogiri::XML("<root><trk><name>#{name}</name><trkseg>#{point_descriptions.join}</trkseg></trk></root>")
+      xml.root.children.first
     end
 
     it "persists room" do

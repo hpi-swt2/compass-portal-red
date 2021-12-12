@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module IndoorHelper
   def build_point_from(point_node)
     lat = point_node["lat"]
