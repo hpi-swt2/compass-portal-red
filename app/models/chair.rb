@@ -1,3 +1,4 @@
+# The model representing a chair at the HPI
 class Chair < SearchableRecord
   validates :name, presence: true
   validates :people, presence: true

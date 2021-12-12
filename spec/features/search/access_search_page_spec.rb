@@ -40,11 +40,9 @@ RSpec.describe "Search Page", type: :feature do
   end
 
   it "renders a list containing only attributes searched for" do
-    FactoryBot.create :person
     FactoryBot.create :room
     FactoryBot.create :chair
     visit "#{search_path}?query=Enterprise&commit=Search"
-    expect(page).not_to have_link 'Michael'
     expect(page).not_to have_link 'H-E.42'
   end
 
