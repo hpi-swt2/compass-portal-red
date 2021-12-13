@@ -11,4 +11,3 @@ Feature: Search functionality
     When I enter "Michael"
     And I start the search
     Then I see the search result "Dr Michael Perscheid"
-    And I see next to the search result an icon for a "person"
