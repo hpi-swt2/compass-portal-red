@@ -19,7 +19,7 @@ class Room < SearchableRecord
   end
 
   def to_string
-    "#{house}-#{floor}.#{number} #{full_name}"
+    display_name
   end
 
   def to_geojson

@@ -28,7 +28,7 @@ RSpec.describe "Search Page", type: :feature do
     FactoryBot.create(:room, full_name: 'H-E.41')
     visit "#{search_path}?query=H-E&commit=Search"
     expect(page).to have_link 'H-E.41'
-    expect(page).to have_link '-E.42 H-E.42'
+    expect(page).to have_link 'H-E.42'
   end
 
   it "renders list with chairs containing searched chair name" do
