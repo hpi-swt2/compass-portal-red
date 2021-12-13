@@ -1,21 +1,8 @@
-def create_person
-  Person.create(first_name: 'Michael', last_name: 'Perscheid', title: 'Dr')
-end
-
-Given 'a person was created' do
-  create_person
-end
-
-Given('I am on the search page') do
-  visit search_path
-  puts Person.first.first_name
-end
-
-Given('I start the search') do
+When('I start the search') do
   page.find_button('Search').click
 end
 
-Given('I enter {string}') do |string|
+When('I enter {string}') do |string|
   fill_in 'query', with: string
 end
 
