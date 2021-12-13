@@ -1,5 +1,5 @@
 # The model representing a person associated with the HPI
-class Person < ApplicationRecord
+class Person < SearchableRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -14,5 +14,13 @@ class Person < ApplicationRecord
 
   def full_name
     "#{title} #{name}"
+  end
+
+  def to_string
+    full_name
+  end
+
+  def self.searchable_attributes
+    %w[title first_name last_name]
   end
 end

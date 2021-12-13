@@ -1,5 +1,5 @@
 # The model representing a room associated with the HPI
-class Room < ApplicationRecord
+class Room < SearchableRecord
   # validates :full_name, presence: true
   # validates :room_types, presence: true
 
@@ -18,10 +18,18 @@ class Room < ApplicationRecord
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
 
+  def to_string
+    display_name
+  end
+
   def to_geojson
     walls.map(&:to_geojson) +
       point_of_interests.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
+  end
+
+  def self.searchable_attributes
+    %w[house floor number full_name]
   end
 
   def display_name
