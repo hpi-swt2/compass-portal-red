@@ -12,12 +12,22 @@ require 'capybara/cucumber'
 require 'capybara/session'
 require 'capybara/dsl'
 
-Capybara.default_driver = :selenium
-options = Selenium::WebDriver::Chrome::Options.new
 
-Capybara.register_driver :selenium do |app|
-  options.add_argument('--headless')
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+browser = ENV['BROWSER'].present? ? ENV['BROWSER'].parameterize.underscore.to_sym : :chrome
+
+Capybara.default_driver = :selenium
+
+if ENV['HEADLESS'] == 'true'
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless') if ENV['HEADLESS']
+
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, browser: browser, options: options)
+  end
+else
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, browser: browser)
+  end
 end
 
 Capybara.javascript_driver = :chrome

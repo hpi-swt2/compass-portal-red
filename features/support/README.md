@@ -20,7 +20,6 @@ For running the test scenarios with browser automation the following gems are ne
 
 All these gems are specified in Gemfile, run `bundle install` from project folder
 
-You can change the browser in `features/support/env.rb` by setting browser to :chrome or :firfox
 
 
 ## Run test scenarios
@@ -28,13 +27,18 @@ You can change the browser in `features/support/env.rb` by setting browser to :c
 - All tests:
   `bundle exec cucumber`
 - All scenarios in a given file or folder:
-  `bundle exec gurke --drb features/my_feature.feature`
+  `bundle exec cucumber features/scenarios/my_feature.feature`
 - Just one scenario in a given file (specified by line):
-  `bundle exec gurke --drb features/my_feature.feature:10`
+  `bundle exec cucumber features/scenarios/my_feature.feature:10`
+
+Default browser is chrome, if you want to change it set the environment variable `BROWSER` to another browser.
+- e.g. `bundle exec cucumber BROWSER=firefox`
+
+You can also set the environment variable `HEADLESS` to true, if you want to run in headless mode.
 
 ## Writing Tests
 
-Features can be found in the `features/` directory. They consist of a generic description of the feature (this is a dummy feature file `my_feature.feature`),
+Features can be found in the `features/scenarios` directory. They consist of a generic description of the feature (this is a dummy feature file `my_feature.feature`),
 
 ```
 Feature: Search a person
