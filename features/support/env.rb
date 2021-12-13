@@ -13,9 +13,11 @@ require 'capybara/session'
 require 'capybara/dsl'
 
 Capybara.default_driver = :selenium
+options = Selenium::WebDriver::Chrome::Options.new
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
+  options.add_argument('--headless')
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Capybara.javascript_driver = :chrome
