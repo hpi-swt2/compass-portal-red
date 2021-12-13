@@ -1,0 +1,33 @@
+// Place all the styles related to the search controller here.
+
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
+@import '@fortawesome/fontawesome-free/scss/brands.scss';
+
+.search-item {
+  &-icon {
+    @extend %fa-icon;
+    @extend .fas;
+    width: 1.25em;
+    padding-right: 2px;
+    text-align:center;
+
+    &.--person {
+      &:before {
+        content: fa-content($fa-var-user);
+      }
+    }
+
+    &.--room{
+      &:before {
+        content: fa-content($fa-var-door-open);
+      }
+    }
+
+    &.--chair{
+      &:before {
+        content: fa-content($fa-var-users);
+      }
+    }
+  }
+}
