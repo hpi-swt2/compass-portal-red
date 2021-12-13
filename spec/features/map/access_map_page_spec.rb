@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Map Page", type: :feature do
-  it "is accessible" do
+  it "exists and renders without error" do
     visit map_path
   end
 
@@ -10,8 +10,8 @@ RSpec.describe "Map Page", type: :feature do
     expect(page).to have_link(nil, href: map_path)
   end
 
-  it "contains a map container" do
+  it "contains a leaflet container" do
     visit map_path
-    expect(page).to have_css('.map')
+    expect(page).to have_css '.leaflet'
   end
 end
