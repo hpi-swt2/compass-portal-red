@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @person.first_name %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @person.last_name %>
+</p>
+
+<%# Only show room when room is not nil %>
+<% if @person.room %>
+  <p>
+    <strong>Room:</strong>
+    <%= @person.room.display_name %>
+  </p>
+<% end %>
+
+<p>
+  <strong>Title:</strong>
+  <%= @person.title %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @person.image %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @person.status %>
+</p>
+
+<% @person.informations.each do |information| %>
+<p>
+  <strong><%= information.key %>:</strong>
+  <%= information.value %>
+</p>
+<% end %>
+
+
+<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Back', people_path %>

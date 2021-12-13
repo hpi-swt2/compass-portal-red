@@ -70,6 +70,12 @@ yarn-debug.log*
 # Node modules
 node_modules
 
+
+# Images
+app/assets/images/people/*
+
 #ignore .idea
 .idea
 .idea/*
+
+.people_urls.json

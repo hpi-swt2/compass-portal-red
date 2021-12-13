@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
+  create_table "person_urls", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
