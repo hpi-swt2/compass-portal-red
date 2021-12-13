@@ -54,6 +54,7 @@ jobs:
           cp config/database.ci.yml config/database.yml
           bundle exec rails db:setup
           bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
+          bundle exec cucumber
 
   # Name of the job
   deploy:
