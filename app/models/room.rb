@@ -31,7 +31,7 @@ class Room < SearchableRecord
   def self.searchable_attributes
     %w[house floor number full_name]
   end
-    
+
   def display_name
     full_name || number
   end
