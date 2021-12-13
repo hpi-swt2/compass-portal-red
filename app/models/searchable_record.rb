@@ -11,7 +11,7 @@ class SearchableRecord < ApplicationRecord
   end
 
   def self.search(query)
-    attributes = searchable_attributes.map { |attribute| "#{attribute} like \"%#{query}%\"" }
+    attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
     search_string = attributes.join(" or ")
     where(search_string)
   end
