@@ -17,7 +17,9 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit; end
+  def edit
+    @params = request.query_parameters.keys
+  end
 
   # POST /people or /people.json
   def create
