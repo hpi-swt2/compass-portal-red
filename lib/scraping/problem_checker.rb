@@ -4,9 +4,10 @@ class ProblemChecker
   def check_for_empty_person_fields
     Person.all.each do |entry|
       entry.attributes.each do |name, value|
-        save_problem("missing", entry, name) unless value
+        save_problem("missing", entry, name) unless value || name["human_verified"]
       end
     end
+    check_for_empty_room_fields
   end
 
   def check_for_empty_room_fields
@@ -34,7 +35,9 @@ class ProblemChecker
   end
 
   def save_problem(problem, entry, field)
-    item = { url: entry.url, description: problem, field: field, person_id_id: entry.object_id } if entry.instance_of?(Person)
+    if entry.instance_of?(Person)
+      item = { url: entry.url, description: problem, field: field, person_id_id: entry.object_id }
+    end
     DataProblem.where(item).first_or_create if item.present?
   end
 end
