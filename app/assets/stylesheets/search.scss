@@ -4,13 +4,16 @@
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 
+@import "colors";
+
 .search-item {
   &-icon {
     @extend %fa-icon;
     @extend .fas;
     width: 1.25em;
-    padding-right: 2px;
     text-align:center;
+    padding-right: 2px;
+    color: $gray;
 
     &.--person {
       &:before {
