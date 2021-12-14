@@ -10,6 +10,10 @@ class SearchableRecord < ApplicationRecord
     raise 'This method should be overriden to display a string when searching'
   end
 
+  def icon_class
+    "search-item-icon --#{self.class.name.downcase}"
+  end
+
   def self.search(query)
     attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
     search_string = attributes.join(" or ")
