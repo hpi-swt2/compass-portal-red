@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_143421) do
+ActiveRecord::Schema.define(version: 2021_12_14_135112) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -65,6 +65,12 @@ ActiveRecord::Schema.define(version: 2021_12_11_143421) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
     t.integer "user_id"
+    t.datetime "human_verified_email"
+    t.datetime "human_verified_last_name"
+    t.datetime "human_verified_first_name"
+    t.datetime "human_verified_title"
+    t.datetime "human_verified_image"
+    t.datetime "human_verified_room_id"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
