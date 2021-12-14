@@ -13,11 +13,7 @@ module IndoorHelper
     name = name_node.content
 
     point_nodes = room_node.css("trkpt")
-    points = []
-
-    point_nodes.each do |point_node|
-      points.push(build_point_from(point_node))
-    end
+    points = point_nodes.map { |point_node| build_point_from(point_node) }
 
     points.push(points.first)
     outer_shape = Polyline.create(points: points)

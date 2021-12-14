@@ -10,6 +10,4 @@ doc = Nokogiri::XML(File.open("app/assets/data/#{ARGV.first}"))
 rooms = doc.css("//trk")
 building = Building.create
 
-rooms.each do |room_node|
-  build_room_from(room_node, building)
-end
+rooms.each { |room_node| build_room_from(room_node, building) }
