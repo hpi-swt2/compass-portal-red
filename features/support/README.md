@@ -1,6 +1,6 @@
 # BDD with cucumber and capybara
 
-I followed this guide to setup all necessary files for the project: https://www.agiratech.com/web-automation-testing-with-ruby-cucumber-watir
+(this is not important for setup) I followed this guide to setup all necessary files for the project: https://www.agiratech.com/web-automation-testing-with-ruby-cucumber-watir
 
 ## Prerequisits
 To run the integration tests, you need to install chromedriver for Selenium to communicate with your web browser.
@@ -10,6 +10,7 @@ To run the integration tests, you need to install chromedriver for Selenium to c
 
 
 ## Setup
+
 For running the test scenarios with browser automation the following gems are needed
 - rspec
 - capybara
