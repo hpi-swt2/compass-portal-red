@@ -11,7 +11,7 @@ class ProblemChecker
   def check_empty_fields(model)
     model.all.each do |entry|
       entry.attributes.each do |name, value|
-        save_problem("missing", entry, name) unless value
+        save_problem("missing", entry, name) unless value || name["human_verified"]
       end
     end
   end
@@ -21,12 +21,13 @@ class ProblemChecker
       save_problem("outdated", entry, "all") if entry.updated_at.days_since(@@outdated_time).past?
     end
   end
+
   def check_for_conflict(entry, new, field)
     old = entry.public_send(field)
     return true if !new || new == old
 
     if !entry.public_send("human_verified_#{field}")
-      if time.current - entry.updated_at < 1
+      if Time.zone.now.days_since(1).future?
         save_problem('conflicting', entry, field)
         return true
       end
@@ -39,7 +40,7 @@ class ProblemChecker
 
   def save_problem(problem, entry, field)
     if entry.instance_of?(Person)
-      item = { url: entry.url, description: problem, field: field, person_id_id: entry.object_id }
+      item = { url: "/people/#{entry.id}", description: problem, field: field, person_id: entry.id }
     end
     DataProblem.where(item).first_or_create if item.present?
   end
