@@ -1,4 +1,3 @@
-#   If you think this code is ugly try looking at hpi_paragraph_scraper.rb!
 require_relative 'scraping_exception'
 require_relative 'hpi_table_scraper'
 require_relative 'hpi_paragraph_scraper'
@@ -50,7 +49,6 @@ class HpiDataCollector
     Rails.logger.debug { "Scraping #{name} @ #{url}" }
     person = {}
 
-    # TODO: Store as information
     person[:website] = @base_url + url
 
     document = get_html_document(url)
@@ -72,6 +70,7 @@ class HpiDataCollector
     if person_text_div.css('table').any?
       scraper = HpiTableScraper.new(person_text_div)
       collect(person, scraper, person_image_div)
+
       # Page contains multiple people
     elsif person_text_div.length > 1
       scrape_multiple_people_page(person, name, content, person_text_div)
@@ -91,7 +90,7 @@ class HpiDataCollector
     document = ''
 
     begin
-      document = Nokogiri::HTML(URI.parse(@base_url + url).open(allow_redirections: :all))
+      document = Nokogiri::HTML(URI.open(@base_url + url, allow_redirections: :all))
       raise ScrapingException, "Redirect" if document.title == 'Hasso-Plattner-Institut' # Redirect due to non-existance
     rescue OpenURI::HTTPError
       raise ScrapingException, "HTTPError"

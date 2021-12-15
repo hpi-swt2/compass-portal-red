@@ -6,7 +6,7 @@ class HpiWebScraper
   OFFICE_WORDS = %w[office: Office: Raum: Room:].freeze
   EMAIL_WORDS = %w[Email: E-mail: E-Mail: e-mail:].freeze
 
-  @@base_url = 'https://hpi.de'
+  BASE_URL = 'https://hpi.de'.freeze
 
   def initialize(html_document)
     @html = html_document
@@ -24,7 +24,7 @@ class HpiWebScraper
     end
 
     img_src = image.attr('src')
-    img_src = @@base_url + img_src
+    img_src = BASE_URL + img_src
 
     get_image_file_path_and_save(img_src)
   end

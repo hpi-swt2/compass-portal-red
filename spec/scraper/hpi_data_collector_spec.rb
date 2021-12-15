@@ -2,16 +2,14 @@ require 'rails_helper'
 require "./lib/scraping/hpi_data_collector"
 
 RSpec.describe "HpiDataCollector", type: :feature do
-  before do
-    @base_url = "#{Rails.root}/spec/scraper"
-    @data_collector = HpiDataCollector.new(@base_url)
-  end
+  let(:base_url) { "#{Rails.root}/spec/scraper" }
+  let(:data_collector) { HpiDataCollector.new(base_url) }
 
   # Unit tests
 
   it "extracts surname and name from a person's full name" do
     name = 'Prof. Dr. Holger Giese'
-    name_hash = @data_collector.get_names(name)
+    name_hash = data_collector.get_names(name)
 
     expect(name_hash[:first_name]).to eq 'Holger'
     expect(name_hash[:last_name]).to eq 'Giese'
@@ -19,7 +17,7 @@ RSpec.describe "HpiDataCollector", type: :feature do
 
   it "extracts the person's title from a person's full name" do
     name = 'Prof. Dr. Holger Giese'
-    title_hash = @data_collector.get_title(name)
+    title_hash = data_collector.get_title(name)
 
     expect(title_hash[:title]).to eq 'Prof. Dr.'
   end
@@ -28,9 +26,9 @@ RSpec.describe "HpiDataCollector", type: :feature do
 
   it "scrapes an HPI web page where people data is stored in an HTML table" do
     person_url = ['Dr. Michael Perscheid', '/html_mocks/table.html']
-    person_data = @data_collector.get_scraping_info(person_url[0], person_url[1])
+    person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-    expect(person_data[:website]).to eq "#{@base_url}#{person_url[1]}"
+    expect(person_data[:website]).to eq "#{base_url}#{person_url[1]}"
     expect(person_data[:email]).to eq 'michael.perscheid(at)hpi.de'
     expect(person_data[:phone]).to eq '+49 (331) 5509-566'
     expect(person_data[:office]).to eq 'Campus II (Villa), V-2.18'
@@ -40,9 +38,9 @@ RSpec.describe "HpiDataCollector", type: :feature do
 
   it "scrapes an HPI web page where people data is stored in an HTML paragraph" do
     person_url = ['Hannah Marienwald', '/html_mocks/paragraph.html']
-    person_data = @data_collector.get_scraping_info(person_url[0], person_url[1])
+    person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-    expect(person_data[:website]).to eq "#{@base_url}#{person_url[1]}"
+    expect(person_data[:website]).to eq "#{base_url}#{person_url[1]}"
     expect(person_data[:email]).to eq 'Hannah.Marienwald(at)hpi.de'
     expect(person_data[:phone]).to eq '+49-(0) 331 5509 - 4865 '
     expect(person_data[:office]).to eq 'F-1.06 '
@@ -52,9 +50,9 @@ RSpec.describe "HpiDataCollector", type: :feature do
 
   it "scrapes an HPI web page where multiple people share the same page" do
     person_url = ['Lisa Rüppner', '/html_mocks/multiple_people.html']
-    person_data = @data_collector.get_scraping_info(person_url[0], person_url[1])
+    person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-    expect(person_data[:website]).to eq "#{@base_url}#{person_url[1]}"
+    expect(person_data[:website]).to eq "#{base_url}#{person_url[1]}"
     expect(person_data[:email]).to eq 'lisa.rueppner(at)hpi.de'
     expect(person_data[:phone]).to eq '+49-(0)331 5509-120 '
     expect(person_data[:office]).to eq 'B-1.12 '
