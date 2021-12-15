@@ -3,9 +3,7 @@ class SendReminder
     problems = []
     id = nil
     DataProblem.order(:people_id).each do |problem|
-      if id.nil?
-        id = problem.people_id
-      end
+      id = problem.people_id if id.nil?
       if problem.people_id.equal? id
         problems.append problem
       else
@@ -15,14 +13,14 @@ class SendReminder
         problems = [problem]
       end
     end
-    unless problems.empty?
-      person = Person.find(id)
-      send_email(person, problems)
-    end
+    return if problems.empty?
+    person = Person.find(id)
+    send_email(person, problems)
+
   end
 
   def self.send_email(person, problems)
-    emails = EmailLog.where("people_id = ?", person.id)
+    emails = EmailLog.where(people_id: :person.id)
     if emails.empty? || (Date.current - emails.order(:last_sent).last.last_sent).to_int > 90
       PeopleMailer.with(person: person, problems: problems).problem_reminder_email.deliver_now
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)

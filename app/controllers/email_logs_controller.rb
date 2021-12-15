@@ -1,5 +1,4 @@
 class EmailLogsController < ApplicationController
-
   # GET /email_log or /email_log.json
   def index
     @email_log = EmailLog.all

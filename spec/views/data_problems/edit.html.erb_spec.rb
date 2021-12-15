@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "data_problems/edit", type: :view do
-  before(:each) do
+  before do
     @data_problem = assign(:data_problem, DataProblem.create!(
-      url: "MyString",
-      description: "",
-      field: "MyString",
-      rooms_id: nil,
-      people_id: nil
-    ))
+                                            url: "MyString",
+                                            description: "",
+                                            field: "MyString",
+                                            rooms_id: nil,
+                                            people_id: nil
+                                          ))
   end
 
   it "renders the edit data_problem form" do

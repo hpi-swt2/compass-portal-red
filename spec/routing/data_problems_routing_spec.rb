@@ -18,7 +18,6 @@ RSpec.describe DataProblemsController, type: :routing do
       expect(get: "/data_problems/1/edit").to route_to("data_problems#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/data_problems").to route_to("data_problems#create")
     end

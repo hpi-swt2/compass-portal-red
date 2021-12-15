@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "data_problems/show", type: :view do
-  before(:each) do
+  before do
     @data_problem = assign(:data_problem, DataProblem.create!(
-      url: "Url",
-      description: "Test",
-      field: "Field",
-      rooms_id: nil,
-      people_id: nil
-    ))
+                                            url: "Url",
+                                            description: "Test",
+                                            field: "Field",
+                                            rooms_id: nil,
+                                            people_id: nil
+                                          ))
   end
 
   it "renders attributes in <p>" do
