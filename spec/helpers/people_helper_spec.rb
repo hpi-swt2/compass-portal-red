@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the PeopleHelper. For example:
-#
-# describe PeopleHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe PeopleHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "returns red (hex) if key is part of params" do
+    key = "email"
+    params = %w[first_name last_name email title]
+    expect(helper.form_color(key, params)).to eq("#FF9999")
+  end
+
+  it "returns white (hex) if key is not part of params" do
+    key = "phone"
+    params = %w[first_name last_name email title]
+    expect(helper.form_color(key, params)).to eq("#FFFFFF")
+  end
 end
