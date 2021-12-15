@@ -95,13 +95,8 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-<<<<<<< HEAD
     t.string "description"
     t.string "name"
-=======
-    t.string "point_type", null: false
-    t.integer "room_id", null: false
->>>>>>> de56c91 (Fixing tests)
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
     t.index ["room_id"], name: "index_point_of_interests_on_room_id"
   end

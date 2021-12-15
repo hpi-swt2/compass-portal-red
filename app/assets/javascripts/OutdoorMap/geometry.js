@@ -2455,8 +2455,9 @@ const buildings = JSON.parse(`[
 
 const points_of_interest = JSON.parse(`[
    {
-       "type": "Entrance",
+       "type": "Feature",
        "properties": {
+           "type": "Entrance",
            "name": "Entrance Mensa",
            "description": "This is a cheap place to eat.",
            "offset": [
@@ -2467,14 +2468,15 @@ const points_of_interest = JSON.parse(`[
        "geometry": {
            "type": "Point",
            "coordinates": [
-               52.392980698077,
-               13.128747566783272
+                13.128548367356524,
+                52.39319714447824
            ]
        }
    },
    {
-       "type": "Entrance",
+       "type": "Feature",
        "properties": {
+           "type": "Entrance",
            "name": "Entrance Ulfs Cafe",
            "description": "This is a nice place to eat.",
            "offset": [
@@ -2485,14 +2487,15 @@ const points_of_interest = JSON.parse(`[
        "geometry": {
            "type": "Point",
            "coordinates": [
-               52.393314344627576,
-               13.131130141391496
+               13.131130141391496,
+               52.393314344627576
            ]
        }
    },
    {
-       "type": "Entrance",
+       "type": "Feature",
        "properties": {
+           "type": "Entrance",
            "name": "Entrance 1 Lecture Hall Building",
            "description": "This is a place to educate yourself.",
            "offset": [
@@ -2503,14 +2506,15 @@ const points_of_interest = JSON.parse(`[
        "geometry": {
            "type": "Point",
            "coordinates": [
-               52.39398968816178,
-               13.132361790785035
+               13.132361790785035,
+               52.39398968816178
            ]
        }
-   }, 
+   },
    {
-       "type": "Entrance",
+       "type": "Feature",
        "properties": {
+           "type": "Entrance",
            "name": "Entrance 2 Lecture Hall Building",
            "description": "This is a place to educate yourself.",
            "offset": [
@@ -2521,8 +2525,8 @@ const points_of_interest = JSON.parse(`[
        "geometry": {
            "type": "Point",
            "coordinates": [
-               52.39418764236647,
-               13.132477744533185
+               13.132477744533185,
+               52.39418764236647
            ]
        }
    }
