@@ -25,7 +25,6 @@ RSpec.describe "data_problems/index", type: :view do
     assert_select "tr>td", text: "Url".to_s, count: 2
     assert_select "tr>td", text: "Description".to_s, count: 2
     assert_select "tr>td", text: "Field".to_s, count: 2
-    assert_select "tr>td", text: nil.to_s, count: 2
-    assert_select "tr>td", text: nil.to_s, count: 2
+    assert_select "tr>td", text: nil.to_s, count: 4
   end
 end

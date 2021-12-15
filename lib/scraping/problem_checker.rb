@@ -1,23 +1,26 @@
 class ProblemChecker
   @@human_verified_time = 365
+  @@outdated_time = 183
 
-  def check_for_empty_person_fields
-    Person.all.each do |entry|
-      entry.attributes.each do |name, value|
-        save_problem("missing", entry, name) unless value || name["human_verified"]
-      end
-    end
-    check_for_empty_room_fields
+  def data_check_routine
+    check_empty_fields(Person)
+    check_empty_fields(Room)
+    check_for_outdated(Room)
   end
 
-  def check_for_empty_room_fields
-    Room.all.each do |entry|
+  def check_empty_fields(model)
+    model.all.each do |entry|
       entry.attributes.each do |name, value|
         save_problem("missing", entry, name) unless value
       end
     end
   end
 
+  def check_for_outdated(model)
+    model.all.each do |entry|
+      save_problem("outdated", entry, "all") if entry.updated_at.days_since(@@outdated_time).past?
+    end
+  end
   def check_for_conflict(entry, new, field)
     old = entry.public_send(field)
     return true if !new || new == old
