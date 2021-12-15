@@ -2,7 +2,8 @@ name: Acceptance tests
 
 on:
   push:
-    branches: [ main, dev ]
+    branches:
+      - add-acceptance-tests-cucumber
   # Allow manual triggering
   workflow_dispatch:
 
