@@ -50,4 +50,6 @@ jobs:
           POSTGRES_DB: test
           RAILS_ENV: test
         run: |
+          cp config/database.ci.yml config/database.yml
+          bundle exec rails db:setup
           bundle exec cucumber HEADLESS=true BROWSER=chrome
