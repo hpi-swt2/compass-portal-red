@@ -42,34 +42,11 @@ jobs:
       - name: Setup yarn dependencies
         run: yarn install
 
-      - name: Run tests (PostgreSQL)
+      - name: Run cucumber tests (PostgreSQL)
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test
           RAILS_ENV: test
-        # Don't run RSpec with . https://olivierlacan.com/posts/a-tiny-little-dot/
-        # Show rspec errors as GH annotations https://github.com/Drieam/rspec-github#usage
         run: |
-          cp config/database.ci.yml config/database.yml
-          bundle exec rails db:setup
-          bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
-
-  # Name of the job
-  deploy:
-    # Deploy the main branch
-    if: github.ref == 'refs/heads/main'
-    # test job must succeed before this job is started
-    needs: rspec-test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      # https://github.com/marketplace/actions/deploy-to-heroku
-      - name: Deploy main to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "compass-red" #Must be unique in Heroku
-          heroku_email: "hpi.swt2+heroku@gmail.com"
+          bundle exec cucumber HEADLESS=true BROWSER=chrome
