@@ -16,27 +16,17 @@
 
   <tbody>
     <% @data_problems.each do |data_problem| %>
-      <% if !data_problem.person_id.nil? %>
         <tr>
           <td><%= data_problem.url %></td>
           <td><%= data_problem.description %></td>
           <td><%= data_problem.field %></td>
           <td><%= data_problem.room_id %></td>
           <td><%= data_problem.person_id %></td>
-          <td><%= link_to 'Edit', edit_person_url(data_problem.person_id)<<edit_params(data_problem.person_id)  %></td>
+          <% if !data_problem.person_id.nil? %>
+            <td><%= link_to 'Edit', edit_person_url(data_problem.person_id)<<edit_params(data_problem.person_id)  %></td>
+          <% end %>
           <td><%= link_to 'Destroy', data_problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      <% end %>
-      <% if data_problem.person_id.nil? %>
-        <tr>
-          <td><%= data_problem.url %></td>
-          <td><%= data_problem.description %></td>
-          <td><%= data_problem.field %></td>
-          <td><%= data_problem.room_id %></td>
-          <td><%= data_problem.person_id %></td>
-          <td><%= link_to 'Destroy', data_problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
