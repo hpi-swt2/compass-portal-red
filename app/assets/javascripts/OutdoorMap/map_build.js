@@ -109,14 +109,18 @@ for (const feature of buildings) {
 
 layers["Point of Interest"] = L.layerGroup().addTo(mymap);
 for (const feature of points_of_interest) {
+  console.log(feature.type);
   switch (feature.type) {
     case "Entrance":
+      console.log("here");
       layerStyle = EntranceStyle;
       break;
     default:
       layerStyle = PoIStyle;
   }
+  console.log(layerStyle);
   const layer = L.geoJSON(feature, { style: layerStyle });
+  console.log(layer);
   layer.bindTooltip(feature.properties.name, {
     permanent: true,
     className: "marker_label",
