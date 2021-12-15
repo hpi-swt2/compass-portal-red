@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
+  default_form_builder HighlightableFormBuilder
 
   # GET /people or /people.json
   def index
@@ -18,7 +19,7 @@ class PeopleController < ApplicationController
 
   # GET /people/1/edit
   def edit
-    @params = request.query_parameters.keys
+    @params = params
   end
 
   # POST /people or /people.json
@@ -39,6 +40,7 @@ class PeopleController < ApplicationController
   # PATCH/PUT /people/1 or /people/1.json
   def update
     respond_to do |format|
+      puts person_params
       if @person.update(person_params)
         format.html { redirect_to @person, notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }

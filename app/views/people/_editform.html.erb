@@ -1,4 +1,4 @@
-<%= form_with(model: person) do |form| %>
+<%= form_with(model: person, params: @params) do |form| %>
   <% if person.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -13,32 +13,32 @@
 
   <div class="field">
     <%= form.label :first_name %>
-    <%= form.text_field :first_name, style: "background-color:#{form_color("first_name", @params)}" %>
+    <%= form.text_field :first_name, class: 'test' %>
   </div>
 
   <div class="field">
     <%= form.label :last_name %>
-    <%= form.text_field :last_name, style: "background-color:#{form_color("last_name", @params)}" %>
+    <%= form.text_field :last_name %>
   </div>
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, style: "background-color:#{form_color("title", @params)}" %>
+    <%= form.text_field :title %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email, style: "background-color:#{form_color("email", @params)}" %>
+    <%= form.text_field :email %>
   </div>
 
   <div class="field">
     <%= form.label :image %>
-    <%= form.text_field :image, style: "background-color:#{form_color("image", @params)}" %>
+    <%= form.text_field :image %>
   </div>
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.text_field :status, style: "background-color:#{form_color("status", @params)}" %>
+    <%= form.text_field :status %>
   </div>
 
   <div class="actions">
