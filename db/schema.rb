@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_09_160350) do
+ActiveRecord::Schema.define(version: 2021_12_15_102747) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2021_12_09_160350) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["people_id"], name: "index_data_problems_on_people_id"
     t.index ["rooms_id"], name: "index_data_problems_on_rooms_id"
+  end
+
+  create_table "email_logs", force: :cascade do |t|
+    t.text "email_address"
+    t.date "last_sent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "people_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -136,4 +144,5 @@ ActiveRecord::Schema.define(version: 2021_12_09_160350) do
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
+  add_foreign_key "email_logs", "people", column: "people_id"
 end

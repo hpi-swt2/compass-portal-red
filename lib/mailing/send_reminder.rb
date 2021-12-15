@@ -2,22 +2,32 @@ class SendReminder
   def self.remind
     problems = []
     id = nil
-    person = Person.create(name: 'Hans', email: '123@web.de')
-    DataProblem.create(people_id: person.id)
-
-    DataProblem.group(:people_id).each do |problem|
+    DataProblem.order(:people_id).each do |problem|
       if id.nil?
         id = problem.people_id
       end
       if problem.people_id.equal? id
         problems.append problem
       else
-        puts problems
-        person = Person.where("id = ?", id)
-        PeopleMailer.with(person: person, problems: problems).problem_reminder_email.deliver_now
+        person = Person.find(id)
+        send_email(person, problems)
         id = problem.people_id
-        problems = []
+        problems = [problem]
       end
+    end
+    unless problems.empty?
+      person = Person.find(id)
+      send_email(person, problems)
+    end
+  end
+
+  def self.send_email(person, problems)
+    emails = EmailLog.where("people_id = ?", person.id)
+    if emails.empty? || (Date.current - emails.order(:last_sent).last.last_sent).to_int > 90
+      PeopleMailer.with(person: person, problems: problems).problem_reminder_email.deliver_now
+      EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
+    else
+      puts "Email not sent since the last email was sent within the last 30 days."
     end
   end
 end

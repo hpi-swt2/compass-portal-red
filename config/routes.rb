@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :email_log
   resources :data_problems
   resources :people
 
