@@ -14,34 +14,50 @@
   <div class="field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name %>
+    <%= form.check_box :human_verified_first_name, class: "form-check-input" %>
   </div>
 
   <div class="field">
     <%= form.label :last_name %>
     <%= form.text_field :last_name %>
+    <%= form.check_box :human_verified_last_name, class: "form-check-input"%>
   </div>
 
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
+    <%= form.check_box :human_verified_title, class: "form-check-input"%>
   </div>
 
   <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>
+    <%= form.check_box :human_verified_email, class: "form-check-input"%>
   </div>
 
   <div class="field">
     <%= form.label :image %>
     <%= form.text_field :image %>
+    <%= form.check_box :human_verified_image, class: "form-check-input"%>
   </div>
 
   <div class="field">
     <%= form.label :status %>
     <%= form.text_field :status %>
+    <!-- No associated attribute in the database yet -->
   </div>
 
+<!--
+  TODO: Update other tables
+  <% @person.informations.each do |information| %>
+    <div class="field">
+      <%= form.label information.key %>
+      <%= form.text_field information.key%>
+      <%= form.check_box "human_verified_#{information.key}".to_sym, class: "form-check-input"%>
+    </div> 
+  <% end %> -->
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
