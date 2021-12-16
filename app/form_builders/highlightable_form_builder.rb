@@ -9,6 +9,7 @@ class HighlightableFormBuilder < ParamFormBuilder
   end
 
   def update_options(name, options)
+    options[:class] = "#{options[:class]} form-control"
     options[:class] = "#{options[:class]} #{HIGHLIGHT_CLASS_NAME}" if highlighted? name
     options
   end
