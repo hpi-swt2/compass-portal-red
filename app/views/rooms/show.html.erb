@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @room.floor %>
+</p>
+
+<p>
+  <strong>Room number:</strong>
+  <%= @room.number %>
+</p>
+
+<p>
+  <strong>Room name:</strong>
+  <%= @room.full_name %>
+</p>
+
+<% if @room.chairs %>
+  <p>
+    <strong>Chairs:</strong>
+    <% chair_names = @room.chairs.map do |chair| %>
+    <%  link_to(chair.name, chair_path(chair)) %>
+    <%  end %>
+    <%= chair_names.join(", ").html_safe %>
+  </p>
+<% end %>
+
+<% if @room.people %>
+  <p>
+    <strong>People:</strong>
+    <% people_names = @room.people.map do |person| %>
+    <%  link_to(person.full_name, person_path(person)) %>
+    <%  end %>
+    <%= people_names.join(", ").html_safe %>
+  </p>
+<% end %>
+
+<% if @room.tags %>
+  <p>
+    <strong>Tags:</strong>
+    <% tag_names = @room.tags.map {|tag| tag.name} %>
+    <%= tag_names.join(", ") %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_room_path(@room) %> |
+<%= link_to 'Back', rooms_path %>
