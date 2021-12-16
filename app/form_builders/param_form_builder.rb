@@ -2,8 +2,7 @@ class ParamFormBuilder < ActionView::Helpers::FormBuilder
   def initialize(*args)
     # params are not passed as standard argument, because Ruby complains about too many arguments for `form_with`
     options = args.extract_options!
-    params = options[:params]
-    raise ArgumentError("Missing required parameter 'params'") if options.nil? || params.nil?
+    params = options[:params] || {}
 
     @params = params
     super(*(args << options))
