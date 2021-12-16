@@ -18,6 +18,6 @@ RSpec.describe DataProblemsHelper, type: :helper do
   end
 
   it "returns all database fields that are marked as data problems in a url query encoded string" do
-    expect(helper.edit_params(person.id)).to eq("?#{field_email}&#{field_title}")
+    expect(helper.edit_params(person.id)).to eq("?c_form_highlight=#{field_email},#{field_title}")
   end
 end
