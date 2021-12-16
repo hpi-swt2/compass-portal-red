@@ -6,15 +6,12 @@ RSpec.describe DataProblemsHelper, type: :helper do
   let(:field_title) { "title" }
 
   let!(:person) do
-    Person.new(first_name: "Atze", last_name: "Schröder")
+    build(:person)
   end
 
   before do
-    DataProblem.new(url: "www.example.com", description: "missing", field: field_email,
-                    person_id: person.id).save
-
-    DataProblem.new(url: "www.example.com", description: "missing", field: field_title,
-                    person_id: person.id).save
+    create(:data_problem, field: field_email, person_id: person.id)
+    create(:data_problem, field: field_title, person_id: person.id)
   end
 
   it "returns all database fields that are marked as data problems in a url query encoded string" do
