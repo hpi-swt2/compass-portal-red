@@ -14,9 +14,9 @@ class SendReminder
       end
     end
     return if problems.empty?
+
     person = Person.find(id)
     send_email(person, problems)
-
   end
 
   def self.send_email(person, problems)
