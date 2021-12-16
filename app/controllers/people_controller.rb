@@ -41,6 +41,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
+        delete_data_problem(@person)
         format.html { redirect_to @person, notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -87,6 +88,10 @@ class PeopleController < ApplicationController
       end
       
     end
+  end
+
+  def delete_data_problem(person)
+    DataProblem.where(person_id: person.id).destroy_all
   end
 
 end
