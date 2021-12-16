@@ -10,6 +10,11 @@ FactoryBot.define do
                                  (build :point, y: -1.5),
                                  (build :point)])
     end
+    tags do
+      [(FactoryBot.create :tag), (FactoryBot.create :tag, :printer)]
+    end
+    chairs { [(build :chair, name: "EPIC")] }
     walls { [(build :wall)] }
+    people { [(build :person, first_name: "Michael", last_name: "Perscheid")] }
   end
 end
