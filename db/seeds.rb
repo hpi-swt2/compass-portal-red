@@ -10,11 +10,11 @@ person_list = [
   [ "biene.maya@kika.de", "Maya", "Biene", "", "https://via.placeholder.com/150", "Extern" ]
 ]
 chair_list = [
-  [ "Enterprise Platform and Integration Concepts" ],
-  [ "Algorithm Engineering" ],
-  [ "Data Science and Computational Statistics" ],
-  [ "Human Computer Interaction" ],
-  [ "Internet-Technologien und Systeme" ]
+  "Enterprise Platform and Integration Concepts",
+  "Algorithm Engineering",
+  "Data Science and Computational Statistics",
+  "Human Computer Interaction",
+  "Internet-Technologien und Systeme"
 ]
 information_list = [
   [ "Telegram", "@perscheid" ],
