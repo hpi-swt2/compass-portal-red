@@ -27,12 +27,14 @@ class ProblemChecker
     return true if !new || new == old
 
     if !entry.public_send("human_verified_#{field}")
-      if Time.zone.now.days_since(1).future?
+      if entry.updated_at.days_since(1).future?
         save_problem('conflicting', entry, field)
         return true
       end
     elsif entry.public_send("human_verified_#{field}").days_since(@human_verified_time).past?
       save_problem('outdated', entry, field)
+      return true
+    else
       return true
     end
     false
