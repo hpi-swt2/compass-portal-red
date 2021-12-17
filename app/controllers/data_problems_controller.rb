@@ -1,5 +1,5 @@
 class DataProblemsController < ApplicationController
-  before_action :set_data_problem, only: %i[ show edit update destroy ]
+  before_action :set_data_problem, only: %i[show edit update destroy]
 
   # GET /data_problems or /data_problems.json
   def index
@@ -7,8 +7,7 @@ class DataProblemsController < ApplicationController
   end
 
   # GET /data_problems/1 or /data_problems/1.json
-  def show
-  end
+  def show; end
 
   # GET /data_problems/new
   def new
@@ -16,8 +15,7 @@ class DataProblemsController < ApplicationController
   end
 
   # GET /data_problems/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /data_problems or /data_problems.json
   def create
@@ -57,13 +55,14 @@ class DataProblemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_data_problem
-      @data_problem = DataProblem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def data_problem_params
-      params.require(:data_problem).permit(:url, :description, :field, :room_id, :person_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_data_problem
+    @data_problem = DataProblem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def data_problem_params
+    params.require(:data_problem).permit(:url, :description, :field, :room_id, :person_id)
+  end
 end
