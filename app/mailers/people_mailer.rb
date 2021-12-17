@@ -5,7 +5,6 @@ class PeopleMailer < ApplicationMailer
     @problems = params[:problems]
     @url = "#{root_url}people/#{@person.id}/edit"
     # mail(to: @person.email...
-    mail(to: 'compass.rot@gmail.com', subject: 'Problem with your data!')
-    puts 'Email sent!'
+    mail(to: @person.email, subject: 'Problem with your data!')
   end
 end

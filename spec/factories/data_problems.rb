@@ -4,6 +4,6 @@ FactoryBot.define do
     type { "" }
     field { "MyString" }
     rooms { nil }
-    people { nil }
+    person { nil }
   end
 end

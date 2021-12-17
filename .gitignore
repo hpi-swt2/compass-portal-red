@@ -77,3 +77,5 @@ app/assets/images/people/*
 #ignore .idea
 .idea
 .idea/*
+
+/config/master.key

@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_102747) do
     t.index ["rooms_id"], name: "index_data_problems_on_rooms_id"
   end
 
-  create_table "email_logs", force: :cascade do |t|
+  create_table "email_log", force: :cascade do |t|
     t.text "email_address"
     t.date "last_sent"
     t.datetime "created_at", precision: 6, null: false
@@ -144,5 +144,4 @@ ActiveRecord::Schema.define(version: 2021_12_15_102747) do
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
-  add_foreign_key "email_logs", "people", column: "people_id"
 end
