@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def check_human_verification(datetime: Time)
+  def check_human_verification(datetime)
     return false unless datetime
 
     # Return false once the last human verification was more than 180 days ago
