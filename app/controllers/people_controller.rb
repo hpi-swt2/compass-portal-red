@@ -69,25 +69,20 @@ class PeopleController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_params
-    # TODO: Update for new schema
-
     process_human_verified_attributes
     params.require(:person).permit(:first_name, :last_name, :title, :email, :status, :phone, :room, :website,
                                    :image, :chair,
-                                   :human_verified_first_name, :human_verified_last_name, :human_verified_title,
-                                   :human_verified_email, :human_verified_image, :human_verified_room_id)
+                                   *Person.verification_attributes)
   end
 
+  # Replaces all human_verified params with the current timestamp, if set to true
   def process_human_verified_attributes
-    [:human_verified_first_name, :human_verified_last_name, :human_verified_title,
-     :human_verified_email, :human_verified_image, :human_verified_room_id].each do |attr|
-
-      params[:person][attr] = if params[:person][attr] == "1"
-                                DateTime.now
-                              else
-                                @person[attr]
-                              end
-
+    Person.verification_attributes.each do |verification_attr|
+      if params[:person][verification_attr] == "1"
+        params[:person][verification_attr] = DateTime.now
+      else
+        params[:person].delete verification_attr
+      end
     end
   end
 

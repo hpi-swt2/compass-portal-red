@@ -15,4 +15,18 @@ class Person < ApplicationRecord
   def full_name
     "#{title} #{name}"
   end
+
+  # This map contains the key to the verification for every attribute
+  VERIFICATION_ATTRIBUTES = [
+    :human_verified_first_name,
+    :human_verified_last_name,
+    :human_verified_title,
+    :human_verified_email,
+    :human_verified_image,
+    :human_verified_room_id
+  ].freeze
+
+  def self.verification_attributes
+    VERIFICATION_ATTRIBUTES
+  end
 end
