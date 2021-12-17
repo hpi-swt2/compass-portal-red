@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "chairs/edit", type: :view do
-  before(:each) do
-    @chair = assign(:chair, Chair.create!())
+  before do
+    @chair = assign(:chair, Chair.create!)
   end
 
   it "renders the edit chair form" do

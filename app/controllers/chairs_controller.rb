@@ -1,5 +1,5 @@
 class ChairsController < ApplicationController
-  before_action :set_chair, only: %i[ show edit update destroy ]
+  before_action :set_chair, only: %i[show edit update destroy]
 
   # GET /chairs or /chairs.json
   def index
@@ -7,8 +7,7 @@ class ChairsController < ApplicationController
   end
 
   # GET /chairs/1 or /chairs/1.json
-  def show
-  end
+  def show; end
 
   # GET /chairs/new
   def new
@@ -16,8 +15,7 @@ class ChairsController < ApplicationController
   end
 
   # GET /chairs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /chairs or /chairs.json
   def create
@@ -57,13 +55,14 @@ class ChairsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chair
-      @chair = Chair.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def chair_params
-      params.fetch(:chair, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chair
+    @chair = Chair.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def chair_params
+    params.fetch(:chair, {})
+  end
 end

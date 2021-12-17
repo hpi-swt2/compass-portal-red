@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/index", type: :view do
-  before(:each) do
+  before do
     assign(:rooms, [
-      Room.create!(),
-      Room.create!()
-    ])
+             Room.create!,
+             Room.create!
+           ])
   end
 
   it "renders a list of rooms" do

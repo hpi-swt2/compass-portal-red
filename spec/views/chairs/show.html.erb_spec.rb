@@ -4,11 +4,13 @@ RSpec.describe "chairs/show", type: :view do
   before do
     @chair = FactoryBot.create :chair
   end
+
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(@chair.name)
 
   end
+
   it "renders a list of the people that are part of the chair" do
     render
     @chair.people.each do |person|
