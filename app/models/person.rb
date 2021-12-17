@@ -1,5 +1,5 @@
 # The model representing a person associated with the HPI
-class Person < ApplicationRecord
+class Person < SearchableRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -16,7 +16,14 @@ class Person < ApplicationRecord
     "#{title} #{name}"
   end
 
-  # This map contains the key to the verification for every attribute
+  def to_string
+    full_name
+  end
+
+  def self.searchable_attributes
+    %w[title first_name last_name]
+  end
+
   VERIFICATION_ATTRIBUTES = [
     :human_verified_first_name,
     :human_verified_last_name,
