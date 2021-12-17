@@ -1,6 +1,6 @@
 class ProblemChecker
-  @@human_verified_time = 365
-  @@outdated_time = 183
+  @human_verified_time = 365
+  @outdated_time = 183
 
   def data_check_routine
     check_empty_fields(Person)
