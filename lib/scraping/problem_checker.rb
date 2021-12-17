@@ -41,6 +41,8 @@ class ProblemChecker
   def save_problem(problem, entry, field)
     if entry.instance_of?(Person)
       item = { url: "/people/#{entry.id}", description: problem, field: field, person_id: entry.id }
+    elsif entry.instance_of?(Room)
+      item = { url: "/room/#{entry.id}", description: problem, field: field, room_id: entry.id }
     end
     DataProblem.where(item).first_or_create if item.present?
   end
