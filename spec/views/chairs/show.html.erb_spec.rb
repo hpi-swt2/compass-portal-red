@@ -9,9 +9,9 @@ RSpec.describe "chairs/show", type: :view do
     expect(rendered).to match(@chair.name)
 
   end
-  it "renders a list of the people that use the room" do
+  it "renders a list of the people that are part of the chair" do
     render
-    @room.people.each do |person|
+    @chair.people.each do |person|
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end
