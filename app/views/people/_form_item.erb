@@ -1,0 +1,19 @@
+<%
+  # Expected as locals:
+  form = locals[:form]
+  field_name = locals[:field_name]
+
+  person = form.object
+  verified_field_name = :"human_verified_#{field_name}"
+  has_verified = person.attributes.include? verified_field_name.to_s
+%>
+<div class="field">
+  <%= form.label field_name %>
+  <%= form.text_field field_name, class: "form-control" %>
+  <% if has_verified %>
+  <p>
+    <%= form.check_box verified_field_name, class: "form-check-input" %>
+    Update verification (Last verified: <%= last_verified_in_words person[verified_field_name] %>)
+  </p>
+  <% end %>
+</div>

@@ -11,41 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-    <%= form.check_box :human_verified_first_name, class: "form-check-input" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-    <%= form.check_box :human_verified_last_name, class: "form-check-input"%>
-  </div>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-    <%= form.check_box :human_verified_title, class: "form-check-input"%>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-    <%= form.check_box :human_verified_email, class: "form-check-input"%>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.text_field :image %>
-    <%= form.check_box :human_verified_image, class: "form-check-input"%>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-    <!-- No associated attribute in the database yet -->
-  </div>
+  <%= render "form_item", :locals => { form: form, field_name: :first_name} %>
+  <%= render "form_item", :locals => { form: form, field_name: :last_name} %>
+  <%= render "form_item", :locals => { form: form, field_name: :title} %>
+  <%= render "form_item", :locals => { form: form, field_name: :email} %>
+  <%= render "form_item", :locals => { form: form, field_name: :image} %>
+  <%= render "form_item", :locals => { form: form, field_name: :status} %>
 
 <!--
   TODO: Update other tables
