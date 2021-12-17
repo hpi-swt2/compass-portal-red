@@ -1,23 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "data_problems/index", type: :view do
-  before(:each) do
+  before do
     assign(:data_problems, [
-      DataProblem.create!(
-        url: "Url",
-        description: "Description",
-        field: "Field",
-        room: nil,
-        person: nil
-      ),
-      DataProblem.create!(
-        url: "Url",
-        description: "Description",
-        field: "Field",
-        room: nil,
-        person: nil
-      )
-    ])
+             DataProblem.create!(
+               url: "Url",
+               description: "Description",
+               field: "Field",
+               room: nil,
+               person: nil
+             ),
+             DataProblem.create!(
+               url: "Url",
+               description: "Description",
+               field: "Field",
+               room: nil,
+               person: nil
+             )
+           ])
   end
 
   it "renders a list of data_problems" do

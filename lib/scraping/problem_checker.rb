@@ -34,7 +34,9 @@ class ProblemChecker
   end
 
   def save_problem(problem, entry, field)
-    item = { url: entry.url, description: problem, field: field, person_id_id: entry.object_id } if entry.instance_of?(Person)
+    if entry.instance_of?(Person)
+      item = { url: entry.url, description: problem, field: field, person_id_id: entry.object_id }
+    end
     DataProblem.where(item).first_or_create if item.present?
   end
 end
