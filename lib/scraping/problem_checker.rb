@@ -18,7 +18,7 @@ class ProblemChecker
 
   def check_for_outdated(model)
     model.all.each do |entry|
-      save_problem("outdated", entry, "all") if entry.updated_at.days_since(@@outdated_time).past?
+      save_problem("outdated", entry, "all") if entry.updated_at.days_since(@outdated_time).past?
     end
   end
 
@@ -31,7 +31,7 @@ class ProblemChecker
         save_problem('conflicting', entry, field)
         return true
       end
-    elsif entry.public_send("human_verified_#{field}").days_since(@@human_verified_time).past?
+    elsif entry.public_send("human_verified_#{field}").days_since(@human_verified_time).past?
       save_problem('outdated', entry, field)
       return true
     end
