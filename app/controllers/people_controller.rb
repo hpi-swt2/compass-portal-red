@@ -41,7 +41,6 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        delete_data_problem(@person)
         format.html { redirect_to @person, notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -80,13 +79,15 @@ class PeopleController < ApplicationController
     Person.verification_attributes.each do |verification_attr|
       if params[:person][verification_attr] == "1"
         params[:person][verification_attr] = DateTime.now
+        delete_data_problem(:person, verification_attr)
       else
         params[:person].delete verification_attr
       end
     end
   end
 
-  def delete_data_problem(person)
-    DataProblem.where(person_id: person.id).destroy_all
+  def delete_data_problem(person, verification_attr)
+    field = verified_attribute_to_field(verification_attr)
+    DataProblem.where(["person_id = ? and field = ?", person.id, field]).destroy_all
   end
 end
