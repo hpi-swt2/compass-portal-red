@@ -1,6 +1,6 @@
 class ProblemChecker
-  @@human_verified_time = 365
-  @@outdated_time = 183
+  @human_verified_time = 365
+  @outdated_time = 183
 
   def data_check_routine
     check_empty_fields(Person)
@@ -21,6 +21,7 @@ class ProblemChecker
       save_problem("outdated", entry, "all") if entry.updated_at.days_since(@@outdated_time).past?
     end
   end
+
   def check_for_conflict(entry, new, field)
     old = entry.public_send(field)
     return true if !new || new == old
