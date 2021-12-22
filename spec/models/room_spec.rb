@@ -4,6 +4,26 @@ RSpec.describe Room, type: :model do
   let(:point1) { create :point }
   let(:point2) { create :point, x: -1.5 }
 
+  it "has a chair relation" do
+    room = FactoryBot.create :room
+    expect(room.chairs.length).to eq(0)
+  end
+
+  it "has a person relation" do
+    room = FactoryBot.create :room
+    expect(room.people.length).to eq(0)
+  end
+
+  it "has a tag relation" do
+    room = FactoryBot.create :room
+    expect(room.tags.length).to eq(0)
+  end
+
+  it "has a room type relation" do
+    room = FactoryBot.create :room
+    expect(room.room_types.length).to eq(0)
+  end
+
   it "has a constructor that can create instances" do
     instance = described_class.new
     expect(instance).to be_an_instance_of(described_class)
@@ -23,6 +43,18 @@ RSpec.describe Room, type: :model do
     it "points of interests" do
       room = described_class.new
       expect(room.point_of_interests).to eq([])
+    end
+  end
+
+  context "with valid geojson" do
+    let(:room) { build :room }
+
+    it "has geometry type Polygon" do
+      expect(room.to_geojson[1][:geometry][:type]).to eq("Polygon")
+    end
+
+    it "has class outer-shape" do
+      expect(room.to_geojson[1][:properties][:class]).to eq("outer-shape")
     end
   end
 
@@ -93,7 +125,7 @@ RSpec.describe Room, type: :model do
 
       it "restricts to delete outer shape" do
         outer_shape = Polyline.find(room.outer_shape.id)
-        expect { outer_shape.destroy }.to raise_error(ActiveRecord::InvalidForeignKey)
+        expect { outer_shape.delete }.to raise_error(ActiveRecord::InvalidForeignKey)
       end
 
       it "allows to delete wall" do
@@ -101,7 +133,7 @@ RSpec.describe Room, type: :model do
         room.walls.push(wall)
         room.save!
 
-        expect { wall.destroy }.not_to raise_error
+        expect { wall.delete }.not_to raise_error
       end
     end
   end

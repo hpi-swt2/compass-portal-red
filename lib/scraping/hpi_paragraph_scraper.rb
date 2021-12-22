@@ -1,7 +1,7 @@
 require_relative "hpi_web_scraper"
 
 class HpiParagraphScraper < HpiWebScraper
-  @@delimiter = '***'
+  DELIMITER = '***'.freeze
 
   def scrape
     item = {}
@@ -10,7 +10,7 @@ class HpiParagraphScraper < HpiWebScraper
     p_tags.each do |p|
       # Converting each <br> to delimiter as p.text ignores <br> and inserts no whitespaces
       p.css('br').each do |node|
-        node.replace(Nokogiri::XML::Text.new("\n#{@@delimiter}\n", p))
+        node.replace(Nokogiri::XML::Text.new("\n#{DELIMITER}\n", p))
       end
     end
 
@@ -32,7 +32,7 @@ class HpiParagraphScraper < HpiWebScraper
 
       split_p = p.text.split(/[[:space:]]/)
 
-      phone_words_intersection = split_p & @@phone_words # Check if one of those words is in split_p
+      phone_words_intersection = split_p & PHONE_WORDS # Check if one of those words is in split_p
       next unless phone_words_intersection.any?
 
       index = split_p.find_index(phone_words_intersection[0]) # Get the index of the first of those words
@@ -57,7 +57,7 @@ class HpiParagraphScraper < HpiWebScraper
 
       split_p = p.text.split(/[[:space:]]/)
 
-      office_words_intersection = split_p & @@office_words
+      office_words_intersection = split_p & OFFICE_WORDS
       next unless office_words_intersection.any?
 
       index = split_p.find_index(office_words_intersection[0])
@@ -65,7 +65,7 @@ class HpiParagraphScraper < HpiWebScraper
 
       # Get all words until line break
       office = ''
-      while (split_p[index] != @@delimiter) && (index < split_p.length)
+      while (split_p[index] != DELIMITER) && (index < split_p.length)
         office = "#{office}#{split_p[index]} "
         index += 1
       end
@@ -81,7 +81,7 @@ class HpiParagraphScraper < HpiWebScraper
 
       split_p = p.text.split(/[[:space:]]/)
 
-      email_words_intersection = split_p & @@email_words
+      email_words_intersection = split_p & EMAIL_WORDS
       next unless email_words_intersection.any?
 
       index = split_p.find_index(email_words_intersection[0])

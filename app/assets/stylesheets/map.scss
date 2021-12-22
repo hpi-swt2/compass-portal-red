@@ -1,0 +1,15 @@
+.leaflet-tooltip.marker_label{
+    border-radius: 20px;
+    background-color: transparent;
+    font-weight: bold;
+    border: None;
+    color: black;
+    box-shadow: None;
+    font-family: Roboto, "Open Sans", sans-serif;
+}
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border: none !important;
+}

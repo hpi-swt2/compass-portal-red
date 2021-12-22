@@ -1,16 +1,10 @@
 FactoryBot.define do
   factory :person do
-    name { "MyString" }
-    surname { "MyString" }
-    title { "MyString" }
-    email { "MyString" }
-    phone { "MyString" }
-    office { "MyString" }
-    website { "MyString" }
-    image { "MyString" }
-    chair { "MyString" }
-    office_hours { "MyString" }
-    telegram_handle { "MyString" }
-    knowledge { "MyString" }
+    email { "michael.perscheid@hpi.de" }
+    last_name { "Perscheid" }
+    first_name { "Michael" }
+    title { "Dr." }
+    image { "shorturl.at/bmpxP" }
+    status { "Chair Representative" }
   end
 end

@@ -11,38 +11,80 @@ class Scraper
 
     DataProblem.delete_all
     url_records.each do |record|
-      item = {}
-      name_hash = data_collector.get_names(record[:name])
-      title_hash = data_collector.get_title(record[:name])
-
-      begin
-        # Scrape and get info
-        info_hash = data_collector.get_scraping_info(record[:name], record[:url])
-      rescue ScrapingException
-        # If scraping fails, skip and log a message
-        Rails.logger.debug { "Scraping failed for #{record[:name]} @ #{record[:url]}:" }
-        next
-      end
-
-      save_person(item.merge(name_hash).merge(title_hash).merge(info_hash), problem_checker)
+      scrape_record(data_collector, record)
     end
     problem_checker.check_for_empty_person_fields
   end
 
-  def self.save_person(item, problem_checker)
+  def self.scrape_record(data_collector, record)
+    item = {}
+    name_hash = data_collector.get_names(record[:name])
+    title_hash = data_collector.get_title(record[:name])
+
+    begin
+      # Scrape and get info
+      info_hash = data_collector.get_scraping_info(record[:name], record[:url])
+    rescue ScrapingException
+      # If scraping fails, skip and log a message
+      Rails.logger.debug { "Scraping failed for #{record[:name]} @ #{record[:url]}:" }
+      return
+    end
+
+    save_person(item.merge(name_hash).merge(title_hash).merge(info_hash))
+  end
+
+  def self.save_person(item)
     # If person exists update non-existent attributes, else create new person
-    person = Person.find_by(name: item[:name], surname: item[:surname])
+    person = Person.find_by(last_name: item[:last_name], first_name: item[:first_name])
     if person
-      save_existing_person(person, item, problem_checker)
+      update_person(person, item)
     else
-      Person.where(item).first_or_create
+      create_person(item)
     end
   end
 
-  def self.save_existing_person(person, item, problem_checker)
-    person.email = item[:email] if problem_checker.check_for_conflict(person, item[:email], person.email)
-    person.phone = item[:phone] if problem_checker.check_for_conflict(person, item[:phone], person.phone)
-    person.office = item[:office] if problem_checker.check_for_conflict(person, item[:office], person.office)
+  def self.update_person(person, item)
+    save_if_not_exists(person, item, "email")
+    save_if_not_exists(person, item, "title")
+    save_if_not_exists(person, item, "image")
+
+    build_info_if_not_exists(person, item, "phone")
+    build_info_if_not_exists(person, item, "website")
+    add_room(person, item[:office]) unless person.room || !item[:office]
     person.save
+  end
+
+  def self.create_person(item)
+    new_person = Person.new({
+                              'title' => item[:title],
+                              'first_name' => item[:first_name],
+                              'last_name' => item[:last_name],
+                              'email' => item[:email],
+                              'image' => item[:image]
+                            })
+    build_info_if_not_exists(new_person, item, "phone")
+    build_info_if_not_exists(new_person, item, "website")
+
+    add_room(new_person, item[:office]) if item[:office]
+    new_person.save
+  end
+
+  def self.save_if_not_exists(person, item, key)
+    person[key] = item[key.to_sym] unless person[key]
+  end
+
+  def self.build_info_if_not_exists(person, item, key)
+    return if person.informations.get_value(key)
+
+    person.informations.build({
+                                key: key,
+                                value: item[key.to_sym]
+                              })
+  end
+
+  # Save room on person
+  def self.add_room(person, room)
+    room = Room.find_or_create_by(number: room)
+    person.room = room
   end
 end

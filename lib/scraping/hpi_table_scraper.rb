@@ -12,14 +12,16 @@ class HpiTableScraper < HpiWebScraper
     # Check the whole document for a `.mail` tag
     item[:email] = @html.css('.mail')&.text
     # In case '.mail' class does not exist on the whole web page
-    item[:email] = scrape_mail(td_tags, item) if item[:email] == ''
+    if item[:email] == ''
+      item[:email] = scrape_mail(td_tags, item)
+    end
 
     item
   end
 
   def scrape_phone(td_tags, item)
     td_tags.each do |td|
-      if ([td.text] & @@phone_words).any? # Check if td_text is one of those words
+      if ([td.text] & PHONE_WORDS).any? # Check if td_text is one of those words
         index = td_tags.find_index(td) # Save the index of the td in the td_tags array
         item[:phone] = td_tags[index + 1].text # Next td in the array has to contain the phone number
       end
@@ -30,7 +32,7 @@ class HpiTableScraper < HpiWebScraper
 
   def scrape_office(td_tags, item)
     td_tags.each do |td|
-      next unless ([td.text] & @@office_words).any?
+      next unless ([td.text] & OFFICE_WORDS).any?
 
       index = td_tags.find_index(td)
       item[:office] = td_tags[index + 1].text
@@ -42,12 +44,12 @@ class HpiTableScraper < HpiWebScraper
 
   def scrape_mail(td_tags, item)
     td_tags.each do |td|
-      if ([td.text] & @@email_words).any?
+      if ([td.text] & EMAIL_WORDS).any?
         index = td_tags.find_index(td)
         item[:email] = td_tags[index + 1].text
       end
     end
 
-    item[:mail]
+    item[:email].gsub(/[[:space:]]/, '')
   end
 end
