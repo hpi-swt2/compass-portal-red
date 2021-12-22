@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_15_102747) do
+ActiveRecord::Schema.define(version: 2021_12_22_101611) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_102747) do
     t.index ["rooms_id"], name: "index_data_problems_on_rooms_id"
   end
 
-  create_table "email_log", force: :cascade do |t|
+  create_table "email_logs", force: :cascade do |t|
     t.text "email_address"
     t.date "last_sent"
     t.datetime "created_at", precision: 6, null: false
