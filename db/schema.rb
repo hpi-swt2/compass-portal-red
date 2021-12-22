@@ -10,11 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_144305) do
+ActiveRecord::Schema.define(version: 2021_12_22_101611) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "chairs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "chairs_people", id: false, force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.integer "chair_id", null: false
+  end
+
+  create_table "chairs_rooms", id: false, force: :cascade do |t|
+    t.integer "room_id", null: false
+    t.integer "chair_id", null: false
   end
 
   create_table "data_problems", force: :cascade do |t|
@@ -37,22 +53,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "people_id"
   end
 
-  create_table "chairs", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "chairs_people", id: false, force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.integer "chair_id", null: false
-  end
-
-  create_table "chairs_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "chair_id", null: false
-  end
-
   create_table "information", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "room_id"
+    t.integer "user_id"
     t.datetime "human_verified_name"
     t.datetime "human_verified_surname"
     t.datetime "human_verified_title"
@@ -83,8 +85,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.datetime "human_verified_office_hours"
     t.datetime "human_verified_telegram_handle"
     t.datetime "human_verified_knowledge"
-    t.integer "room_id"
-    t.integer "user_id"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 

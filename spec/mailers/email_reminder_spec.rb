@@ -6,7 +6,7 @@ RSpec.describe EmailReminder, type: :mailer do
   context 'when sending out data problem reminder emails' do
     it 'sends an email when there is a data problem conceirning a person that has not received an email recently' do
       mockSender = class_double("EmailSender").as_stubbed_const(:transfer_nested_constants => true)
-      person = Person.create!(name: 'Name', email: 'email@example.com')
+      person = Person.create!(first_name: 'Max',last_name:'Mustermann', email: 'email@example.com')
       DataProblem.delete_all
       problem = DataProblem.create!(people_id: person.id, description: "some Problem")
       expect(mockSender).to receive(:send_email).with(person, [problem])
@@ -19,7 +19,7 @@ RSpec.describe EmailReminder, type: :mailer do
     end
     it 'does not send an email when there is a data problem conceirning a person that has recently received an email recently' do
       mockSender = class_double("EmailSender").as_stubbed_const(:transfer_nested_constants => true)
-      person = Person.create!(name: 'Name', email: 'email@example.com')
+      person = Person.create!(first_name: 'Max',last_name:'Mustermann', email: 'email@example.com')
       DataProblem.delete_all
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
       data_problems = [DataProblem.create!(people_id: person.id, description: "some Problem")]
