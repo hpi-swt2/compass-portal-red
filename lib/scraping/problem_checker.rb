@@ -24,20 +24,16 @@ class ProblemChecker
 
   def check_for_conflict(entry, new, field)
     old = entry.public_send(field)
-    return true if !new || new == old
+    return false if old.nil?
 
     if !entry.public_send("human_verified_#{field}")
-      if entry.updated_at.days_since(1).future?
-        save_problem('conflicting', entry, field)
-        return true
-      end
+      return false unless entry.updated_at.days_since(1).future?
+
+      save_problem('conflicting', entry, field)
     elsif entry.public_send("human_verified_#{field}").days_since(@human_verified_time).past?
       save_problem('outdated', entry, field)
-      return true
-    else
-      return true
     end
-    false
+    true
   end
 
   def save_problem(problem, entry, field)
