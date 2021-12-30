@@ -80,12 +80,21 @@ for (const feature of buildings) {
     layers[feature.properties.campus].addLayer(layer);
 }
 
+//console.log(JSON.parse(document.getElementById('container').dataset.source));
+
 layers['Points of Interest'] = L.layerGroup().addTo(mymap);
-for(const feature of points_of_interest) {
+/*for(const feature of points_of_interest) {
     const layer = L.geoJSON(feature);
     layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: feature.properties.offset, direction: 'right'})
     layer.bindPopup(feature.properties.description);
     layers['Points of Interest'].addLayer(layer);
+}*/
+let pois = JSON.parse(document.getElementById('container').dataset.source);
+for(const feature of pois) {
+  const layer = L.geoJSON(feature);
+  layer.bindTooltip("name", {permanent: true, className: 'marker_label', direction: 'right'})
+  layer.bindPopup("description");
+  layers['Points of Interest'].addLayer(layer);
 }
 
 // make names disappeared when zoomed out

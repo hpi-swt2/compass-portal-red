@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_144305) do
+ActiveRecord::Schema.define(version: 2021_12_11_112331) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -56,11 +56,21 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
+  create_table "person_urls", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "point_of_interests", force: :cascade do |t|
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "point_type", null: false
+    t.integer "room_id", null: false
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
+    t.index ["room_id"], name: "index_point_of_interests_on_room_id"
   end
 
   create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
@@ -147,6 +157,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
   end
 
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "point_of_interests", "rooms"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
