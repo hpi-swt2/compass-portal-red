@@ -3,10 +3,10 @@ require_relative 'problem_checker'
 
 # Root scraper class which handles scraping for all URLs
 class Scraper
-  def self.scrape
+  def self.scrape(base_url = 'https://hpi.de')
     url_records = PersonUrl.all
 
-    data_collector = HpiDataCollector.new
+    data_collector = HpiDataCollector.new(base_url)
     problem_checker = ProblemChecker.new
     DataProblem.delete_all
 
