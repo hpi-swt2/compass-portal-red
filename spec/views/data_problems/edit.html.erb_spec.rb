@@ -14,7 +14,7 @@ RSpec.describe "data_problems/edit", type: :view do
   it "renders the edit data_problem form" do
     render
 
-    assert_select "form[action=?][method=?]", data_problem_path(@data_problem), "post" do
+    assert_select "form[action=?][method=?]", data_problem_path(data_problem), "post" do
 
       assert_select "input[name=?]", "data_problem[url]"
 

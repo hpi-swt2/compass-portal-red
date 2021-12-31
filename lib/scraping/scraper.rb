@@ -14,7 +14,7 @@ class Scraper
       scrape_record(data_collector, record, problem_checker)
     end
 
-    problem_checker.check_for_empty_person_fields
+    problem_checker.data_check_routine
   end
 
   def self.scrape_record(data_collector, record, problem_checker)
