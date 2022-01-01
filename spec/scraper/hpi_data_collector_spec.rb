@@ -47,8 +47,8 @@ RSpec.describe HpiDataCollector, type: :feature do
       expect(person_data).to eq(
         website: "#{base_url}#{person_url[1]}",
         email: 'Hannah.Marienwald(at)hpi.de',
-        phone: '+49-(0) 331 5509 - 4865 ',
-        office: 'F-1.06 ',
+        phone: '+49-(0) 331 5509 - 4865',
+        office: 'F-1.06',
         image: '/assets/images/people/csm_HMarienwald_a0d164a1a3.jpg'
       )
     end
@@ -60,8 +60,8 @@ RSpec.describe HpiDataCollector, type: :feature do
       expect(person_data).to eq(
         website: "#{base_url}#{person_url[1]}",
         email: 'lisa.rueppner(at)hpi.de',
-        phone: '+49-(0)331 5509-120 ',
-        office: 'B-1.12 ',
+        phone: '+49-(0)331 5509-120',
+        office: 'B-1.12',
         image: '/assets/images/people/Lisa_R%C3%BCppner_180x240.jpg'
       )
     end

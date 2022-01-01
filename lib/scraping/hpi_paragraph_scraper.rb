@@ -14,13 +14,15 @@ class HpiParagraphScraper < HpiWebScraper
       end
     end
 
-    item[:phone] = scrape_phone(p_tags, item)
-    item[:office] = scrape_office(p_tags, item)
+    item[:phone] = scrape_phone(p_tags, item).strip
+    item[:office] = scrape_office(p_tags, item).strip
 
     # Check the whole document for a `.mail` tag
     item[:email] = @html.at_css('.mail')&.text
     # In case '.mail' class does not exist on the whole web page
-    item[:email] = scrape_mail(p_tags, item) if item[:email] == ''
+    if item[:email] == ''
+      item[:email] = scrape_mail(p_tags, item).strip
+    end
 
     item
   end

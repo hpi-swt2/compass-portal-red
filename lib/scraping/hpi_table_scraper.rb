@@ -6,14 +6,14 @@ class HpiTableScraper < HpiWebScraper
 
     td_tags = @html.css('td')
 
-    item[:phone] = scrape_phone(td_tags, item)
-    item[:office] = scrape_office(td_tags, item)
+    item[:phone] = scrape_phone(td_tags, item).strip
+    item[:office] = scrape_office(td_tags, item).strip
 
     # Check the whole document for a `.mail` tag
     item[:email] = @html.css('.mail')&.text
     # In case '.mail' class does not exist on the whole web page
     if item[:email] == ''
-      item[:email] = scrape_mail(td_tags, item)
+      item[:email] = scrape_mail(td_tags, item).strip
     end
 
     item
