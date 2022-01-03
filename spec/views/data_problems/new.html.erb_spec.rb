@@ -4,10 +4,10 @@ RSpec.describe "data_problems/new", type: :view do
   before do
     assign(:data_problem, DataProblem.new(
                             url: "MyString",
-                            description: "",
+                            description: "MyString",
                             field: "MyString",
-                            rooms_id: nil,
-                            people_id: nil
+                            room: nil,
+                            person: nil
                           ))
   end
 
@@ -22,9 +22,9 @@ RSpec.describe "data_problems/new", type: :view do
 
       assert_select "input[name=?]", "data_problem[field]"
 
-      assert_select "input[name=?]", "data_problem[rooms_id]"
+      assert_select "input[name=?]", "data_problem[room_id]"
 
-      assert_select "input[name=?]", "data_problem[people_id]"
+      assert_select "input[name=?]", "data_problem[person_id]"
     end
   end
 end

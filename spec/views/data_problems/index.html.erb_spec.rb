@@ -5,17 +5,17 @@ RSpec.describe "data_problems/index", type: :view do
     assign(:data_problems, [
              DataProblem.create!(
                url: "Url",
-               description: "Test",
+               description: "Description",
                field: "Field",
-               rooms_id: nil,
-               people_id: nil
+               room: nil,
+               person: nil
              ),
              DataProblem.create!(
                url: "Url",
-               description: "Test",
+               description: "Description",
                field: "Field",
-               rooms_id: nil,
-               people_id: nil
+               room: nil,
+               person: nil
              )
            ])
   end
@@ -23,8 +23,7 @@ RSpec.describe "data_problems/index", type: :view do
   it "renders a list of data_problems" do
     render
     assert_select "tr>td", text: "Url".to_s, count: 2
-    assert_select "tr>td", text: "Test".to_s, count: 2
+    assert_select "tr>td", text: "Description".to_s, count: 2
     assert_select "tr>td", text: "Field".to_s, count: 2
-    assert_select "tr>td", text: nil.to_s, count: 4
   end
 end

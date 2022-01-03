@@ -123,6 +123,11 @@ class HpiDataCollector
 
   def collect(person, scraper, person_image_div)
     person_info = scraper.scrape
+
+    person_info.each do | key, value |
+      person_info[key] = value.strip if value
+    end
+
     person[:image] = scraper.download_image(person_image_div) if person_image_div
     person.merge(person_info)
   end

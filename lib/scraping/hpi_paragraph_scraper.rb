@@ -20,8 +20,11 @@ class HpiParagraphScraper < HpiWebScraper
     # Check the whole document for a `.mail` tag
     item[:email] = @html.at_css('.mail')&.text
     # In case '.mail' class does not exist on the whole web page
-    item[:email] = scrape_mail(p_tags, item) if item[:email] == ''
-
+    # rubocop:disable Style/IfUnlessModifier
+    if item[:email] == ''
+      item[:email] = scrape_mail(p_tags, item)
+    end
+    # rubocop:enable Style/IfUnlessModifier
     item
   end
 
