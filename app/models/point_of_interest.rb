@@ -10,7 +10,9 @@ class PointOfInterest < ApplicationRecord
         coordinates: [point.x, point.y]
       },
       properties: {
-        class: "point-of-interest"
+        class: "point-of-interest",
+        description: description,
+        name: name
       }
     }
   end
