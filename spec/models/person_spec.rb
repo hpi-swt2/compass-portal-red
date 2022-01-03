@@ -41,4 +41,8 @@ RSpec.describe Person, type: :model do
   it "calculates its full name correctly" do
     expect(person.full_name).to eq("#{person.title} #{person.first_name} #{person.last_name}")
   end
+
+  it "converts a verification attribute to a column name" do
+    expect(person.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
+  end
 end
