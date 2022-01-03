@@ -3,14 +3,14 @@ class EmailReminder
   def self.remind(email_sender = EmailSender)
     problems = []
     id = nil
-    DataProblem.order(:people_id).each do |problem|
-      id = problem.people_id if id.nil?
-      if problem.people_id.equal? id
+    DataProblem.order(:person_id).each do |problem|
+      id = problem.person_id if id.nil?
+      if problem.person_id.equal? id
         problems.append problem
       else
         person = Person.find(id)
         send_email_if_allowed(email_sender, person, problems)
-        id = problem.people_id
+        id = problem.person_id
         problems = [problem]
       end
     end

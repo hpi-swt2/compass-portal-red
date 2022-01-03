@@ -16,7 +16,7 @@ RSpec.describe EmailReminder, type: :mailer do
       expect(mock_sender).to receive(:send_email).with(person, [problem])
 
       described_class.remind(mock_sender)
-      logged_emails = EmailLog.where(person_id: person.id)
+      logged_emails = EmailLog.where(people_id: person.id)
       assert(logged_emails.size == 1)
       assert(logged_emails[0].email_address == person.email)
 
