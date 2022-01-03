@@ -7,4 +7,8 @@ class Information < ApplicationRecord
   def self.get_value(key)
     where(key: key)&.first&.value
   end
+
+  def self.get_human_verified(key)
+    where(key: key)&.first&.human_verified
+  end
 end

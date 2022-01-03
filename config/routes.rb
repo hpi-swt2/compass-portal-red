@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :data_problems
   resources :people
 
   resources :person_urls
