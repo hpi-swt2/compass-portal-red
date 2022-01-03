@@ -1,3 +1,11 @@
 // Place all the styles related to the data_problems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.buttons {
+    float: right;
+    
+    a {
+        text-decoration: none;
+    }
+}
