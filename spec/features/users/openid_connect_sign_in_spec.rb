@@ -51,8 +51,12 @@ describe 'Sign In Page', type: :feature do
           OmniAuth.config.logger = Rails.logger
         end
 
-        before(:each) do
+        before do
           find('#openid_connect-signin').click
+        end
+
+        after(:all) do
+          OmniAuth.config.logger = @omniauth_logger
         end
 
         it 'shows a logout link' do
@@ -63,9 +67,6 @@ describe 'Sign In Page', type: :feature do
           expect(page).to have_css('.alert-danger')
         end
 
-        after(:all) do
-          OmniAuth.config.logger = @omniauth_logger
-        end
       end
     end
   end
