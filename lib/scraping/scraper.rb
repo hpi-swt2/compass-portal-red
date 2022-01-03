@@ -9,11 +9,9 @@ class Scraper
     data_collector = HpiDataCollector.new(base_url)
     problem_checker = ProblemChecker.new
     DataProblem.delete_all
-    
     url_records.each do |record|
       scrape_record(data_collector, record, problem_checker)
     end
-    
     problem_checker.data_check_routine
   end
 
