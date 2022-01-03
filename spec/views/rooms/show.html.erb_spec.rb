@@ -40,8 +40,4 @@ RSpec.describe "rooms/show", type: :view do
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end
-  # it "has a link to its building" do
-  #   render
-  #   expect(rendered).to have_link(nil, href: show_building_path(@building))
-  # end
 end
