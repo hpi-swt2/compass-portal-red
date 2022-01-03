@@ -1,12 +1,13 @@
-# require 'rails_helper'
+require 'rails_helper'
 
-# RSpec.describe "chairs/edit", type: :view do
-#   let(:chair) { FactoryBot.create :chair }
+RSpec.describe "chairs/edit", type: :view do
+  let(:chair) { FactoryBot.create(:chair) }
 
-#   it "renders the edit chair form" do
-#     render
+  before { assign(:chair, chair) }
 
-#     assert_select "form[action=?][method=?]", chair_path(@chair), "post" do
-#     end
-#   end
-# end
+  it "renders the edit chair form" do
+    render
+
+    assert_select "form[action=?][method=?]", chair_path(chair), "post"
+  end
+end

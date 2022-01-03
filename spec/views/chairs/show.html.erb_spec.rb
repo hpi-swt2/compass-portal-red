@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "chairs/show", type: :view do
-  let(:chair) { FactoryBot.create :chair }
+  let(:chair) { FactoryBot.create(:chair) }
+
+  before { assign(:chair, chair) }
 
   it "renders attributes in <p>" do
     render

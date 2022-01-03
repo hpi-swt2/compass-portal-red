@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/show", type: :view do
-  let(:room) { FactoryBot.create :room }
+  let(:room) { FactoryBot.create(:room) }
+
+  before { assign(:room, room) }
 
   it "renders attributes in <p>" do
     render
@@ -32,6 +34,7 @@ RSpec.describe "rooms/show", type: :view do
   end
 
   it "renders a list of the people that use the room" do
+    # byebug
     render
     room.people.each do |person|
       expect(rendered).to have_link(person.name, href: person_path(person))
