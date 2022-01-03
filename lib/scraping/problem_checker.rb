@@ -1,5 +1,4 @@
 class ProblemChecker
-
   @human_verified_time = 365
   @outdated_time = 183
 
