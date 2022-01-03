@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :data_problem do
     url { "MyString" }
-    type { "" }
+    description { "MyString" }
     field { "MyString" }
-    rooms { nil }
+    room { nil }
     person { nil }
   end
 end

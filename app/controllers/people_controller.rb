@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy]
+  default_form_builder HighlightableFormBuilder
 
   # GET /people or /people.json
   def index
@@ -17,7 +18,9 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit; end
+  def edit
+    @params = params
+  end
 
   # POST /people or /people.json
   def create
@@ -65,8 +68,26 @@ class PeopleController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def person_params
-    # TODO: Update for new schema
-    params.require(:person).permit(:first_name, :last_name, :title, :email, :phone, :office, :website, :image, :chair,
-                                   :office_hours, :telegram_handle, :knowledge)
+    process_human_verified_attributes
+    params.require(:person).permit(:first_name, :last_name, :title, :email, :status, :phone, :room, :website,
+                                   :image, :chair,
+                                   *Person.verification_attributes)
+  end
+
+  # Replaces all human_verified params with the current timestamp, if set to true
+  def process_human_verified_attributes
+    Person.verification_attributes.each do |verification_attr|
+      if params[:person][verification_attr] == "1"
+        params[:person][verification_attr] = DateTime.now
+        delete_data_problem(:person, verification_attr)
+      else
+        params[:person].delete verification_attr
+      end
+    end
+  end
+
+  def delete_data_problem(person, verification_attr)
+    field = verified_attribute_to_field(verification_attr)
+    DataProblem.where(["person_id = ? and field = ?", person.id, field]).destroy_all
   end
 end
