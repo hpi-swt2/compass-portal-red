@@ -22,7 +22,7 @@ RSpec.describe EmailReminder, type: :mailer do
 
     end
 
-    it 'does not send an email when there is a data problem concerning a person that has recently received an email recently' do
+    it 'does not send an email when there is a problem about a person that has recently received an email recently' do
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
       data_problems = [DataProblem.create!(person_id: person.id, description: "some Problem")]
       expect(mock_sender).not_to receive(:send_email).with(person, data_problems)
