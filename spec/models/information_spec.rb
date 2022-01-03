@@ -43,4 +43,9 @@ RSpec.describe Information, type: :model do
     information = FactoryBot.create :information, human_verified: Time.zone.local(2002, 10, 31)
     expect(information.person.informations.get_human_verified("Telegram")).to eq(Time.zone.local(2002, 10, 31))
   end
+
+  it "updated at can be retrieved by method" do
+    information = FactoryBot.create :information
+    expect(information.person.informations.get_updated_at("Telegram")).not_to eq(nil)
+  end
 end

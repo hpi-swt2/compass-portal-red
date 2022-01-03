@@ -42,11 +42,11 @@ class ProblemChecker
     return false if old.nil?
 
     if !info.get_human_verified(key)
-      return false unless info.updated_at.days_since(1).future?
+      return false unless info.get_updated_at(key).days_since(1).future?
 
-      save_problem('conflicting', entry, field)
+      save_problem('conflicting', entry, key)
     elsif info.get_human_verified(key).days_since(@human_verified_time).past?
-      save_problem('outdated', entry, field)
+      save_problem('outdated', entry, key)
     end
     true
   end
