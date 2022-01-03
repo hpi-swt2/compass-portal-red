@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "data_problems/edit", type: :view do
-
   let!(:data_problem) do
     assign(:data_problem, DataProblem.create!(
                             url: "MyString",
