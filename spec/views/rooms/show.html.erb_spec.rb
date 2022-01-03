@@ -1,42 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/show", type: :view do
-  before do
-    @room = FactoryBot.create :room
-    # @building = FactoryBot.create :building
-  end
+  let(:room) { FactoryBot.create :room }
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(@room.number)
-    expect(rendered).to match(@room.floor)
-    expect(rendered).to match(@room.full_name)
+    expect(rendered).to match(room.number)
+    expect(rendered).to match(room.floor)
+    expect(rendered).to match(room.full_name)
   end
 
   it "renders a list of its tags" do
     render
-    @room.tags.each do |tag|
+    room.tags.each do |tag|
       expect(rendered).to match(tag.name)
     end
   end
 
   it "renders a list of its room types" do
     render
-    @room.room_types.each do |room_type|
+    room.room_types.each do |room_type|
       expect(rendered).to match(room_type.name)
     end
   end
 
   it "renders a list of the chairs it belongs to" do
     render
-    @room.chairs.each do |chair|
+    room.chairs.each do |chair|
       expect(rendered).to have_link(chair.name, href: chair_path(chair))
     end
   end
 
   it "renders a list of the people that use the room" do
     render
-    @room.people.each do |person|
+    room.people.each do |person|
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end

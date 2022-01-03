@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/edit", type: :view do
-  before do
-    @room = assign(:room, Room.create!)
-  end
+  let(:room) { FactoryBot.create :room }
 
   it "renders the edit room form" do
     render
 
-    assert_select "form[action=?][method=?]", room_path(@room), "post" do
-    end
+    assert_select "form[action=?][method=?]", room_path(room), "post"
   end
 end

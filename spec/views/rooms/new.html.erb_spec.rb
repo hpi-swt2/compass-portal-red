@@ -8,7 +8,6 @@ RSpec.describe "rooms/new", type: :view do
   it "renders new room form" do
     render
 
-    assert_select "form[action=?][method=?]", rooms_path, "post" do
-    end
+    assert_select "form[action=?][method=?]", rooms_path, "post"
   end
 end
