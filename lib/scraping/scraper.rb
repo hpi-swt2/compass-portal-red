@@ -40,7 +40,7 @@ class Scraper
     if person
       update_person(person, item, problem_checker)
     else
-      create_person(item)
+      create_person(item, problem_checker)
     end
   end
 
@@ -49,13 +49,13 @@ class Scraper
     save_if_not_exists(person, item, "title", problem_checker)
     save_if_not_exists(person, item, "image", problem_checker)
 
-    build_info_if_not_exists(person, item, "phone")
-    build_info_if_not_exists(person, item, "website")
-    add_room(person, item[:office]) unless person.room || !item[:office]
+    build_info_if_not_exists(person, item, "phone", problem_checker)
+    build_info_if_not_exists(person, item, "website", problem_checker)
+    add_room(person, item[:office], problem_checker) unless person.room || !item[:office]
     person.save
   end
 
-  def self.create_person(item)
+  def self.create_person(item, problem_checker)
     new_person = Person.new({
                               'title' => item[:title],
                               'first_name' => item[:first_name],
@@ -63,19 +63,19 @@ class Scraper
                               'email' => item[:email],
                               'image' => item[:image]
                             })
-    build_info_if_not_exists(new_person, item, "phone")
-    build_info_if_not_exists(new_person, item, "website")
+    build_info_if_not_exists(new_person, item, "phone", problem_checker)
+    build_info_if_not_exists(new_person, item, "website", problem_checker)
 
-    add_room(new_person, item[:office]) if item[:office]
+    add_room(new_person, item[:office], problem_checker) if item[:office]
     new_person.save
   end
 
   def self.save_if_not_exists(person, item, key, problem_checker)
-    person[key] = item[key.to_sym] unless problem_checker.check_for_conflict(person, item[key.to_sym], key)
+    person[key] = item[key.to_sym] unless problem_checker.check_for_conflict(person, key)
   end
 
-  def self.build_info_if_not_exists(person, item, key)
-    return if person.informations.get_value(key)
+  def self.build_info_if_not_exists(person, item, key, problem_checker)
+    return if problem_checker.check_for_information_conflict(person, key)
 
     person.informations.build({
                                 key: key,
@@ -84,8 +84,8 @@ class Scraper
   end
 
   # Save room on person
-  def self.add_room(person, room)
+  def self.add_room(person, room, problem_checker)
     room = Room.find_or_create_by(number: room)
-    person.room = room
+    person.room = room unless problem_checker.check_for_conflict(person, key)
   end
 end

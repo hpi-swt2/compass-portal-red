@@ -15,11 +15,11 @@ RSpec.describe "ProblemChecker", type: :feature do
   end
 
   it "checks if information for a models entry is in conflict to the entries actual content" do
-    check = problem_checker.check_for_conflict(person, "Michaela", 'first_name')
+    check = problem_checker.check_for_conflict(person, 'first_name')
     expect(check).to be true
 
     person.update first_name: nil
-    check = problem_checker.check_for_conflict(person, "Michaela", 'first_name')
+    check = problem_checker.check_for_conflict(person, 'first_name')
     expect(check).to be false
   end
 
@@ -40,18 +40,6 @@ RSpec.describe "ProblemChecker", type: :feature do
 
       data_problems = DataProblem.where(["description = 'missing'"])
       expect(data_problems).not_to be_empty
-    end
-
-    it "does not save a 'missing' problem if 'humand verified' flag is set" do
-      person = Person.create(last_name: "Micheal", first_name: "Perscheid")
-      Person.column_names.each do |human_verified_attr|
-        person.update "#{human_verified_attr}": DateTime.now if human_verified_attr.include? "human_verified"
-      end
-
-      problem_checker.check_empty_fields(Person)
-
-      data_problems = DataProblem.where(["description = 'missing'"])
-      expect(data_problems).to be_empty
     end
   end
 end

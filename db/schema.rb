@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_15_101721) do
+ActiveRecord::Schema.define(version: 2022_01_03_115028) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_12_15_101721) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "person_id"
+    t.datetime "human_verified"
     t.index ["person_id"], name: "index_information_on_person_id"
   end
 
