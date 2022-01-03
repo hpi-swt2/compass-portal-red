@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="English">
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<p>Hello <%= @person.name %>,<br>
+  <br>
+  there have been problems with your personal data, namely:<ul>
+  <%@problems.each do |problem| %>
+  <li><%= problem.description %></li>
+  <% end %>
+  </ul>
+  <br>
+</p>
+<p>
+  To fix the problems, just follow this link: <a href="<%= @url %>">Fix the problems here</a> .<br>
+  <br>
+  Thanks for your time and have a great day! <br>
+  Your Compass-Red team.</p>
+</body>
+</html>

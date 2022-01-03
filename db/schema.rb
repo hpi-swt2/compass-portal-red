@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(version: 2022_01_03_115028) do
     t.index ["room_id"], name: "index_data_problems_on_room_id"
   end
 
+  create_table "email_logs", force: :cascade do |t|
+    t.text "email_address"
+    t.date "last_sent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "people_id"
+  end
+
   create_table "information", force: :cascade do |t|
     t.string "key"
     t.string "value"
