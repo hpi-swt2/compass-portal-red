@@ -1,6 +1,15 @@
+require 'optparse'
 require 'nokogiri'
 
 module IndoorHelper
+  def build_building_from(gpx)
+    doc = Nokogiri::XML(gpx)
+    rooms = doc.css("//trk")
+    building = Building.create
+
+    rooms.each { |room_node| build_room_from(room_node, building) }
+  end
+
   def build_point_from(point_node)
     lat = point_node["lat"]
     lon = point_node["lon"]

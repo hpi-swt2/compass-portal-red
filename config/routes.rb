@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   # Sets `root_url`, devise gem requires this to be set
   root to: "search#index"
 
-  get 'indoor/demo/', to: 'indoor#demo'
+  post 'indoor/import/', to: 'indoor#import'
+  get 'indoor/upload/', to: 'indoor#upload'
   get 'indoor/json/', to: 'indoor#geojson'
 end
