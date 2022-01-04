@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.float "y"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "osm_node_id"
   end
 
   create_table "points_polylines", id: false, force: :cascade do |t|
