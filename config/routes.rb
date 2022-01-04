@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   # '/map'
   get '/map', to: 'map#index'
+  get '/directions/:profile/:coordinates', to: 'map#directions' 
 
   # '/'
   # Sets `root_url`, devise gem requires this to be set

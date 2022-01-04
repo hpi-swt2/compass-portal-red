@@ -1,5 +1,7 @@
-// import L from 'leaflet';
+// import L from 'leaflet';x
 // import 'leaflet.locatecontrol';
+
+const L = window.L
 
 // Set the leaflet map with center and zoom-level
 const standardZoomLevel = 17;
@@ -24,25 +26,25 @@ L.control.locate({
 }).addTo(mymap);
 
 var UniPotsdamStyle = {
-        "fillColor": "Blue",
-        "fillOpacity": 0.65,
-        "color": "Blue",
-        "opacity": 0.3
-    };
+    "fillColor": "Blue",
+    "fillOpacity": 0.65,
+    "color": "Blue",
+    "opacity": 0.3
+};
 
 var HPIStyle = {
-        "fillColor": "Orange",
-        "fillOpacity": 0.65,
-        "color": "Orange",
-        "opacity": 0.3
-    };
+    "fillColor": "Orange",
+    "fillOpacity": 0.65,
+    "color": "Orange",
+    "opacity": 0.3
+};
 
 var DormStyle = {
-        "fillColor": "Green",
-        "fillOpacity": 0.65,
-        "color": "Green",
-        "opacity": 0.3
-    };
+    "fillColor": "Green",
+    "fillOpacity": 0.65,
+    "color": "Green",
+    "opacity": 0.3
+};
 
 let layers = {}
 
@@ -73,19 +75,19 @@ for (const feature of buildings) {
     }
 
     // Add the building as a layer
-    const layer = L.geoJSON(feature, {style: layerStyle});
+    const layer = L.geoJSON(feature, { style: layerStyle });
     // Add a tooltip displaying the name of the building, taken from the GeoJSON
-    layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: feature.properties.offset, direction: 'right'})
+    layer.bindTooltip(feature.properties.name, { permanent: true, className: 'marker_label', offset: feature.properties.offset, direction: 'right' })
     // Add the building to its campus layergroup
     layers[feature.properties.campus].addLayer(layer);
 }
 
 // make names disappeared when zoomed out
 var lastZoom;
-mymap.on('zoomend', function() {
+mymap.on('zoomend', function () {
     var zoom = mymap.getZoom();
     if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
-        mymap.eachLayer(function(layer) {
+        mymap.eachLayer(function (layer) {
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();
                 layer.unbindTooltip().bindTooltip(tooltip, {
@@ -94,7 +96,7 @@ mymap.on('zoomend', function() {
             }
         })
     } else if (zoom >= standardZoomLevel && zoom <= indoorZoomLevel && (!lastZoom || (lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel))) {
-        mymap.eachLayer(function(layer) {
+        mymap.eachLayer(function (layer) {
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();
                 layer.unbindTooltip().bindTooltip(tooltip, {
@@ -107,3 +109,53 @@ mymap.on('zoomend', function() {
 })
 
 L.control.layers(null, layers).addTo(mymap);
+
+
+var popup = L.popup();
+
+positions = []
+
+// TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
+// mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
+
+// mapbox token
+
+console.log(window.location.host + '/directions',)
+let routingControl = L.Routing.control({
+    // router: L.Routing.OSRMv1(options = {
+    //     serviceUrl: '//router.project-osrm.org/viaroute',
+    //     profile: 'foot',
+    // }),
+    router: new Router(
+        {
+            serviceUrl: window.location.origin + '/directions',
+            useHints: false,
+            profile: 'walking',
+            routingOptions: {
+                'walkway_bias': 1,
+                'walking_speed': 5
+            },
+        }
+    ),
+    lineOptions: {
+        styles: [{ color: 'blue' }]
+    },
+    waypoints: [
+    ]
+}).addTo(mymap);
+
+function onMapClick(e) {
+    pos = e.latlng;
+    positions.push(pos)
+    if (positions.length === 3)
+        positions.shift()
+    if (positions.length === 2)
+        routingControl.setWaypoints(positions)
+
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + pos.toString())
+        .openOn(mymap);
+}
+
+mymap.on('click', onMapClick);
