@@ -6,8 +6,8 @@ RSpec.describe PeopleMailer, type: :mailer do
     it 'sends an email when there is a data problem concerning a new person' do
       person = Person.create!(first_name: 'Max', last_name: 'Mustermann', email: 'email@example.com')
 
-      data_problems = [DataProblem.create!(person_id: person.id, description: "some Problem")]
-      email = described_class.with(person: person, problems: data_problems).problem_reminder_email.deliver_now
+      data_problem = FactoryBot.create :data_problem, person_id: person.id
+      email = described_class.with(person: person, problems: [data_problem]).problem_reminder_email.deliver_now
 
       assert !ActionMailer::Base.deliveries.empty?
 

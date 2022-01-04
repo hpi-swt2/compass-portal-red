@@ -12,7 +12,7 @@ RSpec.describe EmailReminder, type: :mailer do
 
   context 'when sending out data problem reminder emails' do
     it 'sends an email when there is a data problem concerning a person that has not received an email recently' do
-      problem = DataProblem.create!(person_id: person.id, description: "some Problem")
+      problem = FactoryBot.create :data_problem, person_id: person.id
 
       allow(mock_sender).to receive(:send_email)
       described_class.remind(mock_sender)
@@ -26,7 +26,7 @@ RSpec.describe EmailReminder, type: :mailer do
 
     it 'does not send an email when there is a problem about a person that has recently received an email recently' do
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
-      DataProblem.create!(person_id: person.id, description: "some Problem")
+      FactoryBot.create :data_problem, person_id: person.id
       described_class.remind(mock_sender)
       assert ActionMailer::Base.deliveries.empty?
     end
