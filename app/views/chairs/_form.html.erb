@@ -11,6 +11,27 @@
     </div>
   <% end %>
 
+<div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :people %>
+    <%= form.select 'person_ids',
+      options_from_collection_for_select(Person.all, :id, :name, chair.person_ids),
+      {},
+      multiple: true, size: 10 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rooms %>
+    <%= form.select 'room_ids',
+      options_from_collection_for_select(Room.all, :id, :full_name, chair.room_ids),
+      {},
+      multiple: true, size: 10 %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
