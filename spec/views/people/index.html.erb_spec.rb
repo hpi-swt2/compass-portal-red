@@ -1,34 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "people/index", type: :view do
-  before do
-    assign(:people, [
-             Person.create!(
-               email: "Email",
-               last_name: "Lastname",
-               first_name: "Firstname",
-               title: "Title",
-               image: "Image",
-               status: "Xyz"
-             ),
-             Person.create!(
-               email: "Email",
-               last_name: "Lastname",
-               first_name: "Firstname",
-               title: "Title",
-               image: "Image",
-               status: "Xyz"
-             )
-           ])
-  end
+  let(:people) { FactoryBot.create_list(:person, 2) }
+
+  before { assign(:people, people) }
 
   it "renders a list of people" do
     render
-    assert_select "tr>td", text: "Firstname".to_s, count: 2
-    assert_select "tr>td", text: "Lastname".to_s, count: 2
-    assert_select "tr>td", text: "Title".to_s, count: 2
-    assert_select "tr>td", text: "Email".to_s, count: 2
-    assert_select "tr>td", text: "Image".to_s, count: 2
-    assert_select "tr>td", text: "Xyz".to_s, count: 2
+    person = people[0]
+    assert_select "tr>td", text: person.first_name, count: 2
+    assert_select "tr>td", text: person.last_name, count: 2
+    assert_select "tr>td", text: person.title, count: 2
+    assert_select "tr>td", text: person.email, count: 2
+    assert_select "tr>td", text: person.image, count: 2
+    assert_select "tr>td", text: person.status, count: 2
   end
 end

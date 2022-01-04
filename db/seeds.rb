@@ -62,8 +62,8 @@ bundle.each do |person, room|
   Room.create(number: room[0], floor: room[1], full_name: room[2], people: [person])
 end
 
-room_type_list.each do |name|
-  RoomType.create(name: name)
+room_type_list.each do |room_type|
+  RoomType.create(name: room_type[0])
 end
 
 Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
@@ -73,3 +73,5 @@ Room.find(2).room_types << RoomType.find(3)
 Room.find(3).room_types << RoomType.find(1)
 Room.find(4).room_types << RoomType.find(5)
 Room.find(5).room_types << RoomType.find(1)
+
+Chair.find(1).rooms << [Room.find(1), Room.find(2)]
