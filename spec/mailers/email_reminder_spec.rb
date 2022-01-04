@@ -26,7 +26,7 @@ RSpec.describe EmailReminder, type: :mailer do
 
     it 'does not send an email when there is a problem about a person that has recently received an email recently' do
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
-      data_problems = [DataProblem.create!(person_id: person.id, description: "some Problem")]
+      DataProblem.create!(person_id: person.id, description: "some Problem")
       described_class.remind(mock_sender)
       assert ActionMailer::Base.deliveries.empty?
     end
