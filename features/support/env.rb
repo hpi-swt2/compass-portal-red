@@ -4,6 +4,7 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require 'simplecov'
 require 'cucumber/rails'
 require 'capybara/rails'
 require 'watir'
@@ -12,6 +13,14 @@ require 'capybara/cucumber'
 require 'capybara/session'
 require 'capybara/dsl'
 
+SimpleCov.start 'rails' do
+  # Unfortunately only for simplecov versions > 0.18
+  enable_coverage :branch # https://github.com/simplecov-ruby/simplecov#branch-coverage-ruby--25
+  # Ignore source files with less than 5 lines for code coverage
+  add_filter do |source_file|
+    source_file.lines.count < 5
+  end
+end
 
 browser = ENV['BROWSER'].present? ? ENV['BROWSER'].parameterize.underscore.to_sym : :chrome
 
@@ -80,4 +89,5 @@ end
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
+
 Cucumber::Rails::Database.javascript_strategy = :truncation
