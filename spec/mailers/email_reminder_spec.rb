@@ -13,9 +13,11 @@ RSpec.describe EmailReminder, type: :mailer do
   context 'when sending out data problem reminder emails' do
     it 'sends an email when there is a data problem concerning a person that has not received an email recently' do
       problem = DataProblem.create!(person_id: person.id, description: "some Problem")
-      expect(mock_sender).to receive(:send_email).with(person, [problem])
 
+      allow(mock_sender).to receive(:send_email)
       described_class.remind(mock_sender)
+      expect(mock_sender).to have_received(:send_email).with(person, [problem])
+
       logged_emails = EmailLog.where(people_id: person.id)
       assert(logged_emails.size == 1)
       assert(logged_emails[0].email_address == person.email)
@@ -25,9 +27,7 @@ RSpec.describe EmailReminder, type: :mailer do
     it 'does not send an email when there is a problem about a person that has recently received an email recently' do
       EmailLog.create!(email_address: person.email, last_sent: Date.current, people_id: person.id)
       data_problems = [DataProblem.create!(person_id: person.id, description: "some Problem")]
-      expect(mock_sender).not_to receive(:send_email).with(person, data_problems)
       described_class.remind(mock_sender)
-
       assert ActionMailer::Base.deliveries.empty?
     end
   end
