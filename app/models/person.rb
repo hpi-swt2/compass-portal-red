@@ -40,6 +40,6 @@ class Person < SearchableRecord
   def verified_attribute_to_field(verification_attr)
     return unless VERIFICATION_ATTRIBUTES.include? verification_attr
 
-    verification_attr[15..-1].to_sym
+    verification_attr[15..].to_sym
   end
 end
