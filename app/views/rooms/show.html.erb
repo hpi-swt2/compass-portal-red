@@ -25,6 +25,14 @@
   </p>
 <% end %>
 
+<% if @room.room_types %>
+  <p>
+    <strong>Room types:</strong>
+    <% room_type_names = @room.room_types.map {|room_type| room_type.name} %>
+    <%= room_type_names.join(", ") %>
+  </p>
+<% end %>
+
 <% if @room.people %>
   <p>
     <strong>People:</strong>
