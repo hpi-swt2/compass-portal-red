@@ -5,6 +5,7 @@ class Point < ApplicationRecord
 
   has_many :point_of_interests, dependent: :destroy
   has_and_belongs_to_many :polylines
+  belongs_to :room, dependent: :destroy, required: false
 
   def ==(other)
     x == other.x and y == other.y
