@@ -17,4 +17,11 @@ RSpec.describe "chairs/show", type: :view do
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end
+
+  it "renders a list of the rooms that are part of the chair" do
+    render
+    chair.rooms.each do |room|
+      expect(rendered).to have_link(room.name, href: room_path(room))
+    end
+  end
 end
