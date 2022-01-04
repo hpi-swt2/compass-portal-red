@@ -13,6 +13,8 @@ class IndoorController < ApplicationController
 
   def import
     uploaded_io = params[:file]
+    return unless uploaded_io.present?
+
     file = File.read(uploaded_io)
     build_building_from(file)
     redirect_to indoor_upload_path

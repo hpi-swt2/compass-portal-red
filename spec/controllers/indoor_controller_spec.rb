@@ -27,4 +27,20 @@ RSpec.describe IndoorController, type: :controller do
       end
     end
   end
-end
+
+  describe "GET #upload" do
+    before do
+      get :upload
+    end
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET #import" do
+    before do
+      post :import, params: { file: "" }
+    end
+  end
+  end

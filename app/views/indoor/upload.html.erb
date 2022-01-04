@@ -1,4 +1,4 @@
-<h1>Import gpx file</h1>
+<h1><%= I18n.t 'indoor.upload.title' %></h1>
 
 <form action="/indoor/import" method="post" enctype="multipart/form-data">
   <%= file_field_tag :file %>

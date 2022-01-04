@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+
+  indoor:
+    upload:
+      title: "Import indoor map"
