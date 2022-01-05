@@ -1,0 +1,14 @@
+@import "colors";
+
+.navbar-custom-bottom {
+    background-color: $hpi-red;
+    position: fixed;
+    bottom: 0;
+    display: none;
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-custom-bottom {
+        display: block;
+    }
+}

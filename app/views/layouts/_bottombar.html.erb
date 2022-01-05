@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom-bottom w-100">
+  <div class="container-fluid">
+      <ul class="navbar-nav me-auto m-0 flex-row w-100 justify-content-evenly">
+        <li class="nav-item">
+          <%= link_to search_path, class: 'nav-link d-flex flex-column align-items-center' do %>
+            <i class="fas fa-search"></i> <span>Search</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to map_path, class: 'nav-link d-flex flex-column align-items-center', data: {turbolinks: false} do %>
+            <i class="fas fa-map"></i> <span>Map</span>
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to protected_path, class: 'nav-link d-flex flex-column align-items-center' do %>
+            <i class="fas fa-list"></i> <span>Options</span>
+          <% end %>
+        </li>
+      </ul>
+  </div>
+</nav>
