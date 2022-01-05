@@ -1,6 +1,5 @@
-include DataProblemsHelper
-
 class PeopleMailer < ApplicationMailer
+  include DataProblemsHelper
   default from: 'compass.rot@gmail.com'
   def problem_reminder_email
     @person = params[:person]
