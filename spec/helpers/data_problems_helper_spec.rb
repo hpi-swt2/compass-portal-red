@@ -1,15 +1,20 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the DataProblemsHelper. For example:
-#
-# describe DataProblemsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe DataProblemsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let(:field_email) { "email" }
+  let(:field_title) { "title" }
+
+  let!(:person) do
+    build(:person)
+  end
+
+  before do
+    create(:data_problem, field: field_email, person_id: person.id)
+    create(:data_problem, field: field_title, person_id: person.id)
+  end
+
+  it "returns all database fields that are marked as data problems in a url query encoded string" do
+    expect(helper.edit_params(person.id)).to eq("?c_form_highlight=#{field_email},#{field_title}")
+  end
 end

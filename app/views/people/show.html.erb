@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <img src= "<%= @person.image %>" class="rounded-circle" >
+</p>
+
+<p>
   <strong>First Name:</strong>
   <%= @person.first_name %>
 </p>
@@ -28,10 +32,6 @@
   <%= @person.email %>
 </p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @person.image %>
-</p>
 
 <p>
   <strong>Status:</strong>

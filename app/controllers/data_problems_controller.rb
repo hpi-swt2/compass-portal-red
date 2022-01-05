@@ -63,6 +63,6 @@ class DataProblemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def data_problem_params
-    params.require(:data_problem).permit(:url, :type, :field, :rooms_id, :people_id)
+    params.require(:data_problem).permit(:url, :description, :field, :room_id, :person_id)
   end
 end

@@ -23,7 +23,7 @@
         <div class="list-group">
           <%if @results %>
             <% @results.each do |result|%>
-              <a href="#" class="list-group-item list-group-item-action" >
+              <a href=<%=url_for(result)%> class="list-group-item list-group-item-action" >
                 <span class= "<%= result.icon_class %>"></span>
                 <%= result.to_string %></a>
             <% end %>
