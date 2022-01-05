@@ -10,7 +10,7 @@ class Room < SearchableRecord
   belongs_to :building, optional: true # optional, because rooms should be creatable without creating a building
   belongs_to :outer_shape, class_name: 'Polyline'
   has_and_belongs_to_many :walls
-  has_and_belongs_to_many :point_of_interests
+  has_and_belongs_to_many :points
 
   after_initialize :init
   before_save :normalize_blank_image
