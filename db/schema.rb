@@ -63,8 +63,26 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.index ["person_id"], name: "index_information_on_person_id"
   end
 
-# Could not dump table "people" because of following StandardError
-#   Unknown type 'type' for column 'image'
+  create_table "people", force: :cascade do |t|
+    t.string "email"
+    t.string "last_name"
+    t.string "first_name"
+    t.string "title"
+    t.string "image", default: "placeholder_person.png"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "room_id"
+    t.integer "user_id"
+    t.datetime "human_verified_email"
+    t.datetime "human_verified_last_name"
+    t.datetime "human_verified_first_name"
+    t.datetime "human_verified_title"
+    t.datetime "human_verified_image"
+    t.datetime "human_verified_room_id"
+    t.datetime "human_verified_status"
+    t.index ["user_id"], name: "index_people_on_user_id"
+  end
 
   create_table "person_urls", force: :cascade do |t|
     t.string "name"
@@ -113,8 +131,18 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.integer "room_type_id", null: false
   end
 
-# Could not dump table "rooms" because of following StandardError
-#   Unknown type 'type' for column 'image'
+  create_table "rooms", force: :cascade do |t|
+    t.string "number"
+    t.string "floor"
+    t.string "full_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "outer_shape_id", null: false
+    t.integer "building_id"
+    t.string "image", default: "placeholder_room.png"
+    t.index ["building_id"], name: "index_rooms_on_building_id"
+    t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
+  end
 
   create_table "rooms_tags", id: false, force: :cascade do |t|
     t.integer "room_id", null: false
