@@ -18,6 +18,17 @@ RSpec.describe "rooms/show", type: :view do
       expect(rendered).to match(tag.name)
     end
   end
+  
+  it "shows an image of the room if one exists" do
+    render
+    expect(rendered).to have_css("img[src='#{room.image}']")
+  end
+  
+  it "shows the placeholder image if no image was linked" do
+    assign(:room, FactoryBot.create(:room, image: ""))
+    render
+    expect(rendered).to have_css("img[src*=placeholder_room]")
+  end
 
   it "renders a list of its room types" do
     render
