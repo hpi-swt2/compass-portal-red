@@ -3,19 +3,28 @@
       <ul class="navbar-nav me-auto m-0 flex-row w-100 justify-content-evenly">
         <li class="nav-item">
           <%= link_to search_path, class: 'nav-link d-flex flex-column align-items-center' do %>
-            <i class="fas fa-search"></i> <span>Search</span>
+            <i class="fas fa-search fa-lg"></i> <span>Search</span>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to map_path, class: 'nav-link d-flex flex-column align-items-center', data: {turbolinks: false} do %>
-            <i class="fas fa-map"></i> <span>Map</span>
+            <i class="fas fa-map fa-lg"></i> <span>Map</span>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to protected_path, class: 'nav-link d-flex flex-column align-items-center' do %>
-            <i class="fas fa-list"></i> <span>Options</span>
+            <i class="fas fa-list fa-lg"></i> <span>Options</span>
           <% end %>
         </li>
       </ul>
   </div>
 </nav>
+
+<!--
+TODO:
+
+- Styling bottom bar
+- Top bar -> title bar and logo
+
+
+-->
