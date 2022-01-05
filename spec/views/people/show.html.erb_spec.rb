@@ -19,7 +19,7 @@ RSpec.describe "people/show", type: :view do
     render
     expect(rendered).to have_css("img[src='#{person.image}']")
   end
-  
+
   it "shows the placeholder image if no image was linked" do
     assign(:person, FactoryBot.create(:person, image: ""))
     render

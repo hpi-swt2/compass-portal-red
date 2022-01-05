@@ -15,10 +15,10 @@ class Room < SearchableRecord
   after_initialize :init
   before_save :normalize_blank_image
 
-  PLACEHOLDER_IMAGE_LINK = "placeholder_room.png"
+  PLACEHOLDER_IMAGE_LINK = "placeholder_room.png".freeze
 
   def normalize_blank_image
-    self.image.present? || self.image = PLACEHOLDER_IMAGE_LINK
+    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
   end
 
   def init

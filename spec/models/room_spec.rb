@@ -30,7 +30,8 @@ RSpec.describe Room, type: :model do
   end
 
   context "when creating new rooms" do
-    let(:room) {described_class.new}
+    let(:room) { described_class.new }
+
     it "contains an empty list of points in the outer shape" do
       expect(room.outer_shape.points).to eq([])
     end

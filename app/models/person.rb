@@ -10,10 +10,10 @@ class Person < SearchableRecord
 
   before_save :normalize_blank_image
 
-  PLACEHOLDER_IMAGE_LINK = "placeholder_person.png"
+  PLACEHOLDER_IMAGE_LINK = "placeholder_person.png".freeze
 
   def normalize_blank_image
-    self.image.present? || self.image = PLACEHOLDER_IMAGE_LINK
+    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
   end
 
   def name
