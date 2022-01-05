@@ -420,8 +420,8 @@ DEPENDENCIES
   listen (~> 3.3)
   omniauth
   omniauth_openid_connect
-  parallel
   open_uri_redirections
+  parallel
   pg
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
