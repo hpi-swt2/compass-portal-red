@@ -17,7 +17,6 @@ class HpiTableScraper < HpiWebScraper
       item[:email] = scrape_mail(td_tags, item)
     end
     # rubocop:enable Style/IfUnlessModifier
-
     item
   end
 
