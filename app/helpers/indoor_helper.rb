@@ -13,7 +13,6 @@ module IndoorHelper
         PointOfInterest.find_or_create_by(point_id: point.id, point_type: "entrance")
       end
     end
-
   end
 
   def build_room_from(room_node, building)
@@ -33,8 +32,8 @@ module IndoorHelper
       points.push(Point.find_by(osm_node_id: nd["ref"]))
     end
 
-    outer_shape = Polyline.create(points: points)
-    room = Room.create(building: building, outer_shape: outer_shape, full_name: name)
+    outer_shape = Polyline.find_or_create_by(points: points)
+    room = Room.find_or_create_by(building: building, outer_shape: outer_shape, full_name: name)
 
     points.each do |point|
       point.update(room_id: room.id)
