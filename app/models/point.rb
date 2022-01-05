@@ -10,4 +10,14 @@ class Point < ApplicationRecord
   def ==(other)
     x == other.x and y == other.y
   end
+
+  def to_geojson
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [point.x, point.y]
+      }
+    }
+  end
 end

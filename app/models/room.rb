@@ -31,7 +31,7 @@ class Room < SearchableRecord
 
   def to_geojson
     walls.map(&:to_geojson) +
-      point_of_interests.map(&:to_geojson) +
+      points.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
   end
 

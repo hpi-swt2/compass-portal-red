@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_180919) do
+ActiveRecord::Schema.define(version: 2022_01_05_182137) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -100,11 +100,6 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 
-  create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_of_interest_id", null: false
-  end
-
   create_table "points", force: :cascade do |t|
     t.float "x"
     t.float "y"
@@ -118,6 +113,11 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
   create_table "points_polylines", id: false, force: :cascade do |t|
     t.integer "point_id", null: false
     t.integer "polyline_id", null: false
+  end
+
+  create_table "points_rooms", id: false, force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.integer "room_id", null: false
   end
 
   create_table "polylines", force: :cascade do |t|
