@@ -1,0 +1,10 @@
+@import "colors";
+
+.form-wrapper {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.highlighted {
+  background-color: $hpi-red-tint !important;
+}

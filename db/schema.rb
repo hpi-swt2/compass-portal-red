@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_144305) do
+ActiveRecord::Schema.define(version: 2022_01_03_115028) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -33,12 +33,33 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "chair_id", null: false
   end
 
+  create_table "data_problems", force: :cascade do |t|
+    t.string "url"
+    t.string "description"
+    t.string "field"
+    t.integer "room_id"
+    t.integer "person_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_data_problems_on_person_id"
+    t.index ["room_id"], name: "index_data_problems_on_room_id"
+  end
+
+  create_table "email_logs", force: :cascade do |t|
+    t.text "email_address"
+    t.date "last_sent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "people_id"
+  end
+
   create_table "information", force: :cascade do |t|
     t.string "key"
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "person_id"
+    t.datetime "human_verified"
     t.index ["person_id"], name: "index_information_on_person_id"
   end
 
@@ -53,6 +74,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
     t.integer "user_id"
+    t.datetime "human_verified_email"
+    t.datetime "human_verified_last_name"
+    t.datetime "human_verified_first_name"
+    t.datetime "human_verified_title"
+    t.datetime "human_verified_image"
+    t.datetime "human_verified_room_id"
+    t.datetime "human_verified_status"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
@@ -153,6 +181,8 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.index ["polyline_id"], name: "index_walls_on_polyline_id"
   end
 
+  add_foreign_key "data_problems", "people"
+  add_foreign_key "data_problems", "rooms"
   add_foreign_key "point_of_interests", "points"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"

@@ -4,24 +4,24 @@ RSpec.describe Room, type: :model do
   let(:point1) { create :point }
   let(:point2) { create :point, x: -1.5 }
 
-  it "has a chair relation" do
-    room = FactoryBot.create :room
-    expect(subject).to respond_to(:chairs)
-  end
+  describe "when creating the room it" do
+    let(:room) { FactoryBot.create :room }
 
-  it "has a person relation" do
-    room = FactoryBot.create :room
-    expect(subject).to respond_to(:people)
-  end
+    it "has a chair relation" do
+      expect(room).to respond_to(:chairs)
+    end
 
-  it "has a tag relation" do
-    room = FactoryBot.create :room
-    expect(subject).to respond_to(:tags)
-  end
+    it "has a person relation" do
+      expect(room).to respond_to(:people)
+    end
 
-  it "has a room type relation" do
-    room = FactoryBot.create :room
-    expect(subject).to respond_to(:room_types)
+    it "has a tag relation" do
+      expect(room).to respond_to(:tags)
+    end
+
+    it "has a room type relation" do
+      expect(room).to respond_to(:room_types)
+    end
   end
 
   it "has a constructor that can create instances" do

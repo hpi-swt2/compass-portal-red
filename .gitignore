@@ -80,4 +80,5 @@ app/assets/images/people/*
 .idea
 .idea/*
 
+/config/master.key
 .people_urls.json
