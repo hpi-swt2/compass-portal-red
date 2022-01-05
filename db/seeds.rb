@@ -2,14 +2,14 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 # Points of Interest
-PointOfInterest.create(point: Point.create(x: 13.131646, y: 52.393869), 
-                        description: 'This is Mr. Net, a landmark of the HPI.', name: 'Mr. Net')
-PointOfInterest.create(point: Point.create(x: 13.132215, y: 52.393793), 
-                        description: 'This is Lake HPI.', name: 'Lake HPI')
-PointOfInterest.create(point: Point.create(x: 13.133757, y: 52.394414), 
-                        description: 'This area is used for freetime activities by HPI students.', name: 'Meadow')
-PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335), 
-                        description: 'This is a nice place to eat.', name: 'Ulf''s Cafe')
+PointOfInterest.create(point: Point.create(x: 13.131646, y: 52.393869),
+                       description: 'This is Mr. Net, a landmark of the HPI.', name: 'Mr. Net')
+PointOfInterest.create(point: Point.create(x: 13.132215, y: 52.393793),
+                       description: 'This is Lake HPI.', name: 'Lake HPI')
+PointOfInterest.create(point: Point.create(x: 13.133757, y: 52.394414),
+                       description: 'This area is used for freetime activities by HPI students.', name: 'Meadow')
+PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
+                       description: 'This is a nice place to eat.', name: 'Ulf''s Cafe')
 
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "https://via.placeholder.com/150",
