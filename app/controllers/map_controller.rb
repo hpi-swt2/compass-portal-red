@@ -9,7 +9,7 @@ class MapController < ApplicationController
 
   def directions 
     profile = params[:profile]
-    coordinates = params[:coordinates]
+    coordinates = params[:coordinates].gsub("p", "%2E")
     params[:access_token] = ENV['MAPBOX_ACCESS_TOKEN']
     permitted = params.permit(:alternatives, :geometries, :include, :access_token)
     uri = URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
