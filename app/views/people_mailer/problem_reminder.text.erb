@@ -3,7 +3,7 @@ Hello <%= @person.name %>,
 
 there have been problems with your personal data, namely:
   <%@problems.each do |problem| %>
-    <%= problem.description %>
+    <%= problem.description at problem.field %>
   <% end %>
 
 To fix the problems, just follow this link: <%= @url %>.
