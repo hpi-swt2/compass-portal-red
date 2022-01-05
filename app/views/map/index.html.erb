@@ -9,7 +9,7 @@
   	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
 	
 	
-	<%= content_tag :div, '', id: 'container', data: { source: @PoI } %>
+	<%= content_tag :div, '', id: 'poi-data', data: { source: @points_of_interest } %>
 	<%= javascript_include_tag 'OutdoorMap/geometry' %>
   </head>
 

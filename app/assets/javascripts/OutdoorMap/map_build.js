@@ -82,7 +82,7 @@ for (const feature of buildings) {
 
 //Add points of interest
 layers['Points of Interest'] = L.layerGroup().addTo(mymap);
-let pois = JSON.parse(document.getElementById('container').dataset.source);
+let pois = JSON.parse(document.getElementById('poi-data').dataset.source);
 for(const feature of pois) {
     const layer = L.geoJSON(feature);
     layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: [-14, 0], direction: 'right'})
