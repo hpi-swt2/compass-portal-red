@@ -1,0 +1,15 @@
+<script>
+    <% @buildings.each do |building|%>
+        <% building.rooms.each do |room|%>
+            layers["<%= room.full_name %>"] = L.layerGroup().addTo(mymap);
+            for (const feature of <%= raw(JSON.generate(room.to_geojson)) %>) {
+                layers["<%= room.full_name %>"].addLayer(L.geoJSON(feature, {
+                    style: {
+                        "fillOpacity": 0.0,
+                        "color": "#444"
+                    }
+                }));
+            }
+        <% end %> 
+    <% end %> 
+</script>

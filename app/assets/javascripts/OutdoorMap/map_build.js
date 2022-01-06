@@ -44,22 +44,7 @@ var DormStyle = {
         "opacity": 0.3
     };
 
-var IndoorStyle = {
-        "fillOpacity": 0.0,
-        "color": "#444"
-    };
-
 let layers = {}
-
-//Get indoor features from database
-fetch("indoor/json").then(response => response.json()).then(data => {
-    layers["indoor"] = L.layerGroup().addTo(mymap);
-    for (const feature of data["features"]) {
-        layers["indoor"].addLayer(L.geoJSON(feature, {
-            style: IndoorStyle
-        }));
-    }
-})
 
 // buildings includes all geometry-data extracted from OSM, see campus.js
 // layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
