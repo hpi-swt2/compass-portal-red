@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Building, type: :model do
   let(:room1) { create :room }
-  let(:room2) { create :room, point_of_interests: [(create :point_of_interest)] }
+  let(:room2) { create :room, points: [(create :point)] }
   let(:rooms) { [room1, room2] }
 
   it "has a constructor that can create instances" do
@@ -28,7 +28,7 @@ RSpec.describe Building, type: :model do
 
   it "can create a geojson containing the correct number of features" do
     building = create :building
-    expect(building.to_geojson.length).to eq(6)
+    expect(building.to_geojson.length).to eq(2)
   end
 
   context "with valid arguments" do

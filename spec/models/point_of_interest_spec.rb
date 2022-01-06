@@ -9,8 +9,7 @@ RSpec.describe PointOfInterest, type: :model do
   context "with valid arguments" do
     it "is valid with a point and type" do
       point = build :point
-      room = build :room
-      point_of_interest = described_class.new(point: point, room: room, point_type: "entrance")
+      point_of_interest = described_class.new(point: point, point_type: "entrance")
       expect(point_of_interest).to be_valid
     end
 
