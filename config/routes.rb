@@ -28,7 +28,9 @@ Rails.application.routes.draw do
 
   # '/'
   # Sets `root_url`, devise gem requires this to be set
-  root to: "search#index"
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
 
   get 'indoor/demo/', to: 'indoor#demo'
   get 'indoor/json/', to: 'indoor#geojson'
