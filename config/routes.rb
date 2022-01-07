@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   # '/map'
   get '/map', to: 'map#index'
 
+  # '/options'
+  get '/options', to: 'options#index'
+
   # '/'
   # Sets `root_url`, devise gem requires this to be set
   root to: "search#index"
