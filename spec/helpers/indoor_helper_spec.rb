@@ -48,12 +48,12 @@ RSpec.describe IndoorHelper, type: :helper do
     let(:room_node) do
       xml = Nokogiri::XML(
         "<root>"\
-          "<way>"\
-            "#{point_references.join}"\
-            "<tag k=\"indoor\" v=\"room\" />"\
-            "<tag k=\"name\" v=\"#{name}\" />"\
-          "</way>"\
-          "#{point_descriptions.join}"\
+        "<way>"\
+        "#{point_references.join}"\
+        "<tag k=\"indoor\" v=\"room\" />"\
+        "<tag k=\"name\" v=\"#{name}\" />"\
+        "</way>"\
+        "#{point_descriptions.join}"\
         "</root>"
       )
       xml.root.children.first
