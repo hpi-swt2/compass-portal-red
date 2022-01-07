@@ -120,12 +120,9 @@ positions = []
 
 // mapbox token
 
-console.log(window.location.host + '/directions',)
+console.log(window.location.host + '/directions')
+
 let routingControl = L.Routing.control({
-    // router: L.Routing.OSRMv1(options = {
-    //     serviceUrl: '//router.project-osrm.org/viaroute',
-    //     profile: 'foot',
-    // }),
     router: new Router(
         {
             serviceUrl: window.location.origin + '/directions',
@@ -137,10 +134,33 @@ let routingControl = L.Routing.control({
             },
         }
     ),
+	plan: L.Routing.plan(positions, {
+		createMarker: function(i, wp) {
+			return L.marker(wp.latLng, {
+				draggable: true,
+				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
+			});
+		},
+		geocoder: L.Control.Geocoder.nominatim(),
+		routeWhileDragging: true
+	}),
+	routeWhileDragging: true,
+	routeDragTimeout: 250,
+	collapsible: true,
     lineOptions: {
         styles: [{ color: 'blue' }]
     }
-}).addTo(mymap);
+}).addTo(mymap)
+.on('routingerror', function(e) {
+	try {
+		map.getCenter();
+	} catch (e) {
+		map.fitBounds(L.latLngBounds(positions));
+	}
+
+	handleError(e);
+});
+
 
 function onMapClick(e) {
     pos = e.latlng;
@@ -149,7 +169,7 @@ function onMapClick(e) {
         positions.shift()
     if (positions.length === 2)
         routingControl.setWaypoints(positions)
-
+	
     popup
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + pos.toString())
