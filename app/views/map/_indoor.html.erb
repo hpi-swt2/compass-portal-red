@@ -3,16 +3,33 @@
         "fillOpacity": 0.0,
         "color": "#444"
     };
-    let roomLayer42;
+    let roomLayer;
+    let roomTooltip;
     <% @buildings.each do |building|%>
         <% building.rooms.each do |room|%>
-            roomLayer42 = L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
+
+            roomLayer = L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
             {style: indoorStyle});
-            roomLayer42.bindTooltip("<%= room.full_name %>", 
-                {permanent: true, interactive: true, className: 'marker_label', offset: L.point(0,0), direction: 'right'});
+            roomTooltip = L.tooltip({
+                permanent: true, 
+                interactive: true, 
+                className: 'marker_label', 
+                offset: L.point(0,0), 
+                direction: 'center',
+            });
+            roomTooltip.setContent("<%= room.full_name %>");
+
+            roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.full_name %></a>');
+
+            roomLayer.bindTooltip(roomTooltip);
+            roomLayer.addEventListener('click', (event)=>{
+                console.log(event);
+                });
+                
             layers["<%= room.full_name %>"] = L.layerGroup()
-                .addTo(mymap)
-                .addLayer(roomLayer42);
+            .addTo(mymap)
+            .addLayer(roomLayer);
+            
         <% end %> 
     <% end %> 
 </script>
