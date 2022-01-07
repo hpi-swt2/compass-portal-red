@@ -139,9 +139,7 @@ let routingControl = L.Routing.control({
     ),
     lineOptions: {
         styles: [{ color: 'blue' }]
-    },
-    waypoints: [
-    ]
+    }
 }).addTo(mymap);
 
 function onMapClick(e) {
