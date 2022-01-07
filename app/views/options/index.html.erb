@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+  	<title>Options</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+
+ 
+	<div  class="container">
+		<% if user_signed_in? %>
+			<div class="d-flex flex-row mb-4">
+				<i class="fas fa-user my-2 mx-3 justify-content-center align-self-center"></i>
+				<div class="">
+					<div class="fw-bold">
+						<%= "#{current_user.username}" if current_user.username.present? %>
+					</div>
+					<div class="fw-bold">
+						<%= "#{@person.first_name}"%>
+					</div>
+					<div>Signed in</div>
+				</div>
+			</div>
+		
+  			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+			<div class="my-2">
+				Log out
+			</div>
+			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+			<div class="my-2">
+				Edit Personal Information
+			</div>
+			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+			<div  class="my-2">
+				Sign in as Max Mustermann	
+			</div>
+			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+			<div  class="my-2">
+				Show data tables
+			</div>
+			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+			<div  class="my-2">
+				Data Management
+			</div>
+			<div class="bg-dark" style="height: 1px; width: 100%"></div>
+		<% end %>
+		<% if !user_signed_in? %>
+				<div class="d-flex flex-row align-items-center">
+				<i class="fas fa-user my-2 mx-3 justify-content-center align-self-center"></i>
+				<div class="fw-bold">
+					Sign in
+				</div>
+			</div>
+		<% end %>
+	</div>
+  </body>
+</html>
