@@ -21,11 +21,21 @@
     <div class="row">
       <div class="col">
         <div class="list-group">
-          <%if @results %>
-            <% @results.each do |result|%>
+          <%if @exact_results %>
+            <% @exact_results.each do |result|%>
               <a href=<%=url_for(result)%> class="list-group-item list-group-item-action" >
                 <span class= "<%= result.icon_class %>"></span>
                 <%= result.to_string %></a>
+            <% end %>
+          <% end %>
+        </div>
+        More Results
+        <div class="list-group">
+          <%if @more_results %>
+            <% @more_results.each do |result|%>
+              <a href=<%=url_for(result)%> class="list-group-item list-group-item-action" >
+              <span class= "<%= result.icon_class %>"></span>
+              <%= result.to_string %></a>
             <% end %>
           <% end %>
         </div>
