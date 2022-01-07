@@ -6,6 +6,11 @@ class SearchableRecord < ApplicationRecord
     []
   end
 
+  def self.searchable_relations
+    joins([])
+  end
+  
+
   def to_string
     raise 'This method should be overriden to display a string when searching'
   end
@@ -17,6 +22,6 @@ class SearchableRecord < ApplicationRecord
   def self.search(query)
     attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
     search_string = attributes.join(" or ")
-    where(search_string)
+    searchable_relations.where(search_string).group(:id)
   end
 end

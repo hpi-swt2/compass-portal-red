@@ -29,7 +29,11 @@ class Room < SearchableRecord
   end
 
   def self.searchable_attributes
-    %w[floor number full_name]
+    %w[floor number full_name room_types.name tags.name]
+  end
+
+  def self.searchable_relations
+    joins(:tags, :room_types)
   end
 
   def display_name
