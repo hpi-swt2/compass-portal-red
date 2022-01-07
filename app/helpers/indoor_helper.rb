@@ -29,6 +29,7 @@ module IndoorHelper
   end
 
   private
+  
   def parse_room_name(room_node)
     name = nil
     room_node.css("tag").each do |tag|
@@ -37,7 +38,7 @@ module IndoorHelper
 
     raise 'Parsing osm file failed (room name not found)' if name.nil?
 
-    return name
+    name
   end
 
   def parse_room_points(room_node)
@@ -45,6 +46,6 @@ module IndoorHelper
     room_node.css("nd").each do |nd|
       points.push(Point.find_by(osm_node_id: nd["ref"]))
     end
-    return points
+    points
   end
 end
