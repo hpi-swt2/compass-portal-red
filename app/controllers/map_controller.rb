@@ -28,8 +28,7 @@ class MapController < ApplicationController
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
     if not is_in_babelsberg p1 or not is_in_babelsberg p2
-       print "Unsinn!"
-       return 0
+       return "Errror! Not allowed to navigate outside of Babelsberg"
     end
 
     res = Net::HTTP.get_response(uri)
