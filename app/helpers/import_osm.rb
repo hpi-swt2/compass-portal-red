@@ -16,8 +16,6 @@ end
 
 potential_rooms.each do |room|
   room.css("tag").each do |tag|
-    if tag["k"] == "indoor" and tag["v"] == "room" then
-      build_room_from(room, building)
-    end
+    build_room_from(room, building) if tag["k"] == "indoor" && tag["v"] == "room"
   end
 end

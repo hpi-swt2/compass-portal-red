@@ -46,12 +46,20 @@ RSpec.describe IndoorHelper, type: :helper do
   describe "room builder" do
     let(:name) { 'HS Triangle' }
     let(:room_node) do
-      xml = Nokogiri::XML("<root><way>#{point_references.join}<tag k=\"indoor\" v=\"room\" /><tag k=\"name\" v=\"#{name}\" /></way>#{point_descriptions.join}</root>")
+      xml = Nokogiri::XML(
+        "<root>"\
+          "<way>"\
+            "#{point_references.join}"\
+            "<tag k=\"indoor\" v=\"room\" />"\
+            "<tag k=\"name\" v=\"#{name}\" />"\
+          "</way>"\
+          "#{point_descriptions.join}"\
+        "</root>"
+      )
       xml.root.children.first
     end
 
     it "persists room" do
-      
       # save points in database so room can reference them
       point_descriptions.map do |description|
         build_point_from(Nokogiri::XML("<root>#{description}\"></root>").root.children.first)
