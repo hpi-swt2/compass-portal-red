@@ -68,6 +68,12 @@ group :development, :test do
   gem 'rubocop-performance', require: false # https://github.com/rubocop-hq/rubocop-performance
   # RSpec formatter compatible with GitHub Action's annotations
   gem 'rspec-github', require: false # https://github.com/Drieam/rspec-github
+  # Ruby on Rails Generators for Cucumber, with special support for Capybara and DatabaseCleaner
+  gem 'cucumber-rails', require: false
+  # used for cleaning your database in the testing environment
+  gem 'database_cleaner'
+  gem 'watir'
+  gem 'parallel'
 end
 
 group :development do
