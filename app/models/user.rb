@@ -24,7 +24,7 @@ class User < ApplicationRecord
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
-      connect_to_person(auth.info.email, user.id)
+      connect_to_person(auth, user.id)
     end
   end
 
@@ -39,13 +39,16 @@ class User < ApplicationRecord
   #   end
   # end
 
-  def self.connect_to_person(email, id)
-    address = email.gsub("@", "(at)")
-    person = Person.find_by(email: address)
-    address = address.gsub(".uni-potsdam.de", ".de")
-    person ||= Person.find_by(email: address)
-    return unless person
-
+  def self.connect_to_person(auth, id)
+    email = auth.info.email.gsub("@", "(at)")
+    person = Person.find_by(email: email)
+    email = email.gsub(".uni-potsdam.de", ".de")
+    person ||= Person.find_by(email: email)
+    person ||= Person.new({
+                            'first_name' => auth.info.first_name,
+                            'last_name' => auth.info.last_name,
+                            'email' => email
+                          })
     person["user_id"] = id
     person.save
   end
