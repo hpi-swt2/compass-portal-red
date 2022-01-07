@@ -1,18 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="row mb-4">
+  <div class="col-sm-4 col-lg-2">
+    <img src= "<%= @person.image %>" class="rounded-circle" >
+  </div>
 
-<p>
-  <img src= "<%= @person.image %>" class="rounded-circle" >
-</p>
-
-<p>
-  <strong>First Name:</strong>
-  <%= @person.first_name %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @person.last_name %>
-</p>
+  <div class="col-sm-8 col-lg-10">
+    <h1>
+      <%= @person.full_name %>
+    </h1>
+    <p>
+      <span class="detail-tag p-1"><%= @person.status %></span>
+    </p>
+  </div>
+</div>
 
 <%# Only show room when room is not nil %>
 <% if @person.room %>
@@ -23,19 +22,8 @@
 <% end %>
 
 <p>
-  <strong>Title:</strong>
-  <%= @person.title %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @person.email %>
-</p>
-
-
-<p>
-  <strong>Status:</strong>
-  <%= @person.status %>
 </p>
 
 <% @person.informations.each do |information| %>

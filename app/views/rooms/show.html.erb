@@ -1,4 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="row mb-4">
+  <div class="col-sm-4 col-lg-2">
+    <img src= "https://via.placeholder.com/150" class="rounded-circle" >
+  </div>
+
+  <div class="col-sm-8 col-lg-10">
+    <h1>
+      <%= @room.full_name %>
+    </h1>
+    <% if @room.tags %>
+      <p class="badges">
+        <% tag_names = @room.room_types.map do |tag| %>
+            <span class="detail-tag badge"><%= tag.name %></span>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+</div>
 
 <p>
   <strong>Floor:</strong>
@@ -8,11 +25,6 @@
 <p>
   <strong>Room number:</strong>
   <%= @room.number %>
-</p>
-
-<p>
-  <strong>Room name:</strong>
-  <%= @room.full_name %>
 </p>
 
 <% if @room.chairs %>
@@ -40,14 +52,6 @@
     <%  link_to(person.full_name, person_path(person)) %>
     <%  end %>
     <%= people_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
-<% if @room.tags %>
-  <p>
-    <strong>Tags:</strong>
-    <% tag_names = @room.tags.map {|tag| tag.name} %>
-    <%= tag_names.join(", ") %>
   </p>
 <% end %>
 
