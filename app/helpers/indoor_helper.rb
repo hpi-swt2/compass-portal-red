@@ -29,7 +29,7 @@ module IndoorHelper
   end
 
   private
-  
+
   def parse_room_name(room_node)
     name = nil
     room_node.css("tag").each do |tag|
