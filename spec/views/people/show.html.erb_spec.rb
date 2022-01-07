@@ -8,9 +8,7 @@ RSpec.describe "people/show", type: :view do
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(person.email)
-    expect(rendered).to match(person.first_name)
-    expect(rendered).to match(person.last_name)
-    expect(rendered).to match(person.title)
+    expect(rendered).to have_selector('h1', text: person.full_name)
     expect(rendered).to match(person.image)
     expect(rendered).to match(person.status)
   end
