@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
-    sign_in_and_redirect @user, event: :authentication # this will throw if @user is not activated
+    sign_in_and_redirect_to_search @user, event: :authentication # this will throw if @user is not activated
     # devise helper: https://www.rubydoc.info/github/plataformatec/devise/DeviseController:set_flash_message
     set_flash_message(:notice, :success, kind: 'OpenID Connect', reason: 'HPI OIDC login')
     # In case more input is required to save user object, return new user from `User.from_omniauth`
@@ -18,5 +18,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     set_flash_message(:alert, :failure, kind: 'OpenID Connect', reason: 'HPI OIDC login')
     redirect_to root_path
+  end
+
+  def sign_in_and_redirect_to_search(resource_or_scope, *args)
+    options  = args.extract_options!
+    scope    = Devise::Mapping.find_scope!(resource_or_scope)
+    resource = args.last || resource_or_scope
+    sign_in(scope, resource, options)
+    redirect_to search_path
   end
 end
