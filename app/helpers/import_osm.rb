@@ -1,4 +1,3 @@
-require 'csv'
 require 'indoor_helper'
 require 'optparse'
 require 'building'

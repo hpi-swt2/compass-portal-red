@@ -78,11 +78,7 @@ for (const feature of buildings) {
       layerStyle = UniPotsdamStyle;
       break;
     case 'Campus I':
-      layerStyle = HPIStyle;
-      break;
     case 'Campus II':
-      layerStyle = HPIStyle;
-      break;
     case 'Campus III':
       layerStyle = HPIStyle;
       break;
