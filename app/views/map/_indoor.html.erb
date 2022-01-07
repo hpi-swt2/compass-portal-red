@@ -3,13 +3,16 @@
         "fillOpacity": 0.0,
         "color": "#444"
     };
+    let roomLayer42;
     <% @buildings.each do |building|%>
         <% building.rooms.each do |room|%>
+            roomLayer42 = L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
+            {style: indoorStyle});
+            roomLayer42.bindTooltip("<%= room.full_name %>", 
+                {permanent: true, interactive: true, className: 'marker_label', offset: L.point(0,0), direction: 'right'});
             layers["<%= room.full_name %>"] = L.layerGroup()
                 .addTo(mymap)
-                .addLayer(
-                    L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
-                    {style: indoorStyle}));
+                .addLayer(roomLayer42);
         <% end %> 
     <% end %> 
 </script>
