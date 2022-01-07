@@ -1,50 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <img src= "<%= @person.image %>" class="rounded-circle" >
-</p>
-
-<p>
-  <strong>First Name:</strong>
-  <%= @person.first_name %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @person.last_name %>
-</p>
-
-<%# Only show room when room is not nil %>
-<% if @person.room %>
-  <p>
-    <strong>Room:</strong>
-    <%= @person.room.display_name %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Title:</strong>
-  <%= @person.title %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @person.email %>
-</p>
-
-
-<p>
-  <strong>Status:</strong>
-  <%= @person.status %>
-</p>
-
-<% @person.informations.each do |information| %>
-<p>
-  <strong><%= information.key %>:</strong>
-  <%= information.value %>
-</p>
-<% end %>
-
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<table class="table table-details">
+  <thead>
+    <tr>
+      <th> <img src= "<%= @person.image %>" class="rounded-circle">
+      <th> <%= @person.full_name %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> email </td>
+      <td> <%= @person.email %> </td>
+    </tr>
+    <% @person.informations.each do |information| %>
+      <tr>
+        <td>
+          <%= information.key %>
+        </td>
+        <td>
+          <%= information.value %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @person.room %>
+      <tr>
+        <td> room </td>
+        <td> <%= link_to(@person.room.display_name, room_path(@person.room)) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  
+  <%= link_to 'Edit', edit_person_path(@person) %> |
+  <%= link_to 'Back', people_path %>

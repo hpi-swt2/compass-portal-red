@@ -1,48 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Floor:</strong>
-  <%= @room.floor %>
-</p>
-
-<p>
-  <strong>Room number:</strong>
-  <%= @room.number %>
-</p>
-
-<p>
-  <strong>Room name:</strong>
-  <%= @room.full_name %>
-</p>
-
-<% if @room.chairs %>
-  <p>
-    <strong>Chairs:</strong>
-    <% chair_names = @room.chairs.map do |chair| %>
-    <%  link_to(chair.name, chair_path(chair)) %>
-    <%  end %>
-    <%= chair_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
-<% if @room.room_types %>
-  <p>
-    <strong>Room types:</strong>
-    <% room_type_names = @room.room_types.map {|room_type| room_type.name} %>
-    <%= room_type_names.join(", ") %>
-  </p>
-<% end %>
-
-<% if @room.people %>
-  <p>
-    <strong>People:</strong>
-    <% people_names = @room.people.map do |person| %>
-    <%  link_to(person.full_name, person_path(person)) %>
-    <%  end %>
-    <%= people_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
+<%# Placeholder until the other team/issue integrates them correctly in the table %>
 <% if @room.tags %>
   <p>
     <strong>Tags:</strong>
@@ -50,6 +8,70 @@
     <%= tag_names.join(", ") %>
   </p>
 <% end %>
+
+<table class="table table-details">
+  <thead>
+    <tr>
+      <th> <%= "Picture placeholder" %>
+      <th> <%= @room.full_name %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        building
+      </td>
+      <td>
+      <%# supposed to be empty until we get dummy data and a name attribute for a building %>
+        <%= @room.building %> 
+      </td>
+    </tr>
+    <% if @room.chairs.present? %>
+      <tr>
+        <td>
+          chairs
+        </td>
+        <td>
+          <ul class="list-details">
+            <% @room.chairs.each do |chair| %>
+              <li>
+                <%= link_to(chair.name, chair_path(chair)) %>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    <% if @room.people.present? %>
+      <tr>
+        <td> people </td>
+        <td>
+          <ul class="list-details">
+            <% @room.people.each do |person| %>
+              <li>
+                <%=  link_to(person.full_name, person_path(person)) %>
+              </li>
+            <%  end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+    <% if @room.room_types.present? %>
+      <tr>
+        <td> room types </td>
+        <td>
+          <ul class="list-details">
+            <% @room.room_types.each do |room_type| %>
+              <li>
+                <%=  room_type.name %>
+              </li>
+            <%  end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>

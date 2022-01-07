@@ -8,3 +8,23 @@
 .highlighted {
   background-color: $hpi-red-tint !important;
 }
+
+.table-details>tbody>tr>td,
+.table-details>thead>tr>th,
+.table-details>tbody>tr>th {
+  border: none;
+}
+
+.table-details td:first-child {
+  font-weight: bold;
+  width: 100px;
+}
+
+.list-details {
+  list-style-type: none;
+}
+
+.list-details li {
+  margin: 0 10px 10px 0;
+  vertical-align: top;
+}
