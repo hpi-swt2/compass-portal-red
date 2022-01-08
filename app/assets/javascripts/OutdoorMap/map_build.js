@@ -141,11 +141,9 @@ let routingControl = L.Routing.control({
 				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
 			});
 		},
-		geocoder: L.Control.Geocoder.nominatim(),
-		routeWhileDragging: true,
-		reverseWaypoints: true
+	    geocoder: L.Control.Geocoder.nominatim(),
+		routeWhileDragging: true
 	}),
-	routeWhileDragging: true,
 	routeDragTimeout: 250,
 	collapsible: true,
 	show: false,
@@ -160,22 +158,59 @@ let routingControl = L.Routing.control({
 	} catch (e) {
 		map.fitBounds(L.latLngBounds(positions));
 	}
-
 	handleError(e);
 });
+
+routingControl.on('routingstart', (e)=>{
+    document.getElementById('StopNavigation').style.display = 'block';
+})
 
 
 function onMapClick(e) {
     pos = e.latlng;
     positions.push(pos)
-    if (positions.length === 3)
+    if (positions.length === 3) {
         positions.shift()
+	}
     if (positions.length === 2) {
         routingControl.setWaypoints(positions)
 		routingControl.route()
 		routingControl.show()
 	}
+    if (positions.length === 1) {
+		routingControl.setWaypoints(positions)
+		routingControl.route()
+	}
 	
 }
 
+(function buildStopButton(){
+    const el = document.createElement('div')
+    el.className = 'leaflet-routing-geocoder';
+    el.innerHTML = 	`
+    <input 
+        type="button" 
+        id="StopNavigation" 
+        value="Stop" 
+        onclick="stopNavigation(event)" 
+        class="stop-button" 
+        style="
+            width: 100px; 
+            font-size: 1.75vh;
+			background-color: white;"
+    />`
+    document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none '
+    document.querySelector('.leaflet-routing-geocoders').appendChild(el)
+})()
+
+function stopNavigation(e){
+	e.stopPropagation();
+    document.getElementById('StopNavigation').style.display = 'none';
+	positions = []
+	routingControl.hide()
+    routingControl.setWaypoints(positions).route()
+}
+
 mymap.on('click', onMapClick);
+
+document.getElementById('StopNavigation').style.display = 'none';
