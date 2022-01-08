@@ -21,4 +21,13 @@ Feature: Search functionality
     And I see the title for more results
     And I see Dr. Michael Perscheid in the list for more-results
 
-# TODO: test when no additional search results (based on word level search) exist then there is no more-results list and no 'More Results' title
+
+  Scenario: searching a person with no additional results
+    Given I am on the search page
+    When I enter "Dr."
+    And I start the search
+    Then I see Prof. Dr. Hasso Plattner in the list for exact-results
+    And I see Dr. Michael Perscheid in the list for exact-results
+    And I do not see the title for more results
+    And I do not see Prof. Dr. Hasso Plattner in the list for more-results
+    And I do not see Dr. Michael Perscheid in the list for more-results
