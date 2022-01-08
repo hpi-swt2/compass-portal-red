@@ -147,6 +147,7 @@ let routingControl = L.Routing.control({
 	routeWhileDragging: true,
 	routeDragTimeout: 250,
 	collapsible: true,
+	show: false,
     lineOptions: {
         styles: [{ color: 'blue' }]
     }
