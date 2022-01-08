@@ -158,6 +158,21 @@ let routingControl = L.Routing.control({
 .on('routingstart', (e)=>{
     document.getElementById('StopNavigation').style.display = 'block';
 })
+.on('waypointschanged', (e)=>{
+	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+	waypoints = routingControl.getWaypoints()
+	positions = []
+	// waypoints[0].latLng and [1].latLng are not null if they were set by the user 
+	if (waypoints[0].latLng != null)
+		positions.push(waypoints[0].latLng)
+	if (waypoints[1].latLng != null)
+    	positions.push(waypoints[1].latLng)
+	// if we have both a start and endpoint, we show the routingControl
+	if (positions.length === 2)
+		routingControl.show()
+	// always calculate the route to show the 'A' marker if only one waypoint is set
+	routingControl.route()
+})
 .on('routingerror', function(e) {
 	try {
 		map.getCenter();
@@ -168,24 +183,14 @@ let routingControl = L.Routing.control({
 });
 
 function onMapClick(e) {
-    pos = e.latlng;
+    pos = e.latlng
     positions.push(pos)
     // by inserting a third waypoint, the very first inserted waypoint won't be considered for the route anymore
     if (positions.length === 3) {
         positions.shift()
 	}
-    // calculating/displaying the route between 2 waypoints and expand the navigation plan sidebar
-    if (positions.length === 2) {
-        routingControl.setWaypoints(positions)
-		routingControl.route()
-		routingControl.show()
-	}
-    // set a marker to the map on first click on the map
-    if (positions.length === 1) {
-		routingControl.setWaypoints(positions)
-		routingControl.route()
-	}
-	
+	// all the calculations will be done within the 'waypointschanged' handler of the routingControl
+	routingControl.setWaypoints(positions)
 }
 
 // Build the stop buton and insert it into the routingControl-plan
