@@ -31,3 +31,11 @@ Feature: Search functionality
     And I do not see the title for more results
     And I do not see Prof. Dr. Hasso Plattner in the list for more-results
     And I do not see Dr. Michael Perscheid in the list for more-results
+
+  Scenario: searching a person with ordered additional results
+    Given I am on the search page
+    When I enter "Prof. Dr. Meinel"
+    And I start the search
+    Then I do not see Prof. Dr. Hasso Plattner in the list for exact-results
+    And I do not see Dr. Michael Perscheid in the list for exact-results
+    And I first see Prof. Dr. Hasso Plattner and then Dr. Michael Perscheid in the list for more-results
