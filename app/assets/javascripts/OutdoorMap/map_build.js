@@ -122,7 +122,9 @@ positions = []
 
 console.log(window.location.host + '/directions')
 
+// routingControl does everything related to navigation
 let routingControl = L.Routing.control({
+	// the router is responsible for calculating the route
     router: new Router(
         {
             serviceUrl: window.location.origin + '/directions',
@@ -134,6 +136,7 @@ let routingControl = L.Routing.control({
             },
         }
     ),
+	// the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
 	plan: L.Routing.plan(positions, {
 		createMarker: function(i, wp) {
 			return L.marker(wp.latLng, {
@@ -151,6 +154,10 @@ let routingControl = L.Routing.control({
         styles: [{ color: 'blue' }]
     }
 }).addTo(mymap)
+// when routing call happens, there will be the stop button in the navigation plan
+.on('routingstart', (e)=>{
+    document.getElementById('StopNavigation').style.display = 'block';
+})
 .on('routingerror', function(e) {
 	try {
 		map.getCenter();
@@ -160,22 +167,20 @@ let routingControl = L.Routing.control({
 	handleError(e);
 });
 
-routingControl.on('routingstart', (e)=>{
-    document.getElementById('StopNavigation').style.display = 'block';
-})
-
-
 function onMapClick(e) {
     pos = e.latlng;
     positions.push(pos)
+    // by inserting a third waypoint, the very first inserted waypoint won't be considered for the route anymore
     if (positions.length === 3) {
         positions.shift()
 	}
+    // calculating/displaying the route between 2 waypoints and expand the navigation plan sidebar
     if (positions.length === 2) {
         routingControl.setWaypoints(positions)
 		routingControl.route()
 		routingControl.show()
 	}
+    // set a marker to the map on first click on the map
     if (positions.length === 1) {
 		routingControl.setWaypoints(positions)
 		routingControl.route()
@@ -183,6 +188,7 @@ function onMapClick(e) {
 	
 }
 
+// Build the stop buton and insert it into the routingControl-plan
 (function buildStopButton(){
     const el = document.createElement('div')
     el.className = 'leaflet-routing-geocoder';
@@ -198,10 +204,13 @@ function onMapClick(e) {
             font-size: 1.75vh;
 			background-color: white;"
     />`
-    document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none '
+	// Do not render the '+' button that can be used to add waypoints
+    document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
+	// Add our Stop button to the routingControl-plan
     document.querySelector('.leaflet-routing-geocoders').appendChild(el)
 })()
 
+// Sets positions to an empty array and passes it to the router, essentially routing an empty route which is our "stop" functionality
 function stopNavigation(e){
 	e.stopPropagation();
     document.getElementById('StopNavigation').style.display = 'none';
@@ -212,4 +221,5 @@ function stopNavigation(e){
 
 mymap.on('click', onMapClick);
 
+// Per default, we don't want the stop button to be shown, as there is no route
 document.getElementById('StopNavigation').style.display = 'none';
