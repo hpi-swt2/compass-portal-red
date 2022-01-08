@@ -11,7 +11,7 @@ class MapController < ApplicationController
     profile = params[:profile]
     coordinates = params[:coordinates].gsub("p", "%2E")
     params[:access_token] = ENV['MAPBOX_ACCESS_TOKEN']
-    ActionController::Parameters.action_on_unpermitted_parameters = :false
+    ActionController::Parameters.action_on_unpermitted_parameters = false
     permitted = params.permit(:alternatives, :geometries, :include, :access_token, :steps)
     ActionController::Parameters.action_on_unpermitted_parameters = :raise
     uri = URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
