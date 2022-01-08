@@ -142,12 +142,14 @@ let routingControl = L.Routing.control({
 			});
 		},
 		geocoder: L.Control.Geocoder.nominatim(),
-		routeWhileDragging: true
+		routeWhileDragging: true,
+		reverseWaypoints: true
 	}),
 	routeWhileDragging: true,
 	routeDragTimeout: 250,
 	collapsible: true,
 	show: false,
+	autoRoute: false,
     lineOptions: {
         styles: [{ color: 'blue' }]
     }
@@ -168,13 +170,12 @@ function onMapClick(e) {
     positions.push(pos)
     if (positions.length === 3)
         positions.shift()
-    if (positions.length === 2)
+    if (positions.length === 2) {
         routingControl.setWaypoints(positions)
+		routingControl.route()
+		routingControl.show()
+	}
 	
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + pos.toString())
-        .openOn(mymap);
 }
 
 mymap.on('click', onMapClick);
