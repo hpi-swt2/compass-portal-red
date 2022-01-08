@@ -141,12 +141,11 @@ let routingControl = L.Routing.control({
 				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
 			});
 		},
-	    geocoder: L.Control.Geocoder.nominatim(),
-		routeWhileDragging: true
+	    geocoder: L.Control.Geocoder.nominatim()
 	}),
-	routeDragTimeout: 250,
 	collapsible: true,
 	show: false,
+	routeWhileDragging: true,
 	autoRoute: false,
     lineOptions: {
         styles: [{ color: 'blue' }]
