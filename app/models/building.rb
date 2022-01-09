@@ -1,9 +1,8 @@
-# A Building consists of an ordered list of rooms (zero or more)
+# A Building consists of an ordered list of floors (zero or more)
 class Building < ApplicationRecord
-  has_many :rooms, dependent: :nullify
-  has_many :point_of_interests, dependent: :destroy
+  has_many :floors, dependent: :nullify
 
   def to_geojson
-    rooms.map(&:to_geojson).flatten
+    floors.map(&:to_geojson).flatten
   end
 end

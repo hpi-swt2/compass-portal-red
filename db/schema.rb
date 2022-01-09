@@ -81,6 +81,14 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
     t.integer "people_id"
   end
 
+  create_table "floors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "building_id"
+    t.index ["building_id"], name: "index_floors_on_building_id"
+  end
+
   create_table "information", force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -123,9 +131,12 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "pointType"
+    t.integer "room_id", null: false
     t.string "description"
     t.string "name"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
+    t.index ["room_id"], name: "index_point_of_interests_on_room_id"
   end
 
   create_table "points", force: :cascade do |t|
@@ -166,14 +177,13 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "number"
-    t.string "floor"
     t.string "full_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
-    t.integer "building_id"
     t.string "image", default: "placeholder_room.png"
-    t.index ["building_id"], name: "index_rooms_on_building_id"
+    t.integer "floor_id"
+    t.index ["floor_id"], name: "index_rooms_on_floor_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
 
@@ -219,9 +229,15 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "data_problems", "people"
   add_foreign_key "data_problems", "rooms"
+  add_foreign_key "floors", "buildings"
   add_foreign_key "point_of_interests", "points"
+<<<<<<< HEAD
   add_foreign_key "points", "rooms"
   add_foreign_key "rooms", "buildings"
+=======
+  add_foreign_key "point_of_interests", "rooms"
+  add_foreign_key "rooms", "floors"
+>>>>>>> 029636b (adds floors to database)
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
 end
