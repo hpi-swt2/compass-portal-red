@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :room do
     number { "42" }
-    floor { "E" }
     full_name { "H-E.42" }
     image { "https://www.shorturl.at/bmpxP" }
     outer_shape do

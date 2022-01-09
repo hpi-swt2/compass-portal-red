@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/show", type: :view do
-  let(:room) { FactoryBot.create(:room) }
+  let(:floor) { FactoryBot.create(:floor) }
+  let(:room) { floor.rooms[0] }
 
   before { assign(:room, room) }
 
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(room.number)
-    expect(rendered).to match(room.floor)
-    expect(rendered).to have_selector('h2', text: room.full_name)
+    expect(rendered).to match(room.floor.name)
+    expect(rendered).to match(room.full_name)
   end
 
   it "renders a list of its tags" do

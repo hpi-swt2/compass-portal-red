@@ -85,13 +85,13 @@ RSpec.describe Room, type: :model do
         expect(room).to be_valid
       end
 
-      it "a building" do
-        building = create :building
-        room.building = building
+      it "a floor" do
+        floor = create :floor
+        room.floor = floor
         room.save!
 
         db_room = described_class.find(room.id)
-        expect(db_room.building).to eq(building)
+        expect(db_room.floor).to eq(floor)
       end
     end
 
@@ -117,7 +117,7 @@ RSpec.describe Room, type: :model do
       it_behaves_like "room with corresponding argument"
 
       it "even without a building" do
-        room.building = nil
+        room.floor = nil
         expect(room).to be_valid
       end
 
