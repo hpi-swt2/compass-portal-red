@@ -21,7 +21,7 @@
             roomName = "<%= room.display_name %>"
             roomTooltip.setContent(roomName);
 
-            roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.full_name %></a>');
+            roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.display_name %></a>');
 
             roomLayer.bindTooltip(roomTooltip);
             roomLayer.addEventListener('click', (event)=>{
