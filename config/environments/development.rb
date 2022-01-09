@@ -33,6 +33,9 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+  
+  # Allows other devices in same network to connect to local server
+  config.hosts.clear 
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
