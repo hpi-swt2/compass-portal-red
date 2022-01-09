@@ -2,23 +2,30 @@ class SearchController < ApplicationController
   def index
     return if params[:query].nil?
 
-    queries = params[:query].scan(/[A-Za-z0-9]+/)
-    results = []
+    @exact_results = add_results_for(params[:query])
 
-    @exact_results = Person.search(params[:query])
-    @exact_results += Room.search(params[:query])
-    @exact_results += Chair.search(params[:query])
+    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
 
-    queries.each do |query|
-      results += Person.search(query)
-      results += Room.search(query)
-      results += Chair.search(query)
-    end
+    @more_results = words_in_query.flat_map { |word| add_results_for(word) }
+    @more_results = sort_by_frequency(@more_results) - @exact_results
 
-    results = results.tally.sort_by { |record| record.second }.reverse!
-    @more_results = results.map {|record| record.first}.delete_if { |record| @exact_results.include? record }
     @params = params[:query]
   end
 
   helper_method :index
+
+  private
+
+  def add_results_for(query)
+    results = Person.search(query)
+    results += Room.search(query)
+    results += Chair.search(query)
+    results
+  end
+
+  def sort_by_frequency(array)
+    array = array.tally
+    array = array.sort_by(&:second).reverse!
+    array.map(&:first)
+  end
 end
