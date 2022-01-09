@@ -80,7 +80,7 @@ for (const feature of buildings) {
     layers[feature.properties.campus].addLayer(layer);
 }
 
-// make names disappeared when zoomed out
+// make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function() {
     var zoom = mymap.getZoom();

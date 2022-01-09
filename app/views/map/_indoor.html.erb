@@ -5,6 +5,7 @@
     };
     let roomLayer;
     let roomTooltip;
+    let roomName;
     <% @buildings.each do |building|%>
         <% building.rooms.each do |room|%>
 
@@ -17,7 +18,8 @@
                 offset: L.point(0,0), 
                 direction: 'center',
             });
-            roomTooltip.setContent("<%= room.full_name %>");
+            roomName = "<%= room.display_name %>"
+            roomTooltip.setContent(roomName);
 
             roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.full_name %></a>');
 
@@ -26,7 +28,7 @@
                 console.log(event);
                 });
                 
-            layers["<%= room.full_name %>"] = L.layerGroup()
+            layers[roomName] = L.layerGroup()
             .addTo(mymap)
             .addLayer(roomLayer);
             
