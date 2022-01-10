@@ -4,7 +4,7 @@
 // Set the leaflet map with center and zoom-level
 const standardZoomLevel = 17;
 const indoorZoomLevel = 19;
-var mymap = L.map('map').setView([52.39300, 13.12900], standardZoomLevel);
+var mymap = new L.map('map', {fullscreenControl: true}).setView([52.39300, 13.12900], standardZoomLevel);
 
 // Tileserver to be used as background
 L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX',{
