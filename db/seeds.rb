@@ -9,7 +9,7 @@ PointOfInterest.create(point: Point.create(x: 13.132215, y: 52.393793),
 PointOfInterest.create(point: Point.create(x: 13.133757, y: 52.394414),
                        description: 'This area is used for freetime activities by HPI students.', name: 'Meadow')
 PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
-                       description: 'This is a nice place to eat.', name: 'Ulf''s Cafe')
+                       description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe')
 
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "https://via.placeholder.com/150",
@@ -72,7 +72,6 @@ Information.create(key: "patent", value: "A", person: person_collection[3])
 Information.create(key: "patent", value: "B", person: person_collection[3])
 Information.create(key: "patent", value: "C", person: person_collection[3])
 Information.create(key: "patent", value: "6", person: person_collection[3])
-
 
 bundle = person_collection.zip room_list
 
