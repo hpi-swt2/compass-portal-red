@@ -207,7 +207,8 @@ function onMapClick(e) {
         style="
             width: 100px; 
             font-size: 1.75vh;
-			background-color: white;"
+			background-color: red;
+			color: white"
     />`
 	// Do not render the '+' button that can be used to add waypoints
     document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
