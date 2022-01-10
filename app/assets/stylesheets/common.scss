@@ -11,9 +11,7 @@
 .detail-tag {
   background: $mediumgray;
 }
-.badges {
-  font-size: 1.5em;
-}
+
 
 
 
@@ -30,12 +28,16 @@
       font-weight: bold;
     }
   }
+  .rounded-circle {
+    width: 100%;
+    height:auto;
+    max-width:150px;
+    background-color: #ccc;
+  }
+  .badge {
+    font-size: 1em;
+    background-color: $mediumgray;
+  }
 }
 
 
-.rounded-circle {
-  height:100px;
-  width:100px;
-  background-color: #ccc
-  
-}

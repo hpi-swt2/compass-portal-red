@@ -16,7 +16,7 @@ person_list = [
     "Chair Representative" ],
   [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "https://via.placeholder.com/150", "Professor" ],
   [ "mr.net@hpi.de", "Mr.", "Net", "", "https://via.placeholder.com/150", "" ],
-  [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "", "https://via.placeholder.com/150", "Tutor" ],
+  [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://via.placeholder.com/150", "Tutor" ],
   [ "biene.maya@kika.de", "Maya", "Biene", "", "https://via.placeholder.com/150", "Extern" ]
 ]
 chair_list = [
@@ -68,6 +68,11 @@ end
 
 Information.create(key: "phone", value: "+49 30 1234567", person: person_collection[0])
 Information.create(key: "phone", value: "+49 172 420691337", person: person_collection[3])
+Information.create(key: "patent", value: "A", person: person_collection[3])
+Information.create(key: "patent", value: "B", person: person_collection[3])
+Information.create(key: "patent", value: "C", person: person_collection[3])
+Information.create(key: "patent", value: "6", person: person_collection[3])
+
 
 bundle = person_collection.zip room_list
 
@@ -81,6 +86,9 @@ end
 
 Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
 Tag.create(name: "Drucker", rooms: [Room.find(4)])
+Tag.create(name: "Ruhig", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+Tag.create(name: "Viel zu laut", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+
 Room.find(1).room_types << RoomType.find(3)
 Room.find(2).room_types << RoomType.find(3)
 Room.find(3).room_types << RoomType.find(1)

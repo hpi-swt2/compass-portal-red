@@ -1,22 +1,14 @@
-<div class="row mb-4">
-  <div class="col-sm-4 col-lg-2">
-    <img src= "<%= @person.image %>" class="rounded-circle" >
-  </div>
-
-  <div class="col-sm-8 col-lg-10">
-    <h1>
-      <%= @person.full_name %>
-    </h1>
-    <p>
-      <span class="detail-tag p-1"><%= @person.status %></span>
-    </p>
-  </div>
-</div>
-
 <div class='detail'>
-  <div class='row mb-4'>
-    <div class='col-3'> <img src= "<%= @person.image %>" class="rounded-circle"> </div>
-    <div class='col'> <%= @person.full_name %> </div>
+  <div class='row mb-5'>
+    <div class='col-3'> <%= image_tag(@person.image, class: "rounded-circle") %>  </div>
+    <div class='col'> 
+      <h1>
+        <%= @person.full_name %>
+      </h1>
+      <p>
+        <span class="badge text-dark"><%= @person.status %></span>
+      </p>
+ </div>
   </div>
   <div class='row'>
     <div class='col-3'> email </div>
@@ -39,6 +31,5 @@
     </div>
   <% end %>
 </div>
-
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

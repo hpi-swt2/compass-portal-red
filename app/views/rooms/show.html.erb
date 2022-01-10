@@ -1,43 +1,26 @@
-<div class="row mb-4">
-  <div class="col-sm-4 col-lg-2">
-    <img src= "https://via.placeholder.com/150" class="rounded-circle" >
-  </div>
-
-  <div class="col-sm-8 col-lg-10">
-    <h1>
-      <%= @room.full_name %>
-    </h1>
-    <% if @room.tags %>
-      <p class="badges">
-        <% tag_names = @room.room_types.map do |tag| %>
-            <span class="detail-tag badge"><%= tag.name %></span>
-        <% end %>
-      </p>
-    <% end %>
-  </div>
-</div>
-
-<%# Placeholder until the other team/issue integrates them correctly in the table %>
-<% if @room.tags %>
-  <p>
-    <strong>Tags:</strong>
-    <% tag_names = @room.tags.map {|tag| tag.name} %>
-    <%= tag_names.join(", ") %>
-  </p>
-<% end %>
-
 <div class='detail'>
-  <div class='row mb-3'>
+  <div class='row mb-5'>
     <div class='col-3'> <%= image_tag(@room.image, class: "rounded-circle") %> </div>
-    <div class='col'> <%= @room.full_name %> </div>
+    <div class='col'> 
+      <h1>
+        <%= @room.full_name %>
+      </h1>
+      <% if @room.tags %>
+        <p class="badges">
+          <% tag_names = @room.tags.map do |tag| %>
+            <span class="badge text-dark mb-2"><%= tag.name %></span>
+          <% end %>
+        </p>
+      <% end %> </div>
   </div>
+  
   <div class='row'>
     <div class='col-3'>
       building
     </div>
     <div class='col-3'>
-    <%# supposed to be empty until we get dummy data and a name attribute for a building %>
-      <%= @room.building %> 
+      <%# supposed to be empty until we get dummy data and a name attribute for a building %>
+      <%= @room.building %>
     </div>
   </div>
   <% if @room.chairs.present? %>
@@ -85,6 +68,5 @@
     </div>
   <% end %>
 </div>
-
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
