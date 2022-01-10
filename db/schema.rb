@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.string "name"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 

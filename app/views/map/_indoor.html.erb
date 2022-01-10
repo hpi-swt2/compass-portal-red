@@ -1,0 +1,15 @@
+<script>
+    let indoorStyle = {
+        "fillOpacity": 0.0,
+        "color": "#444"
+    };
+    <% @buildings.each do |building|%>
+        <% building.rooms.each do |room|%>
+            layers["<%= room.full_name %>"] = L.layerGroup()
+                .addTo(mymap)
+                .addLayer(
+                    L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
+                    {style: indoorStyle}));
+        <% end %> 
+    <% end %> 
+</script>
