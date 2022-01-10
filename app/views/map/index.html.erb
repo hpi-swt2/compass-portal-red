@@ -14,8 +14,18 @@
   <body>
   	<div class="leaflet">
   		<div id="map" style="width: 100%; height: 600px;"></div>
-		<%= javascript_include_tag 'OutdoorMap/map_build' %>
-		<%= render 'indoor' %>
-	</div>
+      <%= javascript_include_tag 'OutdoorMap/map_build' %>
+      <%= render 'indoor' %>
+	  </div>
+    <% if @selected_room.present? %>
+    <div class="room-popup">
+      <h1><%= @selected_room.display_name %></h1>
+      <p><%= @selected_room.id %></p>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        // TODO: Zoom to center of room & place needle there
+        mymap.setView([52.39300, 13.12900], indoorZoomLevel);
+    </script>
+    <% end %>
   </body>
 </html>
