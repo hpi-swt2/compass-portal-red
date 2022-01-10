@@ -172,14 +172,6 @@ let routingControl = L.Routing.control({
 		routingControl.show()
 	// always calculate the route to show the 'A' marker if only one waypoint is set
 	routingControl.route()
-})
-.on('routingerror', function(e) {
-	try {
-		map.getCenter();
-	} catch (e) {
-		map.fitBounds(L.latLngBounds(positions));
-	}
-	handleError(e);
 });
 
 function onMapClick(e) {
