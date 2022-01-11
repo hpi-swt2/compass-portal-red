@@ -11,6 +11,7 @@
           <% @buildings.each do |building|%>
           <% building.rooms.each do |room|%>
           {
+              'id': '<%= room.id %>',
               'fullName': '<%= room.full_name %>',
               'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
           },
@@ -21,20 +22,20 @@
 
     <% # Inject coordinates of selected room %>
     <script type="text/javascript" charset="utf-8">
-        selected_room_coordinates = <%= @selected_room.visual_center_coordinates %>
+        const selected_room_name = "<%= @selected_room.full_name %>"
     </script>
   <% end %>
 
   <body>
   	<div class="leaflet">
   		<div id="map" style="width: 100%; height: 600px;"></div>
-      <%= javascript_pack_tag 'OutdoorMap/map_build' %>
-      <%= javascript_pack_tag 'indoorMap' %>
+      <%= javascript_pack_tag 'OutdoorMap/map_build', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'indoorMap', 'data-turbolinks-track': 'reload' %>
 	  </div>
 
     <% if @selected_room.present? %>
 		  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-      <%= javascript_pack_tag 'selected_room' %>
+      <%= javascript_pack_tag 'selected_room', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>
