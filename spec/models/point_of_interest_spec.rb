@@ -7,7 +7,13 @@ RSpec.describe PointOfInterest, type: :model do
   end
 
   context "with valid arguments" do
-    it "is valid with a point and type" do
+    it "is valid with a point, type and description" do
+      point = build :point
+      point_of_interest = described_class.new(point: point, point_type: "entrance", description: "empty")
+      expect(point_of_interest).to be_valid
+    end
+
+    it "is valid when not specifying a description" do
       point = build :point
       point_of_interest = described_class.new(point: point, point_type: "entrance")
       expect(point_of_interest).to be_valid
