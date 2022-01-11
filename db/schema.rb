@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_132947) do
+ActiveRecord::Schema.define(version: 2022_01_05_180919) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
     t.string "last_name"
     t.string "first_name"
     t.string "title"
-    t.string "image"
+    t.string "image", default: "placeholder_person.png"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -141,6 +141,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
     t.integer "building_id"
+    t.string "image", default: "placeholder_room.png"
     t.index ["building_id"], name: "index_rooms_on_building_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
