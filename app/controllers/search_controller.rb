@@ -17,10 +17,9 @@ class SearchController < ApplicationController
   private
 
   def add_results_for(query)
-    results = Person.search(query)
-    results += Room.search(query)
-    results += Chair.search(query)
-    results
+    Person.search(query) +
+      Room.search(query) +
+      Chair.search(query)
   end
 
   def sort_by_frequency(array)
