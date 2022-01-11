@@ -1,10 +1,7 @@
-// import L from 'leaflet';
-// import 'leaflet.locatecontrol';
-
 // Set the leaflet map with center and zoom-level
 const standardZoomLevel = 17;
 const indoorZoomLevel = 19;
-var mymap = new L.map('map', {fullscreenControl: true}).setView([52.39300, 13.12900], standardZoomLevel);
+var mymap = L.map('map', {fullscreenControl: true}).setView([52.39300, 13.12900], standardZoomLevel);
 
 // Tileserver to be used as background
 L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX',{
@@ -52,7 +49,6 @@ for (const feature of buildings) {
     // If the current campus (=group of buildings) is unknown, create a layergroup for it
     if(!layers[feature.properties.campus]) {
         layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
-        // console.log("Added the following campus to layers: ", feature.properties.campus);
     }
 
     // Determine Style (highlighting-colour) dependent of group
