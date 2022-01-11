@@ -1,0 +1,19 @@
+@import "colors";
+
+.navbar-custom-bottom {
+    position: fixed;
+    bottom: 0;
+    display: none;
+    z-index: 1000;
+    background-color: $hpi-red;
+
+    .active .nav-link {
+        color: white !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-custom-bottom {
+        display: block;
+    }
+}
