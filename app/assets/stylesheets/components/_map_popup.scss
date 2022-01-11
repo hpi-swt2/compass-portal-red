@@ -1,0 +1,9 @@
+@media only screen and (max-width: 400px) {
+    .map-popup {
+        width: 90%;
+        position: fixed !important;
+        bottom: 5rem;
+        left: 5%;
+        z-index: 9999;
+    }
+}
