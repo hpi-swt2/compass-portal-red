@@ -13,3 +13,27 @@
 .leaflet-tooltip-right:before {
     border: none !important;
 }
+// @media only screen and (max-width: 640px) {
+//     .leaflet-routing-container {
+//         bottom: 0 !important;
+//         position: relative !important;
+//         bottom: -54.5vh !important;
+//     } 
+//     table {
+//         display: none !important;
+//     }
+// }
+.leaflet-routing-container {
+    width: 100% !important;
+    height: 20% !important;
+} 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: unset;
+    flex-grow: 1;
+}

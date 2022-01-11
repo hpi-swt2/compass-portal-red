@@ -174,6 +174,14 @@ let routingControl = L.Routing.control({
 	routingControl.route()
 });
 
+var routingControlContainer = routingControl.getContainer();
+var controlContainerParent = routingControlContainer.parentNode;
+controlContainerParent.removeChild(routingControlContainer);
+console.log(document.documentElement.innerHTML);
+
+var newDiv = document.getElementById("marie");
+newDiv.appendChild(routingControlContainer);
+
 function onMapClick(e) {
     pos = e.latlng
     positions.push(pos)
