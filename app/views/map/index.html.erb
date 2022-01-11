@@ -23,7 +23,7 @@
 
 		<script type="text/javascript" charset="utf-8">
 			// TODO: Zoom to center of room & place needle there
-			var coordinates = [52.39300, 13.12900]
+			var coordinates = <%= @selected_room.visual_center_coordinates %>
 			var marker = L.marker(coordinates).addTo(mymap);
 			mymap.setView(coordinates, indoorZoomLevel);
 		</script>
