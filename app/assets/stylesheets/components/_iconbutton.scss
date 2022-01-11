@@ -25,3 +25,9 @@
     top: 0;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .iconbutton {
+    margin-right: 0;
+  }
+}

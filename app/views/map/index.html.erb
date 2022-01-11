@@ -22,7 +22,7 @@
 		<%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
 
 		<script type="text/javascript" charset="utf-8">
-			// TODO: Zoom to center of room & place needle there
+			// Zoom to center of room & place needle there
 			var coordinates = <%= @selected_room.visual_center_coordinates %>
 			var marker = L.marker(coordinates).addTo(mymap);
 			mymap.setView(coordinates, indoorZoomLevel);

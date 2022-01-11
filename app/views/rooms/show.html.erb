@@ -15,8 +15,8 @@
   </div>
 </div>
 
-<div class="d-flex flex-row justify-content-start">
-    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map'}), map_path(:room_id => @room.id) %>
+<div class="d-flex flex-row justify-content-start iconbuttons">
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @room.id) %>
     <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
 </div>
 
