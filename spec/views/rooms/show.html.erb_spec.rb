@@ -51,4 +51,9 @@ RSpec.describe "rooms/show", type: :view do
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end
+
+  it "renders a show on map button" do
+    render
+    expect(rendered).to have_selector 'a.btn', text: 'Show on Map'
+  end
 end
