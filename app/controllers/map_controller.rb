@@ -1,4 +1,6 @@
 class MapController < ApplicationController
+  layout 'fullpage'
+
   def index
     # Map page, accessible without login
     @buildings = Building.all
