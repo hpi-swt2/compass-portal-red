@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # https://github.com/plataformatec/devise#configuring-routes
   devise_for :users, path: 'users',
     controllers: {
+      sessions: 'users/sessions',
       registrations: 'users/registrations',
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
   # '/'
   # Sets `root_url`, devise gem requires this to be set
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "users/sessions#new"
   end
 
   get 'indoor/demo/', to: 'indoor#demo'
