@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <%# Placeholder until the other team/issue integrates them correctly in the table %>
 <% if @room.tags %>
   <p>
@@ -8,7 +7,6 @@
     <%= tag_names.join(", ") %>
   </p>
 <% end %>
-
 <div class='detail'>
   <div class='row mb-3'>
     <div class='col-3'> <%= image_tag(@room.image, class: "rounded-circle") %> </div>
@@ -19,8 +17,8 @@
       building
     </div>
     <div class='col-3'>
-    <%# supposed to be empty until we get dummy data and a name attribute for a building %>
-      <%= @room.building %> 
+      <%# supposed to be empty until we get dummy data and a name attribute for a building %>
+      <%= @room.building %>
     </div>
   </div>
   <% if @room.chairs.present? %>
@@ -29,13 +27,14 @@
         chairs
       </div>
       <div class='col'>
-        <ul class="list-details">
-          <% @room.chairs.each do |chair| %>
-            <li>
-              <%= link_to(chair.name, chair_path(chair)) %>
-            </li>
-          <% end %>
-        </ul>
+        <% @room.chairs.each do |chair| %>
+          <div class="mb-2">
+            <%= link_to chair_path(chair), class: "btn btn-with-img" do %>
+              <i class="fas fa-book btn-img"></i>
+              <%= chair.name %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -43,13 +42,14 @@
     <div class='row'>
       <div class='col-3'> people </div>
       <div class='col'>
-        <ul class="list-details">
-          <% @room.people.each do |person| %>
-            <li>
-              <%=  link_to(person.full_name, person_path(person)) %>
-            </li>
-          <%  end %>
-        </ul>
+        <% @room.people.each do |person| %>
+          <div class="mb-2">
+            <%= link_to person_path(person), class: "btn btn-with-img" do %>
+              <%= image_tag(person.image, class: "btn-img") %>
+              <%= person.full_name %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -68,6 +68,5 @@
     </div>
   <% end %>
 </div>
-
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>

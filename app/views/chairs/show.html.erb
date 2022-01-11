@@ -1,29 +1,38 @@
-<p id="notice"><%= notice %></p>
-
-<p>
+<div class="detail">
+  <p>
     <strong>Name:</strong>
     <%= @chair.name %>
-</p>
-
-<% if @chair.people %>
-  <p>
-    <strong>People:</strong>
-    <% people_names = @chair.people.map do |person| %>
-    <%  link_to(person.full_name, person_path(person)) %>
-    <%  end %>
-    <%= people_names.join(", ").html_safe %>
   </p>
-<% end %>
-
-<% if @chair.rooms %>
-  <p>
-    <strong>Rooms:</strong>
-    <% room_names = @chair.rooms.map do |room| %>
-    <%  link_to(room.full_name, room_path(room)) %>
-    <%  end %>
-    <%= room_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
+  <% if @chair.people %>
+    <div class='row'>
+      <div class='col-3'> people </div>
+      <div class='col'>
+        <% @chair.people.each do |person| %>
+          <div class="mb-2">
+            <%= link_to person_path(person), class: "btn btn-with-img" do %>
+              <%= image_tag(person.image, class: "btn-img") %>
+              <%= person.full_name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @chair.rooms %>
+    <div class='row'>
+      <div class='col-3'> room </div>
+      <div class='col'>
+        <% @chair.rooms.each do |room| %>
+          <div class="mb-2">
+            <%= link_to room_path(room), class: "btn btn-with-img" do %>
+              <%= image_tag(room.image, class: "btn-img") %>
+              <%= room.display_name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
 <%= link_to 'Edit', edit_chair_path(@chair) %> |
 <%= link_to 'Back', chairs_path %>

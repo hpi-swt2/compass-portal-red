@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <div class='detail'>
   <div class='row mb-4'>
     <div class='col-3'> <img src= "<%= @person.image %>" class="rounded-circle"> </div>
@@ -22,7 +21,27 @@
   <% if @person.room %>
     <div class='row'>
       <div class='col-3'> room </div>
-      <div class='col'> <%= link_to(@person.room.display_name, room_path(@person.room)) %> </div>
+      <div class='col'>
+        <%= link_to room_path(@person.room), class: "btn btn-with-img" do %>
+          <%= image_tag(@person.room.image, class: "btn-img") %>
+          <%= @person.room.display_name %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @person.chairs %>
+    <div class='row'>
+      <div class='col-3'> chair </div>
+      <div class='col'>
+        <% @person.chairs.each do |chair| %>
+        <div class="mb-2">
+          <%= link_to chair_path(chair), class: "btn btn-with-img" do %>
+            <i class="fas fa-book btn-img"></i>
+            <%= chair.name %>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% end %>
   <% if @person.status %>
@@ -32,7 +51,5 @@
     </div>
   <% end %>
 </div>
-
-  
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>
