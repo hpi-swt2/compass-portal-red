@@ -8,6 +8,14 @@ class Person < SearchableRecord
   belongs_to :room, optional: true, dependent: :destroy
   belongs_to :user, optional: true, dependent: :destroy
 
+  before_save :normalize_blank_image
+
+  PLACEHOLDER_IMAGE_LINK = "placeholder_person.png".freeze
+
+  def normalize_blank_image
+    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

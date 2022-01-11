@@ -1,6 +1,16 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
+# Points of Interest
+PointOfInterest.create(point: Point.create(x: 13.131646, y: 52.393869),
+                       description: 'This is Mr. Net, a landmark of the HPI.', name: 'Mr. Net')
+PointOfInterest.create(point: Point.create(x: 13.132215, y: 52.393793),
+                       description: 'This is Lake HPI.', name: 'Lake HPI')
+PointOfInterest.create(point: Point.create(x: 13.133757, y: 52.394414),
+                       description: 'This area is used for freetime activities by HPI students.', name: 'Meadow')
+PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
+                       description: 'This is a nice place to eat.', name: 'Ulf''s Cafe')
+
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "https://via.placeholder.com/150",
     "Chair Representative" ],
@@ -17,11 +27,11 @@ chair_list = [
   "Internet-Technologien und Systeme"
 ]
 information_list = [
-  [ "Telegram", "@perscheid" ],
-  [ "Telegram", "@plattner" ],
-  [ "Slack", "@mr.net" ],
-  [ "Signal", "@morpheus" ],
-  [ "Website", "diebienemaya.de" ]
+  [ "telegram", "@perscheid" ],
+  [ "telegram", "@plattner" ],
+  [ "slack", "@mr.net" ],
+  [ "signal", "@morpheus" ],
+  [ "website", "diebienemaya.de" ]
 ]
 room_list = [
   [ "V-2.18", "2", "Campus II (Villa), V-2.18"],
@@ -56,6 +66,9 @@ bundle.each do |person, information|
   Information.create(key: information[0], value: information[1], person: person)
 end
 
+Information.create(key: "phone", value: "+49 30 1234567", person: person_collection[0])
+Information.create(key: "phone", value: "+49 172 420691337", person: person_collection[3])
+
 bundle = person_collection.zip room_list
 
 bundle.each do |person, room|
@@ -75,3 +88,7 @@ Room.find(4).room_types << RoomType.find(5)
 Room.find(5).room_types << RoomType.find(1)
 
 Chair.find(1).rooms << [Room.find(1), Room.find(2)]
+Chair.find(2).rooms << [Room.find(3)]
+Chair.find(3).rooms << [Room.find(4)]
+Chair.find(4).rooms << [Room.find(5)]
+Chair.find(5).rooms << [Room.find(5)]
