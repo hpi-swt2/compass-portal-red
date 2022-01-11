@@ -19,12 +19,13 @@
 	</div>
 
     <% if @selected_room.present? %>
-		<div class="room-popup">
-			<%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-		</div>
+		<%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+
 		<script type="text/javascript" charset="utf-8">
 			// TODO: Zoom to center of room & place needle there
-			mymap.setView([52.39300, 13.12900], indoorZoomLevel);
+			var coordinates = [52.39300, 13.12900]
+			var marker = L.marker(coordinates).addTo(mymap);
+			mymap.setView(coordinates, indoorZoomLevel);
 		</script>
     <% end %>
   </body>
