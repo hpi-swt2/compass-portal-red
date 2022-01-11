@@ -1,35 +1,52 @@
 <script>
-    let indoorStyle = {
-        "fillOpacity": 0.0,
-        "color": "#444"
-    };
-    let roomLayer;
-    let roomTooltip;
-    <% @buildings.each do |building|%>
-        <% building.rooms.each do |room|%>
+  buildIndoorMap = () => {
+      let indoorStyle = {
+          "fillOpacity": 0.0,
+          "color": "#444"
+      };
+      let roomLayer;
+      let roomTooltip;
+      <% @buildings.each do |building|%>
+      <% building.rooms.each do |room|%>
 
-            roomLayer = L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>, 
-            {style: indoorStyle});
-            roomTooltip = L.tooltip({
-                permanent: true, 
-                interactive: true, 
-                className: 'marker_label', 
-                offset: L.point(0,0), 
-                direction: 'center',
-            });
-            roomTooltip.setContent("<%= room.full_name %>");
+      roomLayer = L.geoJSON(<%= raw(JSON.generate(room.to_geojson)) %>,
+          {style: indoorStyle});
+      roomTooltip = L.tooltip({
+          permanent: true,
+          interactive: true,
+          className: 'marker_label',
+          offset: L.point(0, 0),
+          direction: 'center',
+      });
+      roomTooltip.setContent("<%= room.full_name %>");
 
-            roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.full_name %></a>');
+      roomLayer.bindPopup('<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><%= room.full_name %></a>');
 
-            roomLayer.bindTooltip(roomTooltip);
-            roomLayer.addEventListener('click', (event)=>{
-                console.log(event);
-                });
-                
-            layers["<%= room.full_name %>"] = L.layerGroup()
-            .addTo(mymap)
-            .addLayer(roomLayer);
-            
-        <% end %> 
-    <% end %> 
+      roomLayer.bindTooltip(roomTooltip);
+      roomLayer.addEventListener('click', (event) => {
+          console.log(event);
+      });
+
+      layers["<%= room.full_name %>"] = L.layerGroup()
+          .addTo(mymap)
+          .addLayer(roomLayer);
+
+      <% end %>
+      <% end %>
+  }
+
+  const waitForMapInitAndBuild = () => {
+      if(mymap) {
+          console.log('Map ready')
+          buildIndoorMap();
+      } else {
+          console.log('Map not yet ready')
+          document.addEventListener('DOMContentLoaded', () => {
+              console.log('Ha')
+              buildIndoorMap()
+          });
+      }
+  }
+
+  waitForMapInitAndBuild()
 </script>

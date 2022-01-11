@@ -1,4 +1,4 @@
-const buildings = JSON.parse(`[
+export const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{

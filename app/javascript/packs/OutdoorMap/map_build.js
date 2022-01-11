@@ -1,10 +1,17 @@
-// import L from 'leaflet';
-// import 'leaflet.locatecontrol';
+import {buildings} from "./geometry";
+import {standardZoomLevel, indoorZoomLevel, styleMap} from "../constants";
+
+console.log('[MAP] Pre map init');
+
+// If the map object still exists, initiate a new one
+// (relevant, when the user navigates back and the old page is cached)
+if(window.mymap) window.mymap.remove();
 
 // Set the leaflet map with center and zoom-level
-const standardZoomLevel = 17;
-const indoorZoomLevel = 19;
-var mymap = L.map('map').setView([52.39300, 13.12900], standardZoomLevel);
+window.mymap = L.map('map').setView([52.39300, 13.12900], standardZoomLevel);
+
+
+console.log('[MAP] Map init done');
 
 // Tileserver to be used as background
 L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX',{
@@ -16,6 +23,8 @@ L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq
     crossOrigin: true
 }).addTo(mymap);
 
+console.log('[MAP] Tile layer done');
+
 L.control.locate({
     locateOptions: {
         watch: true,
@@ -23,28 +32,7 @@ L.control.locate({
     }
 }).addTo(mymap);
 
-var UniPotsdamStyle = {
-        "fillColor": "Blue",
-        "fillOpacity": 0.65,
-        "color": "Blue",
-        "opacity": 0.3
-    };
-
-var HPIStyle = {
-        "fillColor": "Orange",
-        "fillOpacity": 0.65,
-        "color": "Orange",
-        "opacity": 0.3
-    };
-
-var DormStyle = {
-        "fillColor": "Green",
-        "fillOpacity": 0.65,
-        "color": "Green",
-        "opacity": 0.3
-    };
-
-let layers = {}
+window.layers = {}
 
 // buildings includes all geometry-data extracted from OSM, see campus.js
 // layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
@@ -56,21 +44,7 @@ for (const feature of buildings) {
     }
 
     // Determine Style (highlighting-colour) dependent of group
-    let layerStyle = UniPotsdamStyle;
-    switch(feature.properties.campus) {
-        case 'UP Campus Griebnitzsee': layerStyle = UniPotsdamStyle;
-            break;
-        case "Campus I": layerStyle = HPIStyle;
-            break;
-        case "Campus II": layerStyle = HPIStyle;
-            break;
-        case 'Campus III': layerStyle = HPIStyle;
-            break;
-        case "Studentendorf Stahnsdorfer Straße": layerStyle = DormStyle;
-            break;
-        default: console.log("This building does not belong to a known campus: ", feature);
-            break;
-    }
+    let layerStyle = styleMap[feature.properties.campus] ?? styleMap['default'];
 
     // Add the building as a layer
     const layer = L.geoJSON(feature, {style: layerStyle});
@@ -108,3 +82,5 @@ mymap.on('zoomend', function() {
 })
 
 L.control.layers(null, layers).addTo(mymap);
+
+console.log('[MAP] Layers built');

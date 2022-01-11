@@ -1,32 +1,41 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  	<title>HPI Map</title>
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<% content_for :title, "HPI Map" %>
+<% content_for :head do %>
+    <%= stylesheet_link_tag 'map' %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
 
-	<%= stylesheet_link_tag 'map' %>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
-  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
-	
-	<%= javascript_include_tag 'OutdoorMap/geometry' %>
-  </head>
+    <% # Inject outdoor geometry & generate building data %>
+    <%= javascript_pack_tag 'OutdoorMap/geometry' %>
+    <script>
+      window.roomsToBuild = [
+          <% @buildings.each do |building|%>
+          <% building.rooms.each do |room|%>
+          {
+              'id': '<%= room.id %>',
+              'fullName': '<%= room.full_name %>',
+              'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
+          },
+          <% end %>
+          <% end %>
+      ]
+    </script>
+
+    <% # Inject coordinates of selected room %>
+    <script type="text/javascript" charset="utf-8">
+        const selected_room_name = "<%= @selected_room.full_name %>"
+    </script>
+  <% end %>
 
   <body>
   	<div class="leaflet">
   		<div id="map" style="width: 100%; height: 600px;"></div>
-      <%= javascript_include_tag 'OutdoorMap/map_build' %>
-      <%= render 'indoor' %>
-	</div>
+      <%= javascript_pack_tag 'OutdoorMap/map_build', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'indoorMap', 'data-turbolinks-track': 'reload' %>
+	  </div>
 
     <% if @selected_room.present? %>
-		<%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-
-		<script type="text/javascript" charset="utf-8">
-			// Zoom to center of room & place needle there
-			var coordinates = <%= @selected_room.visual_center_coordinates %>
-			var marker = L.marker(coordinates).addTo(mymap);
-			mymap.setView(coordinates, indoorZoomLevel);
-		</script>
+	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+      <%= javascript_pack_tag 'selected_room', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>
