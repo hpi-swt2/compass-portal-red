@@ -1,2 +1,2 @@
 json.extract! floor, :id, :created_at, :updated_at
-json.url room_url(floor, format: :json)
+json.url floor_url(floor, format: :json)
