@@ -20,14 +20,12 @@ RSpec.describe "Map Page", type: :feature do
 
     visit map_path(room_id: room.id)
 
-    expect(page).to have_css('.map-popup') 
-    expect(page).to have_link(:href => room_path(room)) 
+    expect(page).to have_css('.map-popup')
+    expect(page).to have_link(href: room_path(room))
   end
 
   it "renders no popup if no room is selected" do
     visit map_path
-    expect(page).to have_no_css('.map-popup') 
+    expect(page).to have_no_css('.map-popup')
   end
 end
-
-
