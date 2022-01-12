@@ -1,0 +1,33 @@
+@import "colors";
+
+.form-wrapper {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.highlighted {
+  background-color: $hpi-red-tint !important;
+}
+
+
+.list-details {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.detail {
+  .row {
+    margin-bottom: 2rem;
+    [class^="col"]:first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+
+.rounded-circle {
+  height:100px;
+  width:100px;
+  background-color: #ccc
+  
+}

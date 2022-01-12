@@ -12,9 +12,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/people", type: :request do
+RSpec.describe "/data_problems", type: :request do
 
-  # Person. As you add validations to Person, be sure to
+  # DataProblem. As you add validations to DataProblem, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip("Add a hash of attributes valid for your model")
@@ -26,58 +26,58 @@ RSpec.describe "/people", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Person.create! valid_attributes
-      get people_url
+      DataProblem.create! valid_attributes
+      get data_problems_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      person = Person.create! valid_attributes
-      get person_url(person)
+      data_problem = DataProblem.create! valid_attributes
+      get data_problem_url(data_problem)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_person_url
+      get new_data_problem_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      person = Person.create! valid_attributes
-      get edit_person_url(person)
+      data_problem = DataProblem.create! valid_attributes
+      get edit_data_problem_url(data_problem)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Person" do
+      it "creates a new DataProblem" do
         expect do
-          post people_url, params: { person: valid_attributes }
-        end.to change(Person, :count).by(1)
+          post data_problems_url, params: { data_problem: valid_attributes }
+        end.to change(DataProblem, :count).by(1)
       end
 
-      it "redirects to the created person" do
-        post people_url, params: { person: valid_attributes }
-        expect(response).to redirect_to(person_url(Person.last))
+      it "redirects to the created data_problem" do
+        post data_problems_url, params: { data_problem: valid_attributes }
+        expect(response).to redirect_to(data_problem_url(DataProblem.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Person" do
+      it "does not create a new DataProblem" do
         expect do
-          post people_url, params: { person: invalid_attributes }
-        end.to change(Person, :count).by(0)
+          post data_problems_url, params: { data_problem: invalid_attributes }
+        end.to change(DataProblem, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post people_url, params: { person: invalid_attributes }
+        post data_problems_url, params: { data_problem: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -89,42 +89,42 @@ RSpec.describe "/people", type: :request do
         skip("Add a hash of attributes valid for your model")
       end
 
-      it "updates the requested person" do
-        person = Person.create! valid_attributes
-        patch person_url(person), params: { person: new_attributes }
-        person.reload
+      it "updates the requested data_problem" do
+        data_problem = DataProblem.create! valid_attributes
+        patch data_problem_url(data_problem), params: { data_problem: new_attributes }
+        data_problem.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the person" do
-        person = Person.create! valid_attributes
-        patch person_url(person), params: { person: new_attributes }
-        person.reload
-        expect(response).to redirect_to(person_url(person))
+      it "redirects to the data_problem" do
+        data_problem = DataProblem.create! valid_attributes
+        patch data_problem_url(data_problem), params: { data_problem: new_attributes }
+        data_problem.reload
+        expect(response).to redirect_to(data_problem_url(data_problem))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        person = Person.create! valid_attributes
-        patch person_url(person), params: { person: invalid_attributes }
+        data_problem = DataProblem.create! valid_attributes
+        patch data_problem_url(data_problem), params: { data_problem: invalid_attributes }
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested person" do
-      person = Person.create! valid_attributes
+    it "destroys the requested data_problem" do
+      data_problem = DataProblem.create! valid_attributes
       expect do
-        delete person_url(person)
-      end.to change(Person, :count).by(-1)
+        delete data_problem_url(data_problem)
+      end.to change(DataProblem, :count).by(-1)
     end
 
-    it "redirects to the people list" do
-      person = Person.create! valid_attributes
-      delete person_url(person)
-      expect(response).to redirect_to(people_url)
+    it "redirects to the data_problems list" do
+      data_problem = DataProblem.create! valid_attributes
+      delete data_problem_url(data_problem)
+      expect(response).to redirect_to(data_problems_url)
     end
   end
 end
