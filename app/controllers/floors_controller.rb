@@ -34,7 +34,7 @@ class FloorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rooms/1 or /rooms/1.json
+  # PATCH/PUT /floors/1 or /floors/1.json
   def update
     respond_to do |format|
       if @floor.update(floor_params)
@@ -47,7 +47,7 @@ class FloorsController < ApplicationController
     end
   end
 
-  # DELETE /rooms/1 or /rooms/1.json
+  # DELETE /floors/1 or /floors/1.json
   def destroy
     @floor.destroy
     respond_to do |format|
