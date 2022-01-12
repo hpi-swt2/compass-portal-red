@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :data_problems
   resources :chairs
   resources :rooms
+  resources :floors
   resources :people
   resources :person_urls
 
