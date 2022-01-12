@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
     t.string "last_name"
     t.string "first_name"
     t.string "title"
-    t.string "image"
+    t.string "image", default: "placeholder_person.png"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -100,21 +100,24 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 
-  create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_of_interest_id", null: false
-  end
-
   create_table "points", force: :cascade do |t|
     t.float "x"
     t.float "y"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "osm_node_id"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_points_on_room_id"
   end
 
   create_table "points_polylines", id: false, force: :cascade do |t|
     t.integer "point_id", null: false
     t.integer "polyline_id", null: false
+  end
+
+  create_table "points_rooms", id: false, force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.integer "room_id", null: false
   end
 
   create_table "polylines", force: :cascade do |t|
@@ -141,6 +144,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
     t.integer "building_id"
+    t.string "image", default: "placeholder_room.png"
     t.index ["building_id"], name: "index_rooms_on_building_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
@@ -186,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_01_03_132947) do
   add_foreign_key "data_problems", "people"
   add_foreign_key "data_problems", "rooms"
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "points", "rooms"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"

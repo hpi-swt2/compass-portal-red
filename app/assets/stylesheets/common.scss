@@ -16,3 +16,31 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.detail-tag {
+  background: $mediumgray;
+}
+
+.list-details {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.detail {
+  .row {
+    margin-bottom: 2rem;
+    [class^="col"]:first-child {
+      font-weight: bold;
+    }
+  }
+  .rounded-circle {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    background-color: $mediumgray;
+  }
+  .badge {
+    font-size: 1em;
+    background-color: $mediumgray;
+  }
+}
