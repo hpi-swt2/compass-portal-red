@@ -39,10 +39,20 @@ class HpiWebScraper
     relative_file_path = "/assets/images/people/#{file_name}"
     more_relative_file_path = "public#{relative_file_path}"
     file_path = Rails.root.join(more_relative_file_path)
-    File.open(file_path, 'wb') do |f|
-      f.write URI(img_src).open.read
-    end
+                  # .attach(
+                  #   io: File.open("spec/fixture_files/placeholder_person.png"),
+                  #   filename: 'test.png',
+                  #   content_type: 'image/png'
+                  # )
+    file = URI(img_src).open
+    ActiveStorage::Blob.create_and_upload!(
+      io: file,
+      filename: file_name
+    )
+    # File.open(file_path, 'wb') do |f|
+    #   f.write URI(img_src).open.read
+    # end
 
-    relative_file_path
+    
   end
 end

@@ -12,7 +12,7 @@ class Person < SearchableRecord
   PLACEHOLDER_IMAGE_LINK = "placeholder_person.png".freeze
 
   def image_or_placeholder
-    image.presence || PLACEHOLDER_IMAGE_LINK
+    image.attached? ? image : PLACEHOLDER_IMAGE_LINK
   end
 
   def name

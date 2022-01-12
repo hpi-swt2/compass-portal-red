@@ -36,7 +36,7 @@ RSpec.describe Person, type: :model do
 
   it "contains an imagelink to the placeholder if no link was given" do
     person = described_class.new
-    expect(person.image).to match("placeholder_person.png")
+    expect(person.image_or_placeholder).to match("placeholder_person.png")
   end
 
   it "calculates its name correctly" do
