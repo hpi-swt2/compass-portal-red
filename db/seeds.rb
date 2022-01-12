@@ -52,7 +52,7 @@ person_collection = []
 
 person_list.each do |email, first_name, last_name, title, image, status|
   p_to_add = Person.create(email: email, first_name: first_name, last_name: last_name, title: title,
-                                     status: status)
+                           status: status)
   if image.present?
     Rails.logger.debug { "Downloading image! #{image} " }
     p_to_add.image.attach(io: URI(image).open, filename: "test.png")
