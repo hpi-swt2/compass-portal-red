@@ -1,6 +1,6 @@
 # A Point of Interest (e.g. door) has exactly one Point for the position on a map
 class PointOfInterest < ApplicationRecord
-  validates :point_type, presence: true
+  validates :name, presence: true
 
   belongs_to :point
 

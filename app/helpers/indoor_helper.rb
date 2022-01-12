@@ -10,7 +10,7 @@ module IndoorHelper
     # check if it is POI
     point_node.css("tag").each do |tag|
       if tag["k"] == "entrance" && tag["v"] == "yes"
-        PointOfInterest.find_or_create_by(point_id: point.id, point_type: "entrance")
+        PointOfInterest.find_or_create_by(point_id: point.id, name: "entrance")
       end
     end
   end
