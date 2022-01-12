@@ -1,48 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Floor:</strong>
-  <%= @room.floor %>
-</p>
-
-<p>
-  <strong>Room number:</strong>
-  <%= @room.number %>
-</p>
-
-<p>
-  <strong>Room name:</strong>
-  <%= @room.full_name %>
-</p>
-
-<% if @room.chairs %>
-  <p>
-    <strong>Chairs:</strong>
-    <% chair_names = @room.chairs.map do |chair| %>
-    <%  link_to(chair.name, chair_path(chair)) %>
-    <%  end %>
-    <%= chair_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
-<% if @room.room_types %>
-  <p>
-    <strong>Room types:</strong>
-    <% room_type_names = @room.room_types.map {|room_type| room_type.name} %>
-    <%= room_type_names.join(", ") %>
-  </p>
-<% end %>
-
-<% if @room.people %>
-  <p>
-    <strong>People:</strong>
-    <% people_names = @room.people.map do |person| %>
-    <%  link_to(person.full_name, person_path(person)) %>
-    <%  end %>
-    <%= people_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
+<%# Placeholder until the other team/issue integrates them correctly in the table %>
 <% if @room.tags %>
   <p>
     <strong>Tags:</strong>
@@ -50,6 +8,66 @@
     <%= tag_names.join(", ") %>
   </p>
 <% end %>
+
+<div class='detail'>
+  <div class='row mb-3'>
+    <div class='col-3'> <%= image_tag(@room.image, class: "rounded-circle") %> </div>
+    <div class='col'> <%= @room.full_name %> </div>
+  </div>
+  <div class='row'>
+    <div class='col-3'>
+      building
+    </div>
+    <div class='col-3'>
+    <%# supposed to be empty until we get dummy data and a name attribute for a building %>
+      <%= @room.building %> 
+    </div>
+  </div>
+  <% if @room.chairs.present? %>
+    <div class='row'>
+      <div class='col-3'>
+        chairs
+      </div>
+      <div class='col'>
+        <ul class="list-details">
+          <% @room.chairs.each do |chair| %>
+            <li>
+              <%= link_to(chair.name, chair_path(chair)) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <% if @room.people.present? %>
+    <div class='row'>
+      <div class='col-3'> people </div>
+      <div class='col'>
+        <ul class="list-details">
+          <% @room.people.each do |person| %>
+            <li>
+              <%=  link_to(person.full_name, person_path(person)) %>
+            </li>
+          <%  end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <% if @room.room_types.present? %>
+    <div class='row'>
+      <div class='col-3'> room types </div>
+      <div class='col'>
+        <ul class="list-details">
+          <% @room.room_types.each do |room_type| %>
+            <li>
+              <%=  room_type.name %>
+            </li>
+          <%  end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
