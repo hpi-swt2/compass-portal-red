@@ -1,6 +1,3 @@
-// import L from 'leaflet';
-// import 'leaflet.locatecontrol';
-
 // Set the leaflet map with center and zoom-level
 const standardZoomLevel = 17;
 const indoorZoomLevel = 19;
@@ -52,7 +49,6 @@ for (const feature of buildings) {
     // If the current campus (=group of buildings) is unknown, create a layergroup for it
     if(!layers[feature.properties.campus]) {
         layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
-        // console.log("Added the following campus to layers: ", feature.properties.campus);
     }
 
     // Determine Style (highlighting-colour) dependent of group
