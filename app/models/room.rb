@@ -1,5 +1,3 @@
-require "polylabel"
-
 # The model representing a room associated with the HPI
 class Room < SearchableRecord
   # validates :full_name, presence: true
@@ -28,14 +26,6 @@ class Room < SearchableRecord
     walls.map(&:to_geojson) +
       point_of_interests.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
-  end
-
-  # Returns a good coordinate for labels, the "visual center" of a polygon
-  def visual_center_coordinates
-    outer = outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } })
-    # Polylabel returns a hash with x, y and distance. Distance describes how much room there is for a label
-    label_coordinates = Polylabel.compute(outer[:geometry][:coordinates])
-    [label_coordinates[:y], label_coordinates[:x]]
   end
 
   def self.searchable_attributes
