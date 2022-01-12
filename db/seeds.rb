@@ -16,7 +16,8 @@ person_list = [
     "Chair Representative" ],
   [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "https://via.placeholder.com/150", "Professor" ],
   [ "mr.net@hpi.de", "Mr.", "Net", "", "https://via.placeholder.com/150", "" ],
-  [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg", "Tutor" ],
+  [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg",
+    "Tutor" ],
   [ "biene.maya@kika.de", "Maya", "Biene", "", "https://via.placeholder.com/150", "Extern" ]
 ]
 chair_list = [
