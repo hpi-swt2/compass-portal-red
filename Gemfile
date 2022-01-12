@@ -46,9 +46,6 @@ gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_conn
 
 gem 'open_uri_redirections'
 
-# Makes it easy to calculate the weighted center of a polygon
-gem "ruby-polylabel"
-
 #
 # Gems that are loaded depending on the environment (development/test/production)
 #

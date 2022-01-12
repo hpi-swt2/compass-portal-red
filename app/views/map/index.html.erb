@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
 
     <% # Inject outdoor geometry & generate building data %>
-    <%= javascript_pack_tag 'OutdoorMap/geometry' %>
     <script>
       window.roomsToBuild = [
           <% @buildings.each do |building|%>
@@ -29,15 +28,15 @@
   <body>
   	<div class="leaflet">
   		<div id="map" style="width: 100%; height: 100%;"></div>
-      <%= javascript_pack_tag 'OutdoorMap/map_build', 'data-turbolinks-track': 'reload' %>
-      <%= javascript_pack_tag 'indoorMap', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
     
     <%= content_tag :div, '', id: 'poi-data', data: { source: @points_of_interest } %>
 
     <% if @selected_room.present? %>
 	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-      <%= javascript_pack_tag 'selected_room', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>

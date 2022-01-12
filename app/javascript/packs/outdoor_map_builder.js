@@ -1,4 +1,4 @@
-import { buildings } from "./geometry";
+import { buildings } from "../OutdoorMap/geometry";
 import { standardZoomLevel, indoorZoomLevel, styleMap } from "../constants";
 
 console.log("[MAP] Pre map init");

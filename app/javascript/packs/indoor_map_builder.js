@@ -1,4 +1,4 @@
-import {IndoorStyle} from "./constants";
+import {IndoorStyle} from "../constants";
 
 const buildRoomLayer = (room) => {
     if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
