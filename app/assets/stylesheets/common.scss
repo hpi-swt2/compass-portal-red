@@ -1,5 +1,6 @@
 @import "colors";
 
+
 .form-wrapper {
   margin: 0 auto;
   max-width: 800px;
@@ -8,13 +9,18 @@
 .highlighted {
   background-color: $hpi-red-tint !important;
 }
+
+.picture-dot {
+  height: 4rem;
+  width: 4rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .detail-tag {
   background: $mediumgray;
 }
-
-
-
-
 
 .list-details {
   padding-left: 0;
@@ -28,16 +34,16 @@
       font-weight: bold;
     }
   }
+
   .rounded-circle {
     width: 100%;
-    height:auto;
-    max-width:150px;
+    height: auto;
+    max-width: 150px;
     background-color: $mediumgray;
   }
+
   .badge {
     font-size: 1em;
     background-color: $mediumgray;
   }
 }
-
-

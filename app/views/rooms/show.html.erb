@@ -1,72 +1,73 @@
-<div class='detail'>
-  <div class='row mb-5'>
-    <div class='col-3'> <%= image_tag(@room.image, class: "rounded-circle") %> </div>
-    <div class='col'> 
-      <h1>
-        <%= @room.full_name %>
-      </h1>
-      <% if @room.tags %>
-        <p class="badges">
-          <% tag_names = @room.tags.map do |tag| %>
-            <span class="badge text-dark mb-2"><%= tag.name %></span>
-          <% end %>
-        </p>
-      <% end %> </div>
+<p id="notice"><%= notice %></p>
+
+<div class="detail d-flex flex-row mb-4">
+  <span class="picture-dot d-flex flex-column justify-content-center align-items-center">
+      <% if @room.image then %>
+      <%= image_tag(@room.image, class: "rounded-circle") %>
+      <% else %>
+      <i class="far fa-building fa-2x"></i>
+      <% end %>
+  </span>
+
+  <div class="mx-3">
+      <h2><%= @room.display_name %></h2>
+
+      <span class="badge bg-primary">room</span> 
+      <% @room.tags.each do |tag| %>
+          <span class="badge bg-primary"><%= tag.name %></span>
+      <% end %>
   </div>
-  
-  <div class='row'>
-    <div class='col-3'>
-      building
-    </div>
-    <div class='col-3'>
-      <%# supposed to be empty until we get dummy data and a name attribute for a building %>
-      <%= @room.building %>
-    </div>
-  </div>
-  <% if @room.chairs.present? %>
-    <div class='row'>
-      <div class='col-3'>
-        chairs
-      </div>
-      <div class='col'>
-        <ul class="list-details">
-          <% @room.chairs.each do |chair| %>
-            <li>
-              <%= link_to(chair.name, chair_path(chair)) %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <% if @room.people.present? %>
-    <div class='row'>
-      <div class='col-3'> people </div>
-      <div class='col'>
-        <ul class="list-details">
-          <% @room.people.each do |person| %>
-            <li>
-              <%=  link_to(person.full_name, person_path(person)) %>
-            </li>
-          <%  end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <% if @room.room_types.present? %>
-    <div class='row'>
-      <div class='col-3'> room types </div>
-      <div class='col'>
-        <ul class="list-details">
-          <% @room.room_types.each do |room_type| %>
-            <li>
-              <%=  room_type.name %>
-            </li>
-          <%  end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
 </div>
+
+<div class="d-flex flex-row justify-content-start iconbuttons">
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @room.id) %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
+</div>
+
+<br>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @room.floor %>
+</p>
+
+<p>
+  <strong>Room number:</strong>
+  <%= @room.number %>
+</p>
+
+<p>
+  <strong>Room name:</strong>
+  <%= @room.full_name %>
+</p>
+
+<% if @room.chairs %>
+  <p>
+    <strong>Chairs:</strong>
+    <% chair_names = @room.chairs.map do |chair| %>
+    <%  link_to(chair.name, chair_path(chair)) %>
+    <%  end %>
+    <%= chair_names.join(", ").html_safe %>
+  </p>
+<% end %>
+
+<% if @room.room_types %>
+  <p>
+    <strong>Room types:</strong>
+    <% room_type_names = @room.room_types.map {|room_type| room_type.name} %>
+    <%= room_type_names.join(", ") %>
+  </p>
+<% end %>
+
+<% if @room.people %>
+  <p>
+    <strong>People:</strong>
+    <% people_names = @room.people.map do |person| %>
+    <%  link_to(person.full_name, person_path(person)) %>
+    <%  end %>
+    <%= people_names.join(", ").html_safe %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= (yield :title) if content_for? :title %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <%= yield :head if content_for? :head %>
+</head>
+
+<body>
+<%= render 'layouts/navbar' %>
+<%= render 'layouts/titlebar' %>
+<%= render 'layouts/alerts' %>
+<%# https://getbootstrap.com/docs/5.0/layout/containers/ %>
+<%# https://getbootstrap.com/docs/5.0/utilities/spacing/ %>
+  <%= yield %>
+<%= render 'layouts/bottombar' %>
+</body>
+</html>

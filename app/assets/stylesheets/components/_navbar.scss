@@ -1,5 +1,19 @@
+@import "values";
 @import "colors";
 
 .navbar-custom {
   background-color: $hpi-red;
+  display: block;
+  height: $navbar-height;
+  z-index: 99999;
+
+  > div {
+    background-color: $hpi-red;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .navbar-custom {
+    display: none;
+  }
 }
