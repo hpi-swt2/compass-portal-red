@@ -26,7 +26,7 @@ class Room < SearchableRecord
   end
 
   def to_string
-    display_name
+    name
   end
 
   def to_geojson
@@ -39,7 +39,7 @@ class Room < SearchableRecord
     %w[number full_name]
   end
 
-  def display_name
+  def name
     full_name || number
   end
 end
