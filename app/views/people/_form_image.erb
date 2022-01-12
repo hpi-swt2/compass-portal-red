@@ -1,0 +1,32 @@
+<%
+  # Expected as locals:
+  form = locals[:form]
+  field_name = :image
+
+  person = form.object
+  verified_field_name = :"human_verified_#{field_name}"
+  has_verified = person.attributes.include? verified_field_name.to_s
+%>
+<div class="field image-field-wrapper">
+  <% # Image preview field %>
+  <div class="image-preview">
+    <%= image_tag @person.image_or_placeholder %>
+    <button class="image-edit-btn" onclick="event.preventDefault()">
+      <i class="fa fa-pen fa-2x text-white"></i>
+    </button>
+  </div>
+  <p class="text-black-50 text-center">Click to update</p>
+
+  <%= form.file_field field_name, class: "form-control image-field", direct_upload: true, accept: "image/png,image/gif,image/jpeg" %>
+  <% # The hidden field is needed for working upload when the form is not finally submitted due to other errors %>
+  <%= form.hidden_field field_name, value: form.object.image.signed_id if form.object.image.attached? %>
+
+  <% if has_verified %>
+    <label class="text-black-50">
+      <%= form.check_box verified_field_name, class: "form-check-input" %>
+      Update image verification (Last verified: <%= last_verified_in_words person[verified_field_name] %>)
+    </label>
+  <% end %>
+</div>
+
+<%= javascript_pack_tag "form/image_field" %>

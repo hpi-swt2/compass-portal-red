@@ -7,13 +7,12 @@ class Person < SearchableRecord
   has_and_belongs_to_many :chairs
   belongs_to :room, optional: true, dependent: :destroy
   belongs_to :user, optional: true, dependent: :destroy
-
-  before_save :normalize_blank_image
+  has_one_attached :image, dependent: :destroy
 
   PLACEHOLDER_IMAGE_LINK = "placeholder_person.png".freeze
 
-  def normalize_blank_image
-    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
+  def image_or_placeholder
+    image.presence || PLACEHOLDER_IMAGE_LINK
   end
 
   def name
