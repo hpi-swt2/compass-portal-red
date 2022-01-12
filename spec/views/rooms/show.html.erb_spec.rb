@@ -9,7 +9,7 @@ RSpec.describe "rooms/show", type: :view do
     render
     expect(rendered).to match(room.number)
     expect(rendered).to match(room.floor)
-    expect(rendered).to have_selector('h1', text: room.full_name)
+    expect(rendered).to have_selector('h2', text: room.full_name)
   end
 
   it "renders a list of its tags" do
