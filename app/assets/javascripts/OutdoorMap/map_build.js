@@ -86,13 +86,14 @@ for(const feature of pois) {
     layers['Points of Interest'].addLayer(layer);
 }
 
-// make names disappeared when zoomed out
+// make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function() {
     var zoom = mymap.getZoom();
     if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
         mymap.removeLayer(layers['Points of Interest']);
         mymap.eachLayer(function(layer) {
+            // TODO right now the tooltips of all layers, including rooms, are removed
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();
                 layer.unbindTooltip().bindTooltip(tooltip, {
