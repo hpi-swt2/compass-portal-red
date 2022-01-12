@@ -12,13 +12,13 @@ PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
                        description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe')
 
 person_list = [
-  [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "https://via.placeholder.com/150",
+  [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
     "Chair Representative" ],
-  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "https://via.placeholder.com/150", "Professor" ],
-  [ "mr.net@hpi.de", "Mr.", "Net", "", "https://via.placeholder.com/150", "" ],
+  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "", "Professor" ],
+  [ "mr.net@hpi.de", "Mr.", "Net", "", "", "" ],
   [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg",
     "Tutor" ],
-  [ "biene.maya@kika.de", "Maya", "Biene", "", "https://via.placeholder.com/150", "Extern" ]
+  [ "biene.maya@kika.de", "Maya", "Biene", "", "", "Extern" ]
 ]
 chair_list = [
   "Enterprise Platform and Integration Concepts",
@@ -51,8 +51,13 @@ room_type_list = [
 person_collection = []
 
 person_list.each do |email, first_name, last_name, title, image, status|
-  person_collection << Person.create(email: email, first_name: first_name, last_name: last_name, title: title, image: image,
+  p_to_add = Person.create(email: email, first_name: first_name, last_name: last_name, title: title,
                                      status: status)
+  if image.present?
+    Rails.logger.debug { "Downloading image! #{image} " }
+    p_to_add.image.attach(io: URI(image).open, filename: "test.png")
+  end
+  person_collection << p_to_add
 end
 
 bundle = person_collection.zip chair_list
