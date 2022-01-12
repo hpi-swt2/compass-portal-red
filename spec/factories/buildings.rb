@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :building do
-    floors { [ (build :floor) ] }
+    floors { [] }
   end
 end

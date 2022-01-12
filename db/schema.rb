@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "building_id"
+    t.integer "building_id", null: false
     t.index ["building_id"], name: "index_floors_on_building_id"
   end
 
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
     t.string "image", default: "placeholder_room.png"
-    t.integer "floor_id"
+    t.integer "floor_id", null: false
     t.index ["floor_id"], name: "index_rooms_on_floor_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end

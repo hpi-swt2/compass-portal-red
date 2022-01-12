@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "rooms/show", type: :view do
-  let(:floor) { FactoryBot.create(:floor) }
-  let(:room) { floor.rooms[0] }
+  let(:room) { FactoryBot.create(:room) }
 
   before { assign(:room, room) }
 

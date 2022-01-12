@@ -28,7 +28,7 @@ RSpec.describe Building, type: :model do
 
   it "can create a geojson containing the correct number of features" do
     building = create :building
-    expect(building.to_geojson.length).to eq(1)
+    expect(building.to_geojson.length).to eq(0)
   end
 
   context "with valid arguments" do

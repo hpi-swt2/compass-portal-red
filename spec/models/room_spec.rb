@@ -67,26 +67,33 @@ RSpec.describe Room, type: :model do
       create :polyline,
              points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
     end
+    let(:floor) do
+      create :floor
+    end
 
     shared_examples "room with corresponding argument" do
-      it "wall" do
+      it "has no walls" do
         expect(room.walls).to eq([])
       end
 
+<<<<<<< HEAD
       it "points of interest" do
         expect(room.points).to eq([point])
+=======
+      it "has the specified point of interest" do
+        expect(room.point_of_interests).to eq([point_of_interest])
+>>>>>>> 4c66ad7 (Make room.floor and floor.buildling not nullable)
       end
 
-      it "outer shape" do
+      it "has the specified outer shape" do
         expect(room.outer_shape).to eq(outer_shape)
       end
 
-      it "valid" do
+      it "is valid" do
         expect(room).to be_valid
       end
 
-      it "a floor" do
-        floor = create :floor
+      it "has the specified floor" do
         room.floor = floor
         room.save!
 
@@ -116,9 +123,9 @@ RSpec.describe Room, type: :model do
 
       it_behaves_like "room with corresponding argument"
 
-      it "even without a building" do
+      it "even without a floor" do
         room.floor = nil
-        expect(room).to be_valid
+        expect(room).not_to be_valid
       end
 
       it "unless there is no outer shape" do
