@@ -18,7 +18,7 @@ RSpec.describe "Map Page", type: :feature do
   it "renders a popup with a link if a room is selected" do
     room = FactoryBot.create :room
 
-    visit map_path(room_id: 1)
+    visit map_path(room_id: room.id)
 
     expect(page).to have_css('.map-popup') 
     expect(page).to have_link(:href => room_path(room)) 
