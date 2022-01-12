@@ -20,19 +20,19 @@ RSpec.describe OsmHelper, type: :helper do
   end
 
   describe "OSMParser" do
-    it "imports XML correctly" do      
-      parseOsm(xml)
+    it "imports XML correctly" do
+      parse_osm(xml)
       points = Point.all
       rooms = Room.all
       point_of_interests = PointOfInterest.all
-  
+
       expect(points.count).to eq(2)
       expect(points.first.y).to eq(52.39417532053)
       expect(points.first.x).to eq(13.13278466329)
-      
+
       expect(rooms.count).to eq(1)
       expect(rooms.first.full_name).to eq("ExampleRoom")
-      
+
       expect(point_of_interests.count).to eq(1)
       expect(point_of_interests.first.name).to eq("Entrance")
 
