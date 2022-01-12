@@ -70,4 +70,9 @@ RSpec.describe IndoorHelper, type: :helper do
       expect(Room.where(full_name: name)).to exist
     end
   end
+
+  # Clean up db after tests
+  PointOfInterest.delete_all
+  Point.delete_all
+  Room.delete_all
 end
