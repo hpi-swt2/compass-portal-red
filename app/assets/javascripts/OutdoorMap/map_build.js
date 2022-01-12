@@ -164,7 +164,8 @@ let routingControl = L.Routing.control({
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
-    document.getElementById('StopNavigation').style.display = 'block';
+    console.log("Button")
+    document.getElementById('StopNavigation').style.display = 'block !important';
 })
 .on('waypointschanged', (e)=>{
 	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -184,11 +185,24 @@ let routingControl = L.Routing.control({
 
 var routingControlContainer = routingControl.getContainer();
 var controlContainerParent = routingControlContainer.parentNode;
-controlContainerParent.removeChild(routingControlContainer);
-console.log(document.documentElement.innerHTML);
+var newDiv = document.getElementById("routing-control");
 
-var newDiv = document.getElementById("marie");
-newDiv.appendChild(routingControlContainer);
+function moveRoutingControl() {
+    if (window.screen.width < 640) {      
+        if (controlContainerParent.contains(routingControlContainer)) {
+            controlContainerParent.removeChild(routingControlContainer);
+            newDiv.appendChild(routingControlContainer);
+        }
+    } else {
+        if (newDiv.hasChildNodes()) {
+            newDiv.removeChild(routingControlContainer);
+            controlContainerParent.appendChild(routingControlContainer);
+        }
+    }
+}
+
+window.addEventListener("load", moveRoutingControl);
+window.addEventListener("resize", moveRoutingControl);
 
 function onMapClick(e) {
     pos = e.latlng
