@@ -13,3 +13,16 @@
 .leaflet-tooltip-right:before {
     border: none !important;
 }
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: unset;
+    flex-grow: 1;
+    padding: unset;
+    margin: unset !important;
+}
