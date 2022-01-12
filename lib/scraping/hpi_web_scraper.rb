@@ -43,6 +43,6 @@ class HpiWebScraper
       f.write URI(img_src).open.read
     end
 
-    relative_file_path
+    return "/assets/people/#{file_name}"
   end
 end
