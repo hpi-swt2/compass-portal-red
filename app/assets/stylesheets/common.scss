@@ -8,6 +8,12 @@
 .highlighted {
   background-color: $hpi-red-tint !important;
 }
+.detail-tag {
+  background: $mediumgray;
+}
+
+
+
 
 
 .list-details {
@@ -22,12 +28,16 @@
       font-weight: bold;
     }
   }
+  .rounded-circle {
+    width: 100%;
+    height:auto;
+    max-width:150px;
+    background-color: $mediumgray;
+  }
+  .badge {
+    font-size: 1em;
+    background-color: $mediumgray;
+  }
 }
 
 
-.rounded-circle {
-  height:100px;
-  width:100px;
-  background-color: #ccc
-  
-}
