@@ -8,60 +8,11 @@
 
   <body>
 	<div  class="container">
-			<% if user_signed_in? %>
-			<div class="d-flex flex-row mb-4">
-				<% if @person != nil && @person.image.present? %>
-					<%= image_tag (@person.image), class: "img-responsive my-2 mx-3 justify-content-center align-self-center rounded-circle", :size => "60x60"%>
-				<% end %>
-				<% if @person == nil || !@person.image.present? %>
-					<i class="fas fa-user my-2 mx-4 justify-content-center align-self-center" ></i>
-				<% end %>
-				<div class="d-flex flex-column justify-content-center">
-					<div class="fw-bold">
-						<%= "#{current_user.username}" if current_user.username.present? %>
-					</div>
-					<div>Signed in <%= "as Admin" if current_user.isAdmin? %><%= " but no person associated" if @person == nil %></div>
-				</div>
-			</div>
-		
-  			<div class="bg-dark" style="height: 1px; width: 100%"></div>
-			<div class="my-2">
-				Log out
-			</div>
-			<div class="bg-dark" style="height: 1px; width: 100%"></div>
-			<div class="my-2">
-				Edit Personal Information
-			</div>
-			<% if current_user.isAdmin? %>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-				<div  class="my-2">
-					Show data tables
-				</div>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-				<div  class="my-2">
-					Data Management
-				</div>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-			<% end %>
-			<% unless current_user.isAdmin? %>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-				<div  class="my-2">
-					Contribute - Solve Data Problems
-				</div>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-				<div  class="my-2">
-					Report a Problem
-				</div>
-				<div class="bg-dark" style="height: 1px; width: 100%"></div>
-			<% end %>
+		<% if user_signed_in? %>
+			<%= render "options/signed_in", :locals => {:person => @person, :user => current_user} %>
 		<% end %>
 		<% unless user_signed_in? %>
-				<div class="d-flex flex-row align-items-center">
-				<i class="fas fa-user my-2 mx-3 justify-content-center align-self-center" ></i>
-				<div class="fw-bold">
-					Sign in
-				</div>
-			</div>
+			<%= render "options/signed_out" %>
 		<% end %>
 	</div>
   </body>
