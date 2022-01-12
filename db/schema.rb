@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_180919) do
+ActiveRecord::Schema.define(version: 2022_01_12_120705) do
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -100,21 +100,24 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 
-  create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_of_interest_id", null: false
-  end
-
   create_table "points", force: :cascade do |t|
     t.float "x"
     t.float "y"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "osm_node_id"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_points_on_room_id"
   end
 
   create_table "points_polylines", id: false, force: :cascade do |t|
     t.integer "point_id", null: false
     t.integer "polyline_id", null: false
+  end
+
+  create_table "points_rooms", id: false, force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.integer "room_id", null: false
   end
 
   create_table "polylines", force: :cascade do |t|
@@ -187,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_180919) do
   add_foreign_key "data_problems", "people"
   add_foreign_key "data_problems", "rooms"
   add_foreign_key "point_of_interests", "points"
+  add_foreign_key "points", "rooms"
   add_foreign_key "rooms", "buildings"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
