@@ -13,7 +13,7 @@
     <% @floors.each do |floor| %>
       <tr>
         <td><%= link_to 'Show', floor %></td>
-        <td><%= link_to 'Edit', edit_room_path(floor) %></td>
+        <td><%= link_to 'Edit', edit_floor_path(floor) %></td>
         <td><%= link_to 'Destroy', floor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
