@@ -22,16 +22,18 @@ RSpec.describe IndoorHelper, type: :helper do
     end
 
     it "does not persist Point with same coordinates" do
+      former_point_count = Point.count
       build_point_from(point_nodes.first)
-      expect(Point.count).to eq(1)
+      expect(Point.count).to eq(former_point_count + 1)
       build_point_from(point_nodes.first)
-      expect(Point.count).to eq(1)
+      expect(Point.count).to eq(former_point_count + 1)
     end
 
     it "persists two Points when coordinates are different" do
+      former_point_count = Point.count
       build_point_from(point_nodes.first)
       build_point_from(point_nodes.second)
-      expect(Point.count).to eq(2)
+      expect(Point.count).to eq(former_point_count + 2)
     end
   end
 

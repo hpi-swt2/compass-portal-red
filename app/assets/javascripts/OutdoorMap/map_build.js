@@ -1,6 +1,3 @@
-// import L from 'leaflet';
-// import 'leaflet.locatecontrol';
-
 // Set the leaflet map with center and zoom-level
 const standardZoomLevel = 17;
 const indoorZoomLevel = 19;
@@ -52,7 +49,6 @@ for (const feature of buildings) {
     // If the current campus (=group of buildings) is unknown, create a layergroup for it
     if(!layers[feature.properties.campus]) {
         layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
-        // console.log("Added the following campus to layers: ", feature.properties.campus);
     }
 
     // Determine Style (highlighting-colour) dependent of group
@@ -80,20 +76,33 @@ for (const feature of buildings) {
     layers[feature.properties.campus].addLayer(layer);
 }
 
-// make names disappeared when zoomed out
+//Add points of interest
+layers['Points of Interest'] = L.layerGroup().addTo(mymap);
+let pois = JSON.parse(document.getElementById('poi-data').dataset.source);
+for(const feature of pois) {
+    const layer = L.geoJSON(feature);
+    layer.bindTooltip(feature.properties.name, {permanent: true, className: 'marker_label', offset: [-14, 0], direction: 'right'})
+    layer.bindPopup(feature.properties.description);
+    layers['Points of Interest'].addLayer(layer);
+}
+
+// make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function() {
     var zoom = mymap.getZoom();
     if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
+        mymap.removeLayer(layers['Points of Interest']);
         mymap.eachLayer(function(layer) {
+            // TODO right now the tooltips of all layers, including rooms, are removed
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();
                 layer.unbindTooltip().bindTooltip(tooltip, {
                     permanent: false
                 })
             }
-        })
+        });
     } else if (zoom >= standardZoomLevel && zoom <= indoorZoomLevel && (!lastZoom || (lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel))) {
+        mymap.addLayer(layers['Points of Interest']);
         mymap.eachLayer(function(layer) {
             if (layer.getTooltip()) {
                 var tooltip = layer.getTooltip();

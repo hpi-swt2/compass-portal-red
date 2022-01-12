@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_091335) do
     t.string "last_name"
     t.string "first_name"
     t.string "title"
-    t.string "image"
+    t.string "image", default: "placeholder_person.png"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 2022_01_12_091335) do
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.string "name"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 
@@ -139,6 +141,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_091335) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
     t.integer "building_id"
+    t.string "image", default: "placeholder_room.png"
     t.index ["building_id"], name: "index_rooms_on_building_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
