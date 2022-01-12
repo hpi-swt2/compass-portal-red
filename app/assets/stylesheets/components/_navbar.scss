@@ -1,8 +1,10 @@
+@import "values";
 @import "colors";
 
 .navbar-custom {
   background-color: $hpi-red;
   display: block;
+  height: $navbar-height;
 }
 
 @media only screen and (max-width: 400px) {

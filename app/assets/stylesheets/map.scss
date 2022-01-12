@@ -1,3 +1,5 @@
+@import "values";
+
 .leaflet-tooltip.marker_label{
     border-radius: 20px;
     background-color: transparent;
@@ -12,4 +14,14 @@
 .leaflet-tooltip-left:before, 
 .leaflet-tooltip-right:before {
     border: none !important;
+}
+
+.leaflet {
+    height: calc(100% - #{$navbar-height});
+}
+
+@media only screen and (max-width: 400px) {
+    .leaflet {
+        height: calc(100% - #{$navbar-height} - #{$titlebar-height})
+    }
 }

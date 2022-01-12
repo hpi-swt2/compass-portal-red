@@ -1,3 +1,4 @@
+@import "values";
 @import "colors";
 
 .titlebar {
@@ -6,6 +7,7 @@
     display: none !important;
     z-index: 1000;
     background-color: $hpi-red;
+    height: $titlebar-height;
 }
 
 @media only screen and (max-width: 400px) {
