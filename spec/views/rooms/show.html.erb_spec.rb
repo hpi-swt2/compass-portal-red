@@ -40,4 +40,9 @@ RSpec.describe "rooms/show", type: :view do
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
   end
+
+  it "renders a link to the map page with room_id as parameter" do
+    render
+    expect(rendered).to have_link(:href => map_path(:room_id => room.id))
+  end
 end
