@@ -1,8 +1,7 @@
 # The model representing a room associated with the HPI
 class Room < SearchableRecord
-  # validates :full_name, presence: true
-  # validates :room_types, presence: true
-
+  validates :full_name, presence: true
+  
   has_and_belongs_to_many :room_types
   has_and_belongs_to_many :chairs
   has_and_belongs_to_many :tags
