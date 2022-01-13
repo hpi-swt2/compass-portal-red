@@ -18,4 +18,8 @@
     .navbar-custom-bottom {
         display: block;
     }
+
+  .container {
+    padding-bottom: $navbar-height;
+  }
 }
