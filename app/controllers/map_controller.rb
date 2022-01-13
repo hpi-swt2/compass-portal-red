@@ -31,15 +31,15 @@ class MapController < ApplicationController
     lat = lat.to_f
     long = long.to_f
 
-    return (long > 13.1 and long < 13.3 and lat > 52.3 and lat < 52.5)
+     (long > 13.1 && long < 13.3 && lat > 52.3 && lat < 52.5)
   end
 
   def directions
     uri = url
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
-    if !in_babelsberg p1 and !in_babelsberg p2
-      return "Error! Not allowed to navigate outside of Babelsberg"
+    if not is_in_babelsberg p1 or not is_in_babelsberg p2
+       render json: "Errror! Not allowed to navigate outside of Babelsberg"
     end
 
     res = Net::HTTP.get_response(uri)
