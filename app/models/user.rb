@@ -52,5 +52,4 @@ class User < ApplicationRecord
     person["user_id"] = id
     person.save
   end
-
 end
