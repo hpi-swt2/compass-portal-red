@@ -1,5 +1,5 @@
 
-document.addEventListener("DOMContentLoaded", () => {
+$().ready( () => {
   // Open picker on click
   $(".image-edit-btn").on("click", () => {
     $(".image-field").click();
