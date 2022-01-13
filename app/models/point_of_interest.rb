@@ -1,5 +1,7 @@
 # A Point of Interest (e.g. door) has exactly one Point for the position on a map
 class PointOfInterest < ApplicationRecord
+  validates :name, presence: true
+
   belongs_to :point
 
   def to_geojson
@@ -10,7 +12,9 @@ class PointOfInterest < ApplicationRecord
         coordinates: [point.x, point.y]
       },
       properties: {
-        class: "point-of-interest"
+        class: "point-of-interest",
+        description: description,
+        name: name
       }
     }
   end

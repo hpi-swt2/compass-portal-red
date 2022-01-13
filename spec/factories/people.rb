@@ -4,7 +4,7 @@ FactoryBot.define do
     last_name { "Perscheid" }
     first_name { "Michael" }
     title { "Dr." }
-    image { "shorturl.at/bmpxP" }
+    image { "https://www.shorturl.at/bmpxP" }
     status { "Chair Representative" }
   end
 end

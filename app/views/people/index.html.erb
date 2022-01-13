@@ -2,7 +2,13 @@
 
 <h1>People</h1>
 
-<table>
+<div class="buttons">
+  <%= link_to new_person_path do %>
+    <span class="btn btn-primary">New Person</span>
+  <% end %>
+</div>
+
+<table class="table table-striped">
   <thead>
     <tr>
       <th>First Name</th>
@@ -45,7 +51,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Person', new_person_path %>

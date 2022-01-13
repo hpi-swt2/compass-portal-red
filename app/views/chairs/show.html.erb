@@ -1,0 +1,32 @@
+<div class='detail'>
+  <div class="row mb-5">
+    <div class="col-3">
+      <img src= "https://via.placeholder.com/150" class="rounded-circle" >
+    </div>
+    <div class="col">
+      <h1>
+        <%= @chair.name %>
+      </h1>
+    </div>
+  </div>
+  <% if @chair.people %>
+    <p>
+      <strong>People:</strong>
+      <% people_names = @chair.people.map do |person| %>
+        <%  link_to(person.full_name, person_path(person)) %>
+      <%  end %>
+      <%= people_names.join(", ").html_safe %>
+    </p>
+  <% end %>
+  <% if @chair.rooms %>
+    <p>
+      <strong>Rooms:</strong>
+      <% room_names = @chair.rooms.map do |room| %>
+        <%  link_to(room.full_name, room_path(room)) %>
+      <%  end %>
+      <%= room_names.join(", ").html_safe %>
+    </p>
+  <% end %>
+</div>
+<%= link_to 'Edit', edit_chair_path(@chair) %> |
+<%= link_to 'Back', chairs_path %>

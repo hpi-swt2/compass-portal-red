@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @data_problem.url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @data_problem.description %>
+</p>
+
+<p>
+  <strong>Field:</strong>
+  <%= @data_problem.field %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @data_problem.room_id %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @data_problem.person_id %>
+</p>
+
+<%= link_to 'Edit', edit_data_problem_path(@data_problem) %> |
+<%= link_to 'Back', data_problems_path %>

@@ -1,0 +1,52 @@
+name: Acceptance tests
+
+on:
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  # Name of the job
+  rspec-test:
+    runs-on: ubuntu-latest
+
+    # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+    # Service containers to run with job `test`
+    services:
+      postgres:
+        # Docker Hub image
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: test
+          # should not be empty
+          # https://stackoverflow.com/questions/60618118#answer-60618750
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        # Maps tcp port 5432 on service container to the host
+        ports: ["5432:5432"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      # https://github.com/ruby/setup-ruby
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4 # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Setup yarn dependencies
+        run: yarn install
+
+      - name: Run cucumber tests (PostgreSQL)
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
+          RAILS_ENV: test
+        run: |
+          cp config/database.ci.yml config/database.yml
+          bundle exec rails db:setup
+          bundle exec cucumber HEADLESS=true BROWSER=chrome

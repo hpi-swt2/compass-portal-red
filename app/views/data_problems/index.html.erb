@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Data Problems</h1>
+
+<div class="buttons">
+  <%= link_to new_data_problem_path do %>
+    <span class="btn btn-primary">New Data Problem</span>
+  <% end %>
+  <%= link_to people_path do %>
+    <span class="btn btn-secondary">Show all people</span>
+  <% end %>
+</div>
+
+<br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Description</th>
+      <th>Field</th>
+      <th>Room</th>
+      <th>Person</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @data_problems.each do |data_problem| %>
+        <tr>
+          <td>
+            <a href="<%=data_problem.url%>">
+              <%= data_problem.url %>
+            </a>
+          </td>
+          <td><span class="badge bg-primary"><%= data_problem.description %><span></td>
+          <td><%= data_problem.field %></td>
+          <td><%= data_problem.room_id %></td>
+          <td><%= data_problem.person_id %></td>
+          <% if !data_problem.person_id.nil? %>
+            <td><%= link_to 'Resolve', edit_person_url(data_problem.person_id)<<edit_params(data_problem.person_id)  %></td>
+          <% end %>
+          <td><%= link_to 'Destroy', data_problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
