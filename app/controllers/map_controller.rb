@@ -23,23 +23,23 @@ class MapController < ApplicationController
     ActionController::Parameters.action_on_unpermitted_parameters = false
     permitted = params.permit(:alternatives, :geometries, :include, :access_token, :steps)
     ActionController::Parameters.action_on_unpermitted_parameters = :raise
-    uri = URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
+    URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
   end
-  
-  def is_in_babelsberg point
+
+  def in_babelsberg(point)
     long, lat = point.gsub("%2E", ".").split(",")
-    lat, long = lat.to_f, long.to_f
+    lat = lat.to_f
+    long = long.to_f
 
-    mybool = (long > 13.1 and long < 13.3 and lat > 52.3 and lat < 52.5)
-    return mybool
+    return (long > 13.1 and long < 13.3 and lat > 52.3 and lat < 52.5)
   end
 
-  def directions 
-    uri = self.url
+  def directions
+    uri = url
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
-    if not is_in_babelsberg p1 and not is_in_babelsberg p2
-       return "Error! Not allowed to navigate outside of Babelsberg"
+    if !in_babelsberg p1 and !in_babelsberg p2
+      return "Error! Not allowed to navigate outside of Babelsberg"
     end
 
     res = Net::HTTP.get_response(uri)
