@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe MapController, type: :controller do
 
-  subject(:map_controller) { described_class.new }
   describe "GET #url" do
     before do
+      map_controller = subject
       map_controller.params[:overview] = 'false'
       map_controller.params[:alternativs] = 'true'
       map_controller.params[:steps] = 'true'
@@ -24,13 +24,13 @@ RSpec.describe MapController, type: :controller do
     end
   end
 
-  describe "GET #is_in_babelsberg" do
+  describe "GET #in_babelsberg" do
     it 'returns return true for points inside of babelsberg' do
-      expect(map_controller.is_in_babelsberg('13.2,52.4')).to be_truthy
+      expect(map_controller.in_babelsberg('13.2,52.4')).to be_truthy
     end
 
     it 'returns return false for points outside of babelsberg' do
-      expect(map_controller.is_in_babelsberg('13.0,52.4')).to be_falsey
+      expect(map_controller.in_babelsberg('13.0,52.4')).to be_falsey
     end
   end
 end

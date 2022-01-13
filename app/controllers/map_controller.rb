@@ -1,5 +1,4 @@
 require 'uri'
-https://www.codefactor.io/repository/github/hpi-swt2/compass-portal-red/pull/154
 require 'net/http'
 
 class MapController < ApplicationController
@@ -38,7 +37,7 @@ class MapController < ApplicationController
     uri = url
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
-    if (!is_in_babelsberg p1 || !is_in_babelsberg p2) then
+    if !in_babelsberg(p) || !in_babelsberg(p2)
       render json: "Errror! Not allowed to navigate outside of Babelsberg"
     end
 
