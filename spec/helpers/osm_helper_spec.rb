@@ -3,20 +3,20 @@ require 'rails_helper'
 RSpec.describe OsmHelper, type: :helper do
   let(:xml) do
     "<?xml version='1.0' encoding='UTF-8'?>"\
-    "<osm version='0.6' generator='JOSM'>"\
-    "<node id='-101755' lat='52.39417532053' lon='13.13278466329' />"\
-    "<node id='-101762' lat='52.39398422012' lon='13.1324212709'>"\
-    "<tag k='entrance' v='yes' />"\
-    "<tag k='name' v='FrontEntrance' />"\
-    "</node>"\
-    "<way id='-101782'>"\
-    "<nd ref='-101755' />"\
-    "<nd ref='-101762' />"\
-    "<nd ref='-101755' />"\
-    "<tag k='indoor' v='room' />"\
-    "<tag k='name' v='ExampleRoom' />"\
-    "</way>"\
-    "</osm>"
+      "<osm version='0.6' generator='JOSM'>"\
+      "<node id='-101755' lat='52.39417532053' lon='13.13278466329' />"\
+      "<node id='-101762' lat='52.39398422012' lon='13.1324212709'>"\
+      "<tag k='entrance' v='yes' />"\
+      "<tag k='name' v='FrontEntrance' />"\
+      "</node>"\
+      "<way id='-101782'>"\
+      "<nd ref='-101755' />"\
+      "<nd ref='-101762' />"\
+      "<nd ref='-101755' />"\
+      "<tag k='indoor' v='room' />"\
+      "<tag k='name' v='ExampleRoom' />"\
+      "</way>"\
+      "</osm>"
   end
 
   describe "OSMParser" do
