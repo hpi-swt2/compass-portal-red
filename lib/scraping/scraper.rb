@@ -60,9 +60,9 @@ class Scraper
                               'title' => item[:title],
                               'first_name' => item[:first_name],
                               'last_name' => item[:last_name],
-                              'email' => item[:email],
-                              'image' => item[:image]
+                              'email' => item[:email]
                             })
+    new_person.image.attach(item[:image])
     build_info_if_not_exists(new_person, item, "phone", problem_checker)
     build_info_if_not_exists(new_person, item, "website", problem_checker)
 
