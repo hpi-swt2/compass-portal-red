@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name", null: false
   end
 
   create_table "chairs", force: :cascade do |t|
@@ -228,16 +229,8 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
   add_foreign_key "data_problems", "rooms"
   add_foreign_key "floors", "buildings"
   add_foreign_key "point_of_interests", "points"
-<<<<<<< HEAD
-<<<<<<< HEAD
   add_foreign_key "points", "rooms"
-  add_foreign_key "rooms", "buildings"
-=======
-  add_foreign_key "point_of_interests", "rooms"
-=======
->>>>>>> 52656a6 (fixes db seeding)
   add_foreign_key "rooms", "floors"
->>>>>>> 029636b (adds floors to database)
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
 end
