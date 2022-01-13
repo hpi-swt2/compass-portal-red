@@ -67,9 +67,7 @@ RSpec.describe Room, type: :model do
       create :polyline,
              points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
     end
-    let(:floor) do
-      create :floor
-    end
+    let(:floor) { create :floor }
 
     shared_examples "room with corresponding argument" do
       it "has no walls" do
