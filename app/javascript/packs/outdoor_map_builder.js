@@ -184,7 +184,8 @@ let routingControl = L.Routing.control({
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
-    document.getElementById('StopNavigation').style.display = 'block';
+	// TODO: Add after demo
+    //document.getElementById('StopNavigation').style.display = 'block';
 })
 .on('waypointschanged', (e)=>{
 	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -243,9 +244,15 @@ function stopNavigation(e){
     document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
 	// Add our Stop button to the routingControl-plan
     document.querySelector('.leaflet-routing-geocoders').appendChild(el)
-})()
+})
+// TODO: Add after demo
+//()
+
+// TODO: Remove after demo
+document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
 
 mymap.on('click', onMapClick);
 
 // Per default, we don't want the stop button to be shown, as there is no route
-document.getElementById('StopNavigation').style.display = 'none';
+// TODO: Add after demo
+// document.getElementById('StopNavigation').style.display = 'none';
