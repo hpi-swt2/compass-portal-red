@@ -25,14 +25,13 @@ RSpec.describe Scraper, type: :feature do
     expect(Person.first).to have_attributes(
       first_name: "Michael",
       last_name: "Perscheid",
-      email: 'michael.perscheid(at)hpi.de',
-      image: '/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
+      email: 'michael.perscheid(at)hpi.de'
     )
+    expect(Person.first.image.attached?).to eq(true)
   end
 
   it "doesn't overwrite data if new data is found" do
-    FactoryBot.create :person, email: 'michael.perscheid(at)hpi.de',
-                               image: '/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
+    FactoryBot.create :person, email: 'michael.perscheid(at)hpi.de'
     FactoryBot.create :person_url, url: '/html_mocks/table_overwrite.html'
 
     scrape
@@ -40,8 +39,7 @@ RSpec.describe Scraper, type: :feature do
     expect(Person.first).to have_attributes(
       first_name: "Michael",
       last_name: "Perscheid",
-      email: 'michael.perscheid(at)hpi.de',
-      image: '/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
+      email: 'michael.perscheid(at)hpi.de'
     )
   end
 

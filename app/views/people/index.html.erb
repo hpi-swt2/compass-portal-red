@@ -11,13 +11,13 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Image</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Office</th>
       <th>Title</th>
       <th>Email</th>
       <th>Phone</th>
-      <th>Image</th>
       <th>Status</th>
       <th>Website</th>
       <th colspan="3"></th>
@@ -27,17 +27,15 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
+        <td>
+          <%= image_tag person.image_or_placeholder, class: "picture-rounded sm" %>
+        </td>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
         <td><%= person.room&.display_name %></td>
         <td><%= person.title %></td>
         <td><%= person.email %></td>
         <td><%= person.informations.get_value('phone') %></td>
-        <td>
-          <a href="<%=person.image%>">
-            <%= person.image %>
-          </a>
-        </td>
         <td><%= person.status %></td>
         <td>
           <a href="<%=person.informations.get_value('website')%>">
