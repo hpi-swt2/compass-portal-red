@@ -1,9 +1,14 @@
-<p id="notice"><%= notice %></p>
-
 <div class='detail'>
-  <div class='row mb-4'>
-    <div class='col-3'> <img src= "<%= @person.image %>" class="rounded-circle"> </div>
-    <div class='col'> <%= @person.full_name %> </div>
+  <div class='row mb-5'>
+    <div class='col-3'> <%= image_tag(@person.image, class: "rounded-circle") %>  </div>
+    <div class='col'> 
+      <h1>
+        <%= @person.full_name %>
+      </h1>
+      <p>
+        <span class="badge text-dark"><%= @person.status %></span>
+      </p>
+ </div>
   </div>
   <div class='row'>
     <div class='col-3'> email </div>
@@ -25,14 +30,6 @@
       <div class='col'> <%= link_to(@person.room.display_name, room_path(@person.room)) %> </div>
     </div>
   <% end %>
-  <% if @person.status %>
-    <div class='row'>
-      <div class='col-3'> status </div>
-      <div class='col'> <%= @person.status %> </div>
-    </div>
-  <% end %>
 </div>
-
-  
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

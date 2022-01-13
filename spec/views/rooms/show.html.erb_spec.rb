@@ -9,7 +9,7 @@ RSpec.describe "rooms/show", type: :view do
     render
     expect(rendered).to match(room.number)
     expect(rendered).to match(room.floor)
-    expect(rendered).to match(room.full_name)
+    expect(rendered).to have_selector('h2', text: room.full_name)
   end
 
   it "renders a list of its tags" do
@@ -50,5 +50,10 @@ RSpec.describe "rooms/show", type: :view do
     room.people.each do |person|
       expect(rendered).to have_link(person.name, href: person_path(person))
     end
+  end
+
+  it "renders a link to the map page with room id as parameter" do
+    render
+    expect(rendered).to have_link(:href => map_path(room_id: room.id))
   end
 end
