@@ -40,8 +40,8 @@ room_type_list = [
 person_collection = []
 
 person_list.each do |email, first_name, last_name, title, image, status|
-  person_collection << Person.create(email: email, first_name: first_name, last_name: last_name, title: title, image: image,
-                                     status: status)
+  person_collection << Person.create(email: email, first_name: first_name, last_name: last_name,
+                                     title: title, image: image, status: status)
 end
 
 bundle = person_collection.zip chair_list
