@@ -27,7 +27,7 @@
 <div class="field">
   <%= form.label :rooms %>
   <%= form.select 'room_ids',
-    options_from_collection_for_select(Room.all, :id, :name, floor.room_ids),
+    options_from_collection_for_select(Room.all, :id, :full_name, floor.room_ids),
     {},
     multiple: true, size: 10 %>
 </div>

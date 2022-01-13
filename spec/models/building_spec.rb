@@ -4,6 +4,7 @@ RSpec.describe Building, type: :model do
   let(:floor1) { create :floor }
   let(:floor2) { create :floor }
   let(:floors) { [floor1, floor2] }
+  let(:name) { "Example building" }
 
   it "has a constructor that can create instances" do
     instance = described_class.new
@@ -44,7 +45,7 @@ RSpec.describe Building, type: :model do
     end
 
     it "is valid when using the constructor" do
-      building = described_class.new(floors: floors)
+      building = described_class.new(name: name, floors: floors)
       expect(building).to be_valid
       expect(building.floors).to eq(floors)
     end
