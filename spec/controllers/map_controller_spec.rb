@@ -17,7 +17,7 @@ RSpec.describe MapController, type: :controller do
       expect(subject.url).to eq URI "https://api.mapbox.com/directions/v5/mapbox/walking/13%2E132964372634888%2C52%2E39388888702635;13%2E12498211860657%2C52%2E39511316914987?access_token=#{ENV['MAPBOX_ACCESS_TOKEN']}&steps=true"
     end
 
-    it 'doesn\' permit additional attributes return the right url given the params' do
+    it 'doesn\'t permit additional attributes return the right url given the params' do
       subject.params[:forbidden] = 'value'
       expect(subject.url).to eq URI "https://api.mapbox.com/directions/v5/mapbox/walking/13%2E132964372634888%2C52%2E39388888702635;13%2E12498211860657%2C52%2E39511316914987?access_token=#{ENV['MAPBOX_ACCESS_TOKEN']}&steps=true"
     end

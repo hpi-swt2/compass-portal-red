@@ -37,8 +37,8 @@ class MapController < ApplicationController
     uri = url
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
-    if !in_babelsberg(p) || !in_babelsberg(p2)
-      render json: "Errror! Not allowed to navigate outside of Babelsberg"
+    if !in_babelsberg(p1) || !in_babelsberg(p2)
+      render json: "Error! Not allowed to navigate outside of Babelsberg"
     end
 
     res = Net::HTTP.get_response(uri)
