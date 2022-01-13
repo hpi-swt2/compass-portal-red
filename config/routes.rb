@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # https://github.com/plataformatec/devise#configuring-routes
   devise_for :users, path: 'users',
     controllers: {
+      sessions: 'users/sessions',
       registrations: 'users/registrations',
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
@@ -26,12 +27,11 @@ Rails.application.routes.draw do
   # '/map'
   get '/map', to: 'map#index'
 
-  # '/options'
-  get '/options', to: 'options#index'
-
   # '/'
   # Sets `root_url`, devise gem requires this to be set
-  root to: "search#index"
+  devise_scope :user do
+    root to: "users/sessions#new"
+  end
 
   get 'indoor/demo/', to: 'indoor#demo'
   get 'indoor/json/', to: 'indoor#geojson'

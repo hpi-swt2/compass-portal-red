@@ -1,29 +1,34 @@
 <div class="row">
   <div class="col-lg-6 col-md-6 mx-auto">
 
-    <h2 class="fw-light">Log in</h2>
+    <div style="text-align:center">
+    <h2 class="fw-light"> HPI Navigator </h2>
+    <img src="/images/platypus.png" alt="Logo" width="244" height="115">
+    </div>
+
+    <h2  class="fw-light" ></h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field mb-3">
-        <%= f.label :email, class: 'form-label' %>
-        <%= f.text_field :email, class: 'form-control', autofocus: true, autocomplete: 'email' %>
+        <%= f.text_field :email, class: 'form-control', autofocus: true, autocomplete: 'email', style: 'border-radius:15px', placeholder:'Email'%>
       </div>
 
       <div class="field mb-3">
-        <%= f.label :password, class: 'form-label' %>
-        <%= f.password_field :password, class: 'form-control' %>
+        <%= f.password_field :password, class: 'form-control', style: 'border-radius:15px', placeholder:'Password'%>
       </div>
+      <div style="overflow: hidden">
+        <% if devise_mapping.rememberable? %>
+          <div class="field mb-3 form-check" style="float: left">
+            <%= f.check_box :remember_me, class: 'form-check-input' %>
+            <%= f.label :remember_me, class: 'form-check-label'%>
+          </div>
+        <% end %>
 
-      <% if devise_mapping.rememberable? %>
-        <div class="field mb-3 form-check">
-          <%= f.check_box :remember_me, class: 'form-check-input' %>
-          <%= f.label :remember_me, class: 'form-check-label' %>
+        <div class="actions mb-3" style="float: right">
+          <%= f.submit "Log in", class: 'btn btn-outline-primary', style:'border-radius: 15px'%>
         </div>
-      <% end %>
-
-      <div class="actions mb-3">
-        <%= f.submit "Log in", class: 'btn btn-outline-primary' %>
       </div>
+
     <% end %>
 
     <%= render "devise/shared/links" %>
