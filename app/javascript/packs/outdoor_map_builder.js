@@ -231,7 +231,7 @@ function stopNavigation(e){
         type="button" 
         id="StopNavigation" 
         value="Stop" 
-        onclick="console.log(event)" 
+        onclick="stopNavigation(event)" 
         class="stop-button" 
         style="
             width: 100px; 
