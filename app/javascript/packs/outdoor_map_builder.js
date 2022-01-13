@@ -94,7 +94,7 @@ mymap.on("zoomend", function () {
     (zoom < standardZoomLevel || zoom > indoorZoomLevel) &&
     (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)
   ) {
-    // mymap.removeLayer(layers["Points of Interest"]);
+    mymap.removeLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
         var tooltip = layer.getTooltip();
@@ -108,7 +108,7 @@ mymap.on("zoomend", function () {
     zoom <= indoorZoomLevel &&
     (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)
   ) {
-    // mymap.addLayer(layers["Points of Interest"]);
+    mymap.addLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
         var tooltip = layer.getTooltip();
@@ -125,7 +125,7 @@ L.control.layers(null, layers).addTo(mymap);
 
 console.log("[MAP] Layers built");
 
-var positions = []
+window.positions = []
 
 // TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
 // mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
@@ -135,7 +135,7 @@ var positions = []
 console.log(window.location.host + '/directions')
 
 // routingControl does everything related to navigation
-let routingControl = L.Routing.control({
+window.routingControl = L.Routing.control({
 	// the router is responsible for calculating the route
     router: new Router(
         {
@@ -168,8 +168,7 @@ let routingControl = L.Routing.control({
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
-	// TODO: Add after demo
-    //document.getElementById('StopNavigation').style.display = 'block';
+    document.getElementById('StopNavigation').style.display = 'block';
 })
 .on('waypointschanged', (e)=>{
 	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -198,15 +197,6 @@ function onMapClick(e) {
 	routingControl.setWaypoints(positions)
 }
 
-// Sets positions to an empty array and passes it to the router, essentially routing an empty route which is our "stop" functionality
-function stopNavigation(e){
-	e.stopPropagation();
-    document.getElementById('StopNavigation').style.display = 'none';
-	positions = []
-	routingControl.hide()
-    routingControl.setWaypoints(positions).route()
-}
-
 // Build the stop buton and insert it into the routingControl-plan
 (function buildStopButton(){
     const el = document.createElement('div')
@@ -216,7 +206,12 @@ function stopNavigation(e){
         type="button" 
         id="StopNavigation" 
         value="Stop" 
-        onclick="stopNavigation(event)" 
+        onclick="
+			event.stopPropagation();
+			document.getElementById('StopNavigation').style.display = 'none';
+			positions = []
+			routingControl.hide()
+			routingControl.setWaypoints(positions).route()" 
         class="stop-button" 
         style="
             width: 100px; 
@@ -228,15 +223,9 @@ function stopNavigation(e){
     document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
 	// Add our Stop button to the routingControl-plan
     document.querySelector('.leaflet-routing-geocoders').appendChild(el)
-})
-// TODO: Add after demo
-//()
-
-// TODO: Remove after demo
-document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
+})()
 
 mymap.on('click', onMapClick);
 
 // Per default, we don't want the stop button to be shown, as there is no route
-// TODO: Add after demo
-// document.getElementById('StopNavigation').style.display = 'none';
+document.getElementById('StopNavigation').style.display = 'none';
