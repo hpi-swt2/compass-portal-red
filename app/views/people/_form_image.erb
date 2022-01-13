@@ -19,7 +19,8 @@
 
   <%= form.file_field field_name, class: "form-control image-field", direct_upload: true, accept: "image/png,image/gif,image/jpeg" %>
   <% # The hidden field is needed for working upload when the form is not finally submitted due to other errors %>
-  <%= form.hidden_field field_name, value: form.object.image.signed_id if form.object.image.attached? %>
+  <% # Currently breaks the update, so uncommented %>
+  <% # form.hidden_field field_name, value: form.object.image.signed_id if form.object.image.attached? %>
 
   <% if has_verified %>
     <label class="text-black-50">

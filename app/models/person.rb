@@ -44,7 +44,7 @@ class Person < SearchableRecord
     VERIFICATION_ATTRIBUTES
   end
 
-  def verified_attribute_to_field(verification_attr)
+  def self.verified_attribute_to_field(verification_attr)
     return unless VERIFICATION_ATTRIBUTES.include? verification_attr
 
     verification_attr[15..].to_sym

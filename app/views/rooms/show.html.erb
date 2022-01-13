@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<div class="detail d-flex flex-row mb-4">
-  <span class="picture-dot d-flex flex-column justify-content-center align-items-center">
+<div class="detail row mb-5">
+  <div class="col-3">
       <% if @room.image then %>
-      <%= image_tag(@room.image, class: "rounded-circle") %>
+        <%= image_tag(@room.image, class: "picture-rounded fill") %>
       <% else %>
-      <i class="far fa-building fa-2x"></i>
+        <span class="picture-rounded">
+          <i class="far fa-building fa-2x"></i>
+        </span>
       <% end %>
-  </span>
+  </div>
 
-  <div class="mx-3">
+  <div class="col mx-3">
       <h2><%= @room.display_name %></h2>
 
-      <span class="badge bg-primary">room</span> 
+      <span class="badge bg-primary">Room</span>
       <% @room.tags.each do |tag| %>
           <span class="badge bg-primary"><%= tag.name %></span>
       <% end %>

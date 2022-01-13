@@ -48,6 +48,6 @@ RSpec.describe Person, type: :model do
   end
 
   it "converts a verification attribute to a column name" do
-    expect(person.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
+    expect(Person.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
   end
 end
