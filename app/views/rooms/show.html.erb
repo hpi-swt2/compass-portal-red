@@ -64,10 +64,9 @@
 <% if @room.people %>
   <p>
     <strong>People:</strong>
-    <% people_names = @room.people.map do |person| %>
-    <%  link_to(person.full_name, person_path(person)) %>
-    <%  end %>
-    <%= people_names.join(", ").html_safe %>
+    <% @room.people.map do |person| %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => person.full_name, :icon_class => 'fa-user'}), person_path(person) %>
+    <% end %>
   </p>
 <% end %>
 
