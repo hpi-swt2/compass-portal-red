@@ -52,4 +52,12 @@ RSpec.describe "Search Page", type: :feature do
     expect(page).to have_css("//span[@class = 'search-item-icon --chair']")
   end
 
+  it "displays additional search results based on search" do
+    FactoryBot.create :chair
+    FactoryBot.create :room, full_name: 'Office Enterprise'
+    visit "#{search_path}?query=Enterprise+Platform&commit=Search"
+    expect(page.find('div',  class: 'list-group',
+                             text: 'Enterprise Platform and Integration Concepts')[:id]).to eq 'exact-results'
+    expect(page.find('div',  class: 'list-group', text: 'Office Enterprise')[:id]).to eq 'more-results'
+  end
 end

@@ -1,5 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<div class="detail d-flex flex-row mb-4">
+  <span class="picture-dot d-flex flex-column justify-content-center align-items-center">
+      <% if @room.image then %>
+      <%= image_tag(@room.image, class: "rounded-circle") %>
+      <% else %>
+      <i class="far fa-building fa-2x"></i>
+      <% end %>
+  </span>
+
+  <div class="mx-3">
+      <h2><%= @room.display_name %></h2>
+
+      <span class="badge bg-primary">room</span> 
+      <% @room.tags.each do |tag| %>
+          <span class="badge bg-primary"><%= tag.name %></span>
+      <% end %>
+  </div>
+</div>
+
+<div class="d-flex flex-row justify-content-start iconbuttons">
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @room.id) %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
+</div>
+
+<br>
+
 <p>
   <strong>Floor:</strong>
   <%= @room.floor %>
@@ -40,14 +66,6 @@
     <%  link_to(person.full_name, person_path(person)) %>
     <%  end %>
     <%= people_names.join(", ").html_safe %>
-  </p>
-<% end %>
-
-<% if @room.tags %>
-  <p>
-    <strong>Tags:</strong>
-    <% tag_names = @room.tags.map {|tag| tag.name} %>
-    <%= tag_names.join(", ") %>
   </p>
 <% end %>
 
