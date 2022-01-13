@@ -12,15 +12,14 @@ class MapController < ApplicationController
     coordinates = params[:coordinates].gsub("p", "%2E")
     params[:access_token] = ENV['MAPBOX_ACCESS_TOKEN']
     permitted = params.permit(:alternatives, :geometries, :include, :access_token, :steps)
-    uri = URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
+    URI "https://api.mapbox.com/directions/v5/mapbox/#{profile}/#{coordinates}?#{permitted.to_query}"
   end
   
   def is_in_babelsberg point
     long, lat = point.gsub("%2E", ".").split(",")
     lat, long = lat.to_f, long.to_f
 
-    mybool = (long > 13.1 and long < 13.3 and lat > 52.3 and lat < 52.5)
-    return mybool
+     (long > 13.1 && long < 13.3 && lat > 52.3 && lat < 52.5)
   end
 
   def directions 
@@ -28,7 +27,7 @@ class MapController < ApplicationController
     params[:coordinates] = params[:coordinates].gsub("p", "%2E")
     p1, p2 = params[:coordinates].split(";")
     if not is_in_babelsberg p1 or not is_in_babelsberg p2
-       return "Errror! Not allowed to navigate outside of Babelsberg"
+       render json: "Errror! Not allowed to navigate outside of Babelsberg"
     end
 
     res = Net::HTTP.get_response(uri)
