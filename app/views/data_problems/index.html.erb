@@ -1,3 +1,4 @@
+<% content_for :title, "All Data Problems" %>
 <p id="notice"><%= notice %></p>
 
 <h1>Data Problems</h1>
@@ -33,7 +34,7 @@
               <%= data_problem.url %>
             </a>
           </td>
-          <td><span class="badge bg-primary"><%= data_problem.description %><span></td>
+          <td><span class="badge bg-primary"><%= data_problem.description %></span></td>
           <td><%= data_problem.field %></td>
           <td><%= data_problem.room_id %></td>
           <td><%= data_problem.person_id %></td>
