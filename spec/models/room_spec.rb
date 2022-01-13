@@ -74,13 +74,8 @@ RSpec.describe Room, type: :model do
         expect(room.walls).to eq([])
       end
 
-<<<<<<< HEAD
-      it "points of interest" do
+      it "has the specified points" do
         expect(room.points).to eq([point])
-=======
-      it "has the specified point of interest" do
-        expect(room.point_of_interests).to eq([point_of_interest])
->>>>>>> 4c66ad7 (Make room.floor and floor.buildling not nullable)
       end
 
       it "has the specified outer shape" do

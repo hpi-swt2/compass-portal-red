@@ -11,15 +11,17 @@
     <% # Inject outdoor geometry & generate building data %>
     <script>
       window.roomsToBuild = [
-          <% @buildings.each do |building|%>
-          <% building.rooms.each do |room|%>
-          {
-              'id': '<%= room.id %>',
-              'fullName': '<%= room.full_name %>',
-              'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
-          },
+        <% @buildings.each do |building|%>
+          <% building.floors.each do |floor|%>
+            <% floor.rooms.each do |room|%>
+            {
+                'id': '<%= room.id %>',
+                'fullName': '<%= room.full_name %>',
+                'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
+            },
+            <% end %>
           <% end %>
-          <% end %>
+        <% end %>
       ]
     </script>
 
