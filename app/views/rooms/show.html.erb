@@ -5,9 +5,9 @@
       <% if @room.image then %>
         <%= image_tag(@room.image, class: "picture-rounded fill") %>
       <% else %>
-        <span class="picture-rounded">
+        <div class="picture-rounded d-flex justify-content-center align-items-center">
           <i class="far fa-building fa-2x"></i>
-        </span>
+        </div>
       <% end %>
   </div>
 
