@@ -1,34 +1,41 @@
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
-<% end %>
-
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
-<% end %>
-
-<hr>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to(omniauth_authorize_path(resource_name, provider),
-        class: 'btn btn-primary btn-md', id: "#{provider}-signin",
-        method: :post,
-        # disable button after click: https://apidock.com/rails/ActionView/Helpers/UrlHelper/button_to
-        data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Logging in..."}) do %>
-          <%= "Sign in with #{OmniAuth::Utils.camelize(provider)}" %>
-      <% end %>
-      <br />
+<div style="text-align: right">
+  <%- if controller_name != 'sessions' %>
+    <%= link_to "Log in", new_session_path(resource_name) %><br />
   <% end %>
-<% end %>
+
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <%= link_to "Register", new_registration_path(resource_name) %><br />
+  <% end %>
+
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+  <% end %>
+
+  <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+    <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+  <% end %>
+
+  <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+    <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
+  <% end %>
+
+  <hr>
+  <div style="text-align: center"><%- if devise_mapping.omniauthable? %>
+      <%- resource_class.omniauth_providers.each do |provider| %>
+        <%= button_to(omniauth_authorize_path(resource_name, provider),
+                      class: 'btn btn-primary btn-md', id: "#{provider}-signin" , style: 'border-radius:15px',
+                      method: :post,
+                      # disable button after click: https://apidock.com/rails/ActionView/Helpers/UrlHelper/button_to
+                      data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> Logging in..."}) do %>
+          <%= "Sign in with #{OmniAuth::Utils.camelize(provider)}" %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <br>
+    <div class="actions mb-3">
+      <%= link_to "Skip", search_path %><br />
+    </div>
+  </div>
+</div>
+
+
