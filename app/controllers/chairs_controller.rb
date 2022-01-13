@@ -19,6 +19,7 @@ class ChairsController < ApplicationController
 
   # POST /chairs or /chairs.json
   def create
+    puts(chair_params)
     @chair = Chair.new(chair_params)
 
     respond_to do |format|
@@ -63,6 +64,6 @@ class ChairsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def chair_params
-    params.fetch(:chair, {})
+    params.fetch(:chair, {}).permit(:name, :person_ids, :room_ids)
   end
 end
