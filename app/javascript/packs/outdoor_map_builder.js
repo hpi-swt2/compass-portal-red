@@ -1,5 +1,5 @@
 import { buildings } from "../OutdoorMap/geometry";
-import { standardZoomLevel, indoorZoomLevel, styleMap } from "../constants";
+import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle} from "../constants";
 
 console.log("[MAP] Pre map init");
 
@@ -63,44 +63,28 @@ for (const feature of buildings) {
   layers[feature.properties.campus].addLayer(layer);
 }
 
-// layers["Point of Interest"] = L.layerGroup().addTo(mymap);
-// for (const feature of points_of_interest) {
-//   console.log(feature.type);
-//   switch (feature.properties.type) {
-//     case "Entrance":
-//       console.log("here");
-//       layerStyle = EntranceStyle;
-//       break;
-//     default:
-//       layerStyle = PoIStyle;
-//   }
-//   //console.log(feature);
-//   const layer = L.geoJSON(feature, { style: layerStyle });
-//   console.log(layer);
-//   layer.bindTooltip(feature.properties.name, {
-//     permanent: true,
-//     className: "marker_label",
-//     offset: feature.properties.offset,
-//     direction: "right",
-//   });
-//   layer.bindPopup(feature.properties.description);
-//   layers["Point of Interest"].addLayer(layer);
-// }
-
-// //Add points of interest
-// layers["Points of Interest"] = L.layerGroup().addTo(mymap);
-// let pois = JSON.parse(document.getElementById("poi-data").dataset.source);
-// for (const feature of pois) {
-//   const layer = L.geoJSON(feature);
-//   layer.bindTooltip(feature.properties.name, {
-//     permanent: true,
-//     className: "marker_label",
-//     offset: [-14, 0],
-//     direction: "right",
-//   });
-//   layer.bindPopup(feature.properties.description);
-//   layers["Points of Interest"].addLayer(layer);
-// }
+layers["Points of Interest"] = L.layerGroup().addTo(mymap);
+for (const feature of points_of_interest) {
+  let layerStyle;
+  console.log(feature.type);
+  switch (feature.properties.type) {
+    case "Entrance":
+      console.log("here");
+      layerStyle = EntranceStyle;
+      break;
+    default:
+      layerStyle = PoIStyle;
+  }
+  const layer = L.geoJSON(feature);
+  layer.bindTooltip(feature.properties.name, {
+    permanent: true,
+    className: "marker_label",
+    offset: [-14, 0],
+    direction: "right",
+  });
+  layer.bindPopup(feature.properties.description);
+  layers["Points of Interest"].addLayer(layer);
+}
 
 // make names disappear when zoomed out
 var lastZoom;

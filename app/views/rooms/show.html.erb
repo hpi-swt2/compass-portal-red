@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<div class="detail d-flex flex-row mb-4">
-  <span class="picture-dot d-flex flex-column justify-content-center align-items-center">
+<div class="detail row mb-5">
+  <div class="col-3">
       <% if @room.image then %>
-      <%= image_tag(@room.image, class: "rounded-circle") %>
+        <%= image_tag(@room.image, class: "picture-rounded fill") %>
       <% else %>
-      <i class="far fa-building fa-2x"></i>
+        <div class="picture-rounded d-flex justify-content-center align-items-center">
+          <i class="far fa-building fa-2x"></i>
+        </div>
       <% end %>
-  </span>
+  </div>
 
-  <div class="mx-3">
+  <div class="col mx-3">
       <h2><%= @room.display_name %></h2>
 
-      <span class="badge bg-primary">room</span> 
+      <span class="badge bg-primary">Room</span>
       <% @room.tags.each do |tag| %>
           <span class="badge bg-primary"><%= tag.name %></span>
       <% end %>
@@ -62,10 +64,9 @@
 <% if @room.people %>
   <p>
     <strong>People:</strong>
-    <% people_names = @room.people.map do |person| %>
-    <%  link_to(person.full_name, person_path(person)) %>
-    <%  end %>
-    <%= people_names.join(", ").html_safe %>
+    <% @room.people.map do |person| %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => person.full_name, :icon_class => 'fa-user'}), person_path(person) %>
+    <% end %>
   </p>
 <% end %>
 

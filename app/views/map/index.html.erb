@@ -26,6 +26,7 @@
     <% # Inject coordinates of selected room %>
     <script type="text/javascript" charset="utf-8">
         const selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
+        const points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
     </script>
   <% end %>
 
@@ -36,8 +37,6 @@
       <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
-
-    <%= content_tag :div, '', id: 'poi-data', data: { source: @points_of_interest } %>
 
     <% if @selected_room.present? %>
 	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
