@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex flex-row mb-4">
         <% if locals[:person] != nil && locals[:person].image.present? %>
-            <%= image_tag (locals[:person].image), class: "img-responsive my-2 mx-3 justify-content-center align-self-center rounded-circle picture-rounded", :size => "60x60"%>
+            <%= image_tag (locals[:person].image), class: "img-responsive my-2 mx-3 justify-content-center align-self-center picture-rounded", :size => "60x60"%>
         <% end %>
         <% if locals[:person] == nil || !locals[:person].image.present? %>
             <i class="fas fa-user my-2 mx-4 justify-content-center align-self-center" ></i>
