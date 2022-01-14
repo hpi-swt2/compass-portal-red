@@ -72,7 +72,11 @@ RSpec.describe IndoorHelper, type: :helper do
   end
 
   # Clean up db after tests
-  PointOfInterest.delete_all
-  Point.delete_all
-  Room.delete_all
+  after(:all) do
+    PointOfInterest.destroy_all
+    Point.destroy_all
+    Room.destroy_all
+    Floor.destroy_all
+    Building.destroy_all
+  end
 end

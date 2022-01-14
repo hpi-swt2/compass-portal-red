@@ -1,1 +1,36 @@
-<?xml version='1.0' encoding='UTF-8'?><osm version='0.6' generator='JOSM'>  <node id='-101755' action='modify' visible='true' lat='52.39417532053' lon='13.13278466329' />  <node id='-101757' action='modify' visible='true' lat='52.39414585897' lon='13.13203632697' /><node id='-101758' action='modify' visible='true' lat='52.39396908918' lon='13.13205912575' /><node id='-101759' action='modify' visible='true' lat='52.39400018762' lon='13.13280343875' /><node id='-101760' action='modify' visible='true' lat='52.39409593794' lon='13.13227236137'> <tag k='amenity' v='toilets' /><tag k='indoor' v='room' /><tag k='male' v='yes' /><tag k='name' v='ToiletMale' /></node><node id='-101761' action='modify' visible='true' lat='52.39402228387' lon='13.1322830902'><tag k='amenity' v='toilets' /><tag k='female' v='yes' />    <tag k='indoor' v='room' /><tag k='name' v='ToiletFemale' /></node><node id='-101762' action='modify' visible='true' lat='52.39398422012' lon='13.1324212709'><tag k='entrance' v='yes' /><tag k='name' v='FrontEntrance' />  </node>  <node id='-101763' action='modify' visible='true' lat='52.39416195682' lon='13.13244521932'><tag k='entrance' v='yes' /><tag k='name' v='BackEntrance' /></node><way id='-101782' action='modify' visible='true'><nd ref='-101755' /><nd ref='-101763' /><nd ref='-101757' /><nd ref='-101758' /><nd ref='-101762' /><nd ref='-101759' /><nd ref='-101755' /><tag k='indoor' v='room' /><tag k='name' v='ExampleRoom' /></way></osm>
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-101755' action='modify' visible='true' lat='52.39417532053' lon='13.13278466329' />
+  <node id='-101757' action='modify' visible='true' lat='52.39414585897' lon='13.13203632697' />
+  <node id='-101758' action='modify' visible='true' lat='52.39396908918' lon='13.13205912575' />
+  <node id='-101759' action='modify' visible='true' lat='52.39400018762' lon='13.13280343875' />
+  <node id='-101760' action='modify' visible='true' lat='52.39409593794' lon='13.13227236137'>
+    <tag k='amenity' v='toilets' />
+    <tag k='indoor' v='room' />
+    <tag k='male' v='yes' />
+    <tag k='name' v='ToiletMale' />
+  </node>
+  <node id='-101761' action='modify' visible='true' lat='52.39402228387' lon='13.1322830902'>
+    <tag k='amenity' v='toilets' />
+    <tag k='female' v='yes' />
+    <tag k='indoor' v='room' />
+    <tag k='name' v='ToiletFemale' />
+  </node>
+  <node id='-101762' action='modify' visible='true' lat='52.39398422012' lon='13.1324212709'>
+    <tag k='entrance' v='yes' />
+    <tag k='name' v='FrontEntrance' />
+  </node>
+  <node id='-101763' action='modify' visible='true' lat='52.39416195682' lon='13.13244521932'>
+    <tag k='entrance' v='yes' />
+    <tag k='name' v='BackEntrance' />
+  </node>
+  <way id='-101782' action='modify' visible='true'>
+    <nd ref='-101755' />
+    <nd ref='-101763' /><nd ref='-101757' />
+    <nd ref='-101758' />
+    <nd ref='-101762' /><nd ref='-101759' />
+    <nd ref='-101755' />
+    <tag k='indoor' v='room' />
+    <tag k='name' v='ExampleRoom' />
+  </way>
+</osm>
