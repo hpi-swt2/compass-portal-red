@@ -4,7 +4,15 @@ const buildRoomLayer = (room) => {
     if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
 
     const roomLayer = L.geoJSON(room.geoJson,
-        {style: IndoorStyle});
+        {
+            style: {
+                ...IndoorStyle,
+                color: 'rgba(0, 0, 0, 0)',
+            },
+            pane: 'rooms',
+        }
+    );
+    
     const roomTooltip = L.tooltip({
         permanent: true,
         interactive: true,
@@ -24,6 +32,8 @@ const buildRoomLayer = (room) => {
     layers[room.fullName] = L.layerGroup()
         .addTo(mymap)
         .addLayer(roomLayer);
+
+    roomLayer.closeTooltip(roomTooltip);
 }
 
 export const buildIndoorMap = () => {
@@ -31,6 +41,8 @@ export const buildIndoorMap = () => {
     if(window.roomsToBuild == null) {
         console.error('Expected to receive rooms to build, but "roomsToBuild" is null.');
     } else {
+        mymap.createPane('rooms');
+
         window.roomsToBuild.forEach(room => {
             buildRoomLayer(room)
         })
