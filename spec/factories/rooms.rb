@@ -13,7 +13,7 @@ FactoryBot.define do
     tags do
       [(FactoryBot.create :tag), (FactoryBot.create :tag, :printer)]
     end
-    room_types { [(build :room_type, name: "Hörsal")] }
+    room_types { [(build :room_type, name: "lecture hall")] }
     chairs { [(build :chair, name: "EPIC")] }
     walls { [(build :wall)] }
     people { [(build :person, first_name: "Michael", last_name: "Perscheid")] }
