@@ -12,6 +12,7 @@
   <tbody>
     <% @chairs.each do |chair| %>
       <tr>
+        <td>Chair name: <%= chair.name%></td>
         <td><%= link_to 'Show', chair %></td>
         <td><%= link_to 'Edit', edit_chair_path(chair) %></td>
         <td><%= link_to 'Destroy', chair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
