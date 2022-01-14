@@ -2,7 +2,7 @@
 class Floor < ApplicationRecord
   validates :name, presence: true
   
-  has_many :rooms, dependent: :nullify
+  has_many :rooms, dependent: :destroy
   belongs_to :building
 
   def to_geojson
