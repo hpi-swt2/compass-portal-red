@@ -39,8 +39,10 @@ class PeopleController < ApplicationController
 
   # PATCH/PUT /people/1 or /people/1.json
   def update
+    params_to_update = person_params
+
     respond_to do |format|
-      if @person.update(person_params)
+      if @person.update(params_to_update)
         format.html { redirect_to @person, notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -79,15 +81,15 @@ class PeopleController < ApplicationController
     Person.verification_attributes.each do |verification_attr|
       if params[:person][verification_attr] == "1"
         params[:person][verification_attr] = DateTime.now
-        delete_data_problem(:person, verification_attr)
+        delete_data_problem(params[:id], verification_attr)
       else
         params[:person].delete verification_attr
       end
     end
   end
 
-  def delete_data_problem(person, verification_attr)
-    field = verified_attribute_to_field(verification_attr)
-    DataProblem.where(["person_id = ? and field = ?", person.id, field]).destroy_all
+  def delete_data_problem(person_id, verification_attr)
+    field = Person.verified_attribute_to_field(verification_attr)
+    DataProblem.where(["person_id = ? and field = ?", person_id, field]).destroy_all
   end
 end

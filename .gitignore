@@ -82,3 +82,10 @@ app/assets/images/people/*
 
 /config/master.key
 .people_urls.json
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
