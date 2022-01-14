@@ -9,7 +9,6 @@ class SearchableRecord < ApplicationRecord
   def self.searchable_relations
     joins([])
   end
-  
 
   def to_string
     raise 'This method should be overriden to display a string when searching'
