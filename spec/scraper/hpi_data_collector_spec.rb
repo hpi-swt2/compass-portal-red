@@ -31,39 +31,39 @@ RSpec.describe HpiDataCollector, type: :feature do
       person_url = ['Dr. Michael Perscheid', '/html_mocks/table.html']
       person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-      expect(person_data).to eq(
+      expect(person_data).to include(
         website: "#{base_url}#{person_url[1]}",
         email: 'michael.perscheid(at)hpi.de',
         phone: '+49 (331) 5509-566',
-        office: 'Campus II (Villa), V-2.18',
-        image: '/assets/images/people/Michael_Perscheid_Portrait_120x160.jpg'
+        office: 'Campus II (Villa), V-2.18'
       )
+      expect(person_data[:image].filename).to eq('Michael_Perscheid_Portrait_120x160.jpg')
     end
 
     it "scrapes an HPI web page where people data is stored in an HTML paragraph" do
       person_url = ['Hannah Marienwald', '/html_mocks/paragraph.html']
       person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-      expect(person_data).to eq(
+      expect(person_data).to include(
         website: "#{base_url}#{person_url[1]}",
         email: 'Hannah.Marienwald(at)hpi.de',
         phone: '+49-(0) 331 5509 - 4865',
-        office: 'F-1.06',
-        image: '/assets/images/people/csm_HMarienwald_a0d164a1a3.jpg'
+        office: 'F-1.06'
       )
+      expect(person_data[:image].filename).to eq('csm_HMarienwald_a0d164a1a3.jpg')
     end
 
     it "scrapes an HPI web page where multiple people share the same page" do
       person_url = ['Lisa Rüppner', '/html_mocks/multiple_people.html']
       person_data = data_collector.get_scraping_info(person_url[0], person_url[1])
 
-      expect(person_data).to eq(
+      expect(person_data).to include(
         website: "#{base_url}#{person_url[1]}",
         email: 'lisa.rueppner(at)hpi.de',
         phone: '+49-(0)331 5509-120',
-        office: 'B-1.12',
-        image: '/assets/images/people/Lisa_R%C3%BCppner_180x240.jpg'
+        office: 'B-1.12'
       )
+      expect(person_data[:image].filename).to be_an(ActiveStorage::Filename)
     end
 
   end

@@ -7,13 +7,12 @@ class Person < SearchableRecord
   has_and_belongs_to_many :chairs
   belongs_to :room, optional: true, dependent: :destroy
   belongs_to :user, optional: true, dependent: :destroy
-
-  before_save :normalize_blank_image
+  has_one_attached :image, dependent: :destroy
 
   PLACEHOLDER_IMAGE_LINK = "placeholder_person.png".freeze
 
-  def normalize_blank_image
-    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
+  def image_or_placeholder
+    image.attached? ? image : PLACEHOLDER_IMAGE_LINK
   end
 
   def name
@@ -45,7 +44,7 @@ class Person < SearchableRecord
     VERIFICATION_ATTRIBUTES
   end
 
-  def verified_attribute_to_field(verification_attr)
+  def self.verified_attribute_to_field(verification_attr)
     return unless VERIFICATION_ATTRIBUTES.include? verification_attr
 
     verification_attr[15..].to_sym

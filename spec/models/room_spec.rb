@@ -40,8 +40,8 @@ RSpec.describe Room, type: :model do
       expect(room.walls).to eq([])
     end
 
-    it "contains an empty list of points of interests" do
-      expect(room.point_of_interests).to eq([])
+    it "contains an empty list of points" do
+      expect(room.points).to eq([])
     end
 
     it "contains an imagelink to the placeholder" do
@@ -62,7 +62,7 @@ RSpec.describe Room, type: :model do
   end
 
   describe "validation" do
-    let(:point_of_interest) { create :point_of_interest, point: point1 }
+    let(:point) { create :point }
     let(:outer_shape) do
       create :polyline,
              points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
@@ -74,7 +74,7 @@ RSpec.describe Room, type: :model do
       end
 
       it "points of interest" do
-        expect(room.point_of_interests).to eq([point_of_interest])
+        expect(room.points).to eq([point])
       end
 
       it "outer shape" do
@@ -99,7 +99,7 @@ RSpec.describe Room, type: :model do
       let(:room) do
         build :room,
               outer_shape: outer_shape,
-              point_of_interests: [point_of_interest],
+              points: [point],
               walls: []
       end
 
@@ -110,7 +110,7 @@ RSpec.describe Room, type: :model do
       let(:room) do
         create :room,
                outer_shape: outer_shape,
-               point_of_interests: [point_of_interest],
+               points: [point],
                walls: []
       end
 

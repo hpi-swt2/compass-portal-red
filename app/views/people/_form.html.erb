@@ -11,12 +11,13 @@
     </div>
   <% end %>
 
+  <%= render "form_image", :locals => { form: form, field_name: :image} %>
   <%= render "form_item", :locals => { form: form, field_name: :first_name} %>
   <%= render "form_item", :locals => { form: form, field_name: :last_name} %>
   <%= render "form_item", :locals => { form: form, field_name: :title} %>
   <%= render "form_item", :locals => { form: form, field_name: :email} %>
-  <%= render "form_item", :locals => { form: form, field_name: :image} %>
   <%= render "form_item", :locals => { form: form, field_name: :status} %>
+
 
 <!--
   TODO: Update other tables
