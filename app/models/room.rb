@@ -33,7 +33,7 @@ class Room < SearchableRecord
   end
 
   def self.searchable_relations
-    joins(:tags, :room_types)
+    [:tags, :room_types]
   end
 
   def display_name

@@ -7,7 +7,7 @@ class SearchableRecord < ApplicationRecord
   end
 
   def self.searchable_relations
-    joins([])
+    []
   end
 
   def to_string
@@ -21,6 +21,6 @@ class SearchableRecord < ApplicationRecord
   def self.search(query)
     attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
     search_string = attributes.join(" or ")
-    searchable_relations.where(search_string).group(:id)
+    joins(searchable_relations).where(search_string).group(:id)
   end
 end
