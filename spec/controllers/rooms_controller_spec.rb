@@ -37,7 +37,7 @@ RSpec.describe RoomsController, type: :controller do
       room.reload
 
       params.keys do |key|
-        expect(room.attributes[key.to_s].to(eq params[key]))
+        expect(room.attributes[key.to_s]).to eq(params[key])
       end
     end
   end

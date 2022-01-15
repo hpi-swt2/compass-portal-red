@@ -36,7 +36,7 @@ RSpec.describe BuildingsController, type: :controller do
       building.reload
 
       params.keys do |key|
-        expect(building.attributes[key.to_s].to(eq params[key]))
+        expect(building.attributes[key.to_s]).to eq(params[key])
       end
     end
   end

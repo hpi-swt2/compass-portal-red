@@ -37,7 +37,7 @@ RSpec.describe FloorsController, type: :controller do
       floor.reload
 
       params.keys do |key|
-        expect(floor.attributes[key.to_s].to(eq params[key]))
+        expect(floor.attributes[key.to_s]).to eq(params[key])
       end
     end
   end

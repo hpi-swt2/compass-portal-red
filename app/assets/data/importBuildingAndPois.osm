@@ -26,9 +26,11 @@
   </node>
   <way id='-101782' action='modify' visible='true'>
     <nd ref='-101755' />
-    <nd ref='-101763' /><nd ref='-101757' />
+    <nd ref='-101763' />
+    <nd ref='-101757' />
     <nd ref='-101758' />
-    <nd ref='-101762' /><nd ref='-101759' />
+    <nd ref='-101762' />
+    <nd ref='-101759' />
     <nd ref='-101755' />
     <tag k='indoor' v='room' />
     <tag k='name' v='ExampleRoom' />
