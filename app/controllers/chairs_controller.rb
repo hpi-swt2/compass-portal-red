@@ -19,7 +19,6 @@ class ChairsController < ApplicationController
 
   # POST /chairs or /chairs.json
   def create
-    puts(chair_params)
     @chair = Chair.new(chair_params)
 
     respond_to do |format|
