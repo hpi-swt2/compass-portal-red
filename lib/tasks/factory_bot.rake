@@ -4,7 +4,7 @@ require 'English'
 namespace :factory_bot do
   desc 'Verify that all FactoryBot factories are valid'
   task lint: :environment do
-    puts "Factories: #{FactoryBot.factories.instance_variable_get('@items').keys}"
+    puts "Factories: #{FactoryBot.factories.instance_variable_get(:@items).keys}"
     if Rails.env.test?
       conn = ActiveRecord::Base.connection
       conn.transaction do

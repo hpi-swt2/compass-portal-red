@@ -15,8 +15,8 @@ PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
 building = Building.create(name: "Allesgebäude")
 
 # Floors
-floor = Floor.create(name: "First Floor", building: building);
-floor2 = Floor.create(name: "Second Floor", building: building);
+floor = Floor.create(name: "First Floor", building: building)
+floor2 = Floor.create(name: "Second Floor", building: building)
 
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
