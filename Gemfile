@@ -45,6 +45,7 @@ gem 'omniauth' # https://github.com/omniauth/omniauth
 gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_connect
 
 gem 'open_uri_redirections'
+
 #
 # Gems that are loaded depending on the environment (development/test/production)
 #

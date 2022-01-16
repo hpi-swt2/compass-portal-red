@@ -4,7 +4,7 @@ RSpec.describe Room, type: :model do
   let(:point1) { create :point }
   let(:point2) { create :point, x: -1.5 }
 
-  describe "when creating the room it" do
+  context "when creating the room" do
     let(:room) { FactoryBot.create :room }
 
     it "has a chair relation" do
@@ -29,20 +29,23 @@ RSpec.describe Room, type: :model do
     expect(instance).to be_an_instance_of(described_class)
   end
 
-  describe "it should create new rooms with an empty list of" do
-    it "points in the outer shape" do
-      room = described_class.new
+  context "when creating new rooms" do
+    let(:room) { described_class.new }
+
+    it "contains an empty list of points in the outer shape" do
       expect(room.outer_shape.points).to eq([])
     end
 
-    it "walls" do
-      room = described_class.new
+    it "contains an empty list of walls" do
       expect(room.walls).to eq([])
     end
 
-    it "points of interests" do
-      room = described_class.new
-      expect(room.point_of_interests).to eq([])
+    it "contains an empty list of points" do
+      expect(room.points).to eq([])
+    end
+
+    it "contains an imagelink to the placeholder" do
+      expect(room.image).to match("placeholder_room.png")
     end
   end
 
@@ -59,36 +62,36 @@ RSpec.describe Room, type: :model do
   end
 
   describe "validation" do
-    let(:point_of_interest) { create :point_of_interest, point: point1 }
+    let(:point) { create :point }
     let(:outer_shape) do
       create :polyline,
              points: [point1, (create :point, y: -1.5), (create :point, x: -1.5, y: -1.5), point2]
     end
+    let(:floor) { create :floor }
 
     shared_examples "room with corresponding argument" do
-      it "wall" do
+      it "has no walls" do
         expect(room.walls).to eq([])
       end
 
-      it "points of interest" do
-        expect(room.point_of_interests).to eq([point_of_interest])
+      it "has the specified points" do
+        expect(room.points).to eq([point])
       end
 
-      it "outer shape" do
+      it "has the specified outer shape" do
         expect(room.outer_shape).to eq(outer_shape)
       end
 
-      it "valid" do
+      it "is valid" do
         expect(room).to be_valid
       end
 
-      it "a building" do
-        building = create :building
-        room.building = building
+      it "has the specified floor" do
+        room.floor = floor
         room.save!
 
         db_room = described_class.find(room.id)
-        expect(db_room.building).to eq(building)
+        expect(db_room.floor).to eq(floor)
       end
     end
 
@@ -96,7 +99,7 @@ RSpec.describe Room, type: :model do
       let(:room) do
         build :room,
               outer_shape: outer_shape,
-              point_of_interests: [point_of_interest],
+              points: [point],
               walls: []
       end
 
@@ -107,15 +110,15 @@ RSpec.describe Room, type: :model do
       let(:room) do
         create :room,
                outer_shape: outer_shape,
-               point_of_interests: [point_of_interest],
+               points: [point],
                walls: []
       end
 
       it_behaves_like "room with corresponding argument"
 
-      it "even without a building" do
-        room.building = nil
-        expect(room).to be_valid
+      it "even without a floor" do
+        room.floor = nil
+        expect(room).not_to be_valid
       end
 
       it "unless there is no outer shape" do

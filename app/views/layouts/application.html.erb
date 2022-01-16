@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HPI Compass Portal</title>
+    <% title = yield(:title).chop! %>
+    <title><%= title || "HPI Compass Portal" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,11 +13,13 @@
 
   <body>
     <%= render 'layouts/navbar' %>
+    <%= render 'layouts/titlebar' %>
     <%= render 'layouts/alerts' %>
     <%# https://getbootstrap.com/docs/5.0/layout/containers/ %>
     <%# https://getbootstrap.com/docs/5.0/utilities/spacing/ %>
-    <div class="container mt-5"> <%# mt-5 == margin-top: 5*spacer %>
+    <div class="container mt-5 mb-5">
       <%= yield %>
     </div>
+    <%= render 'layouts/bottombar' %>
   </body>
 </html>

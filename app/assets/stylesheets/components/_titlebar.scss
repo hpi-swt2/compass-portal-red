@@ -1,0 +1,17 @@
+@import "values";
+@import "colors";
+
+.titlebar {
+    position: fixed;
+    top: 0;
+    display: none !important;
+    z-index: 1000;
+    background-color: $hpi-red;
+    height: $titlebar-height;
+}
+
+@media only screen and (max-width: 400px) {
+    .titlebar {
+        display: block !important;
+    }
+}

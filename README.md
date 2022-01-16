@@ -49,6 +49,11 @@ Ensure you have access to a Unix-like environment through:
 * `bundle exec rails db:migrate RAILS_ENV=development && bundle exec rails db:migrate RAILS_ENV=test` Migrate both test and development databases
 * `rails assets:clobber && rails webpacker:compile` Redo asset compilation
 
+#### Mapbox 
+
+To use the map's routing capabilities, you will need an access token for the [Mapbox](https://www.mapbox.com/) directions API.
+Place this token in an environment variable called MAPBOX_ACCESS_TOKEN
+
 ### Testing
 * `bundle exec rspec` Run the full test suite
   * `--format doc` More detailed test output

@@ -23,7 +23,10 @@
 
 <div class="field">
   <%= form.label :floor %>
-  <%= form.text_field :floor %>
+  <%= form.select 'floor_id',
+    options_from_collection_for_select(Floor.all, :id, :name, room.floor_id),
+    {},
+    multiple: false, size: 10 %>
 </div>
 
 <div class="field">
@@ -59,9 +62,9 @@
 </div>
 
 <div class="field">
-  <%= form.label :point_of_interest %>
-  <%= form.select 'point_of_interest_ids',
-    options_from_collection_for_select(PointOfInterest.all, :id, :name, room.point_of_interest_ids),
+  <%= form.label :points %>
+  <%= form.select 'point_ids',
+    options_from_collection_for_select(Point.all, :id, :id, room.point_ids),
     {},
     multiple: true, size: 10 %>
 </div>

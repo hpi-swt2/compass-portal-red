@@ -1,4 +1,4 @@
-const buildings = JSON.parse(`[
+export const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
@@ -1325,7 +1325,7 @@ const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"main<br>building",
+          "name":"Main<br>building",
           "campus":"Campus I",
           "offset": [-5, -30]
        },
@@ -2451,4 +2451,83 @@ const buildings = JSON.parse(`[
         ]
       }
     }
- ]`)
+ ]`);
+
+const points_of_interest = JSON.parse(`[
+   {
+       "type": "Feature",
+       "properties": {
+           "type": "Entrance",
+           "name": "Entrance Mensa",
+           "description": "This is a cheap place to eat.",
+           "offset": [
+               -14,
+               0
+           ]
+       },
+       "geometry": {
+           "type": "Point",
+           "coordinates": [
+                13.128548367356524,
+                52.39319714447824
+           ]
+       }
+   },
+   {
+       "type": "Feature",
+       "properties": {
+           "type": "Entrance",
+           "name": "Entrance Ulfs Cafe",
+           "description": "This is a nice place to eat.",
+           "offset": [
+               -14,
+               0
+           ]
+       },
+       "geometry": {
+           "type": "Point",
+           "coordinates": [
+               13.131130141391496,
+               52.393314344627576
+           ]
+       }
+   },
+   {
+       "type": "Feature",
+       "properties": {
+           "type": "Entrance",
+           "name": "Entrance 1 Lecture Hall Building",
+           "description": "This is a place to educate yourself.",
+           "offset": [
+               -14,
+               0
+           ]
+       },
+       "geometry": {
+           "type": "Point",
+           "coordinates": [
+               13.132361790785035,
+               52.39398968816178
+           ]
+       }
+   },
+   {
+       "type": "Feature",
+       "properties": {
+           "type": "Entrance",
+           "name": "Entrance 2 Lecture Hall Building",
+           "description": "This is a place to educate yourself.",
+           "offset": [
+               -14,
+               0
+           ]
+       },
+       "geometry": {
+           "type": "Point",
+           "coordinates": [
+               13.132477744533185,
+               52.39418764236647
+           ]
+       }
+   }
+]`);
