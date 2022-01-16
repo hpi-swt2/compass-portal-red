@@ -96,7 +96,6 @@ room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
 end
 
-
 Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
 Tag.create(name: "working", rooms: [Room.find(5), Room.find(3)])
 Tag.create(name: "printer", rooms: [Room.find(4)])
