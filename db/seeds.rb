@@ -90,19 +90,19 @@ point_list = [
   { x: 13.132060803305361, y: 52.39403742316715 },
   { x: 13.132064826618882, y: 52.39400100528661 },
   { x: 13.1324212709, y: 52.39398422012 },
-  { x: 13.13244521932, y: 52.39416195682 }
+  { x: 13.13244521932, y: 52.39416195682 },
+  { x: 13.131646, y: 52.393869 },
+  { x: 13.132215, y: 52.393793 },
+  { x: 13.133757, y: 52.394414 },
+  { x: 13.13130, y: 52.39335 }
 ]
 point_of_interest_list = [
   { point_id: 40, description: "accessible", name: "Entrance" },
   { point_id: 41, description: "accessible", name: "Entrance" },
-  { point: Point.create(x: 13.131646, y: 52.393869),
-    description: 'This is Mr. Net, a landmark of the HPI.', name: 'Mr. Net' },
-  { point: Point.create(x: 13.132215, y: 52.393793),
-    description: 'This is Lake HPI.', name: 'Lake HPI' },
-  { point: Point.create(x: 13.133757, y: 52.394414),
-    description: 'This area is used for free time activities by HPI students.', name: 'Meadow' },
-  { point: Point.create(x: 13.13130, y: 52.39335),
-    description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe' }
+  { point_id: 42, description: 'This is Mr. Net, a landmark of the HPI.', name: 'Mr. Net' },
+  { point_id: 43, description: 'This is Lake HPI.', name: 'Lake HPI' },
+  { point_id: 44, description: 'This area is used for free time activities by HPI students.', name: 'Meadow' },
+  { point_id: 45, description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe' }
 
 ]
 polyline_list = [
