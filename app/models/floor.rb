@@ -6,6 +6,6 @@ class Floor < ApplicationRecord
   belongs_to :building
 
   def to_geojson
-    # TODO
+    rooms.map(&:to_geojson).flatten
   end
 end
