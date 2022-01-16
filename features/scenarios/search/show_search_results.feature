@@ -13,7 +13,7 @@ Feature: Search functionality
     And I start the search
     Then I see the search result "Dr Michael Perscheid"
 
-  Scenario: searching a room_type
+  Scenario: searching a room tag
     Given I am on the search page
     When I enter "printer"
     And I start the search
