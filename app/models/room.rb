@@ -39,7 +39,7 @@ class Room < SearchableRecord
   end
 
   def self.searchable_relations
-    [:floors, :tags, :room_types]
+    [:floor, :tags, :room_types]
   end
 
   def name
