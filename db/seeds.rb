@@ -49,11 +49,11 @@ room_list = [
   [ "A-1.15", floor2, "A-1.15"]
 ]
 room_type_list = [
-  ["Seminarraum" ],
-  ["Hörsaal" ],
-  ["Büro" ],
-  ["Toilette" ],
-  ["Bachelorprojekt"]
+  ["seminar room" ],
+  ["lecture hall" ],
+  ["office" ],
+  ["toilet" ],
+  ["bachelor project"]
 ]
 person_collection = []
 
@@ -96,10 +96,10 @@ room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
 end
 
-Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
-Tag.create(name: "Drucker", rooms: [Room.find(4)])
-Tag.create(name: "Ruhig", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "Viel zu laut", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
+Tag.create(name: "working", rooms: [Room.find(5), Room.find(3)])
+Tag.create(name: "printer", rooms: [Room.find(4)])
+Tag.create(name: "quiet", rooms: [Room.find(2), Room.find(1), Room.find(3)])
 
 Room.find(1).room_types << RoomType.find(3)
 Room.find(2).room_types << RoomType.find(3)
