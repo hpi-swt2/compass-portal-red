@@ -30,10 +30,11 @@
     <div class='row'>
       <div class='col-3'> room </div>
       <div class='col'>
-        <%= link_to render('partials/iconbutton', :locals => {:text => @person.room.display_name, :icon_class => 'fa-building'}), room_path(@person.room) %>
+        <%= link_to render('partials/iconbutton', :locals => {:text => @person.room.name, :icon_class => 'fa-building'}), room_path(@person.room) %>
       </div>
     </div>
   <% end %>
 </div>
+
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>
