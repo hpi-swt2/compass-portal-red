@@ -35,7 +35,7 @@ class Room < SearchableRecord
   end
 
   def self.searchable_attributes
-    %w[floor number full_name room_types.name tags.name]
+    %w[number full_name room_types.name tags.name floors.name]
   end
 
   def self.searchable_relations
