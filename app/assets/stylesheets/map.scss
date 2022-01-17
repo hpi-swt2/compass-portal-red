@@ -19,6 +19,10 @@
     width: 100%;
     height: 100%;
 }
+#welcome-routing-text {
+  background-color: white;
+  text-align: center;
+}
 @media only screen and (max-width: 640px) {
     .hpi-map {
         width: 100%;
@@ -31,15 +35,18 @@
     .leaflet-routing-collapse-btn {
         display: none !important;
     }
+    .routing-stop-button {
+      width: 100%;
+    }
+    #StopNavigation {
+      width: 100% !important;
+    }
     .leaflet-routing-geocoders {
-        display: none !important;
+      display: none !important;
     }
-    input:not(:placeholder-shown) {
-        display: none !important;
+    table {
+      display: none !important;
     }
-    // #StopNavigation {
-    //     display: block !important;
-    // }
 }
 
 .leaflet {
