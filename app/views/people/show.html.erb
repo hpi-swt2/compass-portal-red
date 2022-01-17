@@ -15,7 +15,7 @@
   </div>
   <div class='row'>
     <div class='col-3'> email </div>
-    <div class='col'> <%= @person.email %> </div>
+    <div class='col'> <%= @person.email.gsub('@', '(at)') if @person.email %> </div>
   </div>
   <% @person.informations.each do |information| %>
     <div class='row'>
