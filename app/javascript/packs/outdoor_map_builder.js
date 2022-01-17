@@ -128,8 +128,6 @@ L.control.layers(null, layers).addTo(mymap);
 
 console.log("[MAP] Layers built");
 
-window.positions = []
-
 // TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
 // mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
 
@@ -139,65 +137,62 @@ console.log(window.location.host + '/directions')
 
 // routingControl does everything related to navigation
 window.routingControl = L.Routing.control({
-    // the router is responsible for calculating the route
-    router: new Router(
-        {
-            serviceUrl: window.location.origin + '/directions',
-            useHints: false,
-            profile: 'walking',
-            routingOptions: {
-                'walkway_bias': 1,
-                'walking_speed': 5
-            },
-        }
-    ),
-    // the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
-    plan: L.Routing.plan(positions, {
-        createMarker: function(i, wp) {
-            return L.marker(wp.latLng, {
-                draggable: true,
-                icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
-            });
-        },
-        geocoder: L.Control.Geocoder.nominatim()
-    }),
-    collapsible: true,
-    show: false,
-    routeWhileDragging: true,
-    autoRoute: false,
-    lineOptions: {
-        styles: [{ color: 'blue' }]
-    }
+	// the router is responsible for calculating the route
+  router: new Router({
+    serviceUrl: window.location.origin + '/directions',
+    useHints: false,
+    profile: 'walking',
+    routingOptions: {
+      'walkway_bias': 1,
+      'walking_speed': 5
+    },
+  }),
+	// the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
+	plan: L.Routing.plan([], {
+		createMarker: function(i, wp) {
+			return L.marker(wp.latLng, {
+				draggable: true,
+				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
+			});
+		},
+	  geocoder: L.Control.Geocoder.nominatim()
+	}),
+	collapsible: true,
+	show: false,
+	routeWhileDragging: true,
+	autoRoute: false,
+  lineOptions: {
+    styles: [{ color: 'blue' }]
+  }
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
     document.getElementById('StopNavigation').style.display = 'block';
 })
 .on('waypointschanged', (e)=>{
-    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
-    var waypoints = routingControl.getWaypoints()
-    positions = []
-    // waypoints[0].latLng and [1].latLng are not null if they were set by the user 
-    if (waypoints[0].latLng != null)
-        positions.push(waypoints[0].latLng)
-    if (waypoints[1].latLng != null)
-        positions.push(waypoints[1].latLng)
-    // if we have both a start and endpoint, we show the routingControl
-    if (positions.length === 2)
-        routingControl.show()
-    // always calculate the route to show the 'A' marker if only one waypoint is set
-    routingControl.route()
+	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+  routingControl.show()
+	// always calculate the route to show the 'A' marker if only one waypoint is set
+	routingControl.route()
 });
 
+function navigateTo(position) {
+  console.log(position)
+  mymap.locate() /* This will return map so you can do chaining */
+  .off('locationfound')
+  .on('locationfound', function(e){
+    routingControl.setWaypoints([e.latlng, position])
+  })
+  .off('locationerror')
+  .on('locationerror', function(e){
+    console.log("location error. Use previous start point for navigation")
+    const previousStart = routingControl.getWaypoints()[0]
+    routingControl.setWaypoints([previousStart, position])
+  });
+}
+
 function onMapClick(e) {
-    var pos = e.latlng
-    positions.push(pos)
-    // by inserting a third waypoint, the very first inserted waypoint won't be considered for the route anymore
-    if (positions.length === 3) {
-        positions.shift()
-    }
-    // all the calculations will be done within the 'waypointschanged' handler of the routingControl
-    routingControl.setWaypoints(positions)
+  navigateTo(e.latlng)
 }
 
 // Build the stop buton and insert it into the routingControl-plan
@@ -212,9 +207,8 @@ function onMapClick(e) {
         onclick="
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
-            positions = []
             routingControl.hide()
-            routingControl.setWaypoints(positions).route()" 
+            routingControl.setWaypoints([]).route()" 
         class="stop-button" 
         style="
             width: 100px; 
