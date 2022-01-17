@@ -7,7 +7,7 @@ RSpec.describe "people/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(person.email)
+    expect(rendered).to match(person.email.gsub('@', '(at)'))
     expect(rendered).to have_selector('h1', text: person.full_name)
     expect(rendered).to match(url_for(person.image))
     expect(rendered).to match(person.status)
