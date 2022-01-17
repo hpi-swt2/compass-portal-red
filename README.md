@@ -27,8 +27,13 @@ Ensure you have access to a Unix-like environment through:
 * `bundle config set without 'production' && bundle install` Install gem dependencies from `Gemfile`
 * `yarn install` Install JS dependencies from `package.json`
 * `rails db:migrate` Setup the database, run migrations
+* `rails db:reset` Seeds the database
 * `rails s` Start dev server (default port _3000_ required for local [HPI OpenID Connect](https://oidc.hpi.de/))
 * `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
+
+### Commands to run after pulling new changes
+* `rails db:migrate`
+* `rails db:reset`
 
 ## Developer Guide
 
