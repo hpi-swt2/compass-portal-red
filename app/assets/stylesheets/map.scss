@@ -1,28 +1,27 @@
-.leaflet-tooltip.marker_label{
-    border-radius: 20px;
-    background-color: transparent;
-    font-weight: bold;
-    border: None;
-    color: black;
-    box-shadow: None;
-    font-family: Roboto, "Open Sans", sans-serif;
+@import "values";
+
+.leaflet-tooltip.marker_label {
+  border-radius: 20px;
+  background-color: transparent;
+  font-weight: bold;
+  border: None;
+  color: black;
+  box-shadow: None;
+  font-family: Roboto, "Open Sans", sans-serif;
 }
-.leaflet-tooltip-top:before, 
-.leaflet-tooltip-bottom:before, 
-.leaflet-tooltip-left:before, 
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
 .leaflet-tooltip-right:before {
-    border: none !important;
+  border: none !important;
 }
 
-body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.leaflet {
+  height: calc(100% - #{$navbar-height});
 }
 
-.container {
-    max-width: unset;
-    flex-grow: 1;
-    padding: unset;
-    margin: unset !important;
+@media only screen and (max-width: 400px) {
+  .leaflet {
+    height: calc(100% - #{$navbar-height} - #{$titlebar-height});
+  }
 }

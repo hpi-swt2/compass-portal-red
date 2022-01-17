@@ -35,14 +35,10 @@ class HpiWebScraper
     # Get the file name without complete file path
     index = img_src.rindex("/")
     file_name = img_src[index + 1, img_src.length - 1]
-
-    relative_file_path = "/assets/images/people/#{file_name}"
-    more_relative_file_path = "public#{relative_file_path}"
-    file_path = Rails.root.join(more_relative_file_path)
-    File.open(file_path, 'wb') do |f|
-      f.write URI(img_src).open.read
-    end
-
-    relative_file_path
+    file = URI(img_src).open
+    ActiveStorage::Blob.create_and_upload!(
+      io: file,
+      filename: file_name
+    )
   end
 end

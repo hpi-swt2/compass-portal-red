@@ -1,14 +1,19 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+building = Building.create(name: "lecture hall")
+
+# Floors
+floor = Floor.create(name: "First Floor", building: building)
+floor2 = Floor.create(name: "Second Floor", building: building)
 
 person_list = [
-  [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "https://via.placeholder.com/150",
+  [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
     "Chair Representative" ],
-  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "https://via.placeholder.com/150", "Professor" ],
-  [ "mr.net@hpi.de", "Mr.", "Net", "", "https://via.placeholder.com/150", "" ],
+  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "", "Professor" ],
+  [ "mr.net@hpi.de", "Mr.", "Net", "", "", "" ],
   [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg",
     "Tutor" ],
-  [ "biene.maya@kika.de", "Maya", "Biene", "", "https://via.placeholder.com/150", "Extern" ]
+  [ "biene.maya@kika.de", "Maya", "Biene", "", "", "Extern" ]
 ]
 chair_list = [
   "Enterprise Platform and Integration Concepts",
@@ -24,23 +29,22 @@ information_list = [
   [ "signal", "@morpheus" ],
   [ "website", "diebienemaya.de" ]
 ]
-building_list = [{}, {}, {}, {}]
 room_list = [
-  ["V-2.18", "2", "Campus II (Villa), V-2.18", nil, 2],
-  ["V-2.12", "2", "Campus II (Villa), V-2.18", nil, 2],
-  ["H-E.51", "E", "Campus I, H-E.51", nil, 3],
-  ["H-2.3", "2", "Bachelorprojekt Baudisch", nil, 3],
-  ["A-1.15", "1", "A-1.15", nil, 4]
+  [ "V-2.18", floor, "Campus II (Villa), V-2.18"],
+  [ "V-2.12", floor, "Campus II (Villa), V-2.18"],
+  [ "H-E.51", floor, "Campus I, H-E.51"],
+  [ "H-2.3", floor, "Bachelorprojekt Baudisch"],
+  [ "A-1.15", floor2, "A-1.15"]
 ]
 hs_rooms = [
-  [nil, "E", "HS 3", 1, 1],
-  [nil, "E", "Passage", 2, 1],
-  [nil, "E", "HS 2", 3, 1],
-  [nil, "E", "Foyer", 4, 1],
-  [nil, "E", "R1", 5, 1],
-  [nil, "E", "R2", 6, 1],
-  [nil, "E", "R3", 7, 1],
-  [nil, "E", "HS Building", 8, 1]
+  [floor, "HS 3", 1, floor.building],
+  [floor, "Passage", 2, floor.building],
+  [floor, "HS 2", 3, floor.building],
+  [floor, "Foyer", 4, floor.building],
+  [floor, "R1", 5, floor.building],
+  [floor, "R2", 6, floor.building],
+  [floor, "R3", 7, floor.building],
+  [floor, "HS Building", 8, floor.building]
 ]
 room_type_list = [
   ["Seminarraum" ],
@@ -118,8 +122,13 @@ polyline_list = [
 person_collection = []
 
 person_list.each do |email, first_name, last_name, title, image, status|
-  person_collection << Person.create(email: email, first_name: first_name, last_name: last_name, title: title, image: image,
-                                     status: status)
+  p_to_add = Person.create(email: email, first_name: first_name, last_name: last_name, title: title,
+                           status: status)
+  if image.present?
+    Rails.logger.debug { "Downloading image! #{image} " }
+    p_to_add.image.attach(io: URI(image).open, filename: "test.png")
+  end
+  person_collection << p_to_add
 end
 
 bundle = person_collection.zip chair_list
@@ -143,10 +152,6 @@ Information.create(key: "patent", value: "6", person: person_collection[3])
 
 bundle = person_collection.zip room_list
 
-building_list.each do |building|
-  Building.create(building)
-end
-
 point_list.each do |point|
   Point.create(point)
 end
@@ -160,12 +165,13 @@ polyline_list.each do |polyline_points|
 end
 
 bundle.each do |person, room|
-  Room.create(number: room[0], floor: room[1], full_name: room[2], building_id: room[4], people: [person])
+  Room.create(number: room[0], floor: room[1], full_name: room[2], people: [person])
 end
 
 hs_rooms.each do |room|
-  outer_shape = Polyline.find(room[3]) if room[3].present?
-  Room.create(number: room[0], floor: room[1], full_name: room[2], outer_shape: outer_shape, building_id: room[4])
+  outer_shape = Polyline.find(room[2]) if room[2].present?
+  room = Room.create(floor: room[0], full_name: room[1], outer_shape: outer_shape)
+  puts room.outer_shape.id
 end
 
 room_type_list.each do |room_type|

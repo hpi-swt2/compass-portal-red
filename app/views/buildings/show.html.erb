@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @building.name %>
+</p>
+
+<% if @building.floors %>
+  <p>
+    <strong>Floors:</strong>
+    <% floor_names = @building.floors.map do |floor| %>
+    <%  link_to(floor.name, floor_path(floor)) %>
+    <%  end %>
+    <%= floor_names.join(", ").html_safe %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_building_path(@building) %> |
+<%= link_to 'Back', buildings_path %>

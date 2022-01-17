@@ -1,4 +1,4 @@
-const buildings = JSON.parse(`[
+export const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
@@ -1325,7 +1325,7 @@ const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"main<br>building",
+          "name":"Main<br>building",
           "campus":"Campus I",
           "offset": [-5, -30]
        },

@@ -1,0 +1,23 @@
+<div class="map-popup card shadow-sm p-2">
+  <div class="card-body">
+    <div class="card-heading d-flex flex-row mb-4">
+        <span class="icon-dot d-flex flex-column justify-content-center align-items-center">
+            <i class="far fa-building fa-2x"></i>
+        </span>
+
+        <div class="mx-3">
+            <h2><%= locals[:room].name %></h2>
+
+            <span class="badge bg-primary">room</span> 
+            <% locals[:room].tags.each do |tag| %>
+                <span class="badge bg-primary"><%= tag.name %></span>
+            <% end %>
+        </div>
+    </div>
+    
+    <div class="d-flex flex-row justify-content-start iconbuttons">
+        <%= link_to render('partials/iconbutton', :locals => {:text => 'Detailpage', :icon_class => 'fa-list'}), room_path(locals[:room]) %>
+        <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
+    </div>
+  </div>
+</div>
