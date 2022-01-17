@@ -46,10 +46,10 @@ hs_rooms = [
   ['D-K.3', floor2, "HS toilet (m)", 5]
 ]
 room_type_list = [
-  ["Hörsaal" ],
-  ["Küche"],
-  ["Freizeit"],
-  ["Toilette"]
+  ["lecture hall" ],
+  ["kitchen"],
+  ["lounge"],
+  ["toilet"]
 ]
 point_list = [
   { x: 13.13197497245, y: 52.39424529105 },
@@ -174,10 +174,10 @@ room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
 end
 
-Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
-Tag.create(name: "Drucker", rooms: [Room.find(4)])
-Tag.create(name: "Ruhig", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "Viel zu laut", rooms: [Room.find(8), Room.find(10), Room.find(4)])
+Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
+Tag.create(name: "printer", rooms: [Room.find(4)])
+Tag.create(name: "quiet", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+Tag.create(name: "too loud", rooms: [Room.find(8), Room.find(10), Room.find(4)])
 
 Room.find(1).room_types << RoomType.find(1)
 Room.find(2).room_types << RoomType.find(3)
