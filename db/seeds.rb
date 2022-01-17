@@ -37,14 +37,14 @@ room_list = [
   [ "A-1.15", floor2, "A-1.15"]
 ]
 hs_rooms = [
-  [floor, "HS 3", 1, floor.building],
-  [floor, "Passage", 2, floor.building],
-  [floor, "HS 2", 3, floor.building],
-  [floor, "Foyer", 4, floor.building],
-  [floor, "R1", 5, floor.building],
-  [floor, "R2", 6, floor.building],
-  [floor, "R3", 7, floor.building],
-  [floor, "HS Building", 8, floor.building]
+  [floor, "HS 3", 1],
+  [floor, "Passage", 2],
+  [floor, "HS 2", 3],
+  [floor, "Foyer", 4],
+  [floor, "R1", 5],
+  [floor, "R2", 6],
+  [floor, "R3", 7],
+  [floor, "HS Building", 8]
 ]
 room_type_list = [
   ["Seminarraum" ],
@@ -107,7 +107,6 @@ point_of_interest_list = [
   { point_id: 43, description: 'This is Lake HPI.', name: 'Lake HPI' },
   { point_id: 44, description: 'This area is used for free time activities by HPI students.', name: 'Meadow' },
   { point_id: 45, description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe' }
-
 ]
 polyline_list = [
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1],
@@ -170,8 +169,7 @@ end
 
 hs_rooms.each do |room|
   outer_shape = Polyline.find(room[2]) if room[2].present?
-  room = Room.create(floor: room[0], full_name: room[1], outer_shape: outer_shape)
-  puts room.outer_shape.id
+  Room.create(floor: room[0], full_name: room[1], outer_shape: outer_shape)
 end
 
 room_type_list.each do |room_type|
