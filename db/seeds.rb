@@ -11,6 +11,13 @@ PointOfInterest.create(point: Point.create(x: 13.133757, y: 52.394414),
 PointOfInterest.create(point: Point.create(x: 13.13130, y: 52.39335),
                        description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe')
 
+# Building
+building = Building.create(name: "Allesgebäude")
+
+# Floors
+floor = Floor.create(name: "First Floor", building: building)
+floor2 = Floor.create(name: "Second Floor", building: building)
+
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
     "Chair Representative" ],
@@ -35,18 +42,18 @@ information_list = [
   [ "website", "diebienemaya.de" ]
 ]
 room_list = [
-  [ "V-2.18", "2", "Campus II (Villa), V-2.18"],
-  [ "V-2.12", "2", "Campus II (Villa), V-2.18"],
-  [ "H-E.51", "E", "Campus I, H-E.51"],
-  [ "H-2.3", "2", "Bachelorprojekt Baudisch"],
-  [ "A-1.15", "1", "A-1.15"]
+  [ "V-2.18", floor, "Campus II (Villa), V-2.18"],
+  [ "V-2.12", floor, "Campus II (Villa), V-2.18"],
+  [ "H-E.51", floor, "Campus I, H-E.51"],
+  [ "H-2.3", floor, "Bachelorprojekt Baudisch"],
+  [ "A-1.15", floor2, "A-1.15"]
 ]
 room_type_list = [
-  ["Seminarraum" ],
-  ["Hörsaal" ],
-  ["Büro" ],
-  ["Toilette" ],
-  ["Bachelorprojekt"]
+  ["seminar room" ],
+  ["lecture hall" ],
+  ["office" ],
+  ["toilet" ],
+  ["bachelor project"]
 ]
 person_collection = []
 
@@ -89,10 +96,10 @@ room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
 end
 
-Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
-Tag.create(name: "Drucker", rooms: [Room.find(4)])
-Tag.create(name: "Ruhig", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "Viel zu laut", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
+Tag.create(name: "working", rooms: [Room.find(5), Room.find(3)])
+Tag.create(name: "printer", rooms: [Room.find(4)])
+Tag.create(name: "quiet", rooms: [Room.find(2), Room.find(1), Room.find(3)])
 
 Room.find(1).room_types << RoomType.find(3)
 Room.find(2).room_types << RoomType.find(3)

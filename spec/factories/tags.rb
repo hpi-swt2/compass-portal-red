@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :tag do
-    name { "ruhig" }
+    name { "quiet" }
     trait :printer do
-      name { "Drucker" }
+      name { "printer" }
     end
   end
 end

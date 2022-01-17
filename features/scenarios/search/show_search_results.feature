@@ -6,6 +6,7 @@ Feature: Search functionality
   Background:
     Given a person was created
     And a second person was created
+    Given a room was created
 
   Scenario: searching a person
     Given I am on the search page
@@ -39,3 +40,15 @@ Feature: Search functionality
     Then I do not see Prof. Dr. Hasso Plattner in the list for exact-results
     And I do not see Dr. Michael Perscheid in the list for exact-results
     And I first see Prof. Dr. Hasso Plattner and then Dr. Michael Perscheid in the list for more-results
+    
+  Scenario: searching a room tag
+    Given I am on the search page
+    When I enter "printer"
+    And I start the search
+    Then I see the search result "H-E.42"
+
+  Scenario: searching a room_type
+    Given I am on the search page
+    When I enter "lecture hall"
+    And I start the search
+    Then I see the search result "H-E.42"

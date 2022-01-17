@@ -10,7 +10,7 @@ module OsmHelper
     doc = Nokogiri::XML(xml_string)
     potential_rooms = doc.css("//way")
     points = doc.css("//node")
-    building = Building.create
+    building = FactoryBot.create :building, name: "Mocked Building"
 
     points.each do |point|
       build_point_from(point)
