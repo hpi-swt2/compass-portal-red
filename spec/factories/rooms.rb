@@ -5,11 +5,11 @@ FactoryBot.define do
     full_name { "H-E.42" }
     image { "https://www.shorturl.at/bmpxP" }
     outer_shape do
-      (build :polyline, points: [(build :point),
+      (build :polyline, points: [(point = build :point),
                                  (build :point, x: -1.5),
                                  (build :point, x: -1.5, y: -1.5),
                                  (build :point, y: -1.5),
-                                 (build :point)])
+                                 point])
     end
     tags do
       [(FactoryBot.create :tag), (FactoryBot.create :tag, :printer)]
