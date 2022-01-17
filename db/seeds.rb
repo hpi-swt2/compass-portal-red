@@ -9,11 +9,13 @@ floor2 = Floor.create(name: "Second Floor", building: building)
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
     "Chair Representative" ],
-  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "", "Professor" ],
+  [ "biene.maya@kika.de", "Maya", "Biene", "", "", "Extern" ],
   [ "mr.net@hpi.de", "Mr.", "Net", "", "", "" ],
   [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg",
     "Tutor" ],
-  [ "biene.maya@kika.de", "Maya", "Biene", "", "", "Extern" ]
+  [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "", "Professor" ],
+  [ "katharina.@hpi.de", "Katherina", "Hölzle", "Prof. Dr.", "", "Professorin" ],
+  [ "fox@hpi.de", "Smilla Jane", "Fox", "", "", "Studentin mit gutem Namen" ]
 ]
 chair_list = [
   "Enterprise Platform and Integration Concepts",
@@ -23,35 +25,31 @@ chair_list = [
   "Internet-Technologien und Systeme"
 ]
 information_list = [
-  [ "telegram", "@perscheid" ],
-  [ "telegram", "@plattner" ],
-  [ "slack", "@mr.net" ],
-  [ "signal", "@morpheus" ],
-  [ "website", "diebienemaya.de" ]
-]
-room_list = [
-  [ "V-2.18", floor, "Campus II (Villa), V-2.18"],
-  [ "V-2.12", floor, "Campus II (Villa), V-2.18"],
-  [ "H-E.51", floor, "Campus I, H-E.51"],
-  [ "H-2.3", floor, "Bachelorprojekt Baudisch"],
-  [ "A-1.15", floor2, "A-1.15"]
+  %w[telegram @perscheid],
+  %w[website diebienemaya.de],
+  %w[slack @mr.net],
+  %w[signal @morpheus],
+  %w[telegram @plattner],
+  %w[MeetUp @hölzle],
+  %w[linkedIn @smililah]
 ]
 hs_rooms = [
-  [floor, "HS 3", 1],
-  [floor, "Passage", 2],
-  [floor, "HS 2", 3],
-  [floor, "Foyer", 4],
-  [floor, "R1", 5],
-  [floor, "R2", 6],
-  [floor, "R3", 7],
-  [floor, "HS Building", 8]
+  ['D-E.3', floor, "HS 3", 1],
+  ['D-E.5', floor, "Passage", 2],
+  ['D-E.2', floor, "HS 2", 3],
+  ['D-E.6', floor, "HS Foyer", 4],
+  ['D-E.4', floor, "HS Anrichte", 5],
+  ['D-E.7', floor, "HS Lager", 6],
+  ['D-E.8', floor, "HS Elektro", 7],
+  ['D-K.1', floor2, "ping pong", 4],
+  ['D-K.2', floor2, "HS toilet (f)", 4],
+  ['D-K.3', floor2, "HS toilet (m)", 5]
 ]
 room_type_list = [
-  ["Seminarraum" ],
   ["Hörsaal" ],
-  ["Büro" ],
-  ["Toilette" ],
-  ["Bachelorprojekt"]
+  ["Küche"],
+  ["Freizeit"],
+  ["Toilette"]
 ]
 point_list = [
   { x: 13.13197497245, y: 52.39424529105 },
@@ -109,14 +107,14 @@ point_of_interest_list = [
   { point_id: 45, description: 'This is a nice place to eat.', name: 'Ulf\'s Cafe' }
 ]
 polyline_list = [
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1],
-  [2, 11, 12, 13, 14, 15, 16, 3, 2, 2],
-  [13, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 14, 13, 13],
-  [19, 27, 28, 29, 30, 31, 32, 33, 34, 35, 6, 5, 16, 15, 25, 24, 36, 20, 19, 19],
-  [9, 37, 34, 8, 9, 9],
-  [37, 38, 33, 34, 37, 37],
-  [38, 39, 32, 33, 38, 38],
-  [1, 10, 9, 39, 31, 30, 29, 28, 27, 19, 18, 17, 13, 12, 11, 2, 1, 1]
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1],
+  [2, 11, 12, 13, 14, 15, 16, 3, 2],
+  [13, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 14, 13],
+  [19, 27, 28, 29, 30, 31, 32, 33, 34, 35, 6, 5, 16, 15, 25, 24, 36, 20, 19],
+  [9, 37, 34, 8, 9],
+  [37, 38, 33, 34, 37],
+  [38, 39, 32, 33, 38],
+  [1, 10, 9, 39, 31, 30, 29, 28, 27, 19, 18, 17, 13, 12, 11, 2, 1]
 ]
 person_collection = []
 
@@ -149,8 +147,6 @@ Information.create(key: "patent", value: "B", person: person_collection[3])
 Information.create(key: "patent", value: "C", person: person_collection[3])
 Information.create(key: "patent", value: "6", person: person_collection[3])
 
-bundle = person_collection.zip room_list
-
 point_list.each do |point|
   Point.create(point)
 end
@@ -163,14 +159,16 @@ polyline_list.each do |polyline_points|
   Polyline.create(points: polyline_points.map { |point_id| Point.find(point_id) })
 end
 
-bundle.each do |person, room|
-  Room.create(number: room[0], floor: room[1], full_name: room[2], people: [person])
+hs_rooms.each do |room|
+  outer_shape = Polyline.find(room[3]) if room[3].present?
+  Room.create(number: room[0], floor: room[1], full_name: room[2], outer_shape: outer_shape)
 end
 
-hs_rooms.each do |room|
-  outer_shape = Polyline.find(room[2]) if room[2].present?
-  Room.create(floor: room[0], full_name: room[1], outer_shape: outer_shape)
-end
+Room.find(1).people << Person.find(1)
+Room.find(1).people << Person.find(6)
+Room.find(2).people << Person.find(5)
+Room.find(5).people << Person.find(2)
+Room.find(5).people << Person.find(3)
 
 room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
@@ -179,12 +177,12 @@ end
 Tag.create(name: "Seminarraum", rooms: [Room.find(5), Room.find(3)])
 Tag.create(name: "Drucker", rooms: [Room.find(4)])
 Tag.create(name: "Ruhig", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "Viel zu laut", rooms: [Room.find(2), Room.find(1), Room.find(3)])
+Tag.create(name: "Viel zu laut", rooms: [Room.find(8), Room.find(10), Room.find(4)])
 
-Room.find(1).room_types << RoomType.find(3)
+Room.find(1).room_types << RoomType.find(1)
 Room.find(2).room_types << RoomType.find(3)
 Room.find(3).room_types << RoomType.find(1)
-Room.find(4).room_types << RoomType.find(5)
+Room.find(5).room_types << RoomType.find(4)
 Room.find(5).room_types << RoomType.find(1)
 Room.find(5).room_types << RoomType.find(2)
 
