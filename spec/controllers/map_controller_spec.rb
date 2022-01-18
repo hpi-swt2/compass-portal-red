@@ -9,8 +9,8 @@ RSpec.describe MapController, type: :controller do
       subject.params[:steps] = 'true'
       subject.params[:profile] = 'walking'
       # main building to campus III
-      subject.params[:coordinates] = 
-        '13p132964372634888%2C52p39388888702635;13p12498211860657%2C52p39511316914987' 
+      subject.params[:coordinates] =
+        '13p132964372634888%2C52p39388888702635;13p12498211860657%2C52p39511316914987'
     end
 
     it 'returns the right url given the params' do

@@ -1,18 +1,19 @@
+<% content_for :title, "#{@room.name}" %>
 <p id="notice"><%= notice %></p>
 
 <div class="detail row mb-5">
   <div class="col-3">
       <% if @room.image then %>
-        <%= image_tag(@room.image, class: "picture-rounded fill") %>
+        <%= image_tag(@room.image, class: "picture-rounded") %>
       <% else %>
         <div class="picture-rounded d-flex justify-content-center align-items-center">
           <i class="far fa-building fa-2x"></i>
         </div>
       <% end %>
   </div>
-
+  
   <div class="col mx-3">
-      <h2><%= @room.display_name %></h2>
+      <h2><%= @room.name %></h2>
 
       <span class="badge bg-primary">Room</span>
       <% @room.tags.each do |tag| %>
@@ -30,7 +31,7 @@
 
 <p>
   <strong>Floor:</strong>
-  <%= @room.floor %>
+  <%= @room.floor.name %>
 </p>
 
 <p>
