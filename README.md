@@ -27,8 +27,13 @@ Ensure you have access to a Unix-like environment through:
 * `bundle config set without 'production' && bundle install` Install gem dependencies from `Gemfile`
 * `yarn install` Install JS dependencies from `package.json`
 * `rails db:migrate` Setup the database, run migrations
+* `rails db:reset` Seeds the database
 * `rails s` Start dev server (default port _3000_ required for local [HPI OpenID Connect](https://oidc.hpi.de/))
 * `bundle exec rspec --format documentation` Run the tests (using [RSpec](http://rspec.info/) framework)
+
+### Commands to run after pulling new changes
+* `rails db:migrate`
+* `rails db:reset`
 
 ## Developer Guide
 
@@ -48,6 +53,11 @@ Ensure you have access to a Unix-like environment through:
 ### Setup
 * `bundle exec rails db:migrate RAILS_ENV=development && bundle exec rails db:migrate RAILS_ENV=test` Migrate both test and development databases
 * `rails assets:clobber && rails webpacker:compile` Redo asset compilation
+
+#### Mapbox 
+
+To use the map's routing capabilities, you will need an access token for the [Mapbox](https://www.mapbox.com/) directions API.
+Place this token in an environment variable called MAPBOX_ACCESS_TOKEN
 
 ### Testing
 * `bundle exec rspec` Run the full test suite

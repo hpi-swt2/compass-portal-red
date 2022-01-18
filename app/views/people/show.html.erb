@@ -1,12 +1,21 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title, "Person: #{@person.full_name}" %>
 <div class='detail'>
-  <div class='row mb-4'>
-    <div class='col-3'> <img src= "<%= @person.image %>" class="rounded-circle"> </div>
-    <div class='col'> <%= @person.full_name %> </div>
+  <div class='row mb-5'>
+    <div class='col-3'>
+      <%= image_tag @person.image_or_placeholder, class: 'picture-rounded' %>
+    </div>
+    <div class='col'> 
+      <h1>
+        <%= @person.full_name %>
+      </h1>
+      <p>
+        <span class="badge text-dark"><%= @person.status %></span>
+      </p>
+ </div>
   </div>
   <div class='row'>
     <div class='col-3'> email </div>
-    <div class='col'> <%= @person.email %> </div>
+    <div class='col'> <%= @person.email.gsub('@', '(at)') if @person.email %> </div>
   </div>
   <% @person.informations.each do |information| %>
     <div class='row'>
@@ -24,7 +33,7 @@
       <div class='col'>
         <%= link_to room_path(@person.room), class: "btn btn-with-img" do %>
           <%= image_tag(@person.room.image, class: "btn-img") %>
-          <%= @person.room.display_name %>
+          <%= @person.room.name %>
         <% end %>
       </div>
     </div>

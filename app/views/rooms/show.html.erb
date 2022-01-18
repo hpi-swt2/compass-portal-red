@@ -1,24 +1,25 @@
-<p id="notice"><%= notice %></p>
-<%# Placeholder until the other team/issue integrates them correctly in the table %>
-<% if @room.tags %>
-  <p>
-    <strong>Tags:</strong>
-    <% tag_names = @room.tags.map {|tag| tag.name} %>
-    <%= tag_names.join(", ") %>
-  </p>
-<% end %>
+<% content_for :title, "#{@room.name}" %>
 <div class='detail'>
   <div class='row mb-3'>
-    <div class='col-3'> <%= image_tag(@room.image, class: "rounded-circle") %> </div>
-    <div class='col'> <%= @room.full_name %> </div>
+    <div class='col-3'> <%= image_tag(@room.image, class: "picture-rounded") %> </div>
+    <div class="col mx-3">
+      <h2><%= @room.name %></h2>
+      <span class="badge bg-primary">Room</span>
+      <% @room.tags.each do |tag| %>
+        <span class="badge bg-primary"><%= tag.name %></span>
+      <% end %>
+    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-start iconbuttons mb-3">
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @room.id) %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
   </div>
   <div class='row'>
     <div class='col-3'>
-      building
+      floor
     </div>
-    <div class='col-3'>
-      <%# supposed to be empty until we get dummy data and a name attribute for a building %>
-      <%= @room.building %>
+    <div class='col'>
+      <%= @room.floor.name %>
     </div>
   </div>
   <% if @room.chairs.present? %>
@@ -45,7 +46,7 @@
         <% @room.people.each do |person| %>
           <div class="mb-2">
             <%= link_to person_path(person), class: "btn btn-with-img" do %>
-              <%= image_tag(person.image, class: "btn-img") %>
+              <%= image_tag(person.image_or_placeholder, class: "btn-img") %>
               <%= person.full_name %>
             <% end %>
           </div>

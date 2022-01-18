@@ -4,19 +4,50 @@ module IndoorHelper
   def build_point_from(point_node)
     lat = point_node["lat"]
     lon = point_node["lon"]
+    osm_node_id = point_node["id"]
 
-    Point.find_or_create_by(x: lon, y: lat)
+    point = Point.find_or_create_by(x: lon, y: lat, osm_node_id: osm_node_id)
+    # check if it is POI
+    point_node.css("tag").each do |tag|
+      if tag["k"] == "entrance" && tag["v"] == "yes"
+        PointOfInterest.find_or_create_by(point_id: point.id, name: "Entrance")
+      end
+    end
   end
 
   def build_room_from(room_node, building)
-    name_node = room_node.css("name").first
-    name = name_node.content
+    name = parse_room_name(room_node)
+    points = parse_room_points(room_node)
 
-    point_nodes = room_node.css("trkpt")
-    points = point_nodes.map { |point_node| build_point_from(point_node) }
-
-    points.push(points.first)
     outer_shape = Polyline.create(points: points)
-    Room.create(building: building, outer_shape: outer_shape, full_name: name)
+
+    floor = Floor.create(name: "Mocked Floor", building_id: building.id)
+    room = Room.create(floor_id: floor.id, outer_shape: outer_shape, full_name: name)
+
+    # add points to room
+    points.each do |point|
+      point.update(room_id: room.id)
+    end
+  end
+
+  private
+
+  def parse_room_name(room_node)
+    name = nil
+    room_node.css("tag").each do |tag|
+      name = tag["v"] if tag["k"] == "name"
+    end
+
+    raise 'Parsing osm file failed (room name not found)' if name.nil?
+
+    name
+  end
+
+  def parse_room_points(room_node)
+    points = []
+    room_node.css("nd").each do |nd|
+      points.push(Point.find_by(osm_node_id: nd["ref"]))
+    end
+    points
   end
 end

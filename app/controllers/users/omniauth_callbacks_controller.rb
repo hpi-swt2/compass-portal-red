@@ -19,4 +19,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     set_flash_message(:alert, :failure, kind: 'OpenID Connect', reason: 'HPI OIDC login')
     redirect_to root_path
   end
+
+  def after_sign_in_path_for(resource_or_scope)
+    search_path || stored_location_for(resource_or_scope)
+  end
 end
