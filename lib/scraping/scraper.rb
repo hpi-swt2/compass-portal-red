@@ -35,6 +35,8 @@ class Scraper
   end
 
   def self.save_person(item, problem_checker)
+    # clear email
+    item[:email] = item[:email].gsub('(at)', '@') if item[:email]
     # If person exists update non-existent attributes, else create new person
     person = Person.find_by(last_name: item[:last_name], first_name: item[:first_name])
     if person

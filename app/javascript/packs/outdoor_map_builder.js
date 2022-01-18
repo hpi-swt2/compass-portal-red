@@ -14,15 +14,18 @@ console.log("[MAP] Map init done");
 
 // Tileserver to be used as background
 L.tileLayer(
-  "https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=teiAXvgYrHq2mifMtHYX",
+    // there is a "dark-mode" available for this tile-layer:
+    // "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+    "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png",
   {
-    tileSize: 512,
-    zoomOffset: -1,
     minZoom: 1,
-    maxZoom: 23,
+    // this maxZoom is the maximum for the given tileLayer. You CAN increase the number
+    // which will still render the building-polygons etc. defined by us, but
+    // no longer render the tile-background layer
+    // We could think of doing that if we need more zoom for the indoor-maps, it shouldn't look too bad
+    maxZoom: 20,
     attribution:
-      '\u003ca href="https://www.maptiler.com/copyright/" target="_blank"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href="https://www.openstreetmap.org/copyright" target="_blank"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e | Schnavigator',
-    crossOrigin: true,
+    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors | Schnavigator',
   }
 ).addTo(mymap);
 
@@ -163,7 +166,7 @@ console.log(window.location.host + '/directions')
 
 // routingControl does everything related to navigation
 window.routingControl = L.Routing.control({
-	// the router is responsible for calculating the route
+    // the router is responsible for calculating the route
     router: new Router(
         {
             serviceUrl: window.location.origin + '/directions',
@@ -175,20 +178,20 @@ window.routingControl = L.Routing.control({
             },
         }
     ),
-	// the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
-	plan: L.Routing.plan(positions, {
-		createMarker: function(i, wp) {
-			return L.marker(wp.latLng, {
-				draggable: true,
-				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
-			});
-		},
-	    geocoder: L.Control.Geocoder.nominatim()
-	}),
-	collapsible: true,
-	show: false,
-	routeWhileDragging: true,
-	autoRoute: false,
+    // the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
+    plan: L.Routing.plan(positions, {
+        createMarker: function(i, wp) {
+            return L.marker(wp.latLng, {
+                draggable: true,
+                icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
+            });
+        },
+        geocoder: L.Control.Geocoder.nominatim()
+    }),
+    collapsible: true,
+    show: false,
+    routeWhileDragging: true,
+    autoRoute: false,
     lineOptions: {
         styles: [{ color: 'blue' }]
     }
@@ -198,19 +201,19 @@ window.routingControl = L.Routing.control({
     document.getElementById('StopNavigation').style.display = 'block';
 })
 .on('waypointschanged', (e)=>{
-	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
-	var waypoints = routingControl.getWaypoints()
-	positions = []
-	// waypoints[0].latLng and [1].latLng are not null if they were set by the user 
-	if (waypoints[0].latLng != null)
-		positions.push(waypoints[0].latLng)
-	if (waypoints[1].latLng != null)
-    	positions.push(waypoints[1].latLng)
-	// if we have both a start and endpoint, we show the routingControl
-	if (positions.length === 2)
-		routingControl.show()
-	// always calculate the route to show the 'A' marker if only one waypoint is set
-	routingControl.route()
+    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+    var waypoints = routingControl.getWaypoints()
+    positions = []
+    // waypoints[0].latLng and [1].latLng are not null if they were set by the user 
+    if (waypoints[0].latLng != null)
+        positions.push(waypoints[0].latLng)
+    if (waypoints[1].latLng != null)
+        positions.push(waypoints[1].latLng)
+    // if we have both a start and endpoint, we show the routingControl
+    if (positions.length === 2)
+        routingControl.show()
+    // always calculate the route to show the 'A' marker if only one waypoint is set
+    routingControl.route()
 });
 
 function onMapClick(e) {
@@ -219,9 +222,9 @@ function onMapClick(e) {
     // by inserting a third waypoint, the very first inserted waypoint won't be considered for the route anymore
     if (positions.length === 3) {
         positions.shift()
-	}
-	// all the calculations will be done within the 'waypointschanged' handler of the routingControl
-	routingControl.setWaypoints(positions)
+    }
+    // all the calculations will be done within the 'waypointschanged' handler of the routingControl
+    routingControl.setWaypoints(positions)
 }
 
 // Build the stop buton and insert it into the routingControl-plan
@@ -234,21 +237,21 @@ function onMapClick(e) {
         id="StopNavigation" 
         value="Stop" 
         onclick="
-			event.stopPropagation();
-			document.getElementById('StopNavigation').style.display = 'none';
-			positions = []
-			routingControl.hide()
-			routingControl.setWaypoints(positions).route()" 
+            event.stopPropagation();
+            document.getElementById('StopNavigation').style.display = 'none';
+            positions = []
+            routingControl.hide()
+            routingControl.setWaypoints(positions).route()" 
         class="stop-button" 
         style="
             width: 100px; 
             font-size: 1.75vh;
-			background-color: red;
-			color: white"
+            background-color: red;
+            color: white"
     />`
-	// Do not render the '+' button that can be used to add waypoints
+    // Do not render the '+' button that can be used to add waypoints
     document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
-	// Add our Stop button to the routingControl-plan
+    // Add our Stop button to the routingControl-plan
     document.querySelector('.leaflet-routing-geocoders').appendChild(el)
 })()
 

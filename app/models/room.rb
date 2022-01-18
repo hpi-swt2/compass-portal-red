@@ -35,7 +35,15 @@ class Room < SearchableRecord
   end
 
   def self.searchable_attributes
-    %w[number full_name]
+    %w[number full_name room_types.name tags.name floors.name]
+  end
+
+  def self.searchable_relations
+    [:floor, :tags, :room_types]
+  end
+
+  def self.search_by_tags(query)
+    joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
   end
 
   def name
