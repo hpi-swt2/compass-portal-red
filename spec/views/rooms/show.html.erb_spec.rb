@@ -49,7 +49,7 @@ RSpec.describe "rooms/show", type: :view do
     render
     room.people.each do |person|
       expect(rendered).to have_link(person.name, href: person_path(person))
-      expect(rendered).to have_css("img[src='#{person.image}']")
+      expect(rendered).to have_css("img[src*='#{url_for(person.image)}']")
     end
   end
 
