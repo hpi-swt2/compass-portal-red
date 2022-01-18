@@ -43,7 +43,7 @@ information_list = [
 ]
 room_list = [
   [ "V-2.18", floor, "Campus II (Villa), V-2.18"],
-  [ "V-2.12", floor, "Campus II (Villa), V-2.18"],
+  [ "V-2.12", floor, "Campus II (Villa), V-2.12"],
   [ "H-E.51", floor, "Campus I, H-E.51"],
   [ "H-2.3", floor, "Bachelorprojekt Baudisch"],
   [ "A-1.15", floor2, "A-1.15"]
