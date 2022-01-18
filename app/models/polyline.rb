@@ -10,7 +10,7 @@ class Polyline < ApplicationRecord
   end
 
   def to_geojson(polygon: true)
-    raise "Polygon needs same start and end point." if polygon && points[0] != points[-1]
+    raise "Polygon needs same start and end point." if polygon && points.present? && points[0] != points[-1]
 
     {
       type: "Feature",
