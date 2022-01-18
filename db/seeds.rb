@@ -41,9 +41,9 @@ hs_rooms = [
   ['D-E.4', floor, "HS Anrichte", 5],
   ['D-E.7', floor, "HS Lager", 6],
   ['D-E.8', floor, "HS Elektro", 7],
-  ['D-K.1', floor2, "ping pong", 4],
-  ['D-K.2', floor2, "HS toilet (f)", 4],
-  ['D-K.3', floor2, "HS toilet (m)", 5]
+  ['D-K.1', floor2, "Ping Pong", 4],
+  ['D-K.2', floor2, "HS toilet (f)", 5],
+  ['D-K.3', floor2, "HS toilet (m)", 6]
 ]
 room_type_list = [
   ["lecture hall" ],
@@ -177,7 +177,7 @@ end
 Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
 Tag.create(name: "printer", rooms: [Room.find(4)])
 Tag.create(name: "quiet", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "too loud", rooms: [Room.find(8), Room.find(10), Room.find(4)])
+Tag.create(name: "noisy", rooms: [Room.find(8), Room.find(10), Room.find(4)])
 
 Room.find(1).room_types << RoomType.find(1)
 Room.find(2).room_types << RoomType.find(3)
