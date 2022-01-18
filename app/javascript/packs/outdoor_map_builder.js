@@ -172,7 +172,7 @@ window.routingControl = L.Routing.control({
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
     document.getElementById('StopNavigation').style.display = 'block';
-    document.getElementById('welcome-routing-text').style.display = 'none';
+    document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
     // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -256,7 +256,7 @@ function onMapClick(e) {
         onclick="
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
-            document.querySelector('#welcome-routing-text').style.display = 'block';
+            document.querySelector('#mobile-view-welcome-routing-text').style.display = 'block';
             positions = []
             routingControl.hide()
             routingControl.setWaypoints(positions).route()" 
