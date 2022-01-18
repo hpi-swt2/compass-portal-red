@@ -23,4 +23,12 @@ RSpec.describe "people/show", type: :view do
     render
     expect(rendered).to have_css("img[src*=placeholder_person]")
   end
+
+  it "shows details of an existing room" do
+    floor = FactoryBot.create(:floor)
+    person.create_room(full_name: "HS1", floor: floor)
+    render
+    expect(rendered).to match(person.room.full_name)
+    expect(rendered).to have_css("img[src*='placeholder_room']")
+  end
 end

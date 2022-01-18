@@ -24,7 +24,7 @@
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 100%;
-  background: #DDD;
+  background: #ddd;
 
   &.sm {
     width: 2.5em;
@@ -66,16 +66,38 @@
       font-weight: bold;
     }
   }
-
-  .rounded-circle {
-    width: 100%;
-    height: auto;
-    max-width: 150px;
-    background-color: $mediumgray;
+  .btn-with-img {
+    position: relative;
+    background-color: darken($lightgray, 5%);
+    border: none;
+    border-radius: 2rem;
+    padding-right: 1rem;
+    padding-left: 3rem;
   }
-
-  .badge {
-    font-size: 1em;
+  .btn-img {
+    position: absolute;
     background-color: $mediumgray;
+    border-radius: 2rem;
+    height: 36px;
+    width: 36px;
+    left: 0;
+    top: 0;
+
+    &[data-prefix="fas"] {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
   }
+}
+
+.rounded-circle {
+  width: 100%;
+  height: auto;
+  max-width: 150px;
+  background-color: $mediumgray;
+}
+
+.badge {
+  font-size: 1em;
+  background-color: $mediumgray;
 }
