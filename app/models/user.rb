@@ -40,10 +40,12 @@ class User < ApplicationRecord
   # end
 
   def self.connect_to_person(auth, id)
-    email = auth.info.email.gsub("@", "(at)")
+    email = auth.info.email
     person = Person.find_by(email: email)
-    email = email.gsub(".uni-potsdam.de", ".de")
-    person ||= Person.find_by(email: email)
+    unless person
+      email = email.gsub('.uni-potsdam.de', '.de')
+      person ||= Person.find_by(email: email)
+    end
     person ||= Person.new({
                             'first_name' => auth.info.first_name,
                             'last_name' => auth.info.last_name,

@@ -1,9 +1,10 @@
+<% content_for :title, "#{@room.name}" %>
 <p id="notice"><%= notice %></p>
 
 <div class="detail row mb-5">
   <div class="col-3">
       <% if @room.image then %>
-        <%= image_tag(@room.image, class: "picture-rounded fill") %>
+        <%= image_tag(@room.image, class: "picture-rounded") %>
       <% else %>
         <div class="picture-rounded d-flex justify-content-center align-items-center">
           <i class="far fa-building fa-2x"></i>
