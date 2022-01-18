@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :email_log
   resources :data_problems
   resources :chairs
+  resources :buildings
   resources :rooms
+  resources :floors
   resources :people
   resources :person_urls
 
