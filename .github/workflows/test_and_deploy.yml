@@ -52,8 +52,8 @@ jobs:
         # Show rspec errors as GH annotations https://github.com/Drieam/rspec-github#usage
         run: |
           cp config/database.ci.yml config/database.yml
-          bundle exec rails db:purge
-          bundle exec rails db:setup
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
           bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
 
   # Name of the job
