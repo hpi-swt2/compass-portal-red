@@ -1,0 +1,75 @@
+<%= form_with(model: room) do |form| %>
+  <% if room.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(room.errors.count, "error") %> prohibited this room from being saved:</h2>
+
+      <ul>
+        <% room.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="field">
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name %>
+  </div>
+
+<div class="field">
+  <%= form.label :number %>
+  <%= form.text_field :number %>
+</div>
+
+<div class="field">
+  <%= form.label :floor %>
+  <%= form.select 'floor_id',
+    options_from_collection_for_select(Floor.all, :id, :name, room.floor_id),
+    {},
+    multiple: false, size: 10 %>
+</div>
+
+<div class="field">
+  <%= form.label :people %>
+  <%= form.select 'person_ids',
+    options_from_collection_for_select(Person.all, :id, :name, room.person_ids),
+    {},
+    multiple: true, size: 10 %>
+</div>
+
+<div class="field">
+  <%= form.label :chairs %>
+  <%= form.select 'chair_ids',
+    options_from_collection_for_select(Chair.all, :id, :name, room.chair_ids),
+    {},
+    multiple: true, size: 10 %>
+</div>
+
+<div class="field">
+  <%= form.label :room_types %>
+  <%= form.select 'room_type_ids',
+    options_from_collection_for_select(RoomType.all, :id, :name, room.room_type_ids),
+    {},
+    multiple: true, size: 10 %>
+</div>
+
+<div class="field">
+  <%= form.label :tags %>
+  <%= form.select 'tag_ids',
+    options_from_collection_for_select(Tag.all, :id, :name, room.tag_ids),
+    {},
+    multiple: true, size: 10 %>
+</div>
+
+<div class="field">
+  <%= form.label :points %>
+  <%= form.select 'point_ids',
+    options_from_collection_for_select(Point.all, :id, :id, room.point_ids),
+    {},
+    multiple: true, size: 10 %>
+</div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

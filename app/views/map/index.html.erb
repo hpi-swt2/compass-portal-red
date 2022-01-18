@@ -1,20 +1,48 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  	<title>HPI Map</title>
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<% content_for :title, "Map" %>
+<% content_for :head do %>
+    <%= stylesheet_link_tag 'map' %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://unpkg.com/leaflet.icon.glyph@0.2.0/Leaflet.Icon.Glyph.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-	<%= stylesheet_link_tag 'map' %>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
-  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
-	
-	<%= javascript_include_tag 'OutdoorMap/geometry' %>
-  </head>
+    <% # Inject outdoor geometry & generate building data %>
+    <script>
+      window.roomsToBuild = [
+        <% @buildings.each do |building|%>
+          <% building.floors.each do |floor|%>
+            <% floor.rooms.each do |room|%>
+            {
+                'id': '<%= room.id %>',
+                'fullName': '<%= room.full_name %>',
+                'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
+            },
+            <% end %>
+          <% end %>
+        <% end %>
+      ]
+    </script>
+
+    <% # Inject coordinates of selected room %>
+    <script type="text/javascript" charset="utf-8">
+        const selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
+        const points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
+    </script>
+  <% end %>
 
   <body>
   	<div class="leaflet">
-  		<div id="map" style="width: 100%; height: 600px;"></div>
-		<%= javascript_include_tag 'OutdoorMap/map_build' %>
-	</div>
+  		<div id="map" style="width: 100%; height: 100%;"></div>
+      <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
+	  </div>
+
+    <% if @selected_room.present? %>
+	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+    <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
+    <% end %>
   </body>
 </html>

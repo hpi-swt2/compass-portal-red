@@ -4,7 +4,14 @@ FactoryBot.define do
     last_name { "Perscheid" }
     first_name { "Michael" }
     title { "Dr." }
-    image { "shorturl.at/bmpxP" }
     status { "Chair Representative" }
+
+    after(:build) do |person|
+      person.image.attach(
+        io: File.open("spec/fixture_files/placeholder_person.png"),
+        filename: 'test.png',
+        content_type: 'image/png'
+      )
+    end
   end
 end

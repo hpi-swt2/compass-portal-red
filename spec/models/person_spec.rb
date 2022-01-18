@@ -34,11 +34,20 @@ RSpec.describe Person, type: :model do
     expect(person.user.id).to eq(user.id)
   end
 
+  it "contains an imagelink to the placeholder if no link was given" do
+    person = described_class.new
+    expect(person.image_or_placeholder).to match("placeholder_person.png")
+  end
+
   it "calculates its name correctly" do
     expect(person.name).to eq("#{person.first_name} #{person.last_name}")
   end
 
   it "calculates its full name correctly" do
     expect(person.full_name).to eq("#{person.title} #{person.first_name} #{person.last_name}")
+  end
+
+  it "converts a verification attribute to a column name" do
+    expect(Person.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
   end
 end

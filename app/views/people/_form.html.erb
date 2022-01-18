@@ -1,4 +1,4 @@
-<%= form_with(model: person) do |form| %>
+<%= form_with(model: person, params: @params) do |form| %>
   <% if person.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
@@ -11,37 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+  <%= render "form_image", :locals => { form: form, field_name: :image} %>
+  <%= render "form_item", :locals => { form: form, field_name: :first_name} %>
+  <%= render "form_item", :locals => { form: form, field_name: :last_name} %>
+  <%= render "form_item", :locals => { form: form, field_name: :title} %>
+  <%= render "form_item", :locals => { form: form, field_name: :email} %>
+  <%= render "form_item", :locals => { form: form, field_name: :status} %>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.text_field :image %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
+<!--
+  TODO: Update other tables
+  <% @person.informations.each do |information| %>
+    <div class="field">
+      <%= form.label information.key %>
+      <%= form.text_field information.key%>
+      <%= form.check_box "human_verified_#{information.key}".to_sym, class: "form-check-input"%>
+    </div> 
+  <% end %> -->
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

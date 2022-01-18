@@ -1,50 +1,41 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First Name:</strong>
-  <%= @person.first_name %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @person.last_name %>
-</p>
-
-<%# Only show room when room is not nil %>
-<% if @person.room %>
-  <p>
-    <strong>Room:</strong>
-    <%= @person.room.display_name %>
-  </p>
-<% end %>
-
-<p>
-  <strong>Title:</strong>
-  <%= @person.title %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @person.email %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @person.image %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @person.status %>
-</p>
-
-<% @person.informations.each do |information| %>
-<p>
-  <strong><%= information.key %>:</strong>
-  <%= information.value %>
-</p>
-<% end %>
-
+<% content_for :title, "Person: #{@person.full_name}" %>
+<div class='detail'>
+  <div class='row mb-5'>
+    <div class='col-3'>
+      <%= image_tag @person.image_or_placeholder, class: 'picture-rounded' %>
+    </div>
+    <div class='col'> 
+      <h1>
+        <%= @person.full_name %>
+      </h1>
+      <p>
+        <span class="badge text-dark"><%= @person.status %></span>
+      </p>
+ </div>
+  </div>
+  <div class='row'>
+    <div class='col-3'> email </div>
+    <div class='col'> <%= @person.email.gsub('@', '(at)') if @person.email %> </div>
+  </div>
+  <% @person.informations.each do |information| %>
+    <div class='row'>
+      <div class='col-3'>
+        <%= information.key %>
+      </div>
+      <div class='col'>
+        <%= information.value %>
+      </div>
+    </div>
+  <% end %>
+  <% if @person.room %>
+    <div class='row'>
+      <div class='col-3'> room </div>
+      <div class='col'>
+        <%= link_to render('partials/iconbutton', :locals => {:text => @person.room.name, :icon_class => 'fa-building'}), room_path(@person.room) %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

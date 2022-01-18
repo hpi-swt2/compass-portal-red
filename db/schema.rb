@@ -10,11 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_144305) do
+ActiveRecord::Schema.define(version: 2022_01_12_185410) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "buildings", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name", null: false
   end
 
   create_table "chairs", force: :cascade do |t|
@@ -33,12 +62,41 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "chair_id", null: false
   end
 
+  create_table "data_problems", force: :cascade do |t|
+    t.string "url"
+    t.string "description"
+    t.string "field"
+    t.integer "room_id"
+    t.integer "person_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_data_problems_on_person_id"
+    t.index ["room_id"], name: "index_data_problems_on_room_id"
+  end
+
+  create_table "email_logs", force: :cascade do |t|
+    t.text "email_address"
+    t.date "last_sent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "people_id"
+  end
+
+  create_table "floors", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "building_id", null: false
+    t.index ["building_id"], name: "index_floors_on_building_id"
+  end
+
   create_table "information", force: :cascade do |t|
     t.string "key"
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "person_id"
+    t.datetime "human_verified"
     t.index ["person_id"], name: "index_information_on_person_id"
   end
 
@@ -47,12 +105,19 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.string "last_name"
     t.string "first_name"
     t.string "title"
-    t.string "image"
+    t.string "image", default: "placeholder_person.png"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
     t.integer "user_id"
+    t.datetime "human_verified_email"
+    t.datetime "human_verified_last_name"
+    t.datetime "human_verified_first_name"
+    t.datetime "human_verified_title"
+    t.datetime "human_verified_image"
+    t.datetime "human_verified_room_id"
+    t.datetime "human_verified_status"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
@@ -67,12 +132,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.integer "point_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.string "name"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
-  end
-
-  create_table "point_of_interests_rooms", id: false, force: :cascade do |t|
-    t.integer "room_id", null: false
-    t.integer "point_of_interest_id", null: false
   end
 
   create_table "points", force: :cascade do |t|
@@ -80,11 +142,19 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.float "y"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "osm_node_id"
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_points_on_room_id"
   end
 
   create_table "points_polylines", id: false, force: :cascade do |t|
     t.integer "point_id", null: false
     t.integer "polyline_id", null: false
+  end
+
+  create_table "points_rooms", id: false, force: :cascade do |t|
+    t.integer "point_id", null: false
+    t.integer "room_id", null: false
   end
 
   create_table "polylines", force: :cascade do |t|
@@ -105,13 +175,13 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "number"
-    t.string "floor"
     t.string "full_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
-    t.integer "building_id"
-    t.index ["building_id"], name: "index_rooms_on_building_id"
+    t.string "image", default: "placeholder_room.png"
+    t.integer "floor_id", null: false
+    t.index ["floor_id"], name: "index_rooms_on_floor_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end
 
@@ -153,8 +223,14 @@ ActiveRecord::Schema.define(version: 2021_12_02_144305) do
     t.index ["polyline_id"], name: "index_walls_on_polyline_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "data_problems", "people"
+  add_foreign_key "data_problems", "rooms"
+  add_foreign_key "floors", "buildings"
   add_foreign_key "point_of_interests", "points"
-  add_foreign_key "rooms", "buildings"
+  add_foreign_key "points", "rooms"
+  add_foreign_key "rooms", "floors"
   add_foreign_key "rooms", "polylines", column: "outer_shape_id"
   add_foreign_key "walls", "polylines"
 end

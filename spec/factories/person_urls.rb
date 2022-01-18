@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :person_url do
-    name { "Alan Touring" }
-    url { "http://wikipedia.org/Alan_Turing" }
+    name { "Dr. Michael Perscheid" }
+    url { "/html_mocks/table.html" }
   end
 end
