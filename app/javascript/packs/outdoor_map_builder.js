@@ -1,5 +1,5 @@
 import { buildings } from "../OutdoorMap/geometry";
-import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle} from "../constants";
+import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle, IndoorStyle} from "../constants";
 
 console.log("[MAP] Pre map init");
 
@@ -42,6 +42,8 @@ L.control
 
 window.layers = {};
 
+mymap.createPane('buildings');
+
 // buildings includes all geometry-data extracted from OSM, see campus.js
 // layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
 for (const feature of buildings) {
@@ -54,7 +56,7 @@ for (const feature of buildings) {
   let layerStyle = styleMap[feature.properties.campus] ?? styleMap["default"];
 
   // Add the building as a layer
-  const layer = L.geoJSON(feature, { style: layerStyle });
+  const layer = L.geoJSON(feature, { style: layerStyle, pane: 'buildings' });
   // Add a tooltip displaying the name of the building, taken from the GeoJSON
   layer.bindTooltip(feature.properties.name, {
     permanent: true,
@@ -100,10 +102,22 @@ mymap.on("zoomend", function () {
     mymap.removeLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
-        var tooltip = layer.getTooltip();
-        layer.unbindTooltip().bindTooltip(tooltip, {
-          permanent: false,
-        });
+        const tooltip = layer.getTooltip();
+
+        if (layer.options.pane === 'buildings') {
+          layer.closeTooltip(tooltip);
+
+          if (zoom > indoorZoomLevel) {
+            layer.setStyle({
+              ...layer.options.style,
+              fillOpacity: 0.0,
+            });
+          }
+        } else if (zoom > indoorZoomLevel) {
+          layer.openTooltip(tooltip);
+
+          layer.setStyle(IndoorStyle);
+        }
       }
     });
   } else if (
@@ -114,10 +128,23 @@ mymap.on("zoomend", function () {
     mymap.addLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
-        var tooltip = layer.getTooltip();
-        layer.unbindTooltip().bindTooltip(tooltip, {
-          permanent: true,
-        });
+        const tooltip = layer.getTooltip();
+        
+        if (layer.options.pane === 'buildings') {
+          layer.openTooltip(tooltip);
+
+          layer.setStyle({
+            ...layer.options.style,
+            fillOpacity: 0.65,
+          });
+        } else {
+          layer.closeTooltip(tooltip);
+
+          layer.setStyle({
+            ...IndoorStyle,
+            color: 'rgba(0, 0, 0, 0)',
+          });
+        }
       }
     });
   }
