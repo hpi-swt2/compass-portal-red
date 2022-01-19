@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Floors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @floors.each do |floor| %>
+      <tr>
+        <td><%= link_to 'Show', floor %></td>
+        <td><%= link_to 'Edit', edit_floor_path(floor) %></td>
+        <td><%= link_to 'Destroy', floor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Floor', new_floor_path %>

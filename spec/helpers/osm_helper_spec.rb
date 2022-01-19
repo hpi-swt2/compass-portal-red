@@ -19,6 +19,15 @@ RSpec.describe OsmHelper, type: :helper do
       "</osm>"
   end
 
+  # Clean up db after tests
+  after(:all) do
+    PointOfInterest.destroy_all
+    Point.destroy_all
+    Room.destroy_all
+    Floor.destroy_all
+    Building.destroy_all
+  end
+
   describe "OSMParser" do
     it "imports XML correctly" do
       parse_osm(xml)
@@ -35,11 +44,7 @@ RSpec.describe OsmHelper, type: :helper do
 
       expect(point_of_interests.count).to eq(1)
       expect(point_of_interests.first.name).to eq("Entrance")
-
-      # Clean up db after tests
-      PointOfInterest.delete_all
-      Point.delete_all
-      Room.delete_all
     end
   end
+
 end

@@ -1,21 +1,27 @@
-<% content_for :title, "HPI Map" %>
+<% content_for :title, "Map" %>
 <% content_for :head do %>
     <%= stylesheet_link_tag 'map' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://unpkg.com/leaflet.icon.glyph@0.2.0/Leaflet.Icon.Glyph.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <% # Inject outdoor geometry & generate building data %>
     <script>
       window.roomsToBuild = [
-          <% @buildings.each do |building|%>
-          <% building.rooms.each do |room|%>
-          {
-              'id': '<%= room.id %>',
-              'fullName': '<%= room.full_name %>',
-              'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
-          },
+        <% @buildings.each do |building|%>
+          <% building.floors.each do |floor|%>
+            <% floor.rooms.each do |room|%>
+            {
+                'id': '<%= room.id %>',
+                'fullName': '<%= room.full_name %>',
+                'geoJson': <%= raw(JSON.generate(room.to_geojson)) %>
+            },
+            <% end %>
           <% end %>
-          <% end %>
+        <% end %>
       ]
     </script>
 
@@ -28,7 +34,12 @@
 
   <body>
   	<div class="leaflet">
-  		<div id="map" style="width: 100%; height: 100%;"></div>
+	  <div id="map" class="hpi-map"></div>
+	  <div id="routing-control" style="width: 100%; height: 20%;">
+      <div id="routing-stop-button"></div>
+      <div id="mobile-view-welcome-routing-text">Choose start and endpoint on map to start routing :)</div>
+    </div>
+      <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>

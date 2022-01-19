@@ -37,7 +37,8 @@ class Person < SearchableRecord
     :human_verified_title,
     :human_verified_email,
     :human_verified_image,
-    :human_verified_room_id
+    :human_verified_room_id,
+    :human_verified_status
   ].freeze
 
   def self.verification_attributes

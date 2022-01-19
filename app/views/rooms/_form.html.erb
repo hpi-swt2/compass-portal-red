@@ -23,7 +23,10 @@
 
 <div class="field">
   <%= form.label :floor %>
-  <%= form.text_field :floor %>
+  <%= form.select 'floor_id',
+    options_from_collection_for_select(Floor.all, :id, :name, room.floor_id),
+    {},
+    multiple: false, size: 10 %>
 </div>
 
 <div class="field">

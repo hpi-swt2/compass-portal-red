@@ -19,6 +19,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_DB: test
+          MAPBOX_ACCESS_TOKEN: ${{secrets.MAPBOX_ACCESS_TOKEN}}
           # should not be empty
           # https://stackoverflow.com/questions/60618118#answer-60618750
           POSTGRES_PASSWORD: postgres
@@ -51,7 +52,8 @@ jobs:
         # Show rspec errors as GH annotations https://github.com/Drieam/rspec-github#usage
         run: |
           cp config/database.ci.yml config/database.yml
-          bundle exec rails db:setup
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
           bundle exec rspec spec/ --format documentation --format RSpec::Github::Formatter
 
   # Name of the job
@@ -72,3 +74,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "compass-red" #Must be unique in Heroku
           heroku_email: "hpi.swt2+heroku@gmail.com"
+        env:
+          MAPBOX_ACCESS_TOKEN: ${{secrets.MAPBOX_PRODUCTION_ACCESS_TOKEN}}

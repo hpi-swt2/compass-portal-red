@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :building do
-    rooms do
-      [(build :room)]
-    end
+    name { "Example Building" }
+    floors { [] }
   end
 end

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :email_log
   resources :data_problems
   resources :chairs
+  resources :buildings
   resources :rooms
+  resources :floors
   resources :people
   resources :person_urls
 
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
 
   # '/map'
   get '/map', to: 'map#index'
+  get '/directions/:profile/:coordinates', to: 'map#directions'
 
   # '/options'
   get '/options', to: 'options#index'

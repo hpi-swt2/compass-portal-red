@@ -1,3 +1,4 @@
+<% content_for :title, "Person: #{@person.full_name}" %>
 <div class='detail'>
   <div class='row mb-5'>
     <div class='col-3'>
@@ -14,7 +15,7 @@
   </div>
   <div class='row'>
     <div class='col-3'> email </div>
-    <div class='col'> <%= @person.email %> </div>
+    <div class='col'> <%= @person.email.gsub('@', '(at)') if @person.email %> </div>
   </div>
   <% @person.informations.each do |information| %>
     <div class='row'>
@@ -30,8 +31,32 @@
     <div class='row'>
       <div class='col-3'> room </div>
       <div class='col'>
-        <%= link_to render('partials/iconbutton', :locals => {:text => @person.room.display_name, :icon_class => 'fa-building'}), room_path(@person.room) %>
+        <%= link_to room_path(@person.room), class: "btn btn-with-img" do %>
+          <%= image_tag(@person.room.image, class: "btn-img") %>
+          <%= @person.room.name %>
+        <% end %>
       </div>
+    </div>
+  <% end %>
+  <% if @person.chairs %>
+    <div class='row'>
+      <div class='col-3'> chair </div>
+      <div class='col'>
+        <% @person.chairs.each do |chair| %>
+        <div class="mb-2">
+          <%= link_to chair_path(chair), class: "btn btn-with-img" do %>
+            <i class="fas fa-book btn-img"></i>
+            <%= chair.name %>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @person.status %>
+    <div class='row'>
+      <div class='col-3'> status </div>
+      <div class='col'> <%= @person.status %> </div>
     </div>
   <% end %>
 </div>

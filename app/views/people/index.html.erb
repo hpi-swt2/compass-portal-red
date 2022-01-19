@@ -1,3 +1,4 @@
+<% content_for :title, "All People" %>
 <p id="notice"><%= notice %></p>
 
 <h1>People</h1>
@@ -32,9 +33,9 @@
         </td>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
-        <td><%= person.room&.display_name %></td>
+        <td><%= person.room&.name %></td>
         <td><%= person.title %></td>
-        <td><%= person.email %></td>
+        <td><%= person.email.gsub('@', '(at)') if person.email %></td>
         <td><%= person.informations.get_value('phone') %></td>
         <td><%= person.status %></td>
         <td>

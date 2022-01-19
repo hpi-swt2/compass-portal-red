@@ -20,7 +20,9 @@ module IndoorHelper
     points = parse_room_points(room_node)
 
     outer_shape = Polyline.create(points: points)
-    room = Room.create(building: building, outer_shape: outer_shape, full_name: name)
+
+    floor = Floor.create(name: "Mocked Floor", building_id: building.id)
+    room = Room.create(floor_id: floor.id, outer_shape: outer_shape, full_name: name)
 
     # add points to room
     points.each do |point|

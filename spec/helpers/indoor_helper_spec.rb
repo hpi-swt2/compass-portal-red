@@ -15,6 +15,15 @@ RSpec.describe IndoorHelper, type: :helper do
     end
   end
 
+  # Clean up db after tests
+  after(:all) do
+    PointOfInterest.destroy_all
+    Point.destroy_all
+    Room.destroy_all
+    Floor.destroy_all
+    Building.destroy_all
+  end
+
   describe "point builder" do
     let(:point_nodes) do
       point_descriptions.map do |description|
@@ -71,8 +80,4 @@ RSpec.describe IndoorHelper, type: :helper do
     end
   end
 
-  # Clean up db after tests
-  PointOfInterest.delete_all
-  Point.delete_all
-  Room.delete_all
 end
