@@ -167,7 +167,7 @@ window.routingControl = L.Routing.control({
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
-    document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementById('StopNavigation').style.display = 'block';
 })
 .on('waypointschanged', (e)=>{
 	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -177,8 +177,8 @@ window.routingControl = L.Routing.control({
 });
 
 function navigateTo(position) {
-  console.log(position)
-  mymap.locate() /* This will return map so you can do chaining */
+  // .locate() function returns map, so chaining works
+  mymap.locate()
   .off('locationfound')
   .on('locationfound', function(e){
     routingControl.setWaypoints([e.latlng, position])
