@@ -30,10 +30,10 @@ Rails.application.routes.draw do
   get '/map', to: 'map#index'
   get '/directions/:profile/:coordinates', to: 'map#directions'
 
-  # starts the navigation with the coordinates provided in the coordinates-parameter
-  # example: /navigation/13p12976840232745%2C52p393810752008136;13p130358602111253%2C52p39362748477138 
-  # navigation/<LONG1>%2C<LAT1>;<LONG2>%2C<LAT2>
-  get '/navigation/:coordinates', to: 'map#navigation'
+  # starts the navigation from the current location to the provided coordinate-position
+  # example: /navigation/13p12976840232745%2C52p393810752008136
+  # navigation/<LONG1>%2C<LAT1>
+  get '/navigation/:coordinate', to: 'map#navigation'
 
 
   # '/'

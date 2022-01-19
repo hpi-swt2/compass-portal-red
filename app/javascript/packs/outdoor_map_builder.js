@@ -31,7 +31,7 @@ L.tileLayer(
 
 console.log("[MAP] Tile layer done");
 
-L.control
+var lc = L.control
   .locate({
     locateOptions: {
       watch: true,
@@ -302,8 +302,14 @@ function onMapClick(e) {
 
 mymap.on('click', onMapClick);
 
+
+function onLocationFound(e) {
+  routingControl.setWaypoints([e.latlng, L.latLng(coordinates[0].lat, coordinates[0].lng)]);
+}
+
 if(coordinates != null){
-  routingControl.setWaypoints([L.latLng(coordinates[0].lat, coordinates[0].lng), L.latLng(coordinates[1].lat, coordinates[1].lng)]);
+  mymap.on('locationfound', onLocationFound);
+  lc.start();
 }
 // Per default, we don't want the stop button to be shown, as there is no route
 document.getElementById('StopNavigation').style.display = 'none';

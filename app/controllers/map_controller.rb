@@ -19,11 +19,10 @@ class MapController < ApplicationController
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
 
-    p1, p2 = params[:coordinates].gsub("p", ".").split(";")
+    p1 = params[:coordinate].gsub("p", ".")
     long1, lat1 = p1.split(",")
-    long2, lat2 = p2.split(",")
     
-    @coordinates = [{lat: lat1.to_f, lng: long1.to_f},{lat: lat2.to_f, lng: long2.to_f}]
+    @coordinates = [{lat: lat1.to_f, lng: long1.to_f}]
     render action: "index"
   end 
 
