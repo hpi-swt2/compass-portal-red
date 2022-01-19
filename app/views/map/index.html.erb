@@ -28,6 +28,7 @@
     <% # Inject coordinates of selected room %>
     <script type="text/javascript" charset="utf-8">
         const selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
+        const coordinates = <%= raw(JSON.generate(@coordinates)) %>
         const points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
     </script>
   <% end %>
