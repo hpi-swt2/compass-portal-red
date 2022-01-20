@@ -11,7 +11,7 @@ RSpec.describe "people/index", type: :view do
     assert_select "tr>td", text: person.first_name, count: 2
     assert_select "tr>td", text: person.last_name, count: 2
     assert_select "tr>td", text: person.title, count: 2
-    assert_select "tr>td", text: person.email, count: 2
+    assert_select "tr>td", text: person.email.gsub('@', '(at)'), count: 2
     assert_select "tr>td", text: person.status, count: 2
   end
 end

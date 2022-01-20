@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+  	<title>Options</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+	<div  class="container">
+		<% if user_signed_in? %>
+			<%= render "options/signed_in", :locals => {:person => @person, :user => current_user} %>
+		<% end %>
+		<% unless user_signed_in? %>
+			<%= render "options/signed_out" %>
+		<% end %>
+	</div>
+  </body>
+</html>

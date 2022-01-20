@@ -1,10 +1,14 @@
 import { IndoorStyle } from '../constants';
 
 const buildRoomLayer = (room) => {
-  if (mymap == null)
-    throw Error('Map not initialized before buildRoomLayer was called.');
+  const roomLayer = L.geoJSON(room.geoJson, {
+    style: {
+      ...IndoorStyle,
+      color: 'rgba(0, 0, 0, 0)',
+    },
+    pane: 'rooms',
+  });
 
-  const roomLayer = L.geoJSON(room.geoJson, { style: IndoorStyle });
   const roomTooltip = L.tooltip({
     permanent: true,
     interactive: true,
@@ -27,9 +31,6 @@ const buildRoomLayer = (room) => {
 };
 
 const buildFloorLayer = (floor) => {
-  if (mymap == null)
-    throw Error('Map not initialized before buildRoomLayer was called.');
-
   // Add FloorLayer to layers
   const floorLayer = L.layerGroup().addTo(mymap);
   layers[floor.name] = floorLayer;
@@ -46,11 +47,15 @@ const buildFloorLayer = (floor) => {
 export const buildIndoorMap = () => {
   console.log('[INDOOR] Indoor map start');
 
-  if (window.floorsToBuild == null) {
+  if (mymap == null) {
+    console.error('Map not initialized before buildRoomLayer was called.');
+  } else if (window.floorsToBuild == null) {
     console.error(
       'Expected to receive rooms to build, but "floorsToBuild" is null.'
     );
   } else {
+    mymap.createPane('rooms');
+
     const floorLayers = {};
     window.floorsToBuild.forEach((floor) => {
       floorLayers[floor.name] = buildFloorLayer(floor);
@@ -58,7 +63,6 @@ export const buildIndoorMap = () => {
     L.control.layers(floorLayers, null).addTo(mymap);
   }
   console.log('[INDOOR] Indoor map done');
-  console.log(layers);
 };
 
 buildIndoorMap();

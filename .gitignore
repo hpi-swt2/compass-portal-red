@@ -82,6 +82,7 @@ app/assets/images/people/*
 
 /config/master.key
 .people_urls.json
+er-diagram.png
 
 /public/packs
 /public/packs-test
