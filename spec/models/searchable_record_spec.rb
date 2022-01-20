@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SearchableRecord, type: :model do
   let(:abstract) { Class.new(described_class) }
 
-  it "throws exception when usig it" do
+  it "throws exception when using it" do
     expect { described_class.new }.to raise_error(NotImplementedError)
   end
 

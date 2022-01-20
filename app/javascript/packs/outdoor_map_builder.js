@@ -1,5 +1,5 @@
 import { buildings } from "../OutdoorMap/geometry";
-import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle} from "../constants";
+import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle, IndoorStyle} from "../constants";
 
 console.log("[MAP] Pre map init");
 
@@ -42,6 +42,8 @@ L.control
 
 window.layers = {};
 
+mymap.createPane('buildings');
+
 // buildings includes all geometry-data extracted from OSM, see campus.js
 // layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
 for (const feature of buildings) {
@@ -54,7 +56,7 @@ for (const feature of buildings) {
   let layerStyle = styleMap[feature.properties.campus] ?? styleMap["default"];
 
   // Add the building as a layer
-  const layer = L.geoJSON(feature, { style: layerStyle });
+  const layer = L.geoJSON(feature, { style: layerStyle, pane: 'buildings' });
   // Add a tooltip displaying the name of the building, taken from the GeoJSON
   layer.bindTooltip(feature.properties.name, {
     permanent: true,
@@ -100,10 +102,22 @@ mymap.on("zoomend", function () {
     mymap.removeLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
-        var tooltip = layer.getTooltip();
-        layer.unbindTooltip().bindTooltip(tooltip, {
-          permanent: false,
-        });
+        const tooltip = layer.getTooltip();
+
+        if (layer.options.pane === 'buildings') {
+          layer.closeTooltip(tooltip);
+
+          if (zoom > indoorZoomLevel) {
+            layer.setStyle({
+              ...layer.options.style,
+              fillOpacity: 0.0,
+            });
+          }
+        } else if (zoom > indoorZoomLevel) {
+          layer.openTooltip(tooltip);
+
+          layer.setStyle(IndoorStyle);
+        }
       }
     });
   } else if (
@@ -114,10 +128,23 @@ mymap.on("zoomend", function () {
     mymap.addLayer(layers["Points of Interest"]);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
-        var tooltip = layer.getTooltip();
-        layer.unbindTooltip().bindTooltip(tooltip, {
-          permanent: true,
-        });
+        const tooltip = layer.getTooltip();
+        
+        if (layer.options.pane === 'buildings') {
+          layer.openTooltip(tooltip);
+
+          layer.setStyle({
+            ...layer.options.style,
+            fillOpacity: 0.65,
+          });
+        } else {
+          layer.closeTooltip(tooltip);
+
+          layer.setStyle({
+            ...IndoorStyle,
+            color: 'rgba(0, 0, 0, 0)',
+          });
+        }
       }
     });
   }
@@ -168,6 +195,7 @@ window.routingControl = L.Routing.control({
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
   document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
 	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
@@ -195,10 +223,53 @@ function onMapClick(e) {
   navigateTo(e.latlng)
 }
 
+var routingControlContainer = routingControl.getContainer();
+var controlContainerParent = routingControlContainer.parentNode;
+var controlDiv = document.getElementById("routing-control");
+var stopDiv = document.getElementById("routing-stop-button");
+
+function moveRoutingStopButton() {
+  var stopButton = document.getElementById("StopNavigation");
+  if (stopButton) {
+    var stopButtonParent = document.getElementsByClassName("leaflet-routing-geocoder-stop")[0];
+    if (window.screen.width < 640) {  
+      if (stopButtonParent.contains(stopButton)) { 
+          stopButtonParent.removeChild(stopButton);
+          stopDiv.appendChild(stopButton);
+      }
+    } else {
+        if (stopDiv.querySelector('#StopNavigation')) {
+          stopDiv.removeChild(stopButton);
+          stopButtonParent.appendChild(stopButton);
+        }
+    }
+  }
+}
+
+function moveRoutingControl() {
+    if (window.screen.width < 640) {      
+        if (controlContainerParent.contains(routingControlContainer)) {
+            controlContainerParent.removeChild(routingControlContainer);
+            controlDiv.appendChild(routingControlContainer);            
+        }
+    } else {
+        // der Wert ist irgendwie noch hard gecoded
+        if (controlDiv.querySelector('.leaflet-routing-container')) {
+          controlDiv.removeChild(routingControlContainer);
+          controlContainerParent.appendChild(routingControlContainer);
+        }
+    }
+}
+
+window.addEventListener("load", moveRoutingControl);
+window.addEventListener("load", moveRoutingStopButton);
+window.addEventListener("resize", moveRoutingControl);
+window.addEventListener("resize", moveRoutingStopButton);
+
 // Build the stop buton and insert it into the routingControl-plan
 (function buildStopButton(){
     const el = document.createElement('div')
-    el.className = 'leaflet-routing-geocoder';
+    el.className = 'leaflet-routing-geocoder-stop';
     el.innerHTML = 	`
     <input 
         type="button" 
@@ -207,6 +278,7 @@ function onMapClick(e) {
         onclick="
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
+            document.querySelector('#mobile-view-welcome-routing-text').style.display = 'block';
             routingControl.hide()
             routingControl.setWaypoints([]).route()" 
         class="stop-button" 

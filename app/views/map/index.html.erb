@@ -1,4 +1,4 @@
-<% content_for :title, "HPI Map" %>
+<% content_for :title, "Map" %>
 <% content_for :head do %>
     <%= stylesheet_link_tag 'map' %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.76.0/dist/L.Control.Locate.min.css" />
@@ -34,7 +34,11 @@
 
   <body>
   	<div class="leaflet">
-  		<div id="map" style="width: 100%; height: 100%;"></div>
+	  <div id="map" class="hpi-map"></div>
+	  <div id="routing-control" style="width: 100%; height: 20%;">
+      <div id="routing-stop-button"></div>
+      <div id="mobile-view-welcome-routing-text">Choose start and endpoint on map to start routing :)</div>
+    </div>
       <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>

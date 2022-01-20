@@ -23,7 +23,7 @@ RSpec.describe IndoorController, type: :controller do
       end
 
       it "contains a correct number of features" do
-        expect(body["features"].length).to eq(5)
+        expect(body["features"].length).to eq(0)
       end
     end
   end
