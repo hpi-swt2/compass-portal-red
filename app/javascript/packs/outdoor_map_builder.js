@@ -198,10 +198,10 @@ window.routingControl = L.Routing.control({
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
-	// this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+  // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
-	// always calculate the route to show the 'A' marker if only one waypoint is set
-	routingControl.route()
+  // always calculate the route to show the 'A' marker if only one waypoint is set
+  routingControl.route()
 });
 
 function navigateTo(position) {
