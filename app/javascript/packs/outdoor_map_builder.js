@@ -143,8 +143,10 @@ mymap.on('zoomend', function () {
           });
         } else {
           layer.closeTooltip(tooltip);
-
-          layer.setStyle(IndoorStyle);
+          layer.setStyle({
+            ...IndoorStyle,
+            color: 'rgba(0,0,0,0)',
+          });
         }
       }
     });
