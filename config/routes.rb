@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   # '/map'
   get '/map', to: 'map#index'
   get '/directions/:profile/:coordinates', to: 'map#directions'
+  get '/map/room_popup/:room_id', to: 'map#room_popup'
 
   # '/options'
   get '/options', to: 'options#index'

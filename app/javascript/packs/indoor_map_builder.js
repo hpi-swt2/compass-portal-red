@@ -21,12 +21,38 @@ const buildRoomLayer = (room) => {
         direction: 'center',
     });
     roomTooltip.setContent(room.fullName);
-
-    roomLayer.bindPopup(`<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${room.fullName}</a>`);
-
+    console.log("CHIMPANSE")
     roomLayer.bindTooltip(roomTooltip);
-    roomLayer.addEventListener('click', (event) => {
+    roomLayer.addEventListener('click',  (event) =>  {
+        // TODO: fix routing error in console
         console.log(event);
+        const popupRootNode = document.getElementById("popup_root")
+        if(popupRootNode.hasChildNodes){
+            try{
+                const currentRoomPopUp = popupRootNode.childNodes[0]
+                popupRootNode.removeChild(currentRoomPopUp)
+            }
+            catch(e){
+                console.error("Failed removing child node", e)
+            }
+        } 
+        
+        const element = document.createElement('div')
+        element.innerHTML = `<div class="map-popup card shadow-sm p-2">
+        <div class="card-body">
+        ⏳ Loading    
+        </div></div>`
+        console.log("appending child")
+        popupRootNode.appendChild(element)
+
+        fetch("/map/room_popup/"+room.id).then(function (response) {
+            return response.text();
+        }).then(function (html) {
+            element.innerHTML = html
+        }).catch(function (err) {
+            console.warn('Sum ting went wrong.', err);
+            element.innerHTML = 'Sum ting went wrong: \n'+err
+        })    
     });
 
     layers[room.fullName] = L.layerGroup()
