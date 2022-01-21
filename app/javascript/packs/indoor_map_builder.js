@@ -58,17 +58,6 @@ export const buildIndoorMap = () => {
       floorLayers[floor.name] = buildFloorLayer(floor);
     });
     L.control.layers(floorLayers, null).addTo(mymap);
-
-    // Hide tooltips by default
-    mymap.eachLayer(function (layer) {
-      if (layer.getTooltip()) {
-        const tooltip = layer.getTooltip();
-
-        if (layer.options.pane === 'rooms') {
-          layer.closeTooltip(tooltip);
-        }
-      }
-    });
   }
   console.log('[INDOOR] Indoor map done');
 };
