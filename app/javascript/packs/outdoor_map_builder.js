@@ -120,7 +120,6 @@ mymap.on('zoomend', function () {
           }
         } else if (zoom > indoorZoomLevel) {
           layer.openTooltip(tooltip);
-
           layer.setStyle(IndoorStyle);
         }
       }
@@ -145,10 +144,7 @@ mymap.on('zoomend', function () {
         } else {
           layer.closeTooltip(tooltip);
 
-          layer.setStyle({
-            ...IndoorStyle,
-            color: 'rgba(0, 0, 0, 0)',
-          });
+          layer.setStyle(IndoorStyle);
         }
       }
     });

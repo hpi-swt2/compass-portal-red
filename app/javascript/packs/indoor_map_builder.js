@@ -2,10 +2,7 @@ import { IndoorStyle } from '../constants';
 
 const buildRoomLayer = (room) => {
   const roomLayer = L.geoJSON(room.geoJson, {
-    style: {
-      ...IndoorStyle,
-      color: 'rgba(0, 0, 0, 0)',
-    },
+    style: IndoorStyle,
     pane: 'rooms',
   });
 
@@ -27,12 +24,12 @@ const buildRoomLayer = (room) => {
     console.log(event);
   });
 
-  return L.layerGroup().addTo(mymap).addLayer(roomLayer);
+  return L.layerGroup().addLayer(roomLayer);
 };
 
 const buildFloorLayer = (floor) => {
   // Add FloorLayer to layers
-  const floorLayer = L.layerGroup().addTo(mymap);
+  const floorLayer = L.layerGroup();
   layers[floor.name] = floorLayer;
 
   // Add all rooms
@@ -48,10 +45,10 @@ export const buildIndoorMap = () => {
   console.log('[INDOOR] Indoor map start');
 
   if (mymap == null) {
-    console.error('Map not initialized before buildRoomLayer was called.');
+    console.error('Expected mymap, but "mymap" is null.');
   } else if (window.floorsToBuild == null) {
     console.error(
-      'Expected to receive rooms to build, but "floorsToBuild" is null.'
+      'Expected to receive floors to build, but "floorsToBuild" is null.'
     );
   } else {
     mymap.createPane('rooms');
@@ -69,11 +66,6 @@ export const buildIndoorMap = () => {
 
         if (layer.options.pane === 'rooms') {
           layer.closeTooltip(tooltip);
-
-          layer.setStyle({
-            ...IndoorStyle,
-            color: 'rgba(0, 0, 0, 0)',
-          });
         }
       }
     });
