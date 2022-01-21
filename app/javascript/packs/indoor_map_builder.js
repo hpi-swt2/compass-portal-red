@@ -61,6 +61,22 @@ export const buildIndoorMap = () => {
       floorLayers[floor.name] = buildFloorLayer(floor);
     });
     L.control.layers(floorLayers, null).addTo(mymap);
+
+    // Hide tooltips by default
+    mymap.eachLayer(function (layer) {
+      if (layer.getTooltip()) {
+        const tooltip = layer.getTooltip();
+
+        if (layer.options.pane === 'rooms') {
+          layer.closeTooltip(tooltip);
+
+          layer.setStyle({
+            ...IndoorStyle,
+            color: 'rgba(0, 0, 0, 0)',
+          });
+        }
+      }
+    });
   }
   console.log('[INDOOR] Indoor map done');
 };
