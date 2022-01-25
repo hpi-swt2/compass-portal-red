@@ -29,15 +29,17 @@
                 <%= result.to_string %>
               </a>
 
-
-              <div class='row mb-3'>
-                <div class='col-3'> <%= image_tag(result.image_or_placeholder, class: "picture-rounded") %> </div>
-                <div class="col mx-3">
-                  <h2><%= result.name %></h2>
-                  <span class="badge bg-primary">Room</span>
+              <a hred="<%=url_for(result)%>">
+                <div class='row mb-3'>
+                  <div class='col-3'> <%= image_tag(result.image_or_placeholder, class: "picture-rounded") %> </div>
+                  <div class="col mx-3">
+                    <h4><%= result.to_string %></h4>
+                    <% result.displayed_tags.each do |tag| %>
+                      <%= tag %>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
-
+              </a>
 
 
             <% end %>

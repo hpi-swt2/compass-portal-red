@@ -35,6 +35,10 @@ class Room < SearchableRecord
     [:floor, :tags, :room_types]
   end
 
+  def displayed_tags
+    tags.pluck(:name) + room_types.pluck(:name)
+  end
+
   def self.search_by_tags(query)
     joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
   end

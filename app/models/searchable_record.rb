@@ -10,6 +10,10 @@ class SearchableRecord < ApplicationRecord
     []
   end
 
+  def displayed_tags
+    []
+  end
+
   def image_or_placeholder
     image
   end
