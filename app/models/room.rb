@@ -12,13 +12,6 @@ class Room < SearchableRecord
   has_and_belongs_to_many :points
 
   after_initialize :init
-  before_save :normalize_blank_image
-
-  PLACEHOLDER_IMAGE_LINK = "placeholder_room.png".freeze
-
-  def normalize_blank_image
-    image.present? || self.image = PLACEHOLDER_IMAGE_LINK
-  end
 
   def init
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one

@@ -28,6 +28,18 @@
                 <span class= "<%= result.icon_class %>"></span>
                 <%= result.to_string %>
               </a>
+
+
+              <div class='row mb-3'>
+                <div class='col-3'> <%= image_tag(result.image_or_placeholder, class: "picture-rounded") %> </div>
+                <div class="col mx-3">
+                  <h2><%= result.name %></h2>
+                  <span class="badge bg-primary">Room</span>
+                </div>
+              </div>
+
+
+
             <% end %>
           <% end %>
         </div>

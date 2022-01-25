@@ -10,6 +10,10 @@ class SearchableRecord < ApplicationRecord
     []
   end
 
+  def image_or_placeholder
+    image
+  end
+
   def to_string
     raise 'This method should be overriden to display a string when searching'
   end
