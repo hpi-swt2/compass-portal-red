@@ -27,6 +27,14 @@ class Person < SearchableRecord
     full_name
   end
 
+  def related_searchable_records
+    if room
+      chairs + [room]
+    else
+      chairs
+    end
+  end
+
   def self.searchable_attributes
     %w[title first_name last_name]
   end

@@ -7,6 +7,8 @@ class SearchController < ApplicationController
     words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
 
     @more_results = words_in_query.flat_map { |word| add_results_for(word) }
+    @more_results += @more_results.map(&:related_searchable_records).flatten
+    @more_results += @exact_results.map(&:related_searchable_records).flatten
     @more_results = sort(@more_results, params[:query]) - @exact_results
 
     @params = params[:query]

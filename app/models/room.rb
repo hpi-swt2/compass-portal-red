@@ -28,6 +28,10 @@ class Room < SearchableRecord
     name
   end
 
+  def related_searchable_records
+    people + chairs
+  end
+
   def to_geojson
     walls.map(&:to_geojson) +
       points.map(&:to_geojson) +

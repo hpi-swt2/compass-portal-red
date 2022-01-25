@@ -18,6 +18,10 @@ class SearchableRecord < ApplicationRecord
     "search-item-icon --#{self.class.name.downcase}"
   end
 
+  def related_searchable_records
+    []
+  end
+
   def self.search(query)
     if query.strip.casecmp(name).zero?
       joins(searchable_relations).group(:id)

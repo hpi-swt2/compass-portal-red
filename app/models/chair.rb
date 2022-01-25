@@ -9,6 +9,10 @@ class Chair < SearchableRecord
     name
   end
 
+  def related_searchable_records
+    people + rooms
+  end
+
   def self.searchable_attributes
     ["name"]
   end
