@@ -34,3 +34,24 @@
     }
   }
 }
+
+.cancel-input{
+  background: none;
+  color: #444444;
+  border: 0;
+  position: relative;
+  top: -32px;
+  float: right;
+  margin-right: 5px;
+  visibility: hidden;
+}
+
+.col{
+  height: 38px;
+}
+
+@media only screen and (max-width: 400px){
+  .container.mt-5.mb-5 {
+    margin-top: 1.5rem !important;
+  }
+}
