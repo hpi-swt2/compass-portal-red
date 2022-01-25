@@ -23,11 +23,11 @@
           <div class="col">
             <div class="form-group">
               <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
-              <%= button_to "X", { action: "index" }, class: "cancel-input", id: "cancel" %>
             </div>
           </div>
         </div>
       <% end %>
+      <%= button_to "X", { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
       <div class="row">
         <div class="col">
           <div class="list-group" id="exact-results">
