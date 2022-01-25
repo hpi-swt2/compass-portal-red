@@ -204,24 +204,42 @@ window.routingControl = L.Routing.control({
   routingControl.route()
 });
 
-// move rounting container to map-navigation-popup
+function buildNavigationButton(){
+  const el = document.createElement('div')
+  el.className = 'leaflet-navigation-button leaflet-control';
+  el.innerHTML = 	`
+    <span>
+    <i class="fa fa-route fa-3x" style="color: black; cursor: pointer;" onclick="alert('hi')"></i>
+  </span>
+  `
+  document.querySelector('.leaflet-right').appendChild(el)
+};
+buildNavigationButton();
 
-$('.leaflet-routing-collapse-btn').off('click').on('click', function(event) {
-  console.log("close")
-  console.log(document.getElementsByClassName('leaflet-routing-collapse-btn'))
-  let element = document.getElementsByClassName('leaflet-routing-container')[0];
-  let parent = element.parentNode;
-  let targetDiv = document.getElementById('test-routing');
-  if(parent.style.display != 'none !important') {
-    targetDiv.appendChild(element);
-    // parent.removeChild(element);
-    parent.style.display="none !important"
-  // document.getElementById('leaflet-routing-collapse-btn').style.display = "none !important";
-  } else {
-    parent.style.display="block"
-    parent.appendChild(element)
-  }
-});
+document.getElementsByClassName('leaflet-routing-collapse-btn')[0].style.display = 'none'
+
+// move rounting container to map-navigation-popup
+let element = document.getElementsByClassName('leaflet-routing-container')[0];
+let parent = element.parentNode;
+let targetDiv = document.getElementById('test-routing');
+targetDiv.appendChild(element);
+parent.removeChild(element);
+// $('.leaflet-routing-collapse-btn').off('click').on('click', function(event) {
+//   console.log("close")
+//   console.log(document.getElementsByClassName('leaflet-routing-collapse-btn'))
+//   let element = document.getElementsByClassName('leaflet-routing-container')[0];
+//   let parent = element.parentNode;
+//   let targetDiv = document.getElementById('test-routing');
+//   if(parent.style.display != 'none !important') {
+//     targetDiv.appendChild(element);
+//     // parent.removeChild(element);
+//     parent.style.display="none !important"
+//   // document.getElementById('leaflet-routing-collapse-btn').style.display = "none !important";
+//   } else {
+//     parent.style.display="block"
+//     parent.appendChild(element)
+//   }
+// });
 
 function navigateTo(position) {
   // .locate() function returns map, so chaining works

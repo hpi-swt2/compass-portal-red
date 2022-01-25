@@ -39,12 +39,12 @@
       <div id="routing-stop-button"></div>
       <div id="mobile-view-welcome-routing-text">Choose start and endpoint on map to start routing :)</div>
     </div>
+      <%= render 'partials/map_navigation_popup'%>
       <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
 
-    <%= render 'partials/map_navigation_popup'%>
     <% if @selected_room.present? %>
       <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
       <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
