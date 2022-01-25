@@ -204,13 +204,31 @@ window.routingControl = L.Routing.control({
   routingControl.route()
 });
 
+// customize the routing things a bit more
+
+function displayMapPopup() {
+  console.log('here ');
+  document.getElementById('map-navigation-popup').style.display = 'inline';
+  // TODO call routingstart event
+  //document.getElementsByClassName('leaflet-routing-collapse-btn')[0].click();
+  //window.routingControl.routingstart();
+}
+
+window.onload = function() {
+  let navigationButton = document.getElementById('leaflet-navigation-button');
+  console.log(navigationButton);
+  navigationButton.addEventListener('click', displayMapPopup);
+}
+
 function buildNavigationButton(){
   const el = document.createElement('div')
   el.className = 'leaflet-navigation-button leaflet-control';
+  el.id = 'leaflet-navigation-button'
   el.innerHTML = 	`
-    <span>
-    <i class="fa fa-route fa-3x" style="color: black; cursor: pointer;" onclick="alert('hi')"></i>
-  </span>
+    <i 
+      class="fa fa-route fa-3x" style="color: black; cursor: pointer;"
+    >
+    </i>
   `
   document.querySelector('.leaflet-right').appendChild(el)
 };
@@ -223,6 +241,7 @@ let element = document.getElementsByClassName('leaflet-routing-container')[0];
 let parent = element.parentNode;
 let targetDiv = document.getElementById('test-routing');
 targetDiv.appendChild(element);
+// TODO check if child existst
 parent.removeChild(element);
 // $('.leaflet-routing-collapse-btn').off('click').on('click', function(event) {
 //   console.log("close")
