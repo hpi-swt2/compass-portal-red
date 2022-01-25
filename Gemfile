@@ -44,6 +44,8 @@ gem 'devise-i18n-bootstrap' # https://github.com/maximalink/devise-i18n-bootstra
 gem 'omniauth' # https://github.com/omniauth/omniauth
 gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_connect
 
+gem 'open_uri_redirections'
+
 #
 # Gems that are loaded depending on the environment (development/test/production)
 #
@@ -67,6 +69,12 @@ group :development, :test do
   gem 'rubocop-performance', require: false # https://github.com/rubocop-hq/rubocop-performance
   # RSpec formatter compatible with GitHub Action's annotations
   gem 'rspec-github', require: false # https://github.com/Drieam/rspec-github
+  # Ruby on Rails Generators for Cucumber, with special support for Capybara and DatabaseCleaner
+  gem 'cucumber-rails', require: false
+  # used for cleaning your database in the testing environment
+  gem 'database_cleaner'
+  gem 'watir'
+  gem 'parallel'
 end
 
 group :development do
@@ -82,6 +90,8 @@ group :development do
   gem 'better_errors' # https://github.com/BetterErrors/better_errors
   # binding_of_caller is optional, but is necessary to use Better Errors' advanced features
   gem 'binding_of_caller' # https://github.com/banister/binding_of_caller
+  # Generate a diagram based on your application's Active Record models by calling 'bundle exec erd'. Dependency: graphviz
+  gem 'rails-erd' # https://github.com/voormedia/rails-erd
 end
 
 group :test do

@@ -1,5 +1,6 @@
 # The model representing a user who can log in
 class User < ApplicationRecord
+  has_one :person, dependent: :nullify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,11 +19,12 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.username = auth.info.name
       # `first_name` & `last_name` are also available
-      # user.first_name = auth.info.first_name
+      # user.first_name = auth.info.first_names
       # user.last_name = auth.info.last_name
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
+      connect_to_person(auth, user.id)
     end
   end
 
@@ -36,4 +38,20 @@ class User < ApplicationRecord
   #     end
   #   end
   # end
+
+  def self.connect_to_person(auth, id)
+    email = auth.info.email
+    person = Person.find_by(email: email)
+    unless person
+      email = email.gsub('.uni-potsdam.de', '.de')
+      person ||= Person.find_by(email: email)
+    end
+    person ||= Person.new({
+                            'first_name' => auth.info.first_name,
+                            'last_name' => auth.info.last_name,
+                            'email' => email
+                          })
+    person["user_id"] = id
+    person.save
+  end
 end

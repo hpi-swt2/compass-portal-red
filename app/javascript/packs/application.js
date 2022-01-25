@@ -13,6 +13,13 @@ import 'bootstrap';
 // Fontawesome: https://fontawesome.com/
 import "@fortawesome/fontawesome-free/js/all";
 
+// Import leaflet
+import L from 'leaflet';
+import 'leaflet.locatecontrol';
+import 'leaflet-routing-machine';
+
+window.L = L
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

@@ -1,0 +1,42 @@
+<%= form_with(model: data_problem) do |form| %>
+  <% if data_problem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(data_problem.errors.count, "error") %> prohibited this data_problem from being saved:</h2>
+
+      <ul>
+        <% data_problem.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :field %>
+    <%= form.text_field :field %>
+  </div>
+
+  <div class="field">
+    <%= form.label :room_id %>
+    <%= form.text_field :room_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :person_id %>
+    <%= form.text_field :person_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

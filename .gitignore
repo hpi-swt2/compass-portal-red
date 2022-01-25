@@ -4,6 +4,8 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+.DS_Store
+
 # Ignore bundler config.
 /.bundle
 
@@ -69,3 +71,22 @@ yarn-debug.log*
 
 # Node modules
 node_modules
+
+
+# Images
+app/assets/images/people/*
+
+#ignore .idea
+.idea
+.idea/*
+
+/config/master.key
+.people_urls.json
+er-diagram.png
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

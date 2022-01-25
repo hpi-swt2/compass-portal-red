@@ -1,0 +1,46 @@
+<% content_for :title, "Chair #{@chair.name}" %>
+<div class='detail'>
+  <div class="row mb-5">
+    <div class="col-3">
+      <img src= "https://via.placeholder.com/150" class="picture-rounded" >
+    </div>
+    <div class="col">
+      <h1>
+        <%= @chair.name %>
+      </h1>
+    </div>
+  </div>
+
+  <% if @chair.people %>
+    <div class='row'>
+      <div class='col-3'> people </div>
+      <div class='col'>
+        <% @chair.people.each do |person| %>
+          <div class="mb-2">
+            <%= link_to person_path(person), class: "btn btn-with-img" do %>
+              <%= image_tag(person.image_or_placeholder, class: "btn-img") %>
+              <%= person.full_name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @chair.rooms %>
+    <div class='row'>
+      <div class='col-3'> room </div>
+      <div class='col'>
+        <% @chair.rooms.each do |room| %>
+          <div class="mb-2">
+            <%= link_to room_path(room), class: "btn btn-with-img" do %>
+              <%= image_tag(room.image, class: "btn-img") %>
+              <%= room.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= link_to 'Edit', edit_chair_path(@chair) %> |
+<%= link_to 'Back', chairs_path %>

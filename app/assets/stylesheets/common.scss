@@ -1,0 +1,103 @@
+@import "colors";
+
+.badge {
+  margin-bottom: 0.25rem;
+}
+
+.form-wrapper {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.field {
+  margin-top: 1em;
+}
+
+.highlighted {
+  background-color: $hpi-red-tint !important;
+}
+
+.picture-rounded {
+  max-width: 100%;
+  max-height: 12em;
+  object-fit: cover;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 100%;
+  background: #ddd;
+
+  &.sm {
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  &.md {
+    width: 8em;
+    height: 8em;
+  }
+
+  &.fill {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+}
+
+.icon-dot {
+  height: 4rem;
+  width: 4rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.detail-tag {
+  background: $mediumgray;
+}
+
+.list-details {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.detail {
+  .row {
+    margin-bottom: 2rem;
+    [class^="col"]:first-child {
+      font-weight: bold;
+    }
+  }
+  .btn-with-img {
+    position: relative;
+    background-color: darken($lightgray, 5%);
+    border: none;
+    border-radius: 2rem;
+    padding-right: 1rem;
+    padding-left: 3rem;
+  }
+  .btn-img {
+    position: absolute;
+    background-color: $mediumgray;
+    border-radius: 2rem;
+    height: 36px;
+    width: 36px;
+    left: 0;
+    top: 0;
+
+    &[data-prefix="fas"] {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}
+
+.rounded-circle {
+  width: 100%;
+  height: auto;
+  max-width: 150px;
+  background-color: $mediumgray;
+}
+
+.badge {
+  font-size: 1em;
+  background-color: $mediumgray;
+}
