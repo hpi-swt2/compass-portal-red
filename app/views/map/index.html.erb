@@ -44,9 +44,10 @@
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
 
+    <%= render 'partials/map_navigation_popup'%>
     <% if @selected_room.present? %>
-	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-    <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
+      <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+      <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>

@@ -204,6 +204,25 @@ window.routingControl = L.Routing.control({
   routingControl.route()
 });
 
+// move rounting container to map-navigation-popup
+
+$('.leaflet-routing-collapse-btn').off('click').on('click', function(event) {
+  console.log("close")
+  console.log(document.getElementsByClassName('leaflet-routing-collapse-btn'))
+  let element = document.getElementsByClassName('leaflet-routing-container')[0];
+  let parent = element.parentNode;
+  let targetDiv = document.getElementById('test-routing');
+  if(parent.style.display != 'none !important') {
+    targetDiv.appendChild(element);
+    // parent.removeChild(element);
+    parent.style.display="none !important"
+  // document.getElementById('leaflet-routing-collapse-btn').style.display = "none !important";
+  } else {
+    parent.style.display="block"
+    parent.appendChild(element)
+  }
+});
+
 function navigateTo(position) {
   // .locate() function returns map, so chaining works
   mymap.locate()
