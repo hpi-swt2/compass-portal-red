@@ -196,7 +196,7 @@ window.routingControl = L.Routing.control({
 .on('routingstart', (e)=>{
   console.log("routing start");
   document.getElementById('StopNavigation').style.display = 'block';
-  //document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");
@@ -244,7 +244,7 @@ document.getElementsByClassName('leaflet-routing-collapse-btn')[0].style.display
 // move rounting container to map-navigation-popup
 let element = document.getElementsByClassName('leaflet-routing-container')[0];
 let parent = element.parentNode;
-let targetDiv = document.getElementById('test-routing');
+let targetDiv = document.getElementById('routing-controller');
 targetDiv.appendChild(element);
 
 
@@ -266,49 +266,6 @@ function navigateTo(position) {
 function onMapClick(e) {
   navigateTo(e.latlng)
 }
-
-var routingControlContainer = routingControl.getContainer();
-var controlContainerParent = routingControlContainer.parentNode;
-var controlDiv = document.getElementById("routing-control");
-var stopDiv = document.getElementById("routing-stop-button");
-
-function moveRoutingStopButton() {
-  var stopButton = document.getElementById("StopNavigation");
-  if (stopButton) {
-    var stopButtonParent = document.getElementsByClassName("leaflet-routing-geocoder-stop")[0];
-    if (window.screen.width < 640) {  
-      if (stopButtonParent.contains(stopButton)) { 
-          stopButtonParent.removeChild(stopButton);
-          stopDiv.appendChild(stopButton);
-      }
-    } else {
-        if (stopDiv.querySelector('#StopNavigation')) {
-          stopDiv.removeChild(stopButton);
-          stopButtonParent.appendChild(stopButton);
-        }
-    }
-  }
-}
-
-function moveRoutingControl() {
-    if (window.screen.width < 640) {      
-        if (controlContainerParent.contains(routingControlContainer)) {
-            controlContainerParent.removeChild(routingControlContainer);
-            controlDiv.appendChild(routingControlContainer);            
-        }
-    } else {
-        // der Wert ist irgendwie noch hard gecoded
-        if (controlDiv.querySelector('.leaflet-routing-container')) {
-          controlDiv.removeChild(routingControlContainer);
-          controlContainerParent.appendChild(routingControlContainer);
-        }
-    }
-}
-
-window.addEventListener("load", moveRoutingControl);
-window.addEventListener("load", moveRoutingStopButton);
-window.addEventListener("resize", moveRoutingControl);
-window.addEventListener("resize", moveRoutingStopButton);
 
 // Build the stop buton and insert it into the routingControl-plan
 function buildStopButton(){
