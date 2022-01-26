@@ -1,15 +1,15 @@
 require 'uri'
 require 'net/http'
 
-class MapController < ApplicationController
+class MapController < SearchController
   layout 'fullpage'
 
   def index
+    super
     # Map page, accessible without login
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
     @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
-    @params = params[:query]
   end
 
   def map_params
