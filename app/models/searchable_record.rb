@@ -19,12 +19,13 @@ class SearchableRecord < ApplicationRecord
   end
 
   def self.search(query)
+    join = left_outer_joins(searchable_relations)
     if query.strip.casecmp(name).zero?
-      joins(searchable_relations).group(:id)
+      join.group(:id)
     else
       attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
       search_string = attributes.join(" or ")
-      joins(searchable_relations).where(search_string).group(:id)
+      join.where(search_string).group(:id)
     end
   end
 end

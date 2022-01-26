@@ -56,10 +56,9 @@ Feature: Search functionality
 
   Scenario: searching a room without a room type
     Given I am on the search page
-    When I enter "printer"
+    When I enter "quiet"
     And I start the search
-    Then I see the search result "H-E.42"
-    And I see the search result "H-E.43"
+    Then I see the search result "H-E.43"
 
   Scenario: searching all rooms
     Given I am on the search page
@@ -84,6 +83,4 @@ Feature: Search functionality
     Given I am on the search page
     When I enter "Room for quiet learning"
     And I start the search
-    Then I first see H-E.42 and then Enterprise Platform and Integration Concepts in the list for more-results
-
-
+    Then I first see H-E.43 and then Enterprise Platform and Integration Concepts in the list for more-results
