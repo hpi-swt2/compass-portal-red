@@ -24,10 +24,23 @@
         <div class="list-group" id="exact-results">
           <%if @exact_results.present? %>
             <% @exact_results.each do |result|%>
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action" >
-                <span class= "<%= result.icon_class %>"></span>
-                <%= result.to_string %>
+
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action">
+                <div class='row'>
+                  <div class='col-3 d-flex flex-column justify-content-center'> 
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
+                  </div>
+                  <div class="col mx-3 d-flex flex-column justify-content-center">
+                    <h4><%= result.to_string %></h4>
+                    <div>
+                      <% result.displayed_tags.each do |tag| %>
+                        <span class="badge bg-primary"><%= tag %></span>
+                      <% end %>
+                    </div>    
+                  </div>
+                </div>
               </a>
+
             <% end %>
           <% end %>
         </div>
