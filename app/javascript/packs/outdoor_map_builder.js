@@ -196,7 +196,10 @@ window.routingControl = L.Routing.control({
 .on('routingstart', (e)=>{
   console.log("routing start");
   document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
+  document.getElementById('map-popup').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");
@@ -225,13 +228,15 @@ window.routingControl = L.Routing.control({
 
 function buildNavigationButton(){
   const el = document.createElement('div')
-  el.className = 'leaflet-navigation-button leaflet-control';
+  el.className = 'leaflet-navigation-button leaflet-control leaflet-control-layers';
   el.id = 'leaflet-navigation-button'
   el.innerHTML = 	`
     <i 
-      class="fa fa-route fa-3x" style="color: black; cursor: pointer;"
-      onclick="document.getElementById('map-navigation-popup').style.display = 'inline';
-      event.stopPropagation();"
+      class="fa fa-route fa-3x navigation-icon"
+      onclick="
+        document.getElementById('map-navigation-popup').style.display = 'inline';
+        event.stopPropagation();
+        document.getElementById('map-popup').style.display = 'none';"
     >
     </i>
   `
@@ -280,14 +285,12 @@ function buildStopButton(){
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
             document.querySelector('#mobile-view-welcome-routing-text').style.display = 'block';
-            routingControl.hide()
-            routingControl.setWaypoints([]).route()" 
-        class="stop-button" 
-        style="
-            width: 100px; 
-            font-size: 1.75vh;
-            background-color: red;
-            color: white"
+            routingControl.hide();
+            routingControl.setWaypoints([]).route();
+            document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'none';
+            document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '100%';" 
+        class="stop-button iconbutton" 
+        style="border-color: transparent;"
     />`
     // Do not render the '+' button that can be used to add waypoints
     document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'

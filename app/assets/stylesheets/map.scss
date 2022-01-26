@@ -1,4 +1,5 @@
 @import "values";
+@import "colors";
 
 .leaflet-tooltip.marker_label {
   border-radius: 20px;
@@ -23,13 +24,45 @@
   width: 100%;
   background-color: white;
   text-align: center;
+  padding-top: 20px;
+}
+#StopNavigation {
+  background-color: $hpi-red;
+  color: $lightgray;
 }
 .leaflet-routing-container {
   width: 100% !important;
   background-color: transparent !important;
+  display: flex !important;
 }
 .leaflet-bar {
   box-shadow: none !important;
+}
+.leaflet-routing-alt {
+  max-height: 200px !important;
+}
+.leaflet-routing-geocoders {
+  width: 100%;
+  border-bottom: none !important;
+}
+.leaflet-routing-alternatives-container {
+  display: none;
+  width: 45%;
+  max-height: 200px;
+  margin-left: 10px;
+}
+.leaflet-routing-alt table {
+  width: -moz-available !important;
+}
+.leaflet-navigation-button {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+}
+.navigation-icon {
+  color: $mediumgray;
+  cursor: pointer;
+  margin-top: 3px;
 }
 @media only screen and (max-width: 640px) {
     .leaflet-routing-container {
@@ -46,9 +79,6 @@
       width: 100% !important;
     }
     .leaflet-routing-geocoder {
-      display: none !important;
-    }
-    table {
       display: none !important;
     }
 }
