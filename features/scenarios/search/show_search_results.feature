@@ -6,8 +6,9 @@ Feature: Search functionality
   Background:
     Given a person was created
     And a second person was created
-    Given a room was created
-    Given a chair was created
+    And a room was created
+    And a room without a room type was created
+    And a chair was created
 
   Scenario: searching a person
     Given I am on the search page
@@ -52,6 +53,13 @@ Feature: Search functionality
     When I enter "lecture hall"
     And I start the search
     Then I see the search result "H-E.42"
+
+  Scenario: searching a room without a room type
+    Given I am on the search page
+    When I enter "printer"
+    And I start the search
+    Then I see the search result "H-E.42"
+    And I see the search result "H-E.43"
 
   Scenario: searching all rooms
     Given I am on the search page
