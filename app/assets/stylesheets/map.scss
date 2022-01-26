@@ -29,6 +29,9 @@
   background-color: white;
   text-align: center;
 }
+div.leaflet-top.leaflet-left, div.leaflet-top.leaflet-right {
+  margin-top: 50px;
+}
 @media only screen and (max-width: 640px) {
     .hpi-map {
         width: 100%;
@@ -40,9 +43,6 @@
     }
     .leaflet-routing-collapse-btn {
         display: none !important;
-    }
-    div.leaflet-top.leaflet-left, div.leaflet-top.leaflet-right {
-      margin-top: 50px;
     }
     .routing-stop-button {
       width: 100%;
