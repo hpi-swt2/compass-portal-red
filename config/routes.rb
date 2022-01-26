@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :courses
   resources :email_log
   resources :data_problems
   resources :chairs
