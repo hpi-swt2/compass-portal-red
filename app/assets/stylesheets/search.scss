@@ -6,10 +6,6 @@
 
 @import "colors";
 
-.search-item {
-  border: none !important;
-}
-
 @media only screen and (min-width: 400px) {
   .search-item {
     margin-bottom: 0.5rem;
@@ -41,6 +37,8 @@
 
 
 .search-item {
+  border: none !important;
+
   &-icon {
     @extend %fa-icon;
     @extend .fas;
