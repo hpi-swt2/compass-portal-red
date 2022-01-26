@@ -7,6 +7,40 @@
 @import "colors";
 
 .search-item {
+  border: none !important;
+}
+
+@media only screen and (min-width: 400px) {
+  .search-item {
+    margin-bottom: 0.5rem;
+    border-radius: 1rem !important;
+
+    .col-2, .col {
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .search-item {
+    background-color: transparent !important;
+
+    .search-title {
+      margin-bottom: 0.1rem !important;
+    }
+
+    .col-2, .col {
+      justify-content: start;
+    }
+  
+    .col-2 {
+      padding: 0 !important;
+    }
+  }
+}
+
+
+.search-item {
   &-icon {
     @extend %fa-icon;
     @extend .fas;

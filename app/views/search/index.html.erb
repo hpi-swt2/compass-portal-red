@@ -25,13 +25,13 @@
           <%if @exact_results.present? %>
             <% @exact_results.each do |result|%>
 
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action">
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
-                  <div class='col-3 d-flex flex-column justify-content-center'> 
+                  <div class='col-2 d-flex flex-column'>
                     <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
                   </div>
-                  <div class="col mx-3 d-flex flex-column justify-content-center">
-                    <h5><%= result.to_string %></h5>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result.to_string %></h5>
                     <div>
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
@@ -54,11 +54,11 @@
 
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
-                  <div class='col-3 d-flex flex-column justify-content-center'> 
+                  <div class='col-2 d-flex flex-column'>
                     <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
                   </div>
-                  <div class="col mx-3 d-flex flex-column justify-content-center">
-                    <h5><%= result.to_string %></h5>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result.to_string %></h5>
                     <div>
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
