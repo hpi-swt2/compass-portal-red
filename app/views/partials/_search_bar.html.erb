@@ -1,0 +1,14 @@
+<div>
+    <%= form_with url: search_path, method: :get do |form| %>
+        <div class="row align-items-end mb-3">
+        <div class="col">
+            <div class="form-group">
+            <%= form.text_field :query, class: 'form-control', autofocus: true, value: @params, id: "search" %>
+            </div>
+        </div>
+        <div class="col-auto">
+            <%= form.submit "Search", class: 'btn btn-primary', id: "submit" %>
+        </div>
+        </div>
+    <% end %> 
+</div>
