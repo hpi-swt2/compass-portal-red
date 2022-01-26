@@ -6,7 +6,7 @@
         Welcome to the HPI Compass Portal<%= ", #{current_user.username}" if user_signed_in? && current_user.username.present? %>!
       </h1>
     </div>
-    <%= render('partials/search_bar') %>
+    <%= render('partials/search_bar', :locals => {:path => search_path}) %>
     <div class="row">
       <div class="col">
         <div class="list-group" id="exact-results">

@@ -36,7 +36,7 @@
   	<div class="leaflet">
     <div class="search-container">
       <div class="col-lg-6 col-md-9 col-12 mx-auto">
-        <%= render('partials/search_bar') %>
+        <%= render('partials/search_bar', :locals => {:path => map_path}) %>
       </div>
     </div>
 	  <div id="map" class="hpi-map"></div>
