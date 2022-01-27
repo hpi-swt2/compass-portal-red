@@ -31,10 +31,6 @@ class Person < SearchableRecord
     %w[title first_name last_name]
   end
 
-  def displayed_tags
-    informations.pluck(:value)
-  end
-
   VERIFICATION_ATTRIBUTES = [
     :human_verified_first_name,
     :human_verified_last_name,

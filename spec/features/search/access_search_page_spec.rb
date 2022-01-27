@@ -49,15 +49,7 @@ RSpec.describe "Search Page", type: :feature do
   it "displays icons for search results" do
     FactoryBot.create :chair
     visit "#{search_path}?query=Enterprise&commit=Search"
-    expect(page).to have_css("//img[@class = 'picture-rounded md']")
-    expect(page).to have_css("img[src*='/assets/placeholder_chair']")
-  end
-
-  it "displays tags for search results" do
-    FactoryBot.create :room
-    visit "#{search_path}?query=H-E&commit=Search"
-    expect(page).to have_css '.badge'
-    expect(page).to have_content 'lecture hall'
+    expect(page).to have_css("//span[@class = 'search-item-icon --chair']")
   end
 
   it "displays additional search results based on search" do
