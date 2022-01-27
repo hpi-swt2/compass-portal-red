@@ -1,14 +1,12 @@
 <div>
     <%= form_with url: locals[:path], method: :get do |form| %>
         <div class="row align-items-end mb-3">
-        <div class="col">
+          <div class="col">
             <div class="form-group">
-            <%= form.text_field :query, class: 'form-control', autofocus: true, value: @params, id: "search" %>
+              <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
             </div>
+          </div>
         </div>
-        <div class="col-auto">
-            <%= form.submit "Search", class: 'btn btn-primary', id: "submit" %>
-        </div>
-        </div>
-    <% end %> 
+      <% end %>
+      <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
 </div>
