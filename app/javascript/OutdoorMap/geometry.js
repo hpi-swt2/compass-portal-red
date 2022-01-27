@@ -2418,6 +2418,51 @@ export const buildings = JSON.parse(`[
     },
     {
       "type": "Feature",
+      "id": "way/23133701",
+      "properties": {
+        "timestamp": "2020-05-03T17:03:59Z",
+        "version": "25",
+        "changeset": "84573049",
+        "user": "TheBlackMan",
+        "uid": "1468248",
+        "addr:city": "Potsdam",
+        "addr:country": "DE",
+        "addr:housename": "Haus 4",
+        "addr:housenumber": "89",
+        "addr:postcode": "14482",
+        "addr:street": "August-Bebel-Straße",
+        "building": "university",
+        "building:levels": "2",
+        "name": "Building K",
+        "owner": "Hasso Plattner Förderstiftung gGmbH",
+        "roof:shape": "flat",
+        "website": "https://www.cs.uni-potsdam.de/",
+        "wheelchair": "yes",
+        "id": "way/23133701",
+        "campus": "Campus I",
+        "offset": [-35, 0]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.1300582, 52.39364],
+            [13.1300642, 52.3935896],
+            [13.1300688, 52.3935512],
+            [13.1300736, 52.3935107],
+            [13.1301124, 52.3931856],
+            [13.1304288, 52.3931996],
+            [13.130413, 52.393332],
+            [13.1303912, 52.3935143],
+            [13.1303853, 52.3935641],
+            [13.1303745, 52.393654],
+            [13.1300582, 52.39364]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
       "properties": {
               "name":"Building J",
                "campus":"Campus I",
@@ -2447,6 +2492,100 @@ export const buildings = JSON.parse(`[
               13.118866682052612,
               52.38422765152492
             ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/970133466",
+      "properties": {
+        "timestamp": "2021-08-03T15:27:22Z",
+        "version": "1",
+        "name": "Building L",
+        "changeset": "109101507",
+        "user": "TheBlackMan",
+        "uid": "1468248",
+        "building": "construction",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "id": "way/970133466",
+        "campus": "Campus II",
+        "offset": [-35, -20]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.1252593, 52.3921279],
+            [13.1252528, 52.3922096],
+            [13.12489, 52.3921988],
+            [13.1248965, 52.3921171],
+            [13.1252593, 52.3921279]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/970133467",
+      "properties": {
+        "timestamp": "2021-08-03T15:27:22Z",
+        "version": "1",
+        "changeset": "109101507",
+        "user": "TheBlackMan",
+        "uid": "1468248",
+        "building": "construction",
+        "building:levels": "3",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "id": "way/970133467",
+        "campus": "Campus II",
+        "offset": [0, 0]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.1248406, 52.3921974],
+            [13.12489, 52.3921988],
+            [13.1252528, 52.3922096],
+            [13.1253159, 52.3922115],
+            [13.1252974, 52.392443],
+            [13.1248221, 52.3924289],
+            [13.1248406, 52.3921974]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "way/970133468",
+      "properties": {
+        "timestamp": "2021-08-03T15:27:22Z",
+        "version": "1",
+        "changeset": "109101507",
+        "user": "TheBlackMan",
+        "uid": "1468248",
+        "building": "construction",
+        "building:levels": "3",
+        "roof:levels": "0",
+        "roof:shape": "flat",
+        "id": "way/970133468",
+        "campus": "Campus II",
+        "offset": [0, 0]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.1248589, 52.3919948],
+            [13.1253301, 52.3920088],
+            [13.1253204, 52.3921297],
+            [13.1252593, 52.3921279],
+            [13.1248965, 52.3921171],
+            [13.1248492, 52.3921157],
+            [13.1248589, 52.3919948]
           ]
         ]
       }
