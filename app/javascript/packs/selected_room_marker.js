@@ -10,6 +10,6 @@ setTimeout(() => {
 
     const coordinates = group.getLayers()[0].getBounds().getCenter();
     L.marker(coordinates).addTo(mymap);
-    mymap.setView(coordinates, indoorZoomLevel);
+    mymap.setView(coordinates, indoorZoomLevel + 1);
     console.log('[SELECTED_ROOM] Selected room done');
 }, 100);

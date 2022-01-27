@@ -113,6 +113,9 @@ for (const result of window.searchResults) {
   layers["Search Results"].addLayer(marker);
 }
 
+// const featureGroup = L.featureGroup(layers["Points of Interest"].getLayers());
+// mymap.fitBounds(featureGroup.getBounds().pad(0.5));
+
 // make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function () {
