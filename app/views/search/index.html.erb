@@ -1,21 +1,7 @@
 <% content_for :title, @params ? "Results for #{@params}" : "Search" %>
 
-<% # show clear button on entered text %>
-<script type="text/javascript" charset="utf-8">
-    function textEntered(field) {
-        if (!field) {
-            field = document.getElementById("search");
-        }
-        const btn = document.getElementById("cancel");
-        if (field.value === "") {
-            btn.style.visibility = "hidden";
-        } else {
-            btn.style.visibility = "visible";
-        }
-    }
-</script>
 
-<body onload="textEntered();">
+<body>
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
 

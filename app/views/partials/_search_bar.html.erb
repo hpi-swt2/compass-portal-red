@@ -1,4 +1,18 @@
-<div>
+<% # show clear button on entered text %>
+<script type="text/javascript" charset="utf-8">
+    function textEntered(field) {
+        if (!field) {
+            field = document.getElementById("search");
+        }
+        const btn = document.getElementById("cancel");
+        if (field.value === "") {
+            btn.style.visibility = "hidden";
+        } else {
+            btn.style.visibility = "visible";
+        }
+    }
+</script>
+<div onload="textEntered();">
     <%= form_with url: locals[:path], method: :get do |form| %>
         <div class="row align-items-end mb-3">
           <div class="col">
