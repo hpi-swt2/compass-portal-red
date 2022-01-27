@@ -16,28 +16,29 @@
 </script>
 
 <body onload="textEntered();">
-  <div class="row">
-    <div class="col-lg-6 col-md-9 col-12 mx-auto">
-      <%= form_with url: search_path, method: :get do |form| %>
-        <div class="row align-items-end mb-3">
-          <div class="col">
-            <div class="form-group">
-              <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
-            </div>
+<div class="row">
+  <div class="col-lg-6 col-md-9 col-12 mx-auto">
+    <%= form_with url: search_path, method: :get do |form| %>
+      <div class="row align-items-end mb-3">
+        <div class="col">
+          <div class="form-group">
+            <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
           </div>
         </div>
-      <% end %>
-      <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
-      
-      <div class="row">
-        <div class="col">
-          <div class="list-group" id="exact-results">
+      </div>
+    <% end %>
+    <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+
+    <div class="row">
+      <div class="col">
+        <div class="list-group" id="exact-results">
           <%if @exact_results.present? %>
             <% @exact_results.each do |result|%>
+
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
                   <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
                   <div class="col d-flex flex-column my-2">
                     <h5 class="search-title"><%= result.to_string %></h5>
@@ -45,13 +46,12 @@
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
                       <% end %>
-                    </div>    
+                    </div>
                   </div>
                 </div>
               </a>
+
             <% end %>
-          </div>
-          <% if @exact_results.present? and @more_results.present? %> More Results
           <% end %>
         </div>
 
@@ -65,7 +65,7 @@
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
                   <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
                   <div class="col d-flex flex-column my-2">
                     <h5 class="search-title"><%= result.to_string %></h5>
@@ -73,14 +73,16 @@
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
                       <% end %>
-                    </div>    
+                    </div>
                   </div>
                 </div>
               </a>
+
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </body>
