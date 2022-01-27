@@ -34,6 +34,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 #
 # Additional core gems
 #
+gem "aws-sdk-s3", require: false
 
 # Use devise as an authentication solution
 gem 'devise' # https://github.com/plataformatec/devise
