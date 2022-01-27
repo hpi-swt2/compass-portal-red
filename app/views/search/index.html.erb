@@ -1,24 +1,34 @@
 <% content_for :title, @params ? "Results for #{@params}" : "Search" %>
+
+<% # show clear button on entered text %>
+<script type="text/javascript" charset="utf-8">
+    function textEntered(field) {
+        if (!field) {
+            field = document.getElementById("search");
+        }
+        const btn = document.getElementById("cancel");
+        if (field.value === "") {
+            btn.style.visibility = "hidden";
+        } else {
+            btn.style.visibility = "visible";
+        }
+    }
+</script>
+
+<body onload="textEntered();">
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
-    <div class="row mb-3">
-      <h1 class="fw-light">
-        Welcome to the HPI Compass Portal<%= ", #{current_user.username}" if user_signed_in? && current_user.username.present? %>!
-      </h1>
-    </div>
-  <%= form_with url: search_path, method: :get do |form| %>
+    <%= form_with url: search_path, method: :get do |form| %>
       <div class="row align-items-end mb-3">
         <div class="col">
           <div class="form-group">
-            <%= form.label :query, "Search", class: 'form-label' %>
-            <%= form.text_field :query, class: 'form-control', autofocus: true, value: @params, id: "search" %>
+            <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
           </div>
         </div>
-        <div class="col-auto">
-          <%= form.submit "Search", class: 'btn btn-primary', id: "submit" %>
-        </div>
       </div>
-  <% end %> 
+    <% end %>
+    <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+
     <div class="row">
       <div class="col">
         <div class="list-group" id="exact-results">
@@ -28,7 +38,7 @@
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
                   <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
                   <div class="col d-flex flex-column my-2">
                     <h5 class="search-title"><%= result.to_string %></h5>
@@ -36,7 +46,7 @@
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
                       <% end %>
-                    </div>    
+                    </div>
                   </div>
                 </div>
               </a>
@@ -55,7 +65,7 @@
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
                 <div class='row'>
                   <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %> 
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
                   <div class="col d-flex flex-column my-2">
                     <h5 class="search-title"><%= result.to_string %></h5>
@@ -63,7 +73,7 @@
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
                       <% end %>
-                    </div>    
+                    </div>
                   </div>
                 </div>
               </a>
@@ -75,3 +85,4 @@
     </div>
   </div>
 </div>
+</body>
