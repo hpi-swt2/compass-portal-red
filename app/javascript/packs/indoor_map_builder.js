@@ -1,53 +1,65 @@
-import {IndoorStyle} from "../constants";
+import { IndoorStyle } from '../constants';
 
 const buildRoomLayer = (room) => {
-    if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
+  const roomLayer = L.geoJSON(room.geoJson, {
+    style: IndoorStyle,
+    pane: 'rooms',
+  });
 
-    const roomLayer = L.geoJSON(room.geoJson,
-        {
-            style: {
-                ...IndoorStyle,
-                color: 'rgba(0, 0, 0, 0)',
-            },
-            pane: 'rooms',
-        }
-    );
-    
-    const roomTooltip = L.tooltip({
-        permanent: true,
-        interactive: true,
-        className: 'marker_label',
-        offset: L.point(0, 0),
-        direction: 'center',
-    });
-    roomTooltip.setContent(room.fullName);
+  const roomTooltip = L.tooltip({
+    permanent: true,
+    interactive: true,
+    className: 'marker_label',
+    offset: L.point(0, 0),
+    direction: 'center',
+  });
+  roomTooltip.setContent(room.fullName);
 
-    roomLayer.bindPopup(`<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${room.fullName}</a>`);
+  roomLayer.bindPopup(
+    `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${room.fullName}</a>`
+  );
 
-    roomLayer.bindTooltip(roomTooltip);
-    roomLayer.addEventListener('click', (event) => {
-        console.log(event);
-    });
+  roomLayer.bindTooltip(roomTooltip);
+  roomLayer.addEventListener('click', (event) => {
+    console.log(event);
+  });
 
-    layers[room.fullName] = L.layerGroup()
-        .addTo(mymap)
-        .addLayer(roomLayer);
+  return L.layerGroup().addLayer(roomLayer);
+};
 
-    roomLayer.closeTooltip(roomTooltip);
-}
+const buildFloorLayer = (floor) => {
+  // Add FloorLayer to layers
+  const floorLayer = L.layerGroup();
+  layers[floor.name] = floorLayer;
+
+  // Add all rooms
+  floor.rooms.forEach((room) => {
+    const roomLayer = buildRoomLayer(room);
+    layers[floor.name].addLayer(roomLayer);
+  });
+
+  return floorLayer;
+};
 
 export const buildIndoorMap = () => {
-    console.log('[INDOOR] Indoor map start');
-    if(window.roomsToBuild == null) {
-        console.error('Expected to receive rooms to build, but "roomsToBuild" is null.');
-    } else {
-        mymap.createPane('rooms');
+  console.log('[INDOOR] Indoor map start');
 
-        window.roomsToBuild.forEach(room => {
-            buildRoomLayer(room)
-        })
-    }
-    console.log('[INDOOR] Indoor map done');
-}
+  if (mymap == null) {
+    console.error('Expected mymap, but "mymap" is null.');
+  } else if (window.floorsToBuild == null) {
+    console.error(
+      'Expected to receive floors to build, but "floorsToBuild" is null.'
+    );
+  } else {
+    mymap.createPane('rooms');
+
+    const floorLayers = {};
+    window.floorsToBuild.forEach((floor) => {
+      floorLayers[floor.name] = buildFloorLayer(floor);
+    });
+    L.control.layers(floorLayers, null).addTo(mymap);
+  }
+  console.log('[INDOOR] Indoor map done');
+};
 
 buildIndoorMap();
