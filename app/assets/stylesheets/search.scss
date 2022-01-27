@@ -35,10 +35,19 @@
   }
 }
 
+.form-control{
+  border-radius: 20px !important;
+}
+
+.form-control:focus{
+  box-shadow: none !important;
+}
+
 .cancel-input{
-  background: none;
+  background: #F4F4F4;
   color: #444444;
   border: 0;
+  border-radius: 20px;
   position: relative;
   top: -3rem;
   float: right;

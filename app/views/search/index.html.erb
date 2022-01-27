@@ -27,7 +27,7 @@
           </div>
         </div>
       <% end %>
-      <%= button_to "X", { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+      <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
       <div class="row">
         <div class="col">
           <div class="list-group" id="exact-results">
