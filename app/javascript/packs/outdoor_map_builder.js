@@ -234,10 +234,6 @@ window.routingControl = L.Routing.control({
 let highlightedBuilding = null
 
 function highlightDestinationDifferently(position) {
-  // if no new position was provided, do nothing
-  if(!position) {
-    return;
-  }
   // reset the style of the previously highlighted building, if available
   if(highlightedBuilding) {
     const id = highlightedBuilding._leaflet_id-1;
@@ -245,6 +241,10 @@ function highlightDestinationDifferently(position) {
   }
   // reset the highlighted building to be undefined
   highlightedBuilding = null;
+  // if no new position was provided, do nothing
+  if(!position) {
+    return;
+  }
   // different representation of the position for the pointInPolygon-method
   position = [position.lng, position.lat];
     
@@ -329,7 +329,7 @@ function buildStopButton() {
             routingControl.hide();
             routingControl.setWaypoints([]).route();
             document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'none';
-            document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '100%';" 
+            document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '100%';"
         class="stop-button iconbutton" 
         style="border-color: transparent;"
     />`
