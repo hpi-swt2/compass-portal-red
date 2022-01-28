@@ -199,7 +199,7 @@ window.routingControl = L.Routing.control({
   document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
   document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
-  document.getElementById('map-popup').style.display = 'none';
+  if (document.getElementById('map-popup')) document.getElementById('map-popup').style.display = 'none';
 })
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");

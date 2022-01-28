@@ -67,7 +67,9 @@
 @media only screen and (max-width: 640px) {
     .leaflet-routing-container {
         width: 100% !important;
-        height: 100% !important;        
+        height: 100% !important;
+        flex-flow: column !important;
+        flex-direction: column-reverse !important;    
     }
     .leaflet-routing-collapse-btn {
         display: none !important;
@@ -80,6 +82,19 @@
     }
     .leaflet-routing-geocoder {
       display: none !important;
+    }
+    .leaflet-routing-geocoders {
+      width: 100% !important;
+    }
+    .leaflet-routing-alternatives-container {
+      width: 85% !important;
+      max-height: 100px;
+    }
+    .leaflet-routing-alt {
+      max-height: 100px !important;
+    }
+    table {
+      max-height: 100px !important;
     }
 }
 
