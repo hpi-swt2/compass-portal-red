@@ -1,4 +1,4 @@
-import {IndoorStyle} from "../constants";
+import {IndoorStyle} from "../constants"
 
 const buildRoomLayer = (room) => {
     if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
@@ -21,11 +21,9 @@ const buildRoomLayer = (room) => {
         direction: 'center',
     });
     roomTooltip.setContent(room.fullName);
-    console.log("CHIMPANSE")
     roomLayer.bindTooltip(roomTooltip);
     roomLayer.addEventListener('click',  (event) =>  {
         // TODO: fix routing error in console
-        console.log(event);
         const popupRootNode = document.getElementById("popup_root")
         if(popupRootNode.hasChildNodes){
             try{
@@ -42,7 +40,6 @@ const buildRoomLayer = (room) => {
         <div class="card-body fw-bold">
         ⏳ Loading    
         </div></div>`
-        console.log("appending child")
         popupRootNode.appendChild(element)
 
         fetch("/map/room_popup/"+room.id).then(function (response) {

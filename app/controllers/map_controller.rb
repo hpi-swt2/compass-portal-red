@@ -44,9 +44,9 @@ class MapController < ApplicationController
     res = Net::HTTP.get_response(uri)
     render json: res.body
   end
-  
+
   def room_popup
     @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
-    render "partials/_map_popup"
+    render "map/_map_popup"
   end
 end

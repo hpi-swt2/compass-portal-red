@@ -21,7 +21,7 @@ RSpec.describe IndoorController, type: :controller do
       request.params[:coordinates] = '53p554725%2C9p994913;'
     end 
   end
-  decribe "GET #url" do
+  describe "GET #url" do
   end
   describe "GET #is_in_babelsberg" do
   end

@@ -47,7 +47,7 @@
 
     <div id="popup_root">
       <% if @selected_room.present? %>
-      <%= render 'partials/map_popup'%>
+      <%= render 'map/map_popup'%>
       <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
       <% end %>
     </div>
