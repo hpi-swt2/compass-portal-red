@@ -1,22 +1,29 @@
-import { buildings } from "../OutdoorMap/geometry";
-import {standardZoomLevel, indoorZoomLevel, styleMap, EntranceStyle, PoIStyle, IndoorStyle} from "../constants";
+import {
+  EntranceStyle,
+  IndoorStyle,
+  indoorZoomLevel,
+  PoIStyle,
+  standardZoomLevel,
+  styleMap,
+} from '../constants';
+import { buildings } from '../OutdoorMap/geometry';
 
-console.log("[MAP] Pre map init");
+console.log('[MAP] Pre map init');
 
 // If the map object still exists, initiate a new one
 // (relevant, when the user navigates back and the old page is cached)
 if (window.mymap) window.mymap.remove();
 
 // Set the leaflet map with center and zoom-level
-window.mymap = L.map("map").setView([52.393, 13.129], standardZoomLevel);
+window.mymap = L.map('map').setView([52.393, 13.129], standardZoomLevel);
 
-console.log("[MAP] Map init done");
+console.log('[MAP] Map init done');
 
 // Tileserver to be used as background
 L.tileLayer(
-    // there is a "dark-mode" available for this tile-layer:
-    // "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-    "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png",
+  // there is a "dark-mode" available for this tile-layer:
+  // "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+  'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
   {
     minZoom: 1,
     // this maxZoom is the maximum for the given tileLayer. You CAN increase the number
@@ -25,11 +32,11 @@ L.tileLayer(
     // We could think of doing that if we need more zoom for the indoor-maps, it shouldn't look too bad
     maxZoom: 20,
     attribution:
-    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors | Schnavigator',
+      '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors | Schnavigator',
   }
 ).addTo(mymap);
 
-console.log("[MAP] Tile layer done");
+console.log('[MAP] Tile layer done');
 
 L.control
   .locate({
@@ -53,28 +60,26 @@ for (const feature of buildings) {
   }
 
   // Determine Style (highlighting-colour) dependent of group
-  let layerStyle = styleMap[feature.properties.campus] ?? styleMap["default"];
+  let layerStyle = styleMap[feature.properties.campus] ?? styleMap['default'];
 
   // Add the building as a layer
   const layer = L.geoJSON(feature, { style: layerStyle, pane: 'buildings' });
   // Add a tooltip displaying the name of the building, taken from the GeoJSON
   layer.bindTooltip(feature.properties.name, {
     permanent: true,
-    className: "marker_label",
+    className: 'marker_label',
     offset: feature.properties.offset,
-    direction: "right",
+    direction: 'right',
   });
   // Add the building to its campus layergroup
   layers[feature.properties.campus].addLayer(layer);
 }
 
-layers["Points of Interest"] = L.layerGroup().addTo(mymap);
+layers['Points of Interest'] = L.layerGroup().addTo(mymap);
 for (const feature of points_of_interest) {
   let layerStyle;
-  console.log(feature.type);
   switch (feature.properties.type) {
-    case "Entrance":
-      console.log("here");
+    case 'Entrance':
       layerStyle = EntranceStyle;
       break;
     default:
@@ -83,23 +88,23 @@ for (const feature of points_of_interest) {
   const layer = L.geoJSON(feature);
   layer.bindTooltip(feature.properties.name, {
     permanent: true,
-    className: "marker_label",
+    className: 'marker_label',
     offset: [-14, 0],
-    direction: "right",
+    direction: 'right',
   });
   layer.bindPopup(feature.properties.description);
-  layers["Points of Interest"].addLayer(layer);
+  layers['Points of Interest'].addLayer(layer);
 }
 
 // make names disappear when zoomed out
 var lastZoom;
-mymap.on("zoomend", function () {
+mymap.on('zoomend', function () {
   var zoom = mymap.getZoom();
   if (
     (zoom < standardZoomLevel || zoom > indoorZoomLevel) &&
     (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)
   ) {
-    mymap.removeLayer(layers["Points of Interest"]);
+    mymap.removeLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
         const tooltip = layer.getTooltip();
@@ -115,7 +120,6 @@ mymap.on("zoomend", function () {
           }
         } else if (zoom > indoorZoomLevel) {
           layer.openTooltip(tooltip);
-
           layer.setStyle(IndoorStyle);
         }
       }
@@ -125,11 +129,11 @@ mymap.on("zoomend", function () {
     zoom <= indoorZoomLevel &&
     (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)
   ) {
-    mymap.addLayer(layers["Points of Interest"]);
+    mymap.addLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
         const tooltip = layer.getTooltip();
-        
+
         if (layer.options.pane === 'buildings') {
           layer.openTooltip(tooltip);
 
@@ -139,10 +143,9 @@ mymap.on("zoomend", function () {
           });
         } else {
           layer.closeTooltip(tooltip);
-
           layer.setStyle({
             ...IndoorStyle,
-            color: 'rgba(0, 0, 0, 0)',
+            color: 'rgba(0,0,0,0)',
           });
         }
       }
@@ -153,14 +156,14 @@ mymap.on("zoomend", function () {
 
 L.control.layers(null, layers).addTo(mymap);
 
-console.log("[MAP] Layers built");
+console.log('[MAP] Layers built');
 
 // TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
 // mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
 
 // mapbox token
 
-console.log(window.location.host + '/directions')
+console.log(window.location.host + '/directions');
 
 // routingControl does everything related to navigation
 window.routingControl = L.Routing.control({
@@ -209,23 +212,6 @@ window.routingControl = L.Routing.control({
   routingControl.route()
 });
 
-// customize the routing things a bit more
-
-// function displayMapPopup() {
-//   console.log('here ');
-//   document.getElementById('map-navigation-popup').style.display = 'inline';
-//   // TODO call routingstart event
-//   //document.getElementsByClassName('leaflet-routing-collapse-btn')[0].click();
-//   //window.routingControl.fire('click')
-//   //window.routingControl.routingstart();
-// }
-
-// window.onload = function() {
-//   let navigationButton = document.getElementById('leaflet-navigation-button');
-//   console.log(navigationButton);
-//   navigationButton.addEventListener('click', displayMapPopup);
-// }
-
 function buildNavigationButton(){
   const el = document.createElement('div')
   el.className = 'leaflet-navigation-button leaflet-control leaflet-control-layers';
@@ -273,7 +259,7 @@ function onMapClick(e) {
 }
 
 // Build the stop buton and insert it into the routingControl-plan
-function buildStopButton(){
+function buildStopButton() {
     const el = document.createElement('div')
     el.className = 'leaflet-routing-geocoder-stop';
     el.innerHTML = 	`
