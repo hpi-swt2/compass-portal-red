@@ -100,6 +100,17 @@ for (const feature of points_of_interest) {
   layers['Points of Interest'].addLayer(layer);
 }
 
+function setStyleForHighlightedBuilding(isIndoor) {
+  if(highlightedBuilding) {
+    highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]); 
+    if (isIndoor) {
+      highlightedBuilding.setStyle({
+        fillOpacity: 0.0,
+      });
+    }
+  }
+}
+
 // make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function () {
@@ -118,22 +129,12 @@ mymap.on('zoomend', function () {
               ...layer.options.style,
               fillOpacity: 0.0,
             });
-            if(highlightedBuilding) {
-              highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
-              highlightedBuilding.setStyle({
-                fillOpacity: 0.0,
-              });
-            }
+            setStyleForHighlightedBuilding(true);
           }
         } else if (zoom > indoorZoomLevel) {
           layer.openTooltip(tooltip);
           layer.setStyle(IndoorStyle);
-          if(highlightedBuilding) {
-            highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
-            highlightedBuilding.setStyle({
-              fillOpacity: 0.0,
-            });
-          }
+          setStyleForHighlightedBuilding(true);
         }
       }
     });
@@ -153,18 +154,14 @@ mymap.on('zoomend', function () {
           layer.setStyle({
             ...layer.options.style,
           });
-          if(highlightedBuilding) {
-            highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
-          }
+          setStyleForHighlightedBuilding(false)
         } else {
           layer.closeTooltip(tooltip);
           layer.setStyle({
             ...IndoorStyle,
             color: 'rgba(0,0,0,0)',
           });
-          if(highlightedBuilding) {
-            highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
-          }
+          setStyleForHighlightedBuilding(false);
         }
       }
     });
@@ -237,15 +234,17 @@ window.routingControl = L.Routing.control({
 let highlightedBuilding = null
 
 function highlightDestinationDifferently(position) {
+  // if no new position was provided, do nothing
+  if(!position) {
+    return;
+  }
   // reset the style of the previously highlighted building, if available
   if(highlightedBuilding) {
     const id = highlightedBuilding._leaflet_id-1;
     highlightedBuilding.setStyle(styleMap[highlightedBuilding._layers[id].feature.properties.campus]);
   }
-  // if no new position was provided, do nothing
-  if(!position) {
-    return
-  }
+  // reset the highlighted building to be undefined
+  highlightedBuilding = null;
   // different representation of the position for the pointInPolygon-method
   position = [position.lng, position.lat];
     
