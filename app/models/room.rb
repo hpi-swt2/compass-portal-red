@@ -47,7 +47,7 @@ class Room < SearchableRecord
   end
 
   def self.search_by_tags(query)
-    joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
+    left_outer_joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
   end
 
   def name

@@ -6,8 +6,9 @@ Feature: Search functionality
   Background:
     Given a person was created
     And a second person was created
-    Given a room was created
-    Given a chair was created
+    And a room was created
+    And a room without a room type was created
+    And a chair was created
 
   Scenario: searching a person
     Given I am on the search page
@@ -53,6 +54,12 @@ Feature: Search functionality
     And I start the search
     Then I see the search result "H-E.42"
 
+  Scenario: searching a room without a room type
+    Given I am on the search page
+    When I enter "quiet"
+    And I start the search
+    Then I see the search result "H-E.43"
+
   Scenario: searching all rooms
     Given I am on the search page
     When I enter "room"
@@ -76,6 +83,4 @@ Feature: Search functionality
     Given I am on the search page
     When I enter "Room for quiet learning"
     And I start the search
-    Then I first see H-E.42 and then Enterprise Platform and Integration Concepts in the list for more-results
-
-
+    Then I first see H-E.43 and then Enterprise Platform and Integration Concepts in the list for more-results
