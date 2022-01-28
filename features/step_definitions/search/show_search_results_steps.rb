@@ -1,5 +1,5 @@
 When('I start the search') do
-  page.find_by_id('search').native.send_keys(:return)
+  find_by_id('search').native.send_keys(:return)
 end
 
 When('I enter {string}') do |string|
