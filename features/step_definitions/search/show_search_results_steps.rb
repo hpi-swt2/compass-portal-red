@@ -35,8 +35,7 @@ end
 
 Then(/^I first see (.*) and then (.*) in the list for (.*)$/) do |name_first, name_second, result_type|
   element = page.find('div', class: 'list-group', id: result_type)
-  first = element.all('a').first
-  last = element.all('a').last
+  first = element.first('a')
   expect(first).to have_text(name_first)
-  expect(last).to have_text(name_second)
+  expect(element).to have_text(name_second)
 end
