@@ -197,15 +197,48 @@ window.routingControl = L.Routing.control({
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
+  console.log("routing start");
   document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
+  if (document.getElementById('map-popup')) document.getElementById('map-popup').style.display = 'none';
+  document.getElementById('map-navigation-popup').style.display = "block"
 })
 .on('waypointschanged', (e)=>{
+  console.log("waypointschanged");
   // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
   // always calculate the route to show the 'A' marker if only one waypoint is set
   routingControl.route()
 });
+
+function buildNavigationButton(){
+  const el = document.createElement('div')
+  el.className = 'leaflet-navigation-button leaflet-control leaflet-control-layers';
+  el.id = 'leaflet-navigation-button'
+  el.innerHTML = 	`
+    <i 
+      class="fa fa-route fa-3x navigation-icon"
+      onclick="
+        document.getElementById('map-navigation-popup').style.display = 'inline';
+        event.stopPropagation();
+        document.getElementById('map-popup').style.display = 'none';"
+    >
+    </i>
+  `
+  document.querySelector('.leaflet-right').appendChild(el)
+};
+buildNavigationButton();
+
+document.getElementsByClassName('leaflet-routing-collapse-btn')[0].style.display = 'none'
+
+// move rounting container to map-navigation-popup
+let element = document.getElementsByClassName('leaflet-routing-container')[0];
+let parent = element.parentNode;
+let targetDiv = document.getElementById('routing-controller');
+targetDiv.appendChild(element);
+
 
 function navigateTo(position) {
   // .locate() function returns map, so chaining works
@@ -226,56 +259,11 @@ function onMapClick(e) {
   navigateTo(e.latlng)
 }
 
-var routingControlContainer = routingControl.getContainer();
-var controlContainerParent = routingControlContainer.parentNode;
-var controlDiv = document.getElementById('routing-control');
-var stopDiv = document.getElementById('routing-stop-button');
-
-function moveRoutingStopButton() {
-  var stopButton = document.getElementById('StopNavigation');
-  if (stopButton) {
-    var stopButtonParent = document.getElementsByClassName(
-      'leaflet-routing-geocoder-stop'
-    )[0];
-    if (window.screen.width < 640) {
-      if (stopButtonParent.contains(stopButton)) {
-        stopButtonParent.removeChild(stopButton);
-        stopDiv.appendChild(stopButton);
-      }
-    } else {
-      if (stopDiv.querySelector('#StopNavigation')) {
-        stopDiv.removeChild(stopButton);
-        stopButtonParent.appendChild(stopButton);
-      }
-    }
-  }
-}
-
-function moveRoutingControl() {
-  if (window.screen.width < 640) {
-    if (controlContainerParent.contains(routingControlContainer)) {
-      controlContainerParent.removeChild(routingControlContainer);
-      controlDiv.appendChild(routingControlContainer);
-    }
-  } else {
-    // der Wert ist irgendwie noch hard gecoded
-    if (controlDiv.querySelector('.leaflet-routing-container')) {
-      controlDiv.removeChild(routingControlContainer);
-      controlContainerParent.appendChild(routingControlContainer);
-    }
-  }
-}
-
-window.addEventListener('load', moveRoutingControl);
-window.addEventListener('load', moveRoutingStopButton);
-window.addEventListener('resize', moveRoutingControl);
-window.addEventListener('resize', moveRoutingStopButton);
-
 // Build the stop buton and insert it into the routingControl-plan
-(function buildStopButton() {
-  const el = document.createElement('div');
-  el.className = 'leaflet-routing-geocoder-stop';
-  el.innerHTML = `
+function buildStopButton() {
+    const el = document.createElement('div')
+    el.className = 'leaflet-routing-geocoder-stop';
+    el.innerHTML = 	`
     <input 
         type="button" 
         id="StopNavigation" 
@@ -284,21 +272,19 @@ window.addEventListener('resize', moveRoutingStopButton);
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
             document.querySelector('#mobile-view-welcome-routing-text').style.display = 'block';
-            routingControl.hide()
-            routingControl.setWaypoints([]).route()" 
-        class="stop-button" 
-        style="
-            width: 100px; 
-            font-size: 1.75vh;
-            background-color: red;
-            color: white"
-    />`;
-  // Do not render the '+' button that can be used to add waypoints
-  document.querySelector('.leaflet-routing-add-waypoint').style.display =
-    'none';
-  // Add our Stop button to the routingControl-plan
-  document.querySelector('.leaflet-routing-geocoders').appendChild(el);
-})();
+            routingControl.hide();
+            routingControl.setWaypoints([]).route();
+            document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'none';
+            document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '100%';" 
+        class="stop-button iconbutton" 
+        style="border-color: transparent;"
+    />`
+    // Do not render the '+' button that can be used to add waypoints
+    document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
+    // Add our Stop button to the routingControl-plan
+    document.querySelector('.leaflet-routing-geocoders').appendChild(el)
+};
+buildStopButton();
 
 mymap.on('click', onMapClick);
 
