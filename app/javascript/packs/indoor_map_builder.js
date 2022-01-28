@@ -3,15 +3,10 @@ import {IndoorStyle} from "../constants"
 const buildRoomLayer = (room) => {
     if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
 
-    const roomLayer = L.geoJSON(room.geoJson,
-        {
-            style: {
-                ...IndoorStyle,
-                color: 'rgba(0, 0, 0, 0)',
-            },
-            pane: 'rooms',
-        }
-    );
+    const roomLayer = L.geoJSON(room.geoJson, {
+      style: IndoorStyle,
+      pane: 'rooms',
+    });
     
     const roomTooltip = L.tooltip({
         permanent: true,
@@ -51,26 +46,40 @@ const buildRoomLayer = (room) => {
             element.innerHTML = 'Sum ting went wrong: \n'+err
         })    
     });
+    return L.layerGroup().addLayer(roomLayer);
+  }
+const buildFloorLayer = (floor) => {
+  // Add FloorLayer to layers
+  const floorLayer = L.layerGroup();
+  layers[floor.name] = floorLayer;
+  // Add all rooms
+  floor.rooms.forEach((room) => {
+    const roomLayer = buildRoomLayer(room);
+    layers[floor.name].addLayer(roomLayer);
+  });
 
-    layers[room.fullName] = L.layerGroup()
-        .addTo(mymap)
-        .addLayer(roomLayer);
-
-    roomLayer.closeTooltip(roomTooltip);
-}
+  return floorLayer;
+};
 
 export const buildIndoorMap = () => {
-    console.log('[INDOOR] Indoor map start');
-    if(window.roomsToBuild == null) {
-        console.error('Expected to receive rooms to build, but "roomsToBuild" is null.');
-    } else {
-        mymap.createPane('rooms');
+  console.log('[INDOOR] Indoor map start');
 
-        window.roomsToBuild.forEach(room => {
-            buildRoomLayer(room)
-        })
-    }
-    console.log('[INDOOR] Indoor map done');
-}
+  if (mymap == null) {
+    console.error('Expected mymap, but "mymap" is null.');
+  } else if (window.floorsToBuild == null) {
+    console.error(
+      'Expected to receive floors to build, but "floorsToBuild" is null.'
+    );
+  } else {
+    mymap.createPane('rooms');
+
+    const floorLayers = {};
+    window.floorsToBuild.forEach((floor) => {
+      floorLayers[floor.name] = buildFloorLayer(floor);
+    });
+    L.control.layers(floorLayers, null).addTo(mymap);
+  }
+  console.log('[INDOOR] Indoor map done');
+};
 
 buildIndoorMap();

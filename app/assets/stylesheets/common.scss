@@ -28,12 +28,10 @@
 
   &.sm {
     width: 2.5em;
-    height: 2.5em;
   }
 
   &.md {
-    width: 8em;
-    height: 8em;
+    width: 4.5em;
   }
 
   &.fill {
@@ -48,6 +46,17 @@
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+}
+
+.close-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .detail-tag {

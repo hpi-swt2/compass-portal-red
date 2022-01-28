@@ -1,43 +1,61 @@
 <% content_for :title, @params ? "Results for #{@params}" : "Search" %>
+
+<%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
+<body onload="textEntered();">
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
-    <div class="row mb-3">
-      <h1 class="fw-light">
-        Welcome to the HPI Compass Portal<%= ", #{current_user.username}" if user_signed_in? && current_user.username.present? %>!
-      </h1>
-    </div>
-  <%= form_with url: search_path, method: :get do |form| %>
-      <div class="row align-items-end mb-3">
-        <div class="col">
-          <div class="form-group">
-            <%= form.label :query, "Search", class: 'form-label' %>
-            <%= form.text_field :query, class: 'form-control', autofocus: true, value: @params, id: "search" %>
-          </div>
-        </div>
-        <div class="col-auto">
-          <%= form.submit "Search", class: 'btn btn-primary', id: "submit" %>
-        </div>
-      </div>
-  <% end %> 
+
+    <%= render('partials/search_bar', :locals => {:path => search_path}) %>
+
     <div class="row">
       <div class="col">
         <div class="list-group" id="exact-results">
           <%if @exact_results.present? %>
             <% @exact_results.each do |result|%>
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action" >
-                <span class= "<%= result.icon_class %>"></span>
-                <%= result.to_string %>
+
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
+                <div class='row'>
+                  <div class='col-2 d-flex flex-column'>
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                  </div>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result.to_string %></h5>
+                    <div>
+                      <% result.displayed_tags.each do |tag| %>
+                        <span class="badge bg-primary"><%= tag %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </a>
+
             <% end %>
           <% end %>
         </div>
-        <%if @exact_results.present? and @more_results.present? %> More Results <%end %>
+
+        <br>
+
+        <%if @exact_results.present? and @more_results.present? %> Similar Results <%end %>
         <div class="list-group" id="more-results">
           <%if @more_results.present? %>
             <% @more_results.each do |result|%>
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item" >
-              <span class= "<%= result.icon_class %>"></span>
-              <%= result.to_string %></a>
+
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
+                <div class='row'>
+                  <div class='col-2 d-flex flex-column'>
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                  </div>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result.to_string %></h5>
+                    <div>
+                      <% result.displayed_tags.each do |tag| %>
+                        <span class="badge bg-primary"><%= tag %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
             <% end %>
           <% end %>
         </div>
@@ -45,3 +63,4 @@
     </div>
   </div>
 </div>
+</body>
