@@ -21,8 +21,8 @@ Feature: Search functionality
     When I enter "Prof. Dr."
     And I start the search
     Then I see Prof. Dr. Hasso Plattner in the list for exact-results
-    And I see the title for more results
-    And I see Dr. Michael Perscheid in the list for more-results
+    And I see the title for similar results
+    And I see Dr. Michael Perscheid in the list for similar-results
 
   Scenario: searching a person with no additional results
     Given I am on the search page
@@ -30,9 +30,9 @@ Feature: Search functionality
     And I start the search
     Then I see Prof. Dr. Hasso Plattner in the list for exact-results
     And I see Dr. Michael Perscheid in the list for exact-results
-    And I do not see the title for more results
-    And I do not see Prof. Dr. Hasso Plattner in the list for more-results
-    And I do not see Dr. Michael Perscheid in the list for more-results
+    And I do not see the title for similar results
+    And I do not see Prof. Dr. Hasso Plattner in the list for similar-results
+    And I do not see Dr. Michael Perscheid in the list for similar-results
 
   Scenario: searching a person with ordered additional results
     Given I am on the search page
@@ -40,7 +40,7 @@ Feature: Search functionality
     And I start the search
     Then I do not see Prof. Dr. Hasso Plattner in the list for exact-results
     And I do not see Dr. Michael Perscheid in the list for exact-results
-    And I first see Prof. Dr. Hasso Plattner and then Dr. Michael Perscheid in the list for more-results
+    And I first see Prof. Dr. Hasso Plattner and then Dr. Michael Perscheid in the list for similar-results
     
   Scenario: searching a room tag
     Given I am on the search page
@@ -83,4 +83,10 @@ Feature: Search functionality
     Given I am on the search page
     When I enter "Room for quiet learning"
     And I start the search
-    Then I first see H-E.43 and then Enterprise Platform and Integration Concepts in the list for more-results
+    Then I first see H-E.43 and then Enterprise Platform and Integration Concepts in the list for similar-results
+
+  Scenario: searching a person with status attribute
+    Given I am on the search page
+    When I enter "Chair Representative"
+    And I start the search
+    Then I see the search result "Dr. Michael Perscheid"

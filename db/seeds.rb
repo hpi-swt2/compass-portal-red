@@ -14,8 +14,9 @@ person_list = [
   [ "morpheus@student.hpi.de", "Morpheus", "Cyrani", "Käpten zur See", "https://i.ytimg.com/vi/HIFNsd5ayzU/hqdefault.jpg",
     "Tutor" ],
   [ "hasso.plattner@hpi.de", "Hasso", "Plattner", "Prof. Dr. h.c.", "", "Professor" ],
-  [ "katharina.@hpi.de", "Katherina", "Hölzle", "Prof. Dr.", "", "Professorin" ],
-  [ "fox@hpi.de", "Smilla Jane", "Fox", "", "", "Studentin mit gutem Namen" ]
+  [ "katharina.@hpi.de", "Katherina", "Hölzle", "Prof. Dr.", "", "Professor" ],
+  [ "fox@hpi.de", "Smilla Jane", "Fox", "", "", "Student" ],
+  [ "facility-management@hpi.de", "Steffen", "Zierl", "", "", "FM-Team" ]
 ]
 chair_list = [
   "Enterprise Platform and Integration Concepts",
@@ -31,7 +32,8 @@ information_list = [
   %w[signal @morpheus],
   %w[telegram @plattner],
   %w[MeetUp @hölzle],
-  %w[linkedIn @smililah]
+  %w[linkedIn @smililah],
+  %w[linkedIn @steffen-zierl]
 ]
 hs_rooms = [
   ['D-E.3', floor, "HS 3", 1],
