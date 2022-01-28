@@ -1,33 +1,11 @@
 <% content_for :title, @params ? "Results for #{@params}" : "Search" %>
 
-<% # show clear button on entered text %>
-<script type="text/javascript" charset="utf-8">
-    function textEntered(field) {
-        if (!field) {
-            field = document.getElementById("search");
-        }
-        const btn = document.getElementById("cancel");
-        if (field.value === "") {
-            btn.style.visibility = "hidden";
-        } else {
-            btn.style.visibility = "visible";
-        }
-    }
-</script>
-
+<%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
 <body onload="textEntered();">
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
-    <%= form_with url: search_path, method: :get do |form| %>
-      <div class="row align-items-end mb-3">
-        <div class="col">
-          <div class="form-group">
-            <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)" %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+
+    <%= render('partials/search_bar', :locals => {:path => search_path}) %>
 
     <div class="row">
       <div class="col">
