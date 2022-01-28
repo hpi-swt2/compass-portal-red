@@ -1,10 +1,4 @@
-<div class="map-popup card shadow-sm p-2", id="room_popup">
-<script>
-        function onCancelClick(){
-            const popup = document.getElementById("room_popup")
-            popup.style.display = "none";
-        }
-  </script>
+<div class="map-popup card shadow-sm p-2" id="room_popup">
   <div class="card-body">
     <div class="card-heading d-flex flex-row mb-4 justify-content-between">
         <div class="d-flex flex-row">
@@ -20,7 +14,14 @@
                 <% end %>
             </div>
         </div>
-        <button class="align-self-start fw-bold" style="border:none; background-color: transparent;" onclick="document.getElementById('room_popup').style.display = 'none'">✖️</button>
+        <span class="close-icon d-flex flex-column justify-content-center align-items-center" title="close">
+            <i 
+            class="fa fa-times fa-2x"
+            style="color: black; cursor: pointer;"
+            onclick="document.getElementById('room_popup').style.display = 'none'"
+            >
+            </i>
+        </span>
     </div>
     
     <div class="d-flex flex-row justify-content-start iconbuttons">
