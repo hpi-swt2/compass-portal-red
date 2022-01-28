@@ -64,6 +64,9 @@
   cursor: pointer;
   margin-top: 3px;
 }
+.leaflet-routing-geocoder-result {
+  z-index: 10000 !important;
+}
 @media only screen and (max-width: 640px) {
     .leaflet-routing-container {
         width: 100% !important;

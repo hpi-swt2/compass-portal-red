@@ -203,6 +203,7 @@ window.routingControl = L.Routing.control({
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
   document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
   if (document.getElementById('map-popup')) document.getElementById('map-popup').style.display = 'none';
+  document.getElementById('map-navigation-popup').style.display = "block"
 })
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");
