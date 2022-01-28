@@ -152,13 +152,9 @@ mymap.on('zoomend', function () {
 
           layer.setStyle({
             ...layer.options.style,
-            fillOpacity: 0.65,
           });
           if(highlightedBuilding) {
             highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
-            highlightedBuilding.setStyle({
-              fillOpacity: 0.65,
-            });
           }
         } else {
           layer.closeTooltip(tooltip);
