@@ -1,5 +1,5 @@
 When('I start the search') do
-  page.find_button('Search').click
+  page.find_by_id('search').native.send_keys(:return)
 end
 
 When('I enter {string}') do |string|
@@ -15,12 +15,12 @@ Then(/^I see (.*) in the list for (.*)$/) do |name, result_type|
   expect(page.find('div', class: 'list-group', text: name)[:id]).to eq result_type
 end
 
-Then('I see the title for more results') do
-  expect(page).to have_text('More Results')
+Then('I see the title for similar results') do
+  expect(page).to have_text('Similar Results')
 end
 
-Then('I do not see the title for more results') do
-  expect(page).not_to have_text('More Results')
+Then('I do not see the title for similar results') do
+  expect(page).not_to have_text('Similar Results')
 end
 
 Then(/^I do not see (.*) in the list for (.*)$/) do |name, result_type|
