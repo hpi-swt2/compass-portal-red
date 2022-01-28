@@ -1,7 +1,7 @@
 <% content_for :title, @params ? "Results for #{@params}" : "Search" %>
 
-
-<body>
+<%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
+<body onload="textEntered();">
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
 
