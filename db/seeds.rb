@@ -220,10 +220,9 @@ Room.find(1).room_types << RoomType.find(1)
 Room.find(3).room_types << RoomType.find(1)
 Room.find(4).room_types << RoomType.find(3)
 Room.find(5).room_types << RoomType.find(2)
-Room.find(6).room_types << RoomType.find(3)
+Room.find(8).room_types << RoomType.find(3)
 Room.find(9).room_types << RoomType.find(4)
 Room.find(10).room_types << RoomType.find(4)
-Room.find(11).room_types << RoomType.find(3)
 
 Chair.find(1).rooms << [Room.find(1), Room.find(2)]
 Chair.find(2).rooms << [Room.find(3)]
