@@ -249,11 +249,9 @@ function highlightDestinationDifferently(position) {
   position = [position.lng, position.lat];
     
   // set the new style for the clicked destination
-  // iterate over each campus
-  for	(const campus of campusNames) {
+  for (const campus of campusNames) {
     let buildingsOfCampus = layers[campus]._layers;
     
-    // iterate over all buildings of the current campus
     for (const id in buildingsOfCampus) {
       const buildingId = Number(id)
       const polygonCoordinates = buildingsOfCampus[buildingId]._layers[buildingId-1].feature.geometry.coordinates[0];
