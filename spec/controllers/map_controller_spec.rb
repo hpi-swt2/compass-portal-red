@@ -23,7 +23,7 @@ RSpec.describe MapController, type: :controller do
     end
   end
 
-  context 'GET #navigation' do
+  context 'when your try to start a navigation using the /navigation route' do
     it 'renders successful' do
       get :navigation, params: { coordinate: "13p12976840232745%2C52p393810752008136" }
       assert_response :success
