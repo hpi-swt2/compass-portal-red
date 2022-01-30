@@ -29,6 +29,15 @@
           <% end %>
         <% end %>
       ]
+      window.searchResults = [
+        <% if @exact_results.present? %>
+          <% @exact_results.each do |result| %>
+          {
+            <%= result.to_string %>
+          },
+          <% end %>
+        <% end %>
+      ]
     </script>
 
     <% # Inject coordinates of selected room %>
