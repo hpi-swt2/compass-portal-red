@@ -28,7 +28,11 @@ class Person < SearchableRecord
   end
 
   def self.searchable_attributes
-    %w[title first_name last_name]
+    %w[title first_name last_name status]
+  end
+
+  def displayed_tags
+    informations.pluck(:value)
   end
 
   VERIFICATION_ATTRIBUTES = [

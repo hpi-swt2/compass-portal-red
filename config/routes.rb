@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   # navigation/<LONG1>%2C<LAT1>
   get '/navigation/:coordinate', to: 'map#navigation'
 
-
+  # '/options'
+  get '/options', to: 'options#index'
   # '/'
   # Sets `root_url`, devise gem requires this to be set
   devise_scope :user do
