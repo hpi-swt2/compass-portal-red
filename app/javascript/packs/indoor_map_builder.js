@@ -44,8 +44,6 @@ const buildFloorLayer = (floor) => {
 export const buildIndoorMap = () => {
   console.log("[INDOOR] Indoor map start");
 
-  console.log(window.searchResults);
-
   if (mymap == null) {
     console.error('Expected mymap, but "mymap" is null.');
   } else if (window.floorsToBuild == null) {
