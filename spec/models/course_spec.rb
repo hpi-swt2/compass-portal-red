@@ -8,21 +8,20 @@ RSpec.describe Course, type: :model do
     expect(course).not_to be_valid
   end
 
-  it "returns valid" do
+  it "returns valid if name not empty" do
+    course = described_class.new(name: "Example Course")
     expect(course).to be_valid
   end
 
   it "has a person relation" do
-    expect(course.people.length).to eq(1)
+    expect(course).to respond_to(:people)
   end
 
   it "has a room relation" do
-    room = FactoryBot.create :room
-    course.room = room
-    expect(course.room.id).to eq(room.id)
+    expect(course).to respond_to(:room)
   end
 
   it "has a course time relation" do
-    expect(course.course_times.length).to eq(1)
+    expect(course).to respond_to(:course_times)
   end
 end

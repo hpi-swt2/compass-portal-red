@@ -15,6 +15,10 @@ RSpec.describe Room, type: :model do
       expect(room).to respond_to(:people)
     end
 
+    it "has a course relation" do
+      expect(room).to respond_to(:courses)
+    end
+
     it "has a tag relation" do
       expect(room).to respond_to(:tags)
     end

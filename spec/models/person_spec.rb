@@ -16,22 +16,23 @@ RSpec.describe Person, type: :model do
   end
 
   it "has a information relation" do
-    expect(person.informations.length).to eq(0)
+    expect(person).to respond_to(:informations)
   end
 
   it "has a room relation" do
-    person.create_room(full_name: "HS1")
-    expect(person.room.full_name).to eq("HS1")
+    expect(person).to respond_to(:room)
   end
 
   it "has a chair relation" do
-    expect(person.chairs.length).to eq(0)
+    expect(person).to respond_to(:chairs)
+  end
+
+  it "has a course relation" do
+    expect(person).to respond_to(:courses)
   end
 
   it "has a user relation" do
-    user = FactoryBot.create :user
-    person.user = user
-    expect(person.user.id).to eq(user.id)
+    expect(person).to respond_to(:user)
   end
 
   it "contains an imagelink to the placeholder if no link was given" do
