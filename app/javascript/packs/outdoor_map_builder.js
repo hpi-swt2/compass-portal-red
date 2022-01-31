@@ -214,6 +214,27 @@ const HPIGeocoder = {
     cb.call(context, this.getHPISuggestions(query));
   },
   
+  getBuildingNameAt(location) {
+    if(!location) {
+      return;
+    }
+    console.log(location)
+    location = [location.lng, location.lat];
+    for (const campus of campusNames) {
+      let buildingsOfCampus = layers[campus]._layers;
+      
+      for (const buildingId in buildingsOfCampus) {
+        const buildingInfo = buildingsOfCampus[buildingId]._layers[buildingId-1].feature
+        const polygonCoordinates = buildingInfo.geometry.coordinates[0];
+  
+        // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
+        if(pointInPolygon(location, polygonCoordinates)) {
+          return buildingInfo.properties.name;
+        }
+      }
+    }
+  },
+
   /**
    * Performs a reverse geocoding query and returns the results to the callback in the provided context
    * @param location the coordinate to reverse geocode
@@ -221,8 +242,19 @@ const HPIGeocoder = {
    * @param cb the callback function
    * @param context the this context in the callback
    */
-  reverse(location, scale, cbk, context){
-    originalGeocoder(location, scale, cbk, context);
+  reverse(location, scale, cb, context){
+    const buildingName = this.getBuildingNameAt(location);
+    
+    if (buildingName){
+      const result = {
+        name: buildingName,
+        center: location,
+        bbox: location.toBounds(100)
+      }
+      cb.call(context, [result]);
+    } else {
+      originalGeocoder.reverse(location, scale, cb, context);
+    }
   }
 }
 
