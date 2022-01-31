@@ -60,7 +60,7 @@ for (const feature of buildings) {
   // If the current campus (=group of buildings) is unknown, create a layergroup for it
   if (!layers[feature.properties.campus]) {
     layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
-      campusNames.push(feature.properties.campus);
+    campusNames.push(feature.properties.campus);
   }
 
   // Determine Style (highlighting-colour) dependent of group
@@ -105,6 +105,7 @@ var lastZoom;
 mymap.on('zoomend', function () {
   var zoom = mymap.getZoom();
   if ((zoom < standardZoomLevel || zoom > indoorZoomLevel)) {
+    console.log((!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel))
     mymap.removeLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
@@ -148,6 +149,8 @@ mymap.on('zoomend', function () {
       }
     });
   }
+  console.log(lastZoom, zoom)
+  console.log(standardZoomLevel, indoorZoomLevel)
   lastZoom = zoom;
   setStyleForHighlightedBuilding();
 });
