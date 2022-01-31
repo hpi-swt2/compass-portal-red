@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   # '/'
   # Sets `root_url`, devise gem requires this to be set
   devise_scope :user do
-    root to: "users/sessions#new"
+    root to: 'users/sessions#new'
+    get '/users/sign_out', to: 'users/sessions#destroy'
   end
 
   get 'indoor/demo/', to: 'indoor#demo'
