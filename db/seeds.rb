@@ -1,10 +1,17 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-building = Building.create(name: "lecture hall")
+hs_building = Building.create(name: "lecture hall")
+h_building =  Building.create(name: "Main Building")
+v_building =  Building.create(name: "Villa")
+a_building =  Building.create(name: "A Building")
 
 # Floors
-floor = Floor.create(name: "First Floor", building: building)
-floor2 = Floor.create(name: "Second Floor", building: building)
+hs_floor = Floor.create(name: "D First Floor", building: hs_building)
+hs_floor2 = Floor.create(name: "D Basement", building: hs_building)
+h_floor = Floor.create(name: "H First Floor", building: h_building)
+h_floor3 = Floor.create(name: "H Third Floor", building: h_building)
+v_floor3 = Floor.create(name: "V Third Floor", building: v_building)
+a_floor2 = Floor.create(name: "A Third Floor", building: a_building)
 
 person_list = [
   [ "michael.perscheid@hpi.de", "Michael", "Perscheid", "Dr.", "",
@@ -23,7 +30,9 @@ chair_list = [
   "Algorithm Engineering",
   "Data Science and Computational Statistics",
   "Human Computer Interaction",
-  "Internet-Technologien und Systeme"
+  "Internet-Technologien und Systeme",
+  "IT-Entrepreneurship",
+  "Digital Health & Machine Learning"
 ]
 information_list = [
   %w[telegram @perscheid],
@@ -35,17 +44,21 @@ information_list = [
   %w[linkedIn @smililah],
   %w[linkedIn @steffen-zierl]
 ]
-hs_rooms = [
-  ['D-E.3', floor, "HS 3", 1],
-  ['D-E.5', floor, "Passage", 2],
-  ['D-E.2', floor, "HS 2", 3],
-  ['D-E.6', floor, "HS Foyer", 4],
-  ['D-E.4', floor, "HS Anrichte", 5],
-  ['D-E.7', floor, "HS Lager", 6],
-  ['D-E.8', floor, "HS Elektro", 7],
-  ['D-K.1', floor2, "Ping Pong", 4],
-  ['D-K.2', floor2, "HS toilet (f)", 5],
-  ['D-K.3', floor2, "HS toilet (m)", 6]
+room_list = [
+  ['D-E.3', hs_floor, "HS 3", 1],
+  ['D-E.5', hs_floor, "Passage", 2],
+  ['D-E.2', hs_floor, "HS 2", 3],
+  ['D-E.6', hs_floor, "HS Foyer", 4],
+  ['D-E.4', hs_floor, "HS Anrichte", 5],
+  ['D-E.7', hs_floor, "HS Lager", 6],
+  ['D-E.8', hs_floor, "HS Elektro", 7],
+  ['D-K.1', hs_floor2, "Ping Pong", 4],
+  ['D-K.2', hs_floor2, "HS toilet (f)", 5],
+  ['D-K.3', hs_floor2, "HS toilet (m)", 6],
+  ['H-2.3', h_floor3, "Bachelorprojekt Baudisch", 9],
+  ['V-2.18', v_floor3, "Campus II (Villa), V-2.18", 10],
+  ['H-E.51', h_floor, "Campus I, H-E.51", 11],
+  ['A-1.15', a_floor2, "A-1.15", 12]
 ]
 room_type_list = [
   ["lecture hall" ],
@@ -98,7 +111,23 @@ point_list = [
   { x: 13.131646, y: 52.393869 },
   { x: 13.132215, y: 52.393793 },
   { x: 13.133757, y: 52.394414 },
-  { x: 13.13130, y: 52.39335 }
+  { x: 13.13130, y: 52.39335 },
+  { x: 13.133389502763748, y: 52.39391507523473 },
+  { x: 13.133473992347717, y: 52.39391507523473 },
+  { x: 13.133473992347717, y: 52.39397318026657 },
+  { x: 13.133389502763748, y: 52.39397318026657 },
+  { x: 13.123732209205627, y: 52.39220298841202 },
+  { x: 13.123751655220984, y: 52.39210232349622 },
+  { x: 13.123880401253698, y: 52.39211500892508 },
+  { x: 13.123854920268057, y: 52.392210763335015 },
+  { x: 13.133128657937048, y: 52.394085298210406 },
+  { x: 13.133121952414513, y: 52.39401000735983 },
+  { x: 13.133279532194136, y: 52.39401409925719 },
+  { x: 13.133294954895973, y: 52.394082843076 },
+  { x: 13.13133493065834, y: 52.393397855241936 },
+  { x: 13.131368458271025, y: 52.393397855241936 },
+  { x: 13.131368458271025, y: 52.393419951789596 },
+  { x: 13.13133493065834, y: 52.393419951789596 }
 ]
 point_of_interest_list = [
   { point_id: 40, description: "accessible", name: "Entrance" },
@@ -116,7 +145,11 @@ polyline_list = [
   [9, 37, 34, 8, 9],
   [37, 38, 33, 34, 37],
   [38, 39, 32, 33, 38],
-  [1, 10, 9, 39, 31, 30, 29, 28, 27, 19, 18, 17, 13, 12, 11, 2, 1]
+  [1, 10, 9, 39, 31, 30, 29, 28, 27, 19, 18, 17, 13, 12, 11, 2, 1],
+  [46, 47, 48, 49, 46],
+  [50, 51, 52, 53, 50],
+  [54, 55, 56, 57, 54],
+  [58, 59, 60, 61, 58]
 ]
 person_collection = []
 
@@ -161,32 +194,35 @@ polyline_list.each do |polyline_points|
   Polyline.create(points: polyline_points.map { |point_id| Point.find(point_id) })
 end
 
-hs_rooms.each do |room|
+room_list.each do |room|
   outer_shape = Polyline.find(room[3]) if room[3].present?
-  Room.create(number: room[0], floor: room[1], full_name: room[2], outer_shape: outer_shape)
+  Room.create(number: room[0], floor: room[1], full_name: room[2], outer_shape: outer_shape, room_types: [], tags: [])
 end
 
-Room.find(1).people << Person.find(1)
-Room.find(1).people << Person.find(6)
-Room.find(2).people << Person.find(5)
+Room.find(3).people << Person.find(6)
 Room.find(5).people << Person.find(2)
 Room.find(5).people << Person.find(3)
+Room.find(11).people << Person.find(4)
+Room.find(12).people << Person.find(1)
+Room.find(12).people << Person.find(5)
+Room.find(13).people << Person.find(7)
 
 room_type_list.each do |room_type|
   RoomType.create(name: room_type[0])
 end
 
-Tag.create(name: "seminar room", rooms: [Room.find(5), Room.find(3)])
-Tag.create(name: "printer", rooms: [Room.find(4)])
-Tag.create(name: "quiet", rooms: [Room.find(2), Room.find(1), Room.find(3)])
-Tag.create(name: "noisy", rooms: [Room.find(8), Room.find(10), Room.find(4)])
+Tag.create(name: "seminar room", rooms: [Room.find(13)])
+Tag.create(name: "printer", rooms: [Room.find(14)])
+Tag.create(name: "working", rooms: [Room.find(1), Room.find(3), Room.find(11), Room.find(12), Room.find(13)])
+Tag.create(name: "quiet", rooms: [Room.find(1), Room.find(3), Room.find(13)])
 
 Room.find(1).room_types << RoomType.find(1)
-Room.find(2).room_types << RoomType.find(3)
 Room.find(3).room_types << RoomType.find(1)
-Room.find(5).room_types << RoomType.find(4)
-Room.find(5).room_types << RoomType.find(1)
+Room.find(4).room_types << RoomType.find(3)
 Room.find(5).room_types << RoomType.find(2)
+Room.find(8).room_types << RoomType.find(3)
+Room.find(9).room_types << RoomType.find(4)
+Room.find(10).room_types << RoomType.find(4)
 
 Chair.find(1).rooms << [Room.find(1), Room.find(2)]
 Chair.find(2).rooms << [Room.find(3)]
