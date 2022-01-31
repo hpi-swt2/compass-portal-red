@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  let(:person) { FactoryBot.create :person }
+  let(:person) { create :person }
 
   it "returns not valid because of empty fields" do
     person = described_class.new(last_name: "Perscheid")
@@ -49,6 +49,6 @@ RSpec.describe Person, type: :model do
   end
 
   it "converts a verification attribute to a column name" do
-    expect(Person.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
+    expect(described_class.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
   end
 end

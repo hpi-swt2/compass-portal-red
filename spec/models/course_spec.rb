@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
-  let(:course) { FactoryBot.create :course }
-  
+  let(:course) { create :course }
+
   it "returns not valid because name is empty" do
     course = described_class.new
     expect(course).not_to be_valid
