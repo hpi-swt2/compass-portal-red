@@ -223,7 +223,7 @@ window.routingControl = L.Routing.control({
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");
   // we only highlight the destination of the current navigation route
-  highlightDestinationDifferently(routingControl.getWaypoints()[1].latLng);
+  changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
   
   // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
@@ -233,7 +233,7 @@ window.routingControl = L.Routing.control({
 
 let highlightedBuilding = null
 
-function highlightDestinationDifferently(position) {
+function changeHighlightedBuilding(position) {
   // reset the style of the previously highlighted building, if available
   if(highlightedBuilding) {
     const id = highlightedBuilding._leaflet_id-1;
