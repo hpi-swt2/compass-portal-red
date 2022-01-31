@@ -104,7 +104,8 @@ for (const feature of points_of_interest) {
 var lastZoom;
 mymap.on('zoomend', function () {
   var zoom = mymap.getZoom();
-  if ((zoom < standardZoomLevel || zoom > indoorZoomLevel)) {
+  if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && 
+  (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
     mymap.removeLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
