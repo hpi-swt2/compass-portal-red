@@ -5,7 +5,7 @@ RSpec.describe Room, type: :model do
   let(:point2) { create :point, x: -1.5 }
 
   context "when creating the room" do
-    let(:room) { FactoryBot.create :room }
+    let(:room) { create :room }
 
     it "has a chair relation" do
       expect(room).to respond_to(:chairs)
@@ -13,6 +13,10 @@ RSpec.describe Room, type: :model do
 
     it "has a person relation" do
       expect(room).to respond_to(:people)
+    end
+
+    it "has a course relation" do
+      expect(room).to respond_to(:courses)
     end
 
     it "has a tag relation" do
