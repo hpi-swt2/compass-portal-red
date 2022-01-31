@@ -100,17 +100,6 @@ for (const feature of points_of_interest) {
   layers['Points of Interest'].addLayer(layer);
 }
 
-function setStyleForHighlightedBuilding(isIndoor) {
-  if(highlightedBuilding) {
-    highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]); 
-    if (isIndoor) {
-      highlightedBuilding.setStyle({
-        fillOpacity: 0.0,
-      });
-    }
-  }
-}
-
 // make names disappear when zoomed out
 var lastZoom;
 mymap.on('zoomend', function () {
@@ -129,20 +118,15 @@ mymap.on('zoomend', function () {
               ...layer.options.style,
               fillOpacity: 0.0,
             });
-            setStyleForHighlightedBuilding(true);
           }
         } else if (zoom > indoorZoomLevel) {
           layer.openTooltip(tooltip);
           layer.setStyle(IndoorStyle);
-          setStyleForHighlightedBuilding(true);
         }
       }
     });
-  } else if (
-    zoom >= standardZoomLevel &&
-    zoom <= indoorZoomLevel &&
-    (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)
-  ) {
+  } else if (zoom >= standardZoomLevel && zoom <= indoorZoomLevel &&
+    (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)) {
     mymap.addLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
@@ -154,19 +138,18 @@ mymap.on('zoomend', function () {
           layer.setStyle({
             ...layer.options.style,
           });
-          setStyleForHighlightedBuilding(false)
         } else {
           layer.closeTooltip(tooltip);
           layer.setStyle({
             ...IndoorStyle,
             color: 'rgba(0,0,0,0)',
           });
-          setStyleForHighlightedBuilding(false);
         }
       }
     });
   }
   lastZoom = zoom;
+  setStyleForHighlightedBuilding();
 });
 
 L.control.layers(null, layers).addTo(mymap);
@@ -233,11 +216,31 @@ window.routingControl = L.Routing.control({
 
 let highlightedBuilding = null
 
+// highlight the building and only show the outline if we are in the "Indoor-Mode"
+function setStyleForHighlightedBuilding() {
+  if(highlightedBuilding) {
+    highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
+    var zoom = mymap.getZoom();
+    if (zoom > indoorZoomLevel) {
+      highlightedBuilding.setStyle({
+        fillOpacity: 0.0,
+      });
+    }
+  }
+}
+
 function changeHighlightedBuilding(position) {
   // reset the style of the previously highlighted building, if available
+  // make sure to respect the zoom level and only show the outline if we are in the "Indoor-Mode"
   if(highlightedBuilding) {
     const id = highlightedBuilding._leaflet_id-1;
     highlightedBuilding.setStyle(styleMap[highlightedBuilding._layers[id].feature.properties.campus]);
+    var zoom = mymap.getZoom();
+	if ((zoom < standardZoomLevel || zoom > indoorZoomLevel)) {
+	  highlightedBuilding.setStyle({
+	    fillOpacity: 0.0,
+	  });
+	}
   }
   // reset the highlighted building to be undefined
   highlightedBuilding = null;
@@ -258,8 +261,9 @@ function changeHighlightedBuilding(position) {
 
       // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
       if(pointInPolygon(position, polygonCoordinates)) {
-        buildingsOfCampus[buildingId].setStyle(styleMap["HighlightedBuilding"]);
         highlightedBuilding = buildingsOfCampus[buildingId];
+		setStyleForHighlightedBuilding()
+		return;
       }
     }
   }
