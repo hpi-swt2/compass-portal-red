@@ -162,6 +162,70 @@ console.log('[MAP] Layers built');
 
 // mapbox token
 
+let suggestions = [
+  {
+    name: 'HPI',
+    center: [50.27, 19.03]
+  },
+  {
+    name: 'Test Car 2',
+    center: [50.10, 18.4]
+  }
+]
+
+const originalGeocoder = new L.Control.Geocoder.nominatim()
+
+const HPIGeocoder = {
+  getHPISuggestions(query){
+    var results = [];
+    suggestions.forEach((point)=>{
+      if(point.name.indexOf(query) > -1){
+        point.center = L.latLng(point.center);
+        point.bbox = point.center.toBounds(100);
+        results.push(point);
+      }
+    });
+    return results;
+  },
+
+  /**
+   * Performs a geocoding query and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  geocode(query, cb, context){
+    var that = this;
+    // This construction is used to append further suggestions to the ones given by the originalGeocoder
+    var callbackProxy = function(originalSuggestions) {
+      var hpiSuggestions = that.getHPISuggestions(query);
+      cb.call(context, hpiSuggestions.concat(originalSuggestions));
+    }
+    originalGeocoder.geocode(query, callbackProxy, context);
+  },
+  
+  /**
+   * Performs a geocoding query suggestion (this happens while typing) and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  suggest(query, cb, context){
+    cb.call(context, this.getHPISuggestions(query));
+  },
+  
+  /**
+   * Performs a reverse geocoding query and returns the results to the callback in the provided context
+   * @param location the coordinate to reverse geocode
+   * @param scale the map scale possibly used for reverse geocoding
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  reverse(location, scale, cbk, context){
+    originalGeocoder(location, scale, cbk, context);
+  }
+}
+
 console.log(window.location.host + '/directions');
 
 // routingControl does everything related to navigation
@@ -176,20 +240,20 @@ window.routingControl = L.Routing.control({
       'walking_speed': 5
     },
   }),
-    // the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
-    plan: L.Routing.plan([], {
-        createMarker: function(i, wp) {
-            return L.marker(wp.latLng, {
-                draggable: true,
-                icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
-            });
-        },
-      geocoder: L.Control.Geocoder.nominatim()
-    }),
-    collapsible: true,
-    show: false,
-    routeWhileDragging: true,
-    autoRoute: false,
+	// the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
+	plan: L.Routing.plan([], {
+		createMarker: function(i, wp) {
+			return L.marker(wp.latLng, {
+				draggable: true,
+				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
+			});
+		},
+	  geocoder: HPIGeocoder
+	}),
+	collapsible: true,
+	show: false,
+	routeWhileDragging: true,
+	autoRoute: false,
   lineOptions: {
     styles: [{ color: 'blue' }]
   }
@@ -263,8 +327,8 @@ function changeHighlightedBuilding(position) {
       // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
       if(pointInPolygon(position, polygonCoordinates)) {
         highlightedBuilding = buildingsOfCampus[buildingId];
-		setStyleForHighlightedBuilding()
-		return;
+        setStyleForHighlightedBuilding()
+        return;
       }
     }
   }
