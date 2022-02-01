@@ -21,10 +21,6 @@ RSpec.describe IndoorController, type: :controller do
       it "contains correct attributes" do
         expect(body.keys).to match_array(%w[type features])
       end
-
-      it "contains a correct number of features" do
-        expect(body["features"].length).to eq(0)
-      end
     end
   end
 end

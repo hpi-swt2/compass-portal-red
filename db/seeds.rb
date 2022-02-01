@@ -203,7 +203,7 @@ point_of_interest_list.each do |point_of_interest|
 end
 
 polyline_list.each do |polyline_points|
-  Polyline.create(points: polyline_points.map { |point_id| Point.find(point_id) })
+  Polyline.create(points: polyline_points.map { |point_id| Point.create(point_list[point_id - 1]) })
 end
 
 room_list.each do |room|
