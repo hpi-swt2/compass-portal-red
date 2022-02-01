@@ -23,7 +23,7 @@ class Person < SearchableRecord
     "#{title} #{name}"
   end
 
-  def to_string
+  def to_s
     full_name
   end
 

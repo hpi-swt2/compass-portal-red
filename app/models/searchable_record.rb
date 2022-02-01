@@ -10,7 +10,7 @@ class SearchableRecord < ApplicationRecord
     []
   end
 
-  def to_string
+  def to_s
     raise 'This method should be overriden to display a string when searching'
   end
 

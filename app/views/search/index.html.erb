@@ -26,7 +26,7 @@
             <% @exact_results.each do |result|%>
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action" >
                 <span class= "<%= result.icon_class %>"></span>
-                <%= result.to_string %>
+                <%= result %>
               </a>
             <% end %>
           <% end %>
@@ -37,7 +37,7 @@
             <% @more_results.each do |result|%>
               <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item" >
               <span class= "<%= result.icon_class %>"></span>
-              <%= result.to_string %></a>
+              <%= result %></a>
             <% end %>
           <% end %>
         </div>
