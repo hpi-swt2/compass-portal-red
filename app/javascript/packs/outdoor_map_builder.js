@@ -7,6 +7,7 @@ import {
   styleMap,
 } from '../constants';
 import { buildings } from '../OutdoorMap/geometry';
+var pointInPolygon = require('point-in-polygon')
 
 console.log('[MAP] Pre map init');
 
@@ -51,12 +52,15 @@ window.layers = {};
 
 mymap.createPane('buildings');
 
+let campusNames = []
+
 // buildings includes all geometry-data extracted from OSM, see campus.js
 // layers has the "feature" property as index, e.g. "Studentendorf Stahnsdorfer Straße"
 for (const feature of buildings) {
   // If the current campus (=group of buildings) is unknown, create a layergroup for it
   if (!layers[feature.properties.campus]) {
     layers[feature.properties.campus] = L.layerGroup().addTo(mymap);
+    campusNames.push(feature.properties.campus);
   }
 
   // Determine Style (highlighting-colour) dependent of group
@@ -100,10 +104,8 @@ for (const feature of points_of_interest) {
 var lastZoom;
 mymap.on('zoomend', function () {
   var zoom = mymap.getZoom();
-  if (
-    (zoom < standardZoomLevel || zoom > indoorZoomLevel) &&
-    (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)
-  ) {
+  if ((zoom < standardZoomLevel || zoom > indoorZoomLevel) && 
+    (!lastZoom || lastZoom >= standardZoomLevel || lastZoom <= indoorZoomLevel)) {
     mymap.removeLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
@@ -124,11 +126,8 @@ mymap.on('zoomend', function () {
         }
       }
     });
-  } else if (
-    zoom >= standardZoomLevel &&
-    zoom <= indoorZoomLevel &&
-    (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)
-  ) {
+  } else if (zoom >= standardZoomLevel && zoom <= indoorZoomLevel &&
+    (!lastZoom || lastZoom < standardZoomLevel || lastZoom > indoorZoomLevel)) {
     mymap.addLayer(layers['Points of Interest']);
     mymap.eachLayer(function (layer) {
       if (layer.getTooltip()) {
@@ -139,7 +138,6 @@ mymap.on('zoomend', function () {
 
           layer.setStyle({
             ...layer.options.style,
-            fillOpacity: 0.65,
           });
         } else {
           layer.closeTooltip(tooltip);
@@ -152,6 +150,7 @@ mymap.on('zoomend', function () {
     });
   }
   lastZoom = zoom;
+  setStyleForHighlightedBuilding();
 });
 
 L.control.layers(null, layers).addTo(mymap);
@@ -167,7 +166,7 @@ console.log(window.location.host + '/directions');
 
 // routingControl does everything related to navigation
 window.routingControl = L.Routing.control({
-	// the router is responsible for calculating the route
+    // the router is responsible for calculating the route
   router: new Router({
     serviceUrl: window.location.origin + '/directions',
     useHints: false,
@@ -177,35 +176,126 @@ window.routingControl = L.Routing.control({
       'walking_speed': 5
     },
   }),
-	// the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
-	plan: L.Routing.plan([], {
-		createMarker: function(i, wp) {
-			return L.marker(wp.latLng, {
-				draggable: true,
-				icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
-			});
-		},
-	  geocoder: L.Control.Geocoder.nominatim()
-	}),
-	collapsible: true,
-	show: false,
-	routeWhileDragging: true,
-	autoRoute: false,
+    // the plan is the window on the right-hand side of the map with the search-bar, stop-button and overview and steps of the current navigation 
+    plan: L.Routing.plan([], {
+        createMarker: function(i, wp) {
+            return L.marker(wp.latLng, {
+                draggable: true,
+                icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) })
+            });
+        },
+      geocoder: L.Control.Geocoder.nominatim()
+    }),
+    collapsible: true,
+    show: false,
+    routeWhileDragging: true,
+    autoRoute: false,
   lineOptions: {
     styles: [{ color: 'blue' }]
   }
 }).addTo(mymap)
 // when routing call happens, there will be the stop button in the navigation plan
 .on('routingstart', (e)=>{
+  console.log("routing start");
   document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
+  if (document.getElementById('map-popup')) document.getElementById('map-popup').style.display = 'none';
+  document.getElementById('map-navigation-popup').style.display = "block"
 })
 .on('waypointschanged', (e)=>{
+  console.log("waypointschanged");
+  // we only highlight the destination of the current navigation route
+  changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
+  
   // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
   // always calculate the route to show the 'A' marker if only one waypoint is set
   routingControl.route()
 });
+
+let highlightedBuilding = null
+
+// highlight the building and only show the outline if we are in the "Indoor-Mode"
+function setStyleForHighlightedBuilding() {
+  if(highlightedBuilding) {
+    highlightedBuilding.setStyle(styleMap["HighlightedBuilding"]);
+    var zoom = mymap.getZoom();
+    if (zoom > indoorZoomLevel) {
+      highlightedBuilding.setStyle({
+        fillOpacity: 0.0,
+      });
+    }
+  }
+}
+
+function changeHighlightedBuilding(position) {
+  // reset the style of the previously highlighted building, if available
+  // make sure to respect the zoom level and only show the outline if we are in the "Indoor-Mode"
+  if(highlightedBuilding) {
+    const id = highlightedBuilding._leaflet_id-1;
+    highlightedBuilding.setStyle(styleMap[highlightedBuilding._layers[id].feature.properties.campus]);
+    var zoom = mymap.getZoom();
+	if ((zoom < standardZoomLevel || zoom > indoorZoomLevel)) {
+	  highlightedBuilding.setStyle({
+	    fillOpacity: 0.0,
+	  });
+	}
+  }
+  // reset the highlighted building to be undefined
+  highlightedBuilding = null;
+  // if no new position was provided, do nothing
+  if(!position) {
+    return;
+  }
+  // different representation of the position for the pointInPolygon-method
+  position = [position.lng, position.lat];
+    
+  // set the new style for the clicked destination
+  for (const campus of campusNames) {
+    let buildingsOfCampus = layers[campus]._layers;
+    
+    for (const id in buildingsOfCampus) {
+      const buildingId = Number(id)
+      const polygonCoordinates = buildingsOfCampus[buildingId]._layers[buildingId-1].feature.geometry.coordinates[0];
+
+      // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
+      if(pointInPolygon(position, polygonCoordinates)) {
+        highlightedBuilding = buildingsOfCampus[buildingId];
+		setStyleForHighlightedBuilding()
+		return;
+      }
+    }
+  }
+}
+
+function buildNavigationButton(){
+  const el = document.createElement('div')
+  el.className = 'leaflet-navigation-button leaflet-control leaflet-control-layers';
+  el.id = 'leaflet-navigation-button'
+  el.innerHTML = 	`
+    <i 
+      class="fa fa-route fa-3x navigation-icon"
+      onclick="
+        document.getElementById('map-navigation-popup').style.display = 'inline';
+        event.stopPropagation();
+        document.getElementById('map-popup').style.display = 'none';"
+    >
+    </i>
+  `
+  document.querySelector('.leaflet-right').appendChild(el)
+};
+buildNavigationButton();
+
+document.getElementsByClassName('leaflet-routing-collapse-btn')[0].style.display = 'none'
+
+// move rounting container to map-navigation-popup
+let element = document.getElementsByClassName('leaflet-routing-container')[0];
+let parent = element.parentNode;
+let targetDiv = document.getElementById('routing-controller');
+targetDiv.appendChild(element);
+
 
 function navigateTo(position) {
   // .locate() function returns map, so chaining works
@@ -226,56 +316,11 @@ function onMapClick(e) {
   navigateTo(e.latlng)
 }
 
-var routingControlContainer = routingControl.getContainer();
-var controlContainerParent = routingControlContainer.parentNode;
-var controlDiv = document.getElementById('routing-control');
-var stopDiv = document.getElementById('routing-stop-button');
-
-function moveRoutingStopButton() {
-  var stopButton = document.getElementById('StopNavigation');
-  if (stopButton) {
-    var stopButtonParent = document.getElementsByClassName(
-      'leaflet-routing-geocoder-stop'
-    )[0];
-    if (window.screen.width < 640) {
-      if (stopButtonParent.contains(stopButton)) {
-        stopButtonParent.removeChild(stopButton);
-        stopDiv.appendChild(stopButton);
-      }
-    } else {
-      if (stopDiv.querySelector('#StopNavigation')) {
-        stopDiv.removeChild(stopButton);
-        stopButtonParent.appendChild(stopButton);
-      }
-    }
-  }
-}
-
-function moveRoutingControl() {
-  if (window.screen.width < 640) {
-    if (controlContainerParent.contains(routingControlContainer)) {
-      controlContainerParent.removeChild(routingControlContainer);
-      controlDiv.appendChild(routingControlContainer);
-    }
-  } else {
-    // der Wert ist irgendwie noch hard gecoded
-    if (controlDiv.querySelector('.leaflet-routing-container')) {
-      controlDiv.removeChild(routingControlContainer);
-      controlContainerParent.appendChild(routingControlContainer);
-    }
-  }
-}
-
-window.addEventListener('load', moveRoutingControl);
-window.addEventListener('load', moveRoutingStopButton);
-window.addEventListener('resize', moveRoutingControl);
-window.addEventListener('resize', moveRoutingStopButton);
-
 // Build the stop buton and insert it into the routingControl-plan
-(function buildStopButton() {
-  const el = document.createElement('div');
-  el.className = 'leaflet-routing-geocoder-stop';
-  el.innerHTML = `
+function buildStopButton() {
+    const el = document.createElement('div')
+    el.className = 'leaflet-routing-geocoder-stop';
+    el.innerHTML = 	`
     <input 
         type="button" 
         id="StopNavigation" 
@@ -284,21 +329,19 @@ window.addEventListener('resize', moveRoutingStopButton);
             event.stopPropagation();
             document.getElementById('StopNavigation').style.display = 'none';
             document.querySelector('#mobile-view-welcome-routing-text').style.display = 'block';
-            routingControl.hide()
-            routingControl.setWaypoints([]).route()" 
-        class="stop-button" 
-        style="
-            width: 100px; 
-            font-size: 1.75vh;
-            background-color: red;
-            color: white"
-    />`;
-  // Do not render the '+' button that can be used to add waypoints
-  document.querySelector('.leaflet-routing-add-waypoint').style.display =
-    'none';
-  // Add our Stop button to the routingControl-plan
-  document.querySelector('.leaflet-routing-geocoders').appendChild(el);
-})();
+            routingControl.hide();
+            routingControl.setWaypoints([]).route();
+            document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'none';
+            document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '100%';"
+        class="stop-button iconbutton" 
+        style="border-color: transparent;"
+    />`
+    // Do not render the '+' button that can be used to add waypoints
+    document.querySelector('.leaflet-routing-add-waypoint').style.display = 'none'
+    // Add our Stop button to the routingControl-plan
+    document.querySelector('.leaflet-routing-geocoders').appendChild(el)
+};
+buildStopButton();
 
 mymap.on('click', onMapClick);
 
