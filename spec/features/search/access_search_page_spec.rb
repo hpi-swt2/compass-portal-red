@@ -68,4 +68,18 @@ RSpec.describe "Search Page", type: :feature do
                              text: 'Enterprise Platform and Integration Concepts')[:id]).to eq 'exact-results'
     expect(page.find('div',  class: 'list-group', text: 'Office Enterprise')[:id]).to eq 'similar-results'
   end
+
+  it "doesn't show students as search results if the current user isn't signed in" do
+    FactoryBot.create :person, role: 'student'
+    visit "#{search_path}?query=Mich&commit=Search"
+    expect(page).not_to have_link 'Michael Perscheid'
+  end
+
+  it "shows students as search results if the current user is signed in" do
+    user = FactoryBot.create :user
+    FactoryBot.create :person, role: 'student'
+    sign_in user
+    visit "#{search_path}?query=Mich&commit=Search"
+    expect(page).to have_link 'Michael Perscheid'
+  end
 end
