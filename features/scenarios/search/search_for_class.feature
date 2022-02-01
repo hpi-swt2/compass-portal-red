@@ -27,4 +27,3 @@ Feature: Searching classes
     When I enter "room"
     And I start the search
     Then I see the search result "H-E.42"
-  
