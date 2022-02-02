@@ -50,8 +50,8 @@ class SearchController < ApplicationController
   end
 
   def sort_by_frequency(primary_results, secondary_results)
-    # If the primary result frequency is the same the results are sorted by the 
-    # amount of related matches (secondary result frequency) in ascending order
+    # If the primary result frequency is the same the results are sorted by 
+    # how often they appear in the related matches (secondary result frequency) in ascending order
     primary_results_frequencies = primary_results.tally 
     secondary_results_frequencies = secondary_results.tally 
 
