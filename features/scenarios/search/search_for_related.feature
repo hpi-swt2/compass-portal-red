@@ -19,7 +19,7 @@ Feature: Searching Related Matches
     Given I am on the search page
     When I enter "Health & Machine"
     And I start the search
-    And I first see Digital Health & Personalized Medicine and then Prof. Dr. Christoph Lippert in the list for more-results
+    Then I first see Digital Health & Personalized Medicine and then Prof. Dr. Christoph Lippert in the list for more-results
 
   Scenario: Search for Lippert
     Given I am on the search page
