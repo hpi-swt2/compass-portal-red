@@ -50,10 +50,12 @@ class SearchController < ApplicationController
   end
 
   def sort_by_frequency(primary_results, secondary_results)
-    primary_results_frequencies = primary_results.tally # [[A:4][B:4][C:1]]
-    secondary_results_frequencies = secondary_results.tally # [[A:3][B:2]]
+    # If the primary result frequency is the same the results are sorted by the 
+    # amount of related matches (secondary result frequency) in ascending order
+    primary_results_frequencies = primary_results.tally 
+    secondary_results_frequencies = secondary_results.tally 
 
-    results = [] # [[A:4:3][B:4:2][C:1:0]]
+    results = [] 
     primary_results_frequencies.each do |key, value|
       if secondary_results_frequencies.key?(key)
         results.push([key, value, secondary_results_frequencies[key]])
@@ -62,7 +64,7 @@ class SearchController < ApplicationController
       end
     end
 
-    results.sort(&compare).map(&:first) # [A B C]
+    results.sort(&compare).map(&:first)
   end
 
   def sort(more_results, related_results, query)
