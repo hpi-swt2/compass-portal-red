@@ -51,7 +51,7 @@ class SearchController < ApplicationController
 
   def sort_by_frequency(primary_results, seconary_results)
     primary_results_frequencies = primary_results.tally # [[A:4][B:4][C:1]]
-    seconary_results_frequencies = seconary_results.tally # [[A:3][B:2]]
+    secondary_results_frequencies = secondary_results.tally # [[A:3][B:2]]
 
     results = [] # [[A:4:3][B:4:2][C:1:0]]
     primary_results_frequencies.each do |key, value|
