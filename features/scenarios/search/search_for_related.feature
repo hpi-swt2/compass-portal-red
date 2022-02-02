@@ -15,7 +15,7 @@ Feature: Searching Related Matches
     Then I see Digital Health & Personalized Medicine in the list for more-results
     And I see Prof. Dr. Christoph Lippert in the list for more-results
     
-  Scenario: Search for Health & Machine and find Lippert first
+  Scenario: Search for Health & Machine and find the chair Digital Health & Machine Learning first
     Given I am on the search page
     When I enter "Health & Machine"
     And I start the search
