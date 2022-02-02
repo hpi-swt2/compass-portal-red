@@ -7,7 +7,7 @@ RSpec.describe "chairs/show", type: :view do
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to have_selector('h1', text: chair.name)
+    expect(rendered).to have_selector('h2', text: chair.name)
   end
 
   it "renders a list of the people that are part of the chair" do
@@ -26,5 +26,12 @@ RSpec.describe "chairs/show", type: :view do
       expect(rendered).to have_link(room.name, href: room_path(room))
       expect(rendered).to have_css("img[src*='#{room.image}']")
     end
+  end
+
+  it "renders a link to the map page with room id as parameter" do
+    floor = FactoryBot.create(:floor)
+    chair.rooms.create(full_name: "HS1", floor: floor, image: "https://via.placeholder.com/150?text=room")
+    render
+    expect(rendered).to have_link(href: map_path(room_id: chair.rooms[0]))
   end
 end
