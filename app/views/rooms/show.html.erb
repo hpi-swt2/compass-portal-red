@@ -31,7 +31,7 @@
         <% @room.chairs.each do |chair| %>
           <div class="mb-2">
             <%= link_to chair_path(chair), class: "btn btn-with-img" do %>
-              <i class="fas fa-book btn-img"></i>
+              <%= image_tag(chair.image_or_placeholder, class: "btn-img") %>
               <%= chair.name %>
             <% end %>
           </div>
@@ -48,6 +48,21 @@
             <%= link_to person_path(person), class: "btn btn-with-img" do %>
               <%= image_tag(person.image_or_placeholder, class: "btn-img") %>
               <%= person.full_name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @room.courses.present? %>
+    <div class='row'>
+      <div class='col-3'> courses </div>
+      <div class='col'>
+        <% @room.courses.each do |course| %>
+          <div class="mb-2">
+            <%= link_to course_path(course), class: "btn btn-with-img" do %>
+              <%= image_tag(course.image_or_placeholder, class: "btn-img") %>
+              <%= course.name %>
             <% end %>
           </div>
         <% end %>
