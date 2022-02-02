@@ -56,7 +56,7 @@ class SearchController < ApplicationController
     results = [] # [[A:4:3][B:4:2][C:1:0]]
     primary_results_frequencies.each do |key, value|
       if secondary_results_frequencies.key?(key)
-        results.push([key, value, seconary_results_frequencies[key]])
+        results.push([key, value, secondary_results_frequencies[key]])
       else
         results.push([key, value, 0])
       end
