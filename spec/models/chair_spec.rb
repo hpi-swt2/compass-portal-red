@@ -20,4 +20,8 @@ RSpec.describe Chair, type: :model do
   it "has a room relation" do
     expect(chair).to respond_to(:rooms)
   end
+
+  it "has a string representation" do
+    expect(chair.to_string.blank?).to eq(false)
+  end
 end

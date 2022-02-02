@@ -51,4 +51,8 @@ RSpec.describe Person, type: :model do
   it "converts a verification attribute to a column name" do
     expect(described_class.verified_attribute_to_field(:human_verified_first_name)).to eq(:first_name)
   end
+
+  it "has a string representation" do
+    expect(person.to_string.blank?).to eq(false)
+  end
 end
