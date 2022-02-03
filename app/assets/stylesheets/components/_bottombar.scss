@@ -2,22 +2,22 @@
 @import "colors";
 
 .navbar-custom-bottom {
-    position: fixed;
-    bottom: 0;
-    display: none;
-    z-index: 1000;
-    background-color: $hpi-red;
-    height: $navbar-height;
+  position: fixed;
+  bottom: 0;
+  display: none;
+  z-index: 1000;
+  background-color: $hpi-red;
+  height: $navbar-height;
 
-    .active .nav-link {
-        color: white !important;
-    }
+  .active .nav-link {
+    color: white !important;
+  }
 }
 
 @media only screen and (max-width: 400px) {
-    .navbar-custom-bottom {
-        display: block;
-    }
+  .navbar-custom-bottom {
+    display: block;
+  }
 
   .container {
     padding-bottom: $navbar-height;
