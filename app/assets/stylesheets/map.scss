@@ -17,8 +17,8 @@
   border: none !important;
 }
 .hpi-map {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .search-container {
   position: absolute;
@@ -73,41 +73,42 @@
 .leaflet-routing-geocoder-result {
   z-index: 10000 !important;
 }
-div.leaflet-top.leaflet-left, div.leaflet-top.leaflet-right {
+div.leaflet-top.leaflet-left,
+div.leaflet-top.leaflet-right {
   margin-top: 50px;
 }
 @media only screen and (max-width: 640px) {
-    .leaflet-routing-container {
-        width: 100% !important;
-        height: 100% !important;
-        flex-flow: column !important;
-        flex-direction: column-reverse !important;    
-    }
-    .leaflet-routing-collapse-btn {
-        display: none !important;
-    }
-    .routing-stop-button {
-      width: 100%;
-    }
-    #StopNavigation {
-      width: 100% !important;
-    }
-    .leaflet-routing-geocoder {
-      display: none !important;
-    }
-    .leaflet-routing-geocoders {
-      width: 100% !important;
-    }
-    .leaflet-routing-alternatives-container {
-      width: 85% !important;
-      max-height: 100px;
-    }
-    .leaflet-routing-alt {
-      max-height: 100px !important;
-    }
-    table {
-      max-height: 100px !important;
-    }
+  .leaflet-routing-container {
+    width: 100% !important;
+    height: 100% !important;
+    flex-flow: column !important;
+    flex-direction: column-reverse !important;
+  }
+  .leaflet-routing-collapse-btn {
+    display: none !important;
+  }
+  .routing-stop-button {
+    width: 100%;
+  }
+  #StopNavigation {
+    width: 100% !important;
+  }
+  .leaflet-routing-geocoder {
+    display: none !important;
+  }
+  .leaflet-routing-geocoders {
+    width: 100% !important;
+  }
+  .leaflet-routing-alternatives-container {
+    width: 85% !important;
+    max-height: 100px;
+  }
+  .leaflet-routing-alt {
+    max-height: 100px !important;
+  }
+  table {
+    max-height: 100px !important;
+  }
 }
 
 .leaflet {
