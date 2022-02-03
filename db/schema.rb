@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_185410) do
+ActiveRecord::Schema.define(version: 2022_01_26_163131) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image", default: "placeholder_chair.png"
   end
 
   create_table "chairs_people", id: false, force: :cascade do |t|
@@ -60,6 +61,31 @@ ActiveRecord::Schema.define(version: 2022_01_12_185410) do
   create_table "chairs_rooms", id: false, force: :cascade do |t|
     t.integer "room_id", null: false
     t.integer "chair_id", null: false
+  end
+
+  create_table "course_times", force: :cascade do |t|
+    t.string "weekday"
+    t.string "start_time"
+    t.string "end_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "course_id"
+    t.index ["course_id"], name: "index_course_times_on_course_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.string "module_category"
+    t.datetime "exam_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "room_id"
+    t.index ["room_id"], name: "index_courses_on_room_id"
+  end
+
+  create_table "courses_people", id: false, force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.integer "course_id", null: false
   end
 
   create_table "data_problems", force: :cascade do |t|

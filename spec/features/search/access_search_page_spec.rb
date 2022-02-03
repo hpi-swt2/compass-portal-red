@@ -49,7 +49,15 @@ RSpec.describe "Search Page", type: :feature do
   it "displays icons for search results" do
     FactoryBot.create :chair
     visit "#{search_path}?query=Enterprise&commit=Search"
-    expect(page).to have_css("//span[@class = 'search-item-icon --chair']")
+    expect(page).to have_css("//img[@class = 'picture-rounded md']")
+    expect(page).to have_css("img[src*='/assets/placeholder_chair']")
+  end
+
+  it "displays tags for search results" do
+    FactoryBot.create :room
+    visit "#{search_path}?query=H-E&commit=Search"
+    expect(page).to have_css '.badge'
+    expect(page).to have_content 'lecture hall'
   end
 
   it "displays additional search results based on search" do
@@ -58,6 +66,6 @@ RSpec.describe "Search Page", type: :feature do
     visit "#{search_path}?query=Enterprise+Platform&commit=Search"
     expect(page.find('div',  class: 'list-group',
                              text: 'Enterprise Platform and Integration Concepts')[:id]).to eq 'exact-results'
-    expect(page.find('div',  class: 'list-group', text: 'Office Enterprise')[:id]).to eq 'more-results'
+    expect(page.find('div',  class: 'list-group', text: 'Office Enterprise')[:id]).to eq 'similar-results'
   end
 end

@@ -5,6 +5,7 @@ class Person < SearchableRecord
 
   has_many :informations, dependent: :destroy, autosave: true
   has_and_belongs_to_many :chairs
+  has_and_belongs_to_many :courses
   belongs_to :room, optional: true, dependent: :destroy
   belongs_to :user, optional: true, dependent: :destroy
   has_one_attached :image, dependent: :destroy
@@ -36,7 +37,11 @@ class Person < SearchableRecord
   end
 
   def self.searchable_attributes
-    %w[title first_name last_name]
+    %w[title first_name last_name status]
+  end
+
+  def displayed_tags
+    informations.pluck(:value)
   end
 
   VERIFICATION_ATTRIBUTES = [

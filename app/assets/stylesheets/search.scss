@@ -6,7 +6,39 @@
 
 @import "colors";
 
+@media only screen and (min-width: 400px) {
+  .search-item {
+    margin-bottom: 0.5rem;
+    border-radius: 1rem !important;
+
+    .col-2, .col {
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .search-item {
+    background-color: transparent !important;
+
+    .search-title {
+      margin-bottom: 0.1rem !important;
+    }
+
+    .col-2, .col {
+      justify-content: start;
+    }
+  
+    .col-2 {
+      padding: 0 !important;
+    }
+  }
+}
+
+
 .search-item {
+  border: none !important;
+
   &-icon {
     @extend %fa-icon;
     @extend .fas;
@@ -32,5 +64,35 @@
         content: fa-content($fa-var-users);
       }
     }
+  }
+}
+
+.form-control{
+  border-radius: 20px !important;
+}
+
+.form-control:focus{
+  box-shadow: none !important;
+}
+
+.cancel-input{
+  background: #F4F4F4;
+  color: #444444;
+  border: 0;
+  border-radius: 20px;
+  position: relative;
+  top: -3rem;
+  float: right;
+  margin-right: 5px;
+  visibility: hidden;
+}
+
+.col{
+  height: 38px;
+}
+
+@media only screen and (max-width: 400px){
+  .container.mt-5.mb-5 {
+    margin-top: 1.5rem !important;
   }
 }

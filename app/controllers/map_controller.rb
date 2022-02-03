@@ -1,10 +1,11 @@
 require 'uri'
 require 'net/http'
 
-class MapController < ApplicationController
+class MapController < SearchController
   layout 'fullpage'
 
   def index
+    super
     # Map page, accessible without login
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
@@ -13,6 +14,17 @@ class MapController < ApplicationController
 
   def map_params
     params.permit(:room_id)
+  end
+
+  def navigation
+    @buildings = Building.all
+    @points_of_interest = PointOfInterest.all.map(&:to_geojson)
+
+    p1 = params[:coordinate].tr('p', '.')
+    long1, lat1 = p1.split(",")
+
+    @coordinates = [{ lat: lat1.to_f, lng: long1.to_f }]
+    render action: "index"
   end
 
   def url
