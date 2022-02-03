@@ -2,14 +2,14 @@
   <div class="container-fluid">
       <ul class="navbar-nav mx-auto flex-row w-75 justify-content-between">
         <li class="<%= 'active' if current_page?(search_path) %> nav-item">
-          <%= link_to search_path, class: 'nav-link d-flex flex-column align-items-center' do %>
+          <button class="btn nav-link d-flex flex-column align-items-center" onclick="linkToSearch('<%=search_path%>')">
             <i class="fas fa-search fa-lg"></i> <span>Search</span>
-          <% end %>
+          </button>
         </li>
         <li class="<%= 'active' if current_page?(map_path) %> nav-item">
-          <%= link_to map_path, class: 'nav-link d-flex flex-column align-items-center', data: {turbolinks: false} do %>
+          <button class="btn nav-link d-flex flex-column align-items-center" onclick="linkToSearch('<%=map_path%>')">
             <i class="fas fa-map fa-lg"></i> <span>Map</span>
-          <% end %>
+          </button>
         </li>
         <li class="<%= 'active' if !current_page?(map_path) && !current_page?(search_path) %> nav-item">
           <%= link_to protected_path, class: 'nav-link d-flex flex-column align-items-center' do %>

@@ -10,4 +10,11 @@ function textEntered(field) {
     }
 }
 
+function linkToSearch(path) {
+    const query = document.getElementById('search').value
+    const url = path + '?query=' + query
+    window.location.href = url;
+  }
+
 window.textEntered = textEntered
+window.linkToSearch = linkToSearch
