@@ -48,6 +48,6 @@ class MapController < SearchController
 
   def room_popup
     @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
-    render "map/_map_popup"
+    render "map/room_popup"
   end
 end

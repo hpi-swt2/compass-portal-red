@@ -32,4 +32,11 @@ RSpec.describe MapController, type: :controller do
       expect(subject.in_babelsberg('13.0,52.4')).to be_falsey
     end
   end
+  describe "GET #room_popup" do
+    it 'renders a popup' do
+      room =  FactoryBot.create(:room)
+      get :room_popup, params: { use_route: '/room_popup', id: room.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
