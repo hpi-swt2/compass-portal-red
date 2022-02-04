@@ -35,7 +35,7 @@ RSpec.describe MapController, type: :controller do
   describe "GET #room_popup" do
     let(:room) { FactoryBot.create(:room) }
     it 'renders a popup' do
-      get :room_popup, params: { use_route: '/room_popup', id: room.id }
+      get :room_popup, params: { room_id: room.id }
       expect(response).to have_http_status(:success)
     end
   end
