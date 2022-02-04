@@ -90,3 +90,27 @@ Feature: Search functionality
     When I enter "Chair Representative"
     And I start the search
     Then I see the search result "Dr. Michael Perscheid"
+
+  Scenario: searching a person lower case
+    Given I am on the search page
+    When I enter "michael"
+    And I start the search
+    Then I see the search result "Dr. Michael Perscheid"
+  
+  Scenario: searching a room lower case
+    Given I am on the search page
+    When I enter "h-e.42"
+    And I start the search
+    Then I see the search result "H-E.42"
+    
+  Scenario: searching a chair  lower case
+    Given I am on the search page
+    When I enter "enterprise platform and integration concepts"
+    And I start the search
+    Then I see the search result "Enterprise Platform and Integration Concepts"
+
+  Scenario: searching a person lower case with additional words 
+    Given I am on the search page
+    When I enter "prof. dr."
+    And I start the search
+    Then I see the search result "Prof. Dr. Hasso Plattner"
