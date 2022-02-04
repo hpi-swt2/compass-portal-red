@@ -99,7 +99,7 @@ Feature: Search functionality
   
   Scenario: searching a room lower case
     Given I am on the search page
-    When I enter "h-e"
+    When I enter "Printer"
     And I start the search
     Then I see the search result "H-E.42"
     
