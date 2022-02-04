@@ -31,7 +31,8 @@ class SearchableRecord < ApplicationRecord
     if query.strip.casecmp(name).zero?
       join.group(:id)
     else
-      attributes = searchable_attributes.map { |attribute| "#{attribute} ilike '%#{query}%'" }
+      like_operator = ActiveRecord::Base.connection.adapter_name=="SQLite" ? "like" : "ilike"
+      attributes = searchable_attributes.map { |attribute| "#{attribute} "+like_operator+" '%#{query}%'" }
       search_string = attributes.join(" or ")
       join.where(search_string).group(:id)
     end
