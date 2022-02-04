@@ -31,7 +31,7 @@ class SearchableRecord < ApplicationRecord
     if query.strip.casecmp(name).zero?
       join.group(:id)
     else
-      attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
+      attributes = searchable_attributes.map { |attribute| "lower(#{attribute}) like '%#{query}%'" }
       search_string = attributes.join(" or ")
       join.where(search_string).group(:id)
     end
