@@ -1,5 +1,5 @@
 import {IndoorStyle} from "../constants"
-
+import {startNavigation} from "./outdoor_map_builder"
 const buildRoomLayer = (room) => {
     if(mymap == null) throw Error('Map not initialized before buildRoomLayer was called.')
 
@@ -23,13 +23,19 @@ const buildRoomLayer = (room) => {
         if(popupRootNode.hasChildNodes){
             try{
                 const currentRoomPopUp = popupRootNode.childNodes[0]
-                popupRootNode.removeChild(currentRoomPopUp)
+                if(currentRoomPopUp){
+                  popupRootNode.removeChild(currentRoomPopUp)
+                }
             }
             catch(e){
                 console.error("Failed removing child node", e)
             }
         } 
-        
+        const routingNode = document.getElementById('map-navigation-popup')
+        if(routingNode){
+          routingNode.style.display = "none"
+        }
+
         const element = document.createElement('div')
         element.innerHTML = `<div class="map-popup card shadow-sm p-2">
         <div class="card-body fw-bold">
@@ -41,6 +47,12 @@ const buildRoomLayer = (room) => {
             return response.text();
         }).then(function (html) {
             element.innerHTML = html
+            const navBtn = element.querySelector("#navigate_btn")
+            navBtn.onclick= function(){
+              console.log("Starting navigation", room)
+              popupRootNode.removeChild(element)
+              startNavigation()
+            }
         }).catch(function (err) {
             console.warn('Sum ting went wrong.', err);
             element.innerHTML = 'Sum ting went wrong: \n'+err

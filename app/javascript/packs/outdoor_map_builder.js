@@ -202,7 +202,8 @@ window.routingControl = L.Routing.control({
   document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
   document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
   document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
-  if (document.getElementById('map-popup')) document.getElementById('map-popup').style.display = 'none';
+  const roomPopup = document.getElementById('room_popup')
+  if (roomPopup) roomPopup.style.display = 'none';
   document.getElementById('map-navigation-popup').style.display = "block"
 })
 .on('waypointschanged', (e)=>{
@@ -210,7 +211,7 @@ window.routingControl = L.Routing.control({
   // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
   // always calculate the route to show the 'A' marker if only one waypoint is set
-  routingControl.route()
+  
 });
 
 function buildNavigationButton(){
@@ -240,7 +241,7 @@ let targetDiv = document.getElementById('routing-controller');
 targetDiv.appendChild(element);
 
 
-function navigateTo(position) {
+export function showMarker(position) {
   // .locate() function returns map, so chaining works
   mymap.locate()
   .off('locationfound')
@@ -254,9 +255,12 @@ function navigateTo(position) {
     routingControl.setWaypoints([previousStart, position])
   });
 }
+export function startNavigation(){
+  routingControl.route()
+}
 
 function onMapClick(e) {
-  navigateTo(e.latlng)
+  showMarker(e.latlng)
 }
 
 // Build the stop buton and insert it into the routingControl-plan
