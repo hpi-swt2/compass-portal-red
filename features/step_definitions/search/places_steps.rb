@@ -4,7 +4,7 @@ end
 
 When('I navigate to the map page') do
   if page.has_css? "button.navbar-toggler"
-    click_button 'Toggle navigation'
+    click_button 'toggle-navigation'
   end
   click_button 'Map'
 end
