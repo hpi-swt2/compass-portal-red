@@ -99,13 +99,13 @@ Feature: Search functionality
   
   Scenario: searching a room lower case
     Given I am on the search page
-    When I enter "h-e.42"
+    When I enter "h-e"
     And I start the search
     Then I see the search result "H-E.42"
     
   Scenario: searching a chair  lower case
     Given I am on the search page
-    When I enter "enterprise platform and integration concepts"
+    When I enter "enterprise"
     And I start the search
     Then I see the search result "Enterprise Platform and Integration Concepts"
 
