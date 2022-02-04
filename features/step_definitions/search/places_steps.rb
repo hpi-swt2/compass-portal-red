@@ -3,6 +3,9 @@ When('I am on the search page') do
 end
 
 When('I navigate to the map page') do
+  if page.has_css? "button.navbar-toggler"
+    click_button 'Toggle navigation'
+  end
   click_button 'Map'
 end
 
