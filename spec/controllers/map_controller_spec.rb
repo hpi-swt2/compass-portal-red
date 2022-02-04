@@ -32,4 +32,19 @@ RSpec.describe MapController, type: :controller do
       expect(subject.in_babelsberg('13.0,52.4')).to be_falsey
     end
   end
+
+  it 'GET #room_popup' do
+    room = FactoryBot.create :room
+
+    #request.params[:room_id] =  room.id
+    expect(get("/map/room_popup")).to route_to("map#room_popup")
+    #get 'room_popup', :room_id => room.id
+    #get '/map/room_popup'
+
+    #expect(get('/map/room_popup')).to be_routable
+    #  params = {:map_params => { :room_id=>room.id} }
+    # get :room_popup , params
+    #expect(response).to have_http_status(:ok)
+    #parsed_body = JSON.parse(response.body)
+  end
 end

@@ -49,4 +49,5 @@ RSpec.describe RoomsController, type: :controller do
       expect { delete(:destroy, params: { id: room.id }) }.to change(Room, :count).by(-1)
     end
   end
-end
+
+
