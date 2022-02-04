@@ -35,6 +35,12 @@ class Room < SearchableRecord
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
   end
 
+  def to_navigation
+    lat = to_geojson.first[:geometry][:coordinates].first.first.first.to_s.tr('.', 'p')
+    long = to_geojson.first[:geometry][:coordinates].first.first.second.to_s.tr('.', 'p')
+    lat + ',' + long
+  end
+
   def self.searchable_attributes
     %w[number full_name room_types.name tags.name floors.name]
   end

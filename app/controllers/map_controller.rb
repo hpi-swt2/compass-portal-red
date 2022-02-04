@@ -20,10 +20,13 @@ class MapController < SearchController
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
 
+    puts(params[:coordinate], '.')
+
     p1 = params[:coordinate].tr('p', '.')
     long1, lat1 = p1.split(",")
 
     @coordinates = [{ lat: lat1.to_f, lng: long1.to_f }]
+    puts(@coordinates)
     render action: "index"
   end
 
