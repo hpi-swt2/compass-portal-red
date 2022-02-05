@@ -12,17 +12,17 @@ Feature: Searching Related Matches
     When I enter "Health & Machine"
     And I start the search
     And I see Digital Health & Machine Learning in the list for exact-results
-    Then I see Digital Health & Personalized Medicine in the list for more-results
-    And I see Prof. Dr. Christoph Lippert in the list for more-results
+    Then I see Digital Health & Personalized Medicine in the list for similar-results
+    And I see Prof. Dr. Christoph Lippert in the list for similar-results
     
   Scenario: Search for Health & Machine and find the chair Digital Health & Machine Learning first
     Given I am on the search page
     When I enter "Health & Machine"
     And I start the search
-    Then I first see Digital Health & Personalized Medicine and then Prof. Dr. Christoph Lippert in the list for more-results
+    Then I first see Digital Health & Personalized Medicine and then Prof. Dr. Christoph Lippert in the list for similar-results
 
   Scenario: Search for Lippert
     Given I am on the search page
     When I enter "Lippert"
     And I start the search
-    Then I see Digital Health & Machine Learning in the list for more-results
+    Then I see Digital Health & Machine Learning in the list for similar-results

@@ -23,4 +23,4 @@ Feature: Searching for Rooms
     Given I am on the search page
     When I enter "Room for quiet learning"
     And I start the search
-    Then I first see H-E.42 and then Enterprise Platform and Integration Concepts in the list for more-results
+    Then I first see H-E.42 and then Enterprise Platform and Integration Concepts in the list for similar-results

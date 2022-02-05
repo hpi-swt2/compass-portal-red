@@ -24,16 +24,6 @@ Feature: Basic search functionality
     And I see the title for similar results
     And I see Dr. Michael Perscheid in the list for similar-results
 
-  Scenario: searching a person with no additional results
-    Given I am on the search page
-    When I enter "Dr."
-    And I start the search
-    Then I see Prof. Dr. Hasso Plattner in the list for exact-results
-    And I see Dr. Michael Perscheid in the list for exact-results
-    And I do not see the title for similar results
-    And I do not see Prof. Dr. Hasso Plattner in the list for similar-results
-    And I do not see Dr. Michael Perscheid in the list for similar-results
-
   Scenario: searching a person with ordered additional results
     Given I am on the search page
     When I enter "Prof. Dr. Meinel"
@@ -66,15 +56,6 @@ Feature: Basic search functionality
     And I start the search
     Then I see the search result "H-E.42"
   
-  
-  
-
-  Scenario: prioritized searching with tags
-    Given I am on the search page
-    When I enter "Room for quiet learning"
-    And I start the search
-    Then I first see H-E.43 and then Enterprise Platform and Integration Concepts in the list for similar-results
-
   Scenario: searching a person with status attribute
     Given I am on the search page
     When I enter "Chair Representative"
