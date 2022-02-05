@@ -2,7 +2,7 @@ export const standardZoomLevel = 17;
 export const indoorZoomLevel = 19;
 export const leafletMapId = "map";
 
-const hpiRed = "#b0063a"
+const hpiRed = "#b0063a";
 
 export const UniPotsdamStyle = {
   fillColor: "Blue",
@@ -45,11 +45,11 @@ export const PoIStyle = {
 };
 
 export const HighlightedBuildingStyle = {
-	fillColor: hpiRed,
-	fillOpacity: 0.65,
-	color: hpiRed,
-	opacity: 0.3,
-}
+  fillColor: hpiRed,
+  fillOpacity: 0.65,
+  color: hpiRed,
+  opacity: 0.3,
+};
 
 export const styleMap = {
   "UP Campus Griebnitzsee": UniPotsdamStyle,
@@ -57,6 +57,6 @@ export const styleMap = {
   "Campus II": HPIStyle,
   "Campus III": HPIStyle,
   "Studentendorf Stahnsdorfer Straße": DormStyle,
-  "HighlightedBuilding": HighlightedBuildingStyle,
+  HighlightedBuilding: HighlightedBuildingStyle,
   default: UniPotsdamStyle,
 };
