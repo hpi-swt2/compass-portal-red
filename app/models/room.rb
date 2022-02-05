@@ -36,9 +36,11 @@ class Room < SearchableRecord
   end
 
   def to_navigation
-    lat = to_geojson.first[:geometry][:coordinates].first.first.first.to_s.tr('.', 'p')
-    long = to_geojson.first[:geometry][:coordinates].first.first.second.to_s.tr('.', 'p')
-    lat + ',' + long
+    # get coordinates of room and calculate the center of mass return this for navigation
+    coordinate = to_geojson.first[:geometry][:coordinates].first.transpose.map do |c|
+      c.sum / c.size
+    end
+    "#{coordinate.first.to_s.tr('.', 'p')},#{coordinate.second.to_s.tr('.', 'p')}"
   end
 
   def self.searchable_attributes
