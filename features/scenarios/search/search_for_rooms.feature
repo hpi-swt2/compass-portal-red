@@ -5,7 +5,6 @@ Feature: Searching for Rooms
 
   Background:
     Given a room was created
-    And a chair was created
 
   Scenario: searching a room tag
     Given I am on the search page
@@ -21,6 +20,6 @@ Feature: Searching for Rooms
  
   Scenario: prioritized searching with tags
     Given I am on the search page
-    When I enter "quiet room enterprise"
+    When I enter "printer chair EPIC"
     And I start the search
-    Then I first see H-E.42 and then Enterprise Platform and Integration Concepts in the list for similar-results
+    Then I first see H-E.42 and then EPIC in the list for similar-results

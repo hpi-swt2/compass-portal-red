@@ -27,7 +27,8 @@ class SearchController < ApplicationController
   end
 
   def sort_by_priority(results, query)
-    matching_tag_results = Room.search_by_tags(query)
+    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
+    matching_tag_results = words_in_query.flat_map { |word| Room.search_by_tags(word) }.uniq
     results_without_tags = results - matching_tag_results
     prioritized_results = results
 
