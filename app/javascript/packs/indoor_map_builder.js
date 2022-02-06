@@ -24,7 +24,9 @@ const buildRoomLayer = (room) => {
     console.log(event);
   });
 
-  return L.layerGroup().addLayer(roomLayer);
+  layers[room.fullName] = roomLayer;
+
+  return roomLayer;
 };
 
 const buildFloorLayer = (floor) => {
