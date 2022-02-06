@@ -100,6 +100,19 @@ for (const feature of points_of_interest) {
   layers['Points of Interest'].addLayer(layer)
 }
 
+// hiding and showing the control for the floor selection
+mymap.on('zoomend', function () {
+  if (mymap.getZoom() > indoorZoomLevel) {
+    document
+      .querySelectorAll('.buildings_control_container')
+      .forEach((el) => (el.style.display = 'block'))
+  } else {
+    document
+      .querySelectorAll('.buildings_control_container')
+      .forEach((el) => (el.style.display = 'none'))
+  }
+})
+
 // make names disappear when zoomed out
 var lastZoom
 mymap.on('zoomend', function () {
@@ -128,8 +141,6 @@ mymap.on('zoomend', function () {
         }
       }
     })
-    document.querySelector('.buildings_control_container').style.display =
-      'block'
   } else if (
     zoom >= standardZoomLevel &&
     zoom <= indoorZoomLevel &&
@@ -155,8 +166,6 @@ mymap.on('zoomend', function () {
         }
       }
     })
-    document.querySelector('.buildings_control_container').style.display =
-      'none'
   }
   lastZoom = zoom
   setStyleForHighlightedBuilding()

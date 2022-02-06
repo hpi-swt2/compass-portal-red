@@ -54,47 +54,96 @@ export const buildIndoorMap = () => {
     mymap.createPane('rooms')
 
     let floorLayers = {}
-    window.floorsToBuild.forEach((floor) => {
-      floorLayers[floor.name] = buildFloorLayer(floor)
+    window.floorsToBuild.forEach((building) => {
+      building.floors.forEach((floor) => {
+        floorLayers[floor.name] = buildFloorLayer(floor)
+      })
     })
     // Needed for adding the red box
     const temp = {}
-    let counter = 0
     for (const key in floorLayers) {
       // loop through the rooms of the current floor and check if the selected room is there by making an array of booleans
       // needs to be an array of bools since window.floorsToBuild[counter].rooms is an object and not an array so I cannot just
       // check if it includes a certain value
-      const result = window.floorsToBuild[counter].rooms.map(
-        (room) => room.fullName === selected_room_name
-      )
-      // if in the result array there is a true value then this means that the selected room is there
-      if (result.includes(true)) {
-        temp[
-          `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
-        ] = floorLayers[key]
-      } else {
-        temp[`<span>${key}</span>`] = floorLayers[key]
+      for (let i = 0; i < window.floorsToBuild.length; i++) {
+        if (selected_room_name) {
+          // if there is a selected room then activate only the layer where this room is and make it red
+          window.floorsToBuild[i].floors.forEach((floor) => {
+            if (floor.name === key) {
+              const result = floor.rooms.map(
+                (room) => room.fullName === selected_room_name
+              )
+              if (result.includes(true)) {
+                temp[
+                  `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
+                ] = floorLayers[key]
+                // activating the layer with the selected room by default
+                mymap.addLayer(
+                  temp[
+                    `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
+                  ]
+                )
+              } else {
+                temp[`<span>${key}</span>`] = floorLayers[key]
+              }
+            }
+          })
+        } else {
+          // if no room is selected then just activate the layer of the first floor that's coming from the DB of every building
+          window.floorsToBuild[i].floors.forEach((undefined, index) => {
+            temp[`<span>${key}</span>`] = floorLayers[key]
+            if (index === 1) {
+              mymap.addLayer(temp[`<span>${key}</span>`])
+            }
+          })
+        }
       }
-      counter++
     }
     floorLayers = temp
-    console.log(floorLayers['First Floor'])
-    const container = L.control
-      .layers(floorLayers, null, {
-        collapsed: false,
-      })
-      .addTo(mymap)
-      .getContainer()
 
-    container.classList.add('buildings_control_container')
-    container.children[1].firstElementChild.setAttribute(
-      'class',
-      'buildings_control'
-    ) // Needed for adding this Header
-    $(`<h6>${window.floorsToBuild[0].building}</h6>`).insertBefore(
-      'div.buildings_control'
-    )
+    // converts every string to snake case (that_is_this_case)
+    const snakeCase = (string) => {
+      return string
+        .replace(/\W+/g, ' ')
+        .split(/ |\B(?=[A-Z])/)
+        .map((word) => word.toLowerCase())
+        .join('_')
+    }
+
+    // creating a different controller for every building
+    for (let i = 0; i < window.floorsToBuild.length; i++) {
+      const tempFloors = []
+      // getting all floor names of the current building
+      window.floorsToBuild[i].floors.forEach((floor) => {
+        tempFloors.push(floor.name)
+      })
+      const tempLayers = []
+      for (const key in floorLayers) {
+        var doc = new DOMParser().parseFromString(key, 'text/xml')
+        const result = doc.firstChild.innerHTML // taking the content of the <span> tag
+        if (tempFloors.includes(result)) tempLayers[key] = floorLayers[key]
+      }
+      const container = L.control
+        .layers(tempLayers, null, {
+          collapsed: false,
+        })
+        .addTo(mymap)
+        .getContainer()
+
+      container.classList.add('buildings_control_container')
+      container.children[1].firstElementChild.setAttribute(
+        'class',
+        `${snakeCase(window.floorsToBuild[i].building)}_controller`
+      ) // Needed for adding this Header
+      $(`<h6>${window.floorsToBuild[i].building}</h6>`).insertBefore(
+        `div.${snakeCase(window.floorsToBuild[i].building)}_controller`
+      )
+    }
   }
+  // hiding all contollers intially since the map is not zoomed in
+  document
+    .querySelectorAll('.buildings_control_container')
+    .forEach((el) => (el.style.display = 'none'))
   console.log('[INDOOR] Indoor map done')
 }
 
