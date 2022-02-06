@@ -3,23 +3,23 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
+import Rails from "@rails/ujs";
+import Turbolinks from "turbolinks";
+import * as ActiveStorage from "@rails/activestorage";
+import "channels";
 
 // Import Bootstrap in the webpack entry point file
-import 'bootstrap'; 
+import "bootstrap";
 // Fontawesome: https://fontawesome.com/
 import "@fortawesome/fontawesome-free/js/all";
 
 // Import leaflet
-import L from 'leaflet';
-import 'leaflet.locatecontrol';
-import 'leaflet-routing-machine';
+import L from "leaflet";
+import "leaflet.locatecontrol";
+import "leaflet-routing-machine";
 
-window.L = L
+window.L = L;
 
-Rails.start()
-Turbolinks.start()
-ActiveStorage.start()
+Rails.start();
+Turbolinks.start();
+ActiveStorage.start();
