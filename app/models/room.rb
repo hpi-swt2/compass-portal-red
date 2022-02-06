@@ -37,7 +37,9 @@ class Room < SearchableRecord
 
   def to_navigation
     # get coordinates of room and calculate the center of mass return this for navigation
-    coordinate = to_geojson.first[:geometry][:coordinates].first.transpose.map do |c|
+    geojson = to_geojson.first[:geometry]
+    coordinates = geojson[:type] == 'LineString' ? geojson[:coordinates] : geojson[:coordinates].first
+    coordinate = coordinates.transpose.map do |c|
       c.sum / c.size
     end
     "#{coordinate.first.to_s.tr('.', 'p')},#{coordinate.second.to_s.tr('.', 'p')}"
