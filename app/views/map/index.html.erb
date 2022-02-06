@@ -39,21 +39,24 @@
     </script>
   <% end %>
 
-  <body>
+  <%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
+  <body onload="textEntered();">
   	<div class="leaflet">
-	  <div id="map" class="hpi-map"></div>
-	  <div id="routing-control" style="width: 100%; height: 20%;">
-      <div id="routing-stop-button"></div>
-      <div id="mobile-view-welcome-routing-text">Choose start and endpoint on map to start routing :)</div>
+    <div class="search-container">
+      <div class="col-lg-6 col-md-9 col-12 mx-auto">
+        <%= render('partials/search_bar', :locals => {:path => map_path}) %>
+      </div>
     </div>
+	  <div id="map" class="hpi-map"></div>
+      <%= render 'partials/map_navigation_popup'%>
       <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
 
     <% if @selected_room.present? %>
-	  <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
-    <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
+      <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+      <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
     <% end %>
   </body>
 </html>

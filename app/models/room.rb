@@ -6,6 +6,7 @@ class Room < SearchableRecord
   has_and_belongs_to_many :chairs
   has_and_belongs_to_many :tags
   has_many :people, dependent: :nullify
+  has_many :courses, dependent: :nullify
   belongs_to :floor
   belongs_to :outer_shape, class_name: 'Polyline'
   has_and_belongs_to_many :walls
@@ -47,7 +48,7 @@ class Room < SearchableRecord
   end
 
   def self.search_by_tags(query)
-    joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
+    left_outer_joins(searchable_relations).where("tags.name like '%#{query}%'").group(:id)
   end
 
   def name
