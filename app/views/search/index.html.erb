@@ -18,8 +18,8 @@
                   <div class='col-2 d-flex flex-column'>
                     <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
-                  <div class="col d-flex flex-column">
-                    <h5 class="search-title"><%= result.to_string %></h5>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result %></h5>
                     <div>
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>
@@ -45,8 +45,8 @@
                   <div class='col-2 d-flex flex-column'>
                     <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                   </div>
-                  <div class="col d-flex flex-column">
-                    <h5 class="search-title"><%= result.to_string %></h5>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result %></h5>
                     <div>
                       <% result.displayed_tags.each do |tag| %>
                         <span class="badge bg-primary"><%= tag %></span>

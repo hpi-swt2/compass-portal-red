@@ -29,6 +29,19 @@
           <% end %>
         <% end %>
       ]
+      window.searchResults = [
+        <% if @exact_results.present? %>
+          <% @exact_results.each do |result| %>
+            <% if result.instance_of? Room %>
+            {
+              'id': '<%= result.id %>',
+              'fullName': '<%= result.full_name %>',
+              'geoJson': <%= raw(JSON.generate(result.to_geojson)) %>
+            },
+            <% end %>
+          <% end %>
+        <% end %>
+      ]
     </script>
 
     <% # Inject coordinates of selected room %>

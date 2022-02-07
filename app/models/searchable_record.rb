@@ -18,7 +18,7 @@ class SearchableRecord < ApplicationRecord
     image
   end
 
-  def to_string
+  def to_s
     raise 'This method should be overriden to display a string when searching'
   end
 
@@ -26,14 +26,22 @@ class SearchableRecord < ApplicationRecord
     "search-item-icon --#{self.class.name.downcase}"
   end
 
+  def related_searchable_records
+    []
+  end
+
+  def self.search_string(query)
+    like_operator = ActiveRecord::Base.connection.adapter_name == "SQLite" ? "like" : "ilike"
+    attributes = searchable_attributes.map { |attribute| "#{attribute} " + like_operator + " '%#{query}%'" }
+    attributes.join(" or ")
+  end
+
   def self.search(query)
     join = left_outer_joins(searchable_relations)
     if query.strip.casecmp(name).zero?
       join.group(:id)
     else
-      attributes = searchable_attributes.map { |attribute| "#{attribute} like '%#{query}%'" }
-      search_string = attributes.join(" or ")
-      join.where(search_string).group(:id)
+      join.where(search_string(query)).group(:id)
     end
   end
 end
