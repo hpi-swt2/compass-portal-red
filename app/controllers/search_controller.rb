@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  layout 'fullpage' # This is to center the searchbar vertically
+
   def index
     return if params[:query].nil?
 

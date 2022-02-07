@@ -5,6 +5,7 @@
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "colors";
+@import "values";
 
 @media only screen and (min-width: 400px) {
   .search-item {
@@ -86,6 +87,17 @@
   float: right;
   margin-right: 5px;
   visibility: hidden;
+}
+
+/* This is to center the searchbar vertically */
+.searchpage {
+  height: calc(100% - #{$navbar-height});
+}
+
+@media only screen and (max-width: 400px) {
+  .searchpage {
+    height: calc(100% - #{$navbar-height} - #{$titlebar-height});
+  }
 }
 
 @media only screen and (max-width: 400px) {
