@@ -16,53 +16,53 @@ RSpec.describe "Search Page", type: :feature do
   end
 
   it "renders a list of persons when @query is not empty" do
-    FactoryBot.create :person
-    FactoryBot.create(:person, first_name: 'Micha', last_name: 'Perscheid', title: 'Not doctor')
+    create :person
+    create(:person, first_name: 'Micha', last_name: 'Perscheid', title: 'Not doctor')
     visit "#{search_path}?query=Mich&commit=Search"
     expect(page).to have_link 'Dr. Michael Perscheid'
     expect(page).to have_link 'Not doctor Micha Perscheid'
   end
 
   it "renders list with rooms containing searched room name" do
-    FactoryBot.create :room
-    FactoryBot.create(:room, full_name: 'H-E.41')
+    create :room
+    create(:room, full_name: 'H-E.41')
     visit "#{search_path}?query=H-E&commit=Search"
     expect(page).to have_link 'H-E.41'
     expect(page).to have_link 'H-E.42'
   end
 
   it "renders list with chairs containing searched chair name" do
-    FactoryBot.create :chair
-    FactoryBot.create(:chair, name: 'Raumschiff Enterprise')
+    create :chair
+    create(:chair, name: 'Raumschiff Enterprise')
     visit "#{search_path}?query=Enterprise&commit=Search"
     expect(page).to have_link 'Enterprise Platform and Integration Concepts'
     expect(page).to have_link 'Raumschiff Enterprise'
   end
 
   it "renders a list containing only attributes searched for" do
-    FactoryBot.create :room
-    FactoryBot.create :chair
+    create :room
+    create :chair
     visit "#{search_path}?query=Enterprise&commit=Search"
     expect(page).not_to have_link 'H-E.42'
   end
 
   it "displays icons for search results" do
-    FactoryBot.create :chair
+    create :chair
     visit "#{search_path}?query=Enterprise&commit=Search"
     expect(page).to have_css("//img[@class = 'picture-rounded md']")
     expect(page).to have_css("img[src*='/assets/placeholder_chair']")
   end
 
   it "displays tags for search results" do
-    FactoryBot.create :room
+    create :room
     visit "#{search_path}?query=H-E&commit=Search"
     expect(page).to have_css '.badge'
     expect(page).to have_content 'lecture hall'
   end
 
   it "displays additional search results based on search" do
-    FactoryBot.create :chair
-    FactoryBot.create :room, full_name: 'Office Enterprise'
+    create :chair
+    create :room, full_name: 'Office Enterprise'
     visit "#{search_path}?query=Enterprise+Platform&commit=Search"
     expect(page.find('div',  class: 'list-group',
                              text: 'Enterprise Platform and Integration Concepts')[:id]).to eq 'exact-results'
@@ -70,14 +70,14 @@ RSpec.describe "Search Page", type: :feature do
   end
 
   it "doesn't show students as search results if the current user isn't signed in" do
-    FactoryBot.create :person, role: 'student'
+    create :person, status: 'student'
     visit "#{search_path}?query=Mich&commit=Search"
     expect(page).not_to have_link 'Michael Perscheid'
   end
 
   it "shows students as search results if the current user is signed in" do
-    user = FactoryBot.create :user
-    FactoryBot.create :person, role: 'student'
+    user = create :user
+    create :person, status: 'student'
     sign_in user
     visit "#{search_path}?query=Mich&commit=Search"
     expect(page).to have_link 'Michael Perscheid'
