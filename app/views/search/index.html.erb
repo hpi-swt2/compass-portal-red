@@ -59,7 +59,7 @@
             <% end %>
           <% end %>
         </div>
-        <%unless @exact_results.present? or @more_results.present? %> 
+        <%unless @exact_results.present? or @more_results.present? or @params.nil?%> 
           <section>               
             <p>Your search - <b><%= @params %></b> - did not match any items.</p>
             <p>Suggestions:</p>
