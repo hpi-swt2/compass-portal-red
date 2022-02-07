@@ -18,14 +18,19 @@
     <div class='col'> <%= @person.email.gsub('@', '(at)') if @person.email %> </div>
   </div>
   <% @person.informations.each do |information| %>
-    <div class='row'>
-      <div class='col-3'>
-        <%= information.key %>
+    <% def prohibited_keys
+         ["Telegram"]
+       end
+       unless information.key in prohibited_keys and not user_signed_in?%>
+      <div class='row'>
+        <div class='col-3'>
+          <%= information.key %>
+        </div>
+        <div class='col'>
+          <%= information.value %>
+        </div>
       </div>
-      <div class='col'>
-        <%= information.value %>
-      </div>
-    </div>
+    <%end %>
   <% end %>
   <% if @person.room %>
     <div class='row'>

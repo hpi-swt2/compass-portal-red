@@ -12,7 +12,7 @@
         <div class="list-group" id="exact-results">
           <% if @exact_results.present? %>
             <% @exact_results.each do |result| %>
-              <% unless result.class == Person and result.role == "student" and not user_signed_in? %>
+              <% unless result.class == Person and result.status == "student" and not user_signed_in? %>
                 <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
                   <div class='row'>
                     <div class='col-2 d-flex flex-column'>
@@ -22,12 +22,7 @@
                       <h5 class="search-title"><%= result.to_string %></h5>
                       <div>
                         <% result.displayed_tags.each do |tag| %>
-                          <% def prohibited_keys
-                               ["Telegram"]
-                             end
-                             unless result.class == Person and tag.key in prohibited_keys and not user_signed_in? %>
-                            <span class="badge bg-primary"><%= tag %></span>
-                          <% end %>
+                          <span class="badge bg-primary"><%= tag %></span>
                         <% end %>
                       </div>
                     </div>
@@ -45,7 +40,7 @@
         <div class="list-group" id="similar-results">
           <% if @more_results.present? %>
             <% @more_results.each do |result| %>
-              <% unless result.class == Person and result.role == "student" and not user_signed_in? %>
+              <% unless result.class == Person and result.status == "student" and not user_signed_in? %>
                 <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
                   <div class='row'>
                     <div class='col-2 d-flex flex-column'>
@@ -55,9 +50,7 @@
                       <h5 class="search-title"><%= result.to_string %></h5>
                       <div>
                         <% result.displayed_tags.each do |tag| %>
-                          <% unless result.class == Person and tag.key in prohibited_keys and not user_signed_in? %>
-                            <span class="badge bg-primary"><%= tag %></span>
-                          <% end %>
+                          <span class="badge bg-primary"><%= tag %></span>
                         <% end %>
                       </div>
                     </div>

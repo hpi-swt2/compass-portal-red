@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_31_101826) do
+ActiveRecord::Schema.define(version: 2022_02_07_140303) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 2022_01_31_101826) do
     t.datetime "human_verified_image"
     t.datetime "human_verified_room_id"
     t.datetime "human_verified_status"
-    t.string "role"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
