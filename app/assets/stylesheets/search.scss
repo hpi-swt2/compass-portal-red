@@ -89,15 +89,12 @@
   visibility: hidden;
 }
 
-/* This is to center the searchbar vertically */
-.searchpage {
-  height: calc(100% - #{$navbar-height});
-}
-
-@media only screen and (max-width: 400px) {
-  .searchpage {
-    height: calc(100% - #{$navbar-height} - #{$titlebar-height});
-  }
+/* This is to center the search vertically */
+.search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 400px) {

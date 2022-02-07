@@ -2,73 +2,71 @@
 
 <%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
 <body onload="textEntered();">
-<div class="searchpage d-flex justify-content-center flex-column">
-  <div class="row">
-    <div class="col-lg-6 col-md-9 col-12 mx-auto">
+<div class="row">
+  <div class="col-lg-6 col-md-9 col-12 mx-auto search">
 
-      <div style="text-align:center">
-      <img src="/images/platypus.png" alt="Logo" width="244" height="115">
-      <h2 class="fw-light"></h2>
-      </div>
+    <div style="text-align:center">
+    <img src="/images/platypus.png" alt="Logo" width="244" height="115">
+    <h2 class="fw-light"></h2>
+    </div>
 
-      <%= render('partials/search_bar', :locals => {:path => search_path}) %>
+    <%= render('partials/search_bar', :locals => {:path => search_path}) %>
 
-      <div class="row">
-        <div class="col">
-          <div class="list-group" id="exact-results">
-            <%if @exact_results.present? %>
-              <% @exact_results.each do |result|%>
+    <div class="row">
+      <div class="col">
+        <div class="list-group" id="exact-results">
+          <%if @exact_results.present? %>
+            <% @exact_results.each do |result|%>
 
-                <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                  <div class='row'>
-                    <div class='col-2 d-flex flex-column'>
-                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                    </div>
-                    <div class="col d-flex flex-column my-2">
-                      <h5 class="search-title"><%= result %></h5>
-                      <div>
-                        <% result.displayed_tags.each do |tag| %>
-                          <span class="badge bg-primary"><%= tag %></span>
-                        <% end %>
-                      </div>
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
+                <div class='row'>
+                  <div class='col-2 d-flex flex-column'>
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                  </div>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result %></h5>
+                    <div>
+                      <% result.displayed_tags.each do |tag| %>
+                        <span class="badge bg-primary"><%= tag %></span>
+                      <% end %>
                     </div>
                   </div>
-                </a>
+                </div>
+              </a>
 
-              <% end %>
-            <% else %>
-              <span class="suggestions fst-italic text-muted">"Room for working"</span>
-              <span class="suggestions fst-italic text-muted">"I am hungry"</span>
-              <span class="suggestions fst-italic text-muted">"Where is prof. Meinel?"</span>
             <% end %>
-          </div>
+          <% else %>
+            <span class="suggestions fst-italic text-muted">"Room for working"</span>
+            <span class="suggestions fst-italic text-muted">"I am hungry"</span>
+            <span class="suggestions fst-italic text-muted">"Where is prof. Meinel?"</span>
+          <% end %>
+        </div>
 
-          <br>
+        <br>
 
-          <%if @exact_results.present? and @more_results.present? %> Similar Results <%end %>
-          <div class="list-group" id="similar-results">
-            <%if @more_results.present? %>
-              <% @more_results.each do |result|%>
+        <%if @exact_results.present? and @more_results.present? %> Similar Results <%end %>
+        <div class="list-group" id="similar-results">
+          <%if @more_results.present? %>
+            <% @more_results.each do |result|%>
 
-                <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                  <div class='row'>
-                    <div class='col-2 d-flex flex-column'>
-                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                    </div>
-                    <div class="col d-flex flex-column my-2">
-                      <h5 class="search-title"><%= result %></h5>
-                      <div>
-                        <% result.displayed_tags.each do |tag| %>
-                          <span class="badge bg-primary"><%= tag %></span>
-                        <% end %>
-                      </div>
+              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
+                <div class='row'>
+                  <div class='col-2 d-flex flex-column'>
+                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                  </div>
+                  <div class="col d-flex flex-column my-2">
+                    <h5 class="search-title"><%= result %></h5>
+                    <div>
+                      <% result.displayed_tags.each do |tag| %>
+                        <span class="badge bg-primary"><%= tag %></span>
+                      <% end %>
                     </div>
                   </div>
-                </a>
+                </div>
+              </a>
 
-              <% end %>
             <% end %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
