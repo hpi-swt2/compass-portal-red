@@ -175,10 +175,114 @@ L.control.layers(null, layers).addTo(mymap);
 
 console.log("[MAP] Layers built");
 
-// TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
-// mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
+function allBuildings() {
+  var results = []
+  for (const campus of campusNames) {
+    let buildingsOfCampus = layers[campus];
+    results.push(...buildingsOfCampus.getLayers())
+  }
+  return results
+}
 
-// mapbox token
+function buildingsByQuery(query) {
+  return allBuildings().filter((buildingLayer) => {
+    // The HPIGeocoder and the highlighting of buildings rely on this fact, which happens to always be the case.
+    // Please inform someone if this warning occurs :)
+    if(buildingLayer.getLayers().length > 1){
+      console.log("WARNING: Not only one inner building layer in:", buildingLayer);
+    }
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature;
+    return buildingInfo.properties.name && buildingInfo.properties.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+  })
+}
+
+function buildingAtLocation(location) {
+  // different representation of the position for the pointInPolygon-method
+  const locationArray = [location.lng, location.lat]
+  for(const buildingLayer of allBuildings()) {
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature
+    const polygonCoordinates = buildingInfo.geometry.coordinates[0];
+    if(pointInPolygon(locationArray, polygonCoordinates)) return buildingLayer
+    // The next line ensures that the buildings are highlighted and properly geocoded,
+    // when they are being routed to. This is because we route to the center of the building.
+    if(innerBuildingLayer.getCenter().toBounds(1).contains(location)) return buildingLayer
+  }
+  return undefined
+}
+
+const originalGeocoder = new L.Control.Geocoder.nominatim()
+
+const HPIGeocoder = {
+  getHPISuggestions(query){
+    return buildingsByQuery(query).map((buildingLayer) => {
+      const innerBuildingLayer = buildingLayer.getLayers()[0];
+      const buildingInfo = innerBuildingLayer.feature;
+      return {
+        name: buildingInfo.properties.name,
+        center: innerBuildingLayer.getCenter(),
+        bbox: innerBuildingLayer.getBounds()
+      }
+    });
+  },
+
+  buildingInfoAtLocation(location) {
+    if(!location) return undefined;
+    const buildingLayer = buildingAtLocation(location)
+    if(!buildingLayer) return undefined;
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature;
+    return {
+      name: buildingInfo.properties.name,
+      center: innerBuildingLayer.getCenter(),
+      bbox: innerBuildingLayer.getBounds()
+    }
+  },
+
+  /**
+   * Performs a geocoding query and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  geocode(query, cb, context){
+    var that = this;
+    // This construction is used to append further suggestions to the ones given by the originalGeocoder
+    var callbackProxy = function(originalSuggestions) {
+      var hpiSuggestions = that.getHPISuggestions(query);
+      cb.call(context, hpiSuggestions.concat(originalSuggestions));
+    }
+    originalGeocoder.geocode(query, callbackProxy, context);
+  },
+  
+  /**
+   * Performs a geocoding query suggestion (this happens while typing) and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  suggest(query, cb, context){
+    cb.call(context, this.getHPISuggestions(query));
+  },
+
+  /**
+   * Performs a reverse geocoding query and returns the results to the callback in the provided context
+   * @param location the coordinate to reverse geocode
+   * @param scale the map scale possibly used for reverse geocoding
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  reverse(location, scale, cb, context){
+    const buildingInfo = this.buildingInfoAtLocation(location);
+    
+    if (buildingInfo){
+      cb.call(context, [buildingInfo]);
+    } else {
+      originalGeocoder.reverse(location, scale, cb, context);
+    }
+  }
+}
 
 console.log(window.location.host + "/directions");
 
@@ -202,7 +306,7 @@ window.routingControl = L.Routing.control({
         icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) }),
       });
     },
-    geocoder: L.Control.Geocoder.nominatim(),
+    geocoder: HPIGeocoder,
   }),
   collapsible: true,
   show: false,
@@ -276,27 +380,11 @@ function changeHighlightedBuilding(position) {
   if (!position) {
     return;
   }
-  // different representation of the position for the pointInPolygon-method
-  position = [position.lng, position.lat];
 
-  // set the new style for the clicked destination
-  for (const campus of campusNames) {
-    let buildingsOfCampus = layers[campus]._layers;
-
-    for (const id in buildingsOfCampus) {
-      const buildingId = Number(id);
-      const polygonCoordinates =
-        buildingsOfCampus[buildingId]._layers[buildingId - 1].feature.geometry
-          .coordinates[0];
-
-      // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
-      if (pointInPolygon(position, polygonCoordinates)) {
-        highlightedBuilding = buildingsOfCampus[buildingId];
-        setStyleForHighlightedBuilding();
-        return;
-      }
-    }
-  }
+  const buildingLayer = buildingAtLocation(position)
+  highlightedBuilding = buildingLayer
+  setStyleForHighlightedBuilding()
+  return;
 }
 
 function buildNavigationButton() {
