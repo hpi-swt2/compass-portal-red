@@ -157,11 +157,6 @@ L.control.layers(null, layers).addTo(mymap);
 
 console.log('[MAP] Layers built');
 
-// TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
-// mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
-
-// mapbox token
-
 function allBuildings() {
   var results = []
   for (const campus of campusNames) {
