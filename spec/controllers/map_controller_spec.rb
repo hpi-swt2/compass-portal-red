@@ -23,6 +23,13 @@ RSpec.describe MapController, type: :controller do
     end
   end
 
+  context 'when your try to start a navigation using the /navigation route' do
+    it 'renders successful' do
+      get :navigation, params: { coordinate: "13p12976840232745%2C52p393810752008136" }
+      assert_response :success
+    end
+  end
+
   describe "GET #in_babelsberg" do
     it 'returns return true for points inside of babelsberg' do
       expect(subject.in_babelsberg('13.2,52.4')).to be_truthy

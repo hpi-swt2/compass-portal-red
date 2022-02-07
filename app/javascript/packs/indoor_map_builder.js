@@ -74,7 +74,7 @@ const buildFloorLayer = (floor) => {
 };
 
 export const buildIndoorMap = () => {
-  console.log('[INDOOR] Indoor map start');
+  console.log("[INDOOR] Indoor map start");
 
   if (mymap == null) {
     console.error('Expected mymap, but "mymap" is null.');
@@ -83,7 +83,7 @@ export const buildIndoorMap = () => {
       'Expected to receive floors to build, but "floorsToBuild" is null.'
     );
   } else {
-    mymap.createPane('rooms');
+    mymap.createPane("rooms");
 
     const floorLayers = {};
     window.floorsToBuild.forEach((floor) => {
@@ -91,7 +91,7 @@ export const buildIndoorMap = () => {
     });
     L.control.layers(floorLayers, null).addTo(mymap);
   }
-  console.log('[INDOOR] Indoor map done');
+  console.log("[INDOOR] Indoor map done");
 };
 
 buildIndoorMap();
