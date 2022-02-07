@@ -1,17 +1,17 @@
-import { IndoorStyle } from '../constants';
+import { IndoorStyle } from "../constants";
 
 const buildRoomLayer = (room) => {
   const roomLayer = L.geoJSON(room.geoJson, {
     style: IndoorStyle,
-    pane: 'rooms',
+    pane: "rooms",
   });
 
   const roomTooltip = L.tooltip({
     permanent: true,
     interactive: true,
-    className: 'marker_label',
+    className: "marker_label",
     offset: L.point(0, 0),
-    direction: 'center',
+    direction: "center",
   });
   roomTooltip.setContent(room.fullName);
 
@@ -20,7 +20,7 @@ const buildRoomLayer = (room) => {
   );
 
   roomLayer.bindTooltip(roomTooltip);
-  roomLayer.addEventListener('click', (event) => {
+  roomLayer.addEventListener("click", (event) => {
     console.log(event);
   });
 
@@ -42,7 +42,7 @@ const buildFloorLayer = (floor) => {
 };
 
 export const buildIndoorMap = () => {
-  console.log('[INDOOR] Indoor map start');
+  console.log("[INDOOR] Indoor map start");
 
   if (mymap == null) {
     console.error('Expected mymap, but "mymap" is null.');
@@ -51,7 +51,7 @@ export const buildIndoorMap = () => {
       'Expected to receive floors to build, but "floorsToBuild" is null.'
     );
   } else {
-    mymap.createPane('rooms');
+    mymap.createPane("rooms");
 
     const floorLayers = {};
     window.floorsToBuild.forEach((floor) => {
@@ -59,7 +59,7 @@ export const buildIndoorMap = () => {
     });
     L.control.layers(floorLayers, null).addTo(mymap);
   }
-  console.log('[INDOOR] Indoor map done');
+  console.log("[INDOOR] Indoor map done");
 };
 
 buildIndoorMap();

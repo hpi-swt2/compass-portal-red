@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "courses/show", type: :view do
-  before(:each) do
+  before do
     @course = assign(:course, Course.create!(
-      name: "Name",
-      module_category: "Module Category"
-    ))
+                                name: "Name",
+                                module_category: "Module Category"
+                              ))
   end
 
   it "renders attributes in <p>" do
