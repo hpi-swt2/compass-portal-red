@@ -70,7 +70,8 @@ RSpec.describe "Search Page", type: :feature do
   end
 
   it "doesn't show students as search results if the current user isn't signed in" do
-    create :person, status: 'student'
+    person = create :person, status: 'student'
+    puts person.status
     visit "#{search_path}?query=Mich&commit=Search"
     expect(page).not_to have_link 'Michael Perscheid'
   end
