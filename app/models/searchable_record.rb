@@ -18,12 +18,16 @@ class SearchableRecord < ApplicationRecord
     image
   end
 
-  def to_string
+  def to_s
     raise 'This method should be overriden to display a string when searching'
   end
 
   def icon_class
     "search-item-icon --#{self.class.name.downcase}"
+  end
+
+  def related_searchable_records
+    []
   end
 
   def self.search_string(query)
