@@ -103,7 +103,7 @@ Feature: Search functionality
     And I start the search
     Then I see the search result "H-E.42"
     
-  Scenario: searching a chair  lower case
+  Scenario: searching a chair lower case
     Given I am on the search page
     When I enter "enterprise"
     And I start the search
