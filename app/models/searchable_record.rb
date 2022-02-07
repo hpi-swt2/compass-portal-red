@@ -28,12 +28,12 @@ class SearchableRecord < ApplicationRecord
 
   def related_searchable_records
     []
+  end
 
   def self.search_string(query)
     like_operator = ActiveRecord::Base.connection.adapter_name == "SQLite" ? "like" : "ilike"
     attributes = searchable_attributes.map { |attribute| "#{attribute} " + like_operator + " '%#{query}%'" }
     attributes.join(" or ")
-
   end
 
   def self.search(query)
