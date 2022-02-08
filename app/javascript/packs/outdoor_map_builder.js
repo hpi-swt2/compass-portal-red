@@ -5,7 +5,7 @@ import {
   PoIStyle,
   standardZoomLevel,
   styleMap,
-
+  redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
 var pointInPolygon = require("point-in-polygon");
@@ -111,6 +111,11 @@ for (const result of window.searchResults) {
     `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
   );
   layers["Search Results"].addLayer(marker);
+}
+
+if (window.searchResults?.length) {
+  const searchResultsMarkers = L.featureGroup(layers["Search Results"].getLayers());
+  mymap.fitBounds(searchResultsMarkers.getBounds().pad(0.5));
 }
 
 // make names disappear when zoomed out

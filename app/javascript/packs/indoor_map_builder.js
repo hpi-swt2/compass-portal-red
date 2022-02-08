@@ -58,7 +58,10 @@ const buildRoomLayer = (room) => {
             element.innerHTML = 'Sum ting went wrong: \n'+err
         })    
     });
-    return L.layerGroup().addLayer(roomLayer);
+
+    layers[room.fullName] = roomLayer;
+
+    return roomLayer;
   }
 const buildFloorLayer = (floor) => {
   // Add FloorLayer to layers
