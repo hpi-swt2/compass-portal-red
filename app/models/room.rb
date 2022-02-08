@@ -25,8 +25,12 @@ class Room < SearchableRecord
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
 
-  def to_string
+  def to_s
     name
+  end
+
+  def related_searchable_records
+    people + chairs
   end
 
   def to_geojson
