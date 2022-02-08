@@ -2,7 +2,7 @@ export const standardZoomLevel = 17;
 export const indoorZoomLevel = 19;
 export const leafletMapId = "map";
 
-const hpiRed = "#b0063a"
+const hpiRed = "#b0063a";
 
 export const UniPotsdamStyle = {
   fillColor: "Blue",
@@ -45,11 +45,11 @@ export const PoIStyle = {
 };
 
 export const HighlightedBuildingStyle = {
-	fillColor: hpiRed,
-	fillOpacity: 0.65,
-	color: hpiRed,
-	opacity: 0.3,
-}
+  fillColor: hpiRed,
+  fillOpacity: 0.65,
+  color: hpiRed,
+  opacity: 0.3,
+};
 
 export const styleMap = {
   "UP Campus Griebnitzsee": UniPotsdamStyle,
@@ -57,6 +57,17 @@ export const styleMap = {
   "Campus II": HPIStyle,
   "Campus III": HPIStyle,
   "Studentendorf Stahnsdorfer Straße": DormStyle,
-  "HighlightedBuilding": HighlightedBuildingStyle,
+  HighlightedBuilding: HighlightedBuildingStyle,
   default: UniPotsdamStyle,
 };
+
+export const redMarkerIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});

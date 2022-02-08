@@ -106,3 +106,8 @@ Metrics/AbcSize:
 # Okay to use has_and_belongs_to_many for many-to-many relationships
 Rails/HasAndBelongsToMany:
   Enabled: false
+
+
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
+

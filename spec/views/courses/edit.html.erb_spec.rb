@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "courses/edit", type: :view do
-  before(:each) do
+  before do
     @course = assign(:course, Course.create!(
-      name: "MyString",
-      module_category: "MyString"
-    ))
+                                name: "MyString",
+                                module_category: "MyString"
+                              ))
   end
 
   it "renders the edit course form" do
