@@ -1,4 +1,4 @@
-const {indoorZoomLevel} = require("../constants");
+const { indoorZoomLevel } = require("../constants");
 
 // Timeout to make sure that init of other code is done
 // TODO: Find nicer solution (e.g. JS CustomEvent)

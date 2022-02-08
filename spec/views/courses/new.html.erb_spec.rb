@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "courses/new", type: :view do
-  before(:each) do
+  before do
     assign(:course, Course.new(
-      name: "MyString",
-      module_category: "MyString"
-    ))
+                      name: "MyString",
+                      module_category: "MyString"
+                    ))
   end
 
   it "renders new course form" do
