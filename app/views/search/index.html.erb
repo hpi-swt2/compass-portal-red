@@ -19,7 +19,7 @@
                       <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                     </div>
                     <div class="col d-flex flex-column my-2">
-                      <h5 class="search-title"><%= result.to_string %></h5>
+                      <h5 class="search-title"><%= result %></h5>
                       <div>
                         <% result.displayed_tags.each do |tag| %>
                           <span class="badge bg-primary"><%= tag %></span>
@@ -35,8 +35,7 @@
 
         <br>
 
-        <% if @exact_results.present? and @more_results.present? %> Similar Results
-        <% end %>
+        <% if @exact_results.present? and @more_results.present? %> Similar Results <% end %>
         <div class="list-group" id="similar-results">
           <% if @more_results.present? %>
             <% @more_results.each do |result| %>
@@ -47,7 +46,7 @@
                       <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
                     </div>
                     <div class="col d-flex flex-column my-2">
-                      <h5 class="search-title"><%= result.to_string %></h5>
+                      <h5 class="search-title"><%= result %></h5>
                       <div>
                         <% result.displayed_tags.each do |tag| %>
                           <span class="badge bg-primary"><%= tag %></span>
