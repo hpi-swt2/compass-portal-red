@@ -1,5 +1,5 @@
 <div>
-    <%= form_with url: locals[:path],remote: true, method: :get do |form| %>
+    <%= form_with url: locals[:path], remote: true, method: :get, id: "search-form" do |form| %>
         <div class="row align-items-end mb-3">
           <div class="col">
             <div class="form-group">
@@ -8,5 +8,5 @@
           </div>
         </div>
       <% end %>
-      <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+    <%= button_tag "\u2715".encode('utf-8'), class: "cancel-input", id: "cancel", onclick: "clearText()" %>
 </div>
