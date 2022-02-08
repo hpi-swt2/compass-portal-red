@@ -2,6 +2,7 @@ function textEntered(field) {
   if (!field) {
     field = document.getElementById("search");
   }
+  localStorage.setItem('query', field.value ?? '');
   const btn = document.getElementById("cancel");
   if (field.value === "") {
     btn.style.visibility = "hidden";
@@ -10,4 +11,4 @@ function textEntered(field) {
   }
 }
 
-window.textEntered = textEntered;
+window.textEntered = textEntered
