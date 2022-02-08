@@ -10,6 +10,7 @@ class SearchController < ApplicationController
     @more_results = sort(@more_results, params[:query]) - @exact_results
 
     @params = params[:query]
+    render json: { html: render_to_string(partial: "partials/search_results") }
   end
 
   helper_method :index

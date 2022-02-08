@@ -9,56 +9,7 @@
 
     <div class="row">
       <div class="col">
-        <div class="list-group" id="exact-results">
-          <%if @exact_results.present? %>
-            <% @exact_results.each do |result|%>
-
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                <div class='row'>
-                  <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                  </div>
-                  <div class="col d-flex flex-column my-2">
-                    <h5 class="search-title"><%= result.to_string %></h5>
-                    <div>
-                      <% result.displayed_tags.each do |tag| %>
-                        <span class="badge bg-primary"><%= tag %></span>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-            <% end %>
-          <% end %>
-        </div>
-
-        <br>
-
-        <%if @exact_results.present? and @more_results.present? %> Similar Results <%end %>
-        <div class="list-group" id="similar-results">
-          <%if @more_results.present? %>
-            <% @more_results.each do |result|%>
-
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                <div class='row'>
-                  <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                  </div>
-                  <div class="col d-flex flex-column my-2">
-                    <h5 class="search-title"><%= result.to_string %></h5>
-                    <div>
-                      <% result.displayed_tags.each do |tag| %>
-                        <span class="badge bg-primary"><%= tag %></span>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </a>
-
-            <% end %>
-          <% end %>
-        </div>
+        <%= render('partials/search_results', :locals => {:exact_results => @exact_results, :more_results => @more_results}) %>
       </div>
     </div>
   </div>
