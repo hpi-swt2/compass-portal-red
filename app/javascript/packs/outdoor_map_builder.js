@@ -318,36 +318,30 @@ window.routingControl = L.Routing.control({
   routeWhileDragging: true,
   autoRoute: false,
   lineOptions: {
-    styles: [{ color: "blue" }],
-  },
+    styles: [{ color: 'blue' }]
+  }
+}).addTo(mymap)
+// when routing call happens, there will be the stop button in the navigation plan
+.on('routingstart', (e)=>{
+  console.log("routing start");
+  document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
+  document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
+  const roomPopup = document.getElementById('room_popup')
+  if (roomPopup) roomPopup.style.display = 'none';
+  document.getElementById('map-navigation-popup').style.display = "block"
 })
-  .addTo(mymap)
-  // when routing call happens, there will be the stop button in the navigation plan
-  .on("routingstart", (e) => {
-    console.log("routing start");
-    document.getElementById("StopNavigation").style.display = "block";
-    document.getElementsByClassName(
-      "leaflet-routing-alternatives-container"
-    )[0].style.display = "block";
-    document.getElementById("mobile-view-welcome-routing-text").style.display =
-      "none";
-    document.getElementsByClassName(
-      "leaflet-routing-geocoders"
-    )[0].style.width = "50%";
-    if (document.getElementById("map-popup"))
-      document.getElementById("map-popup").style.display = "none";
-    document.getElementById("map-navigation-popup").style.display = "block";
-  })
-  .on("waypointschanged", (e) => {
-    console.log("waypointschanged");
-    // we only highlight the destination of the current navigation route
-    changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
+.on('waypointschanged', (e)=>{
+  console.log("waypointschanged");
+  // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+  changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
 
-    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
-    routingControl.show();
-    // always calculate the route to show the 'A' marker if only one waypoint is set
-    routingControl.route();
-  });
+  routingControl.show()
+  // always calculate the route to show the 'A' marker if only one waypoint is set
+  
+});
+
 
 let highlightedBuilding = null;
 
@@ -363,6 +357,7 @@ function setStyleForHighlightedBuilding() {
     }
   }
 }
+
 
 function changeHighlightedBuilding(position) {
   // reset the style of the previously highlighted building, if available
@@ -421,7 +416,8 @@ let parent = element.parentNode;
 let targetDiv = document.getElementById("routing-controller");
 targetDiv.appendChild(element);
 
-function navigateTo(position) {
+
+export function showMarker(position) {
   // .locate() function returns map, so chaining works
   mymap
     .locate()
@@ -436,9 +432,12 @@ function navigateTo(position) {
       routingControl.setWaypoints([previousStart, position]);
     });
 }
+export function startNavigation(){
+  routingControl.route()
+}
 
 function onMapClick(e) {
-  navigateTo(e.latlng);
+  showMarker(e.latlng)
 }
 
 // Build the stop buton and insert it into the routingControl-plan

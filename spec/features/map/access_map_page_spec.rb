@@ -7,7 +7,7 @@ RSpec.describe "Map Page", type: :feature do
 
   it "is accessible through navbar" do
     visit root_path
-    expect(page).to have_link(nil, href: map_path)
+    expect(page).to have_selector(:link_or_button, 'Map')
   end
 
   it "contains a leaflet container" do
