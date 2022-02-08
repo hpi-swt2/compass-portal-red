@@ -1,13 +1,13 @@
 function textEntered(field) {
   if (!field) {
-      field = document.getElementById("search");
+    field = document.getElementById("search");
   }
   localStorage.setItem('query', field.value ?? '');
   const btn = document.getElementById("cancel");
   if (field.value === "") {
-      btn.style.visibility = "hidden";
+    btn.style.visibility = "hidden";
   } else {
-      btn.style.visibility = "visible";
+    btn.style.visibility = "visible";
   }
 }
 
