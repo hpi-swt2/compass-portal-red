@@ -5,7 +5,7 @@ import {
   PoIStyle,
   standardZoomLevel,
   styleMap,
-
+  redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
 var pointInPolygon = require("point-in-polygon");
