@@ -1,3 +1,4 @@
+# The model representing a course at the HPI
 class Course < ApplicationRecord
   validates :name, presence: true
 

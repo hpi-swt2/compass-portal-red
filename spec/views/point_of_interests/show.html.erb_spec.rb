@@ -16,7 +16,7 @@ RSpec.describe "point_of_interests/show", type: :view do
   end
 
   it "shows the placeholder image if no image was linked" do
-    point_of_interest.image.purge 
+    point_of_interest.image.purge
     render
     expect(rendered).to have_css("img[src*=placeholder_poi]")
   end

@@ -91,7 +91,7 @@ group :development do
   gem 'better_errors' # https://github.com/BetterErrors/better_errors
   # binding_of_caller is optional, but is necessary to use Better Errors' advanced features
   gem 'binding_of_caller' # https://github.com/banister/binding_of_caller
-  # Generate a diagram based on your application's Active Record models by calling 'bundle exec erd'. Dependency: graphviz
+  # Generate a diagram based on your application's models by calling 'bundle exec erd'. Dependency: graphviz
   gem 'rails-erd' # https://github.com/voormedia/rails-erd
 end
 
