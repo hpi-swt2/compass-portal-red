@@ -13,16 +13,42 @@ function textEntered(field) {
     }
     if (search) {
         this.timeout = setTimeout(() => {
-            document.getElementById("search-form").submit();
-        }, 600)
+            sendRequest(field);
+        }, 500)
     }
 }
 
-function clearText() {
+function clearText(btn) {
     let field = document.getElementById("search");
     field.value = "";
-    field.dispatchEvent(new Event("input"))
+    sendRequest(field);
+    btn.style.visibility = "hidden";
+}
+
+function sendRequest(field){
+    $.ajax({
+        url: '/search?ajax=&query=' + field.value,
+        type: 'get',
+        beforeSend: function() {
+        },
+        complete: function() {
+        },
+        success: function(json) {
+            $("#results")[0].innerHTML = json.html;
+            if (json.search === ""){
+                document.title = "Search –" + document.title.split("–")[1];
+                document.url = "/search"
+            } else {
+                document.title = "Results for " + json.search + " –" + document.title.split("–")[1];
+                document.url = "/search?query=" + json.search
+            }
+            window.history.pushState({"html":document.html, "pageTitle":document.title}, "", document.url);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+        }
+    });
 }
 
 window.textEntered = textEntered
 window.clearText = clearText
+window.sendRequest = sendRequest

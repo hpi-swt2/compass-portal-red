@@ -1,12 +1,12 @@
 <div>
-    <%= form_with url: locals[:path], remote: true, method: :get, id: "search-form" do |form| %>
+
         <div class="row align-items-end mb-3">
           <div class="col">
             <div class="form-group">
-              <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, id: "search", oninput: "textEntered(this)", onSubmit: "test" %>
+              <input class="form-control" autofocus="autofocus" id="search" oninput="textEntered(this)" onsubmit="sendRequest(this)" type="text" name="query" value="<%=@params %>">
             </div>
           </div>
         </div>
-      <% end %>
-    <%= button_tag "\u2715".encode('utf-8'), class: "cancel-input", id: "cancel", onclick: "clearText()" %>
+
+    <%= button_tag "\u2715".encode('utf-8'), class: "cancel-input", id: "cancel", onclick: "clearText(this)" %>
 </div>

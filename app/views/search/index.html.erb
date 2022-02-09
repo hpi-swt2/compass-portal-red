@@ -8,8 +8,10 @@
     <%= render('partials/search_bar', :locals => {:path => search_path}) %>
 
     <div class="row">
-      <div class="col">
-        <%= render('partials/search_results', :locals => {:exact_results => @exact_results, :more_results => @more_results}) %>
+      <div id="results" class="col">
+        <%if @full_render.present? %>
+          <%= render('partials/search_results', :locals => {:exact_results => @exact_results, :more_results => @more_results}) %>
+        <%end %>
       </div>
     </div>
   </div>

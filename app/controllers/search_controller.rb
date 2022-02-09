@@ -2,15 +2,21 @@ class SearchController < ApplicationController
   def index
     return if params[:query].nil?
 
-    @exact_results = add_results_for(params[:query])
+    unless params[:query] == ""
+      @exact_results = add_results_for(params[:query])
 
-    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
+      words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
 
-    @more_results = words_in_query.flat_map { |word| add_results_for(word) }
-    @more_results = sort(@more_results, params[:query]) - @exact_results
+      @more_results = words_in_query.flat_map { |word| add_results_for(word) }
+      @more_results = sort(@more_results, params[:query]) - @exact_results
+    end
 
     @params = params[:query]
-    # render json: { html: render_to_string(partial: "partials/search_results") }
+    if params[:ajax].nil?
+      @full_render = true
+      return
+    end
+    render json: { html: render_to_string(partial: "partials/search_results"), search: @params}
   end
 
   helper_method :index
