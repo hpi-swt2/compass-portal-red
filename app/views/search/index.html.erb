@@ -16,7 +16,7 @@
                 <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
                   <div class='row'>
                     <div class='col-2 d-flex flex-column'>
-                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                      <%= render('partials/picture_circle', :locals => {:image => result.image_or_placeholder}) %>
                     </div>
                     <div class="col d-flex flex-column my-2">
                       <h5 class="search-title"><%= result %></h5>
@@ -43,7 +43,7 @@
                 <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
                   <div class='row'>
                     <div class='col-2 d-flex flex-column'>
-                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                      <%= render('partials/picture_circle', :locals => {:image => result.image_or_placeholder}) %>
                     </div>
                     <div class="col d-flex flex-column my-2">
                       <h5 class="search-title"><%= result %></h5>

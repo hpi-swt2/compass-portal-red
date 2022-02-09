@@ -2,7 +2,7 @@
 <div class='detail'>
   <div class="row mb-5">
     <div class="col-3">
-      <%= image_tag(@chair.image, class: "picture-rounded") %>
+      <%= render('partials/picture_circle', :locals => {:image => @chair.image}) %>
     </div>
     <div class="col">
       <h1>
