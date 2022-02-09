@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "courses/show", type: :view do
   let(:course) { create(:course) }
 
+  before { assign(:course, course) }
+
   it "renders attributes in <p>" do
     render
     expect(rendered).to have_selector('h1', text: course.name)

@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "courses/edit", type: :view do
   let(:course) { create(:course) }
 
+  before { assign(:course, course) }
+
   it "renders the edit course form" do
     render
 
