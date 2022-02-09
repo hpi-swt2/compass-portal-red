@@ -12,16 +12,16 @@ RSpec.describe "point_of_interests/show", type: :view do
 
   it "shows an image of the point_of_interest if one exists" do
     render
-    expect(rendered).to have_css("img[src='#{point_of_interest.image_or_placeholder}']")
+    expect(rendered).to match(url_for(point_of_interest.image))
   end
 
   it "shows the placeholder image if no image was linked" do
-    assign(:point_of_interest, FactoryBot.create(:point_of_interest, image: ""))
+    point_of_interest.image.purge 
     render
     expect(rendered).to have_css("img[src*=placeholder_poi]")
   end
 
-  it "renders a link to the map page with point_of_interest id as parameter" do
+  it "renders a link to the map page with point id as parameter" do
     render
     expect(rendered).to have_link(href: map_path(point_of_interest_id: point_of_interest.point_id))
   end
