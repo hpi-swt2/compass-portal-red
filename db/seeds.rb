@@ -35,15 +35,15 @@ chair_list = [
   "Digital Health & Machine Learning"
 ]
 course_list = [
-  ["Mathematik III", "Pflichtmodul", DateTime.new(2022, 5, 15, 9, 0, 0),
+  ["Mathematik III", "Pflichtmodul", DateTime.new(2022, 5, 15, 9, 0, 0), 1,
    [["Monday", "9:15", "10:45"], ["Wednesday", "11:00", "12:30"]]],
-  ["Data Science", "Vertiefungsmodul", DateTime.new(2022, 5, 17, 10, 0, 0),
+  ["Data Science", "Vertiefungsmodul", DateTime.new(2022, 5, 17, 10, 0, 0), 2,
    [["Tuesday", "9:15", "10:45"], ["Thursday", "11:00", "12:30"]]],
-  ["Competitive Programming II", "Vertiefungsmodul", DateTime.new(2022, 5, 10, 12, 0, 0),
+  ["Competitive Programming II", "Vertiefungsmodul", DateTime.new(2022, 5, 10, 12, 0, 0), 3,
    [["Friday", "14:00", "16:00"]]],
-  ["3D-Computergrafik I", "Softwarebasissysteme", DateTime.new(2022, 3, 25, 9, 30, 0),
+  ["3D-Computergrafik I", "Softwarebasissysteme", DateTime.new(2022, 3, 25, 9, 30, 0), 2,
    [["Tuesday", "13:30", "15:00"], ["Wednesday", "13:30", "15:00"]]],
-  ["3D-Computergrafik II", "Vertiefungsmodul", DateTime.new(2021, 8, 15, 9, 30, 0),
+  ["3D-Computergrafik II", "Vertiefungsmodul", DateTime.new(2021, 8, 15, 9, 30, 0), 5,
    [["Monday", "11:00", "12:30"], ["Wednesday", "16:15", "17:45"]]]
 ]
 information_list = [
@@ -242,18 +242,13 @@ Chair.find(3).rooms << [Room.find(4)]
 Chair.find(4).rooms << [Room.find(5)]
 Chair.find(5).rooms << [Room.find(5)]
 
-course_list.each do |name, module_category, exam_date, times|
-  course = Course.create(name: name, module_category: module_category, exam_date: exam_date)
+course_list.each do |name, module_category, exam_date, room_id, times|
+  course = Course.create(name: name, module_category: module_category, exam_date: exam_date, room_id: room_id)
   times.each do |weekday, start_time, end_time|
     course.course_times.create(weekday: weekday, start_time: start_time, end_time: end_time)
   end
 end
 
-Course.find(1).room = Room.find(1)
-Course.find(2).room = Room.find(2)
-Course.find(3).room = Room.find(2)
-Course.find(4).room = Room.find(4)
-Course.find(5).room = Room.find(4)
 Course.find(1).people << [Person.find(1), Person.find(4)]
 Course.find(2).people << [Person.find(1)]
 Course.find(3).people << [Person.find(2)]

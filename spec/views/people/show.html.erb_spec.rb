@@ -13,6 +13,16 @@ RSpec.describe "people/show", type: :view do
     expect(rendered).to match(person.status)
   end
 
+  it "shows details of existing courses" do
+    course = FactoryBot.create(:course)
+    course2 = FactoryBot.create(:course)
+    person.courses << [course, course2]
+    render
+    person.courses.each do |course|
+      expect(rendered).to have_link(course.name, href: course_path(course))
+    end
+  end
+
   it "shows an image of the person if one exists" do
     render
     expect(rendered).to match(url_for(person.image))
