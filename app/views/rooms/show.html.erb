@@ -3,7 +3,7 @@
   <div class='row mb-3'>
     <div class='col-3'> <%= render('partials/picture_circle', :locals => {:image => @room.image}) %> </div>
     <div class="col mx-3">
-      <h2><%= @room.name %></h2>
+      <h1><%= @room.name %></h1>
       <span class="badge bg-primary">Room</span>
       <% @room.tags.each do |tag| %>
         <span class="badge bg-primary"><%= tag.name %></span>

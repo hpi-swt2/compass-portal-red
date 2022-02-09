@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "HPI Campus Navigator",
+  "short_name": "navigator",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "This is a navigation app for the hpi campus.",
+  "icons": [
+    {
+      "src": "images/platypus.png",
+      "sizes": "488x230",
+      "type": "image/png"
+    },
+    {
+      "src": "images/platypus_centered.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
