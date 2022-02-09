@@ -5,8 +5,12 @@ class Chair < SearchableRecord
   has_and_belongs_to_many :people
   has_and_belongs_to_many :rooms
 
-  def to_string
+  def to_s
     name
+  end
+
+  def related_searchable_records
+    people + rooms
   end
 
   def self.searchable_attributes

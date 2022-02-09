@@ -1,15 +1,16 @@
+<%= javascript_pack_tag 'search_button', 'data-turbolinks-track': 'reload' %>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom-bottom vw-100 p-1">
   <div class="container-fluid">
       <ul class="navbar-nav mx-auto flex-row w-75 justify-content-between">
         <li class="<%= 'active' if current_page?(search_path) %> nav-item">
-          <%= link_to search_path, class: 'nav-link d-flex flex-column align-items-center' do %>
+          <button class="btn nav-link d-flex flex-column align-items-center" onclick="redirectWithQuery('<%=search_path%>')">
             <i class="fas fa-search fa-lg"></i> <span>Search</span>
-          <% end %>
+          </button>
         </li>
         <li class="<%= 'active' if current_page?(map_path) %> nav-item">
-          <%= link_to map_path, class: 'nav-link d-flex flex-column align-items-center', data: {turbolinks: false} do %>
+          <button class="btn nav-link d-flex flex-column align-items-center" onclick="redirectWithQuery('<%=map_path%>')">
             <i class="fas fa-map fa-lg"></i> <span>Map</span>
-          <% end %>
+          </button>
         </li>
         <li class="<%= 'active' if !current_page?(map_path) && !current_page?(search_path) %> nav-item">
           <%= link_to protected_path, class: 'nav-link d-flex flex-column align-items-center' do %>
