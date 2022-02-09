@@ -49,6 +49,7 @@
         const selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
         const coordinates = <%= raw(JSON.generate(@coordinates)) %>
         const points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
+        <% puts @points_of_interest %>
 
     </script>
   <% end %>
@@ -69,6 +70,7 @@
 	  </div>
 
     <div id="popup_root">
+      <%= render 'partials/poi_popup'%>
       <% if @selected_room.present? %>
       <%= render 'map/room_popup'%>
       <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>

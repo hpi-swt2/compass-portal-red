@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :floors
   resources :people
   resources :person_urls
+  resources :point_of_interests
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

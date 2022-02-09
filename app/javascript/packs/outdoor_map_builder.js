@@ -8,6 +8,7 @@ import {
   redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
+import { closeMapPopups, showPopup } from "./map_popups";
 var pointInPolygon = require("point-in-polygon");
 
 console.log("[MAP] Pre map init");
@@ -97,7 +98,7 @@ for (const feature of points_of_interest) {
     offset: [-14, 0],
     direction: "right",
   });
-  layer.bindPopup(feature.properties.description);
+  layer.on('click', () => showPopup('poi_popup', feature.properties.id));
   layers["Points of Interest"].addLayer(layer);
 }
 
@@ -392,16 +393,12 @@ function buildNavigationButton() {
   el.className =
     "leaflet-navigation-button leaflet-control leaflet-control-layers";
   el.id = "leaflet-navigation-button";
-  el.innerHTML = `
-    <i 
-      class="fa fa-route fa-3x navigation-icon"
-      onclick="
-        document.getElementById('map-navigation-popup').style.display = 'inline';
-        event.stopPropagation();
-        document.getElementById('map-popup').style.display = 'none';"
-    >
-    </i>
-  `;
+  el.addEventListener('click', () => {closeMapPopups();
+    document.getElementById('map-navigation-popup').style.display = 'inline';
+  event.stopPropagation();});
+  const icon = document.createElement("i");
+  icon.className = "fa fa-route fa-3x navigation-icon";
+  el.appendChild(icon);
   document.querySelector(".leaflet-right").appendChild(el);
 }
 buildNavigationButton();
