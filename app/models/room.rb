@@ -6,6 +6,7 @@ class Room < SearchableRecord
   has_and_belongs_to_many :chairs
   has_and_belongs_to_many :tags
   has_many :people, dependent: :nullify
+  has_many :courses, dependent: :nullify
   belongs_to :floor
   belongs_to :outer_shape, class_name: 'Polyline'
   has_and_belongs_to_many :walls
@@ -24,8 +25,12 @@ class Room < SearchableRecord
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
 
-  def to_string
+  def to_s
     name
+  end
+
+  def related_searchable_records
+    people + chairs
   end
 
   def to_geojson

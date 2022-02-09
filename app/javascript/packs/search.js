@@ -5,6 +5,7 @@ function textEntered(field) {
         field = document.getElementById("search");
         search = false;
     }
+    localStorage.setItem('query', field.value ?? '');
     const btn = document.getElementById("cancel");
     if (field.value === "") {
         btn.style.visibility = "hidden";

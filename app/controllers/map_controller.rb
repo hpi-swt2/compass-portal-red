@@ -16,6 +16,17 @@ class MapController < SearchController
     params.permit(:room_id)
   end
 
+  def navigation
+    @buildings = Building.all
+    @points_of_interest = PointOfInterest.all.map(&:to_geojson)
+
+    p1 = params[:coordinate].tr('p', '.')
+    long1, lat1 = p1.split(",")
+
+    @coordinates = [{ lat: lat1.to_f, lng: long1.to_f }]
+    render action: "index"
+  end
+
   def url
     profile = params[:profile]
     coordinates = params[:coordinates].gsub("p", "%2E")
@@ -44,5 +55,10 @@ class MapController < SearchController
 
     res = Net::HTTP.get_response(uri)
     render json: res.body
+  end
+
+  def room_popup
+    @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
+    render "map/_room_popup"
   end
 end

@@ -5,6 +5,7 @@ class Person < SearchableRecord
 
   has_many :informations, dependent: :destroy, autosave: true
   has_and_belongs_to_many :chairs
+  has_and_belongs_to_many :courses
   belongs_to :room, optional: true, dependent: :destroy
   belongs_to :user, optional: true, dependent: :destroy
   has_one_attached :image, dependent: :destroy
@@ -23,8 +24,16 @@ class Person < SearchableRecord
     "#{title} #{name}"
   end
 
-  def to_string
+  def to_s
     full_name
+  end
+
+  def related_searchable_records
+    if room
+      chairs + [room]
+    else
+      chairs
+    end
   end
 
   def self.searchable_attributes
