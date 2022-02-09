@@ -37,7 +37,7 @@ const buildRoomLayer = (room) => {
         }
 
         const element = document.createElement('div')
-        element.innerHTML = `<div class="map-popup card shadow-sm p-2">
+        element.innerHTML = `<div class="room-popup card shadow-sm p-2">
         <div class="card-body fw-bold">
         ⏳ Loading    
         </div></div>`

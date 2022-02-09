@@ -329,12 +329,15 @@ window.routingControl = L.Routing.control({
 })
 .on('waypointschanged', (e)=>{
   console.log("waypointschanged");
-  // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+  
+  // we only highlight the destination of the current navigation route
   changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
 
+  // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
   routingControl.show()
+
   // always calculate the route to show the 'A' marker if only one waypoint is set
-  
+  routingControl.route();
 });
 
 

@@ -13,7 +13,7 @@ class MapController < SearchController
   end
 
   def map_params
-    params.permit(:room_id)
+    params.permit(:room_id, :query)
   end
 
   def navigation
