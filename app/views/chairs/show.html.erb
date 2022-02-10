@@ -1,14 +1,15 @@
 <% content_for :title, "Chair #{@chair.name}" %>
 <div class='detail'>
-  <div class="row mb-5">
-    <div class="col-3">
-      <%= image_tag(@chair.image, class: "picture-rounded") %>
+  <div class='row mb-3'>
+    <div class='col-3'> <%= image_tag(@chair.image, class: "picture-rounded") %> </div>
+    <div class="col mx-3">
+      <h1><%= @chair.name %></h1>
+      <span class="badge bg-primary">Chair</span>
     </div>
-    <div class="col">
-      <h1>
-        <%= @chair.name %>
-      </h1>
-    </div>
+  </div>
+  <div class="d-flex flex-row justify-content-start iconbuttons mb-3">
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @chair.rooms[0]) %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow'}), root_path %>
   </div>
 
   <% if @chair.people %>

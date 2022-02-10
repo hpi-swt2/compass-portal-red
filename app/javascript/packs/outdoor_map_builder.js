@@ -401,7 +401,7 @@ function buildNavigationButton() {
       onclick="
         document.getElementById('map-navigation-popup').style.display = 'inline';
         event.stopPropagation();
-        document.getElementById('map-popup').style.display = 'none';"
+        document.getElementById('room_popup').style.display = 'none';"
     >
     </i>
   `;
