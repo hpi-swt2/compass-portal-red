@@ -7,6 +7,7 @@ RSpec.describe "point_of_interests/show", type: :view do
 
   it "renders attributes in <p>" do
     render
+    expect(rendered).to match(point_of_interest.name)
     expect(rendered).to match(point_of_interest.description)
   end
 
