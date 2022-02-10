@@ -14,19 +14,18 @@
           <% end %>
         </div>
       </div>
-      <span class="close-icon d-flex flex-column justify-content-start align-items-center" title="close">
-            <i 
-              class="fa fa-times fa-2x"
-              style="color: black; cursor: pointer;"
-              onclick="document.getElementById('map-navigation-popup').style.display = 'none'"
-            >
-            </i>
+      <span class="d-flex flex-column justify-content-start align-items-center" title="close">
+            <button
+            class="btn bg-transparent fw-bold"
+            onclick="document.getElementById('room_popup').style.display = 'none'"
+            >🗙
+            </button>
         </span>
     </div>
 
     <div class="d-flex flex-row justify-content-start iconbuttons">
       <%= link_to render('partials/iconbutton', :locals => {:text => 'Detailpage', :icon_class => 'fa-list', :id => "details_btn"}), room_path(@selected_room) %>
-      <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow', :id => "navigate_btn"}),  navigation_path(@selected_room.to_navigation) %>
+      <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-route', :id => "navigate_btn"}),  navigation_path(@selected_room.to_navigation) %>
     </div>
   </div>
 
