@@ -24,4 +24,8 @@ RSpec.describe Course, type: :model do
   it "has a course time relation" do
     expect(course).to respond_to(:course_times)
   end
+
+  it "has a string representation" do
+    expect(course.to_s.blank?).to eq(false)
+  end
 end
