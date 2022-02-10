@@ -1,7 +1,9 @@
-import { computeStyles } from '@popperjs/core'
 import { IndoorStyle } from '../constants'
-
+import { startNavigation } from './outdoor_map_builder'
 const buildRoomLayer = (room) => {
+  if (mymap == null)
+    throw Error('Map not initialized before buildRoomLayer was called.')
+
   const roomLayer = L.geoJSON(room.geoJson, {
     style: IndoorStyle,
     pane: 'rooms',
@@ -15,24 +17,59 @@ const buildRoomLayer = (room) => {
     direction: 'center',
   })
   roomTooltip.setContent(room.fullName)
-
-  roomLayer.bindPopup(
-    `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${room.fullName}</a>`
-  )
-
   roomLayer.bindTooltip(roomTooltip)
   roomLayer.addEventListener('click', (event) => {
-    console.log(event)
+    // TODO: fix routing error in console
+    const popupRootNode = document.getElementById('popup_root')
+    if (popupRootNode.hasChildNodes) {
+      try {
+        const currentRoomPopUp = popupRootNode.childNodes[0]
+        if (currentRoomPopUp) {
+          popupRootNode.removeChild(currentRoomPopUp)
+        }
+      } catch (e) {
+        console.error('Failed removing child node', e)
+      }
+    }
+    const routingNode = document.getElementById('map-navigation-popup')
+    if (routingNode) {
+      routingNode.style.display = 'none'
+    }
+
+    const element = document.createElement('div')
+    element.innerHTML = `<div class="map-popup card shadow-sm p-2">
+        <div class="card-body fw-bold">
+        ⏳ Loading
+        </div></div>`
+    popupRootNode.appendChild(element)
+
+    fetch('/map/room_popup/' + room.id)
+      .then(function (response) {
+        return response.text()
+      })
+      .then(function (html) {
+        element.innerHTML = html
+        const navBtn = element.querySelector('#navigate_btn')
+        navBtn.onclick = function () {
+          console.log('Starting navigation', room)
+          popupRootNode.removeChild(element)
+          startNavigation()
+        }
+      })
+      .catch(function (err) {
+        console.warn('Sum ting went wrong.', err)
+        element.innerHTML = 'Sum ting went wrong: \n' + err
+      })
   })
 
-  return L.layerGroup().addLayer(roomLayer)
-}
+  layers[room.fullName] = roomLayer
 
+  return roomLayer
+}
 const buildFloorLayer = (floor) => {
   // Add FloorLayer to layers
   const floorLayer = L.layerGroup()
   layers[floor.name] = floorLayer
-
   // Add all rooms
   floor.rooms.forEach((room) => {
     const roomLayer = buildRoomLayer(room)

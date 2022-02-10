@@ -23,6 +23,13 @@ RSpec.describe MapController, type: :controller do
     end
   end
 
+  context 'when your try to start a navigation using the /navigation route' do
+    it 'renders successful' do
+      get :navigation, params: { coordinate: "13p12976840232745%2C52p393810752008136" }
+      assert_response :success
+    end
+  end
+
   describe "GET #in_babelsberg" do
     it 'returns return true for points inside of babelsberg' do
       expect(subject.in_babelsberg('13.2,52.4')).to be_truthy
@@ -30,6 +37,16 @@ RSpec.describe MapController, type: :controller do
 
     it 'returns return false for points outside of babelsberg' do
       expect(subject.in_babelsberg('13.0,52.4')).to be_falsey
+    end
+  end
+
+  describe "GET #room_popup" do
+
+    let(:room) { create(:room) }
+
+    it 'renders a popup' do
+      get :room_popup, params: { room_id: room.id }
+      expect(response).to have_http_status(:success)
     end
   end
 end

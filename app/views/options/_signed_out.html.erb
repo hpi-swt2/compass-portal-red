@@ -1,6 +1,8 @@
 <div class="d-flex flex-row align-items-center">
-	<i class="fas fa-user my-2 mx-3 justify-content-center align-self-center" ></i>
-	<div class="fw-bold">
-		Sign in
-	</div>
+  <i class="fas fa-user my-2 mx-3 justify-content-center align-self-center"></i>
+  <div class="fw-bold">
+    <%= link_to new_user_session_path, class: "simple-link" do %>
+      Sign in
+    <% end %>
+  </div>
 </div>

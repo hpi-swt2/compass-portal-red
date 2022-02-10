@@ -37,12 +37,27 @@
 
         <% end %>
       ]
+      window.searchResults = [
+        <% if @exact_results.present? %>
+          <% @exact_results.each do |result| %>
+            <% if result.instance_of? Room %>
+            {
+              'id': '<%= result.id %>',
+              'fullName': '<%= result.full_name %>',
+              'geoJson': <%= raw(JSON.generate(result.to_geojson)) %>
+            },
+            <% end %>
+          <% end %>
+        <% end %>
+      ]
     </script>
 
     <% # Inject coordinates of selected room %>
     <script type="text/javascript" charset="utf-8">
         const selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
+        const coordinates = <%= raw(JSON.generate(@coordinates)) %>
         const points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
+
     </script>
   <% end %>
 
@@ -61,9 +76,11 @@
       <%= javascript_pack_tag 'indoor_map_builder', 'data-turbolinks-track': 'reload' %>
 	  </div>
 
-    <% if @selected_room.present? %>
-      <%= render 'partials/map_popup', :locals => {:room => @selected_room}%>
+    <div id="popup_root">
+      <% if @selected_room.present? %>
+      <%= render 'map/room_popup'%>
       <%= javascript_pack_tag 'selected_room_marker', 'data-turbolinks-track': 'reload' %>
-    <% end %>
+      <% end %>
+    </div>
   </body>
 </html>
