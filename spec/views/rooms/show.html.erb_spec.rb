@@ -54,9 +54,7 @@ RSpec.describe "rooms/show", type: :view do
   end
 
   it "shows details of existing courses" do
-    course = FactoryBot.create(:course)
-    course2 = FactoryBot.create(:course)
-    room.courses << [course, course2]
+    room.courses << [create(:course), create(:course)]
     render
     room.courses.each do |course|
       expect(rendered).to have_link(course.name, href: course_path(course))
