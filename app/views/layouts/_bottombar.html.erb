@@ -13,7 +13,7 @@
           </button>
         </li>
         <li class="<%= 'active' if !current_page?(map_path) && !current_page?(search_path) %> nav-item">
-          <%= link_to protected_path, class: 'nav-link d-flex flex-column align-items-center' do %>
+          <%= link_to options_path, class: 'nav-link d-flex flex-column align-items-center' do %>
             <i class="fas fa-list fa-lg"></i> <span>Options</span>
           <% end %>
         </li>
