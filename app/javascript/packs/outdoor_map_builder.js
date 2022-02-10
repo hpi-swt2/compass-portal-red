@@ -11,8 +11,7 @@ import { buildings } from "../OutdoorMap/geometry";
 
 function buildSearchResultMarkers() {
   if (layers["Search Results"]) {
-    //mymap.remove(layers["Search Results"].getLayers());
-    //layers["Search Results"].clearLayers();
+    layers["Search Results"].clearLayers();
   }
   layers["Search Results"] = L.layerGroup().addTo(mymap);
   for (const result of window.searchResults) {
