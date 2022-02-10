@@ -4,7 +4,7 @@
           <div class="col">
             <div class="form-group">
               <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, 
-                id: "search", oninput: "textEntered(this)", placeholder: "Ask me something ..." %>
+                id: "search", oninput: "textEntered(this)", onfocus: "toggleCenterClass(true)", onfocusout: "toggleCenterClass(false)", placeholder: "Ask me something ..." %>
             </div>
           </div>
         </div>
