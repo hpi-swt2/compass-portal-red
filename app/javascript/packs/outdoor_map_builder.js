@@ -81,7 +81,8 @@ for (const feature of buildings) {
 }
 
 layers["Points of Interest"] = L.layerGroup().addTo(mymap);
-for (const feature of points_of_interest) {
+
+for (const feature of gon.points_of_interest) {
   let layerStyle;
   switch (feature.properties.type) {
     case "Entrance":
@@ -473,11 +474,11 @@ mymap.on("click", onMapClick);
 function onLocationFound(e) {
   routingControl.setWaypoints([
     e.latlng,
-    L.latLng(coordinates[0].lat, coordinates[0].lng),
+    L.latLng(gon.coordinates[0].lat, gon.coordinates[0].lng),
   ]);
 }
 
-if (coordinates != null) {
+if (gon.coordinates != null) {
   mymap.on("locationfound", onLocationFound);
   lc.start();
 }
