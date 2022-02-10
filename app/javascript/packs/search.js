@@ -15,7 +15,7 @@ function textEntered(field) {
     if (search) {
         this.timeout = setTimeout(() => {
             sendRequest(field);
-        }, 500)
+        }, 450)
     }
 }
 

@@ -8,13 +8,7 @@ class SearchController < ApplicationController
     end
 
     @query = params[:query]
-    if params[:ajax].nil?
-      @full_render = true
-    elsif params[:ajax] == "search"
-      render json: { html: render_to_string(partial: "partials/search_results"), search: @query }
-    elsif params[:ajax] == "map"
-      render json: { html: render_to_string(partial: "partials/map_js"), search: @query }
-    end
+    handle_ajax
   end
 
   helper_method :index
@@ -36,7 +30,7 @@ class SearchController < ApplicationController
   end
 
   def sort_by_priority(results, query)
-    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
+    words_in_query = query.scan(/[A-Za-z0-9]+/)
     matching_tag_results = words_in_query.flat_map { |word| Room.search_by_tags(word) }.uniq
     results_without_tags = results - matching_tag_results
     prioritized_results = results
@@ -80,5 +74,15 @@ class SearchController < ApplicationController
   def sort(more_results, related_results, query)
     results = sort_by_frequency(more_results, related_results)
     sort_by_priority(results, query)
+  end
+
+  def handle_ajax
+    if params[:ajax].nil?
+      @full_render = true
+    elsif params[:ajax] == "search"
+      render json: { html: render_to_string(partial: "partials/search_results"), search: @query }
+    elsif params[:ajax] == "map"
+      render json: { html: render_to_string(partial: "partials/map_js"), search: @query }
+    end
   end
 end

@@ -40,7 +40,7 @@ RSpec.describe "courses/show", type: :view do
   end
 
   it "shows the placeholder image if no image was linked" do
-    @course.image.purge 
+    @course.image.purge
     render
     expect(rendered).to have_css("img[src*=placeholder_course]")
   end

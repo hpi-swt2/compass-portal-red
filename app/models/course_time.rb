@@ -1,3 +1,4 @@
+# The model representing a course time at the HPI
 class CourseTime < ApplicationRecord
   validates :weekday, presence: true
   validates :start_time, presence: true
