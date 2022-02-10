@@ -22,6 +22,7 @@ function textEntered(field) {
 function clearText(btn) {
     let field = document.getElementById("search");
     field.value = "";
+    localStorage.setItem('query', '');
     sendRequest(field);
     btn.style.visibility = "hidden";
 }
@@ -36,17 +37,18 @@ function sendRequest(field) {
         complete: function () {
         },
         success: function (json) {
-            if (page === "search") {
-                $("#results")[0].innerHTML = json.html;
-            } else if (page === "map") {
-                $("#map")[0].innerHTML = json.html;
-            }
-            if (json.search === "") {
-                document.title = page.charAt(0).toUpperCase() + page.slice(1) + " –" + document.title.split("–")[1];
-                document.url = "/" + page
+            $("#results").html(json.html);
+            if (page === "map") {
+                window.buildSearchResultMarkers()
+                document.url = "/map?query=" + encodeURIComponent(json.search)
             } else {
-                document.title = "Results for " + json.search + " –" + document.title.split("–")[1];
-                document.url = "/" + page + "?query=" + encodeURIComponent(json.search)
+                if (json.search === "") {
+                    document.title = page.charAt(0).toUpperCase() + page.slice(1) + " –" + document.title.split("–")[1];
+                    document.url = "/" + page
+                } else {
+                    document.title = "Results for " + json.search + " –" + document.title.split("–")[1];
+                    document.url = "/" + page + "?query=" + encodeURIComponent(json.search)
+                }
             }
             window.history.pushState({"html": document.html, "pageTitle": document.title}, "", document.url);
         },

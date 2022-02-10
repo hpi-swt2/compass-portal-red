@@ -8,6 +8,29 @@ import {
   redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
+
+function buildSearchResultMarkers() {
+  if (layers["Search Results"]) {
+    //mymap.remove(layers["Search Results"].getLayers());
+    //layers["Search Results"].clearLayers();
+  }
+  layers["Search Results"] = L.layerGroup().addTo(mymap);
+  for (const result of window.searchResults) {
+    const layer = L.geoJSON(result.geoJson);
+    const center = layer.getBounds().getCenter();
+
+    const marker = L.marker(center, { icon: redMarkerIcon });
+    marker.bindPopup(
+        `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
+    );
+    layers["Search Results"].addLayer(marker);
+  }
+  if (window.searchResults?.length) {
+    const searchResultsMarkers = L.featureGroup(layers["Search Results"].getLayers());
+    mymap.fitBounds(searchResultsMarkers.getBounds().pad(0.5));
+  }
+}
+
 var pointInPolygon = require("point-in-polygon");
 
 console.log("[MAP] Pre map init");
@@ -101,22 +124,7 @@ for (const feature of points_of_interest) {
   layers["Points of Interest"].addLayer(layer);
 }
 
-layers["Search Results"] = L.layerGroup().addTo(mymap);
-for (const result of window.searchResults) {
-  const layer = L.geoJSON(result.geoJson);
-  const center = layer.getBounds().getCenter();
-
-  const marker = L.marker(center, { icon: redMarkerIcon });
-  marker.bindPopup(
-    `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
-  );
-  layers["Search Results"].addLayer(marker);
-}
-
-if (window.searchResults?.length) {
-  const searchResultsMarkers = L.featureGroup(layers["Search Results"].getLayers());
-  mymap.fitBounds(searchResultsMarkers.getBounds().pad(0.5));
-}
+buildSearchResultMarkers()
 
 // make names disappear when zoomed out
 var lastZoom;
@@ -484,4 +492,6 @@ if (coordinates != null) {
 // Per default, we don't want the stop button to be shown, as there is no route
 
 document.getElementById("StopNavigation").style.display = "none";
+
+window.buildSearchResultMarkers = buildSearchResultMarkers
 

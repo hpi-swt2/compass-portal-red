@@ -29,20 +29,8 @@
           <% end %>
           <% end %>
       ]
-      window.searchResults = [
-          <% if @exact_results.present? %>
-          <% @exact_results.each do |result| %>
-          <% if result.instance_of? Room %>
-          {
-              'id': '<%= result.id %>',
-              'fullName': '<%= result.full_name %>',
-              'geoJson': <%= raw(JSON.generate(result.to_geojson)) %>
-          },
-          <% end %>
-          <% end %>
-          <% end %>
-      ]
   </script>
+  <%= render('partials/map_js') %>
 
   <% # Inject coordinates of selected room %>
   <script type="text/javascript" charset="utf-8">
@@ -64,6 +52,7 @@
     </div>
   </div>
   <div id="map" class="hpi-map"></div>
+  <div id="results"></div>
   <%= render 'partials/map_navigation_popup' %>
   <%= javascript_pack_tag 'router', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'outdoor_map_builder', 'data-turbolinks-track': 'reload' %>

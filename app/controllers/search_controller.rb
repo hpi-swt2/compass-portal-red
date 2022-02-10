@@ -12,6 +12,8 @@ class SearchController < ApplicationController
       @full_render = true
     elsif params[:ajax] == "search"
       render json: { html: render_to_string(partial: "partials/search_results"), search: @query }
+    elsif params[:ajax] == "map"
+      render json: { html: render_to_string(partial: "partials/map_js"), search: @query }
     end
   end
 
