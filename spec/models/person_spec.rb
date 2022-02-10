@@ -53,6 +53,6 @@ RSpec.describe Person, type: :model do
   end
 
   it "has a string representation" do
-    expect(person.to_string.blank?).to eq(false)
+    expect(person.to_s.blank?).to eq(false)
   end
 end

@@ -5,60 +5,72 @@
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
 
-    <%= render('partials/search_bar', :locals => {:path => search_path}) %>
+    <%= render('partials/search_bar', :locals => { :path => search_path }) %>
 
     <div class="row">
       <div class="col">
         <div class="list-group" id="exact-results">
-          <%if @exact_results.present? %>
-            <% @exact_results.each do |result|%>
-
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                <div class='row'>
-                  <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                  </div>
-                  <div class="col d-flex flex-column">
-                    <h5 class="search-title"><%= result.to_string %></h5>
-                    <div>
-                      <% result.displayed_tags.each do |tag| %>
-                        <span class="badge bg-primary"><%= tag %></span>
-                      <% end %>
+          <% if @exact_results.present? %>
+            <% @exact_results.each do |result| %>
+              <% unless result.class == Person and result.status == "student" and not user_signed_in? %>
+                <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
+                  <div class='row'>
+                    <div class='col-2 d-flex flex-column'>
+                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                    </div>
+                    <div class="col d-flex flex-column my-2">
+                      <h5 class="search-title"><%= result %></h5>
+                      <div>
+                        <% result.displayed_tags.each do |tag| %>
+                          <span class="badge bg-primary"><%= tag %></span>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-
+                </a>
+              <% end %>
             <% end %>
           <% end %>
         </div>
 
         <br>
 
-        <%if @exact_results.present? and @more_results.present? %> Similar Results <%end %>
+        <% if @exact_results.present? and @more_results.present? %> Similar Results <% end %>
         <div class="list-group" id="similar-results">
-          <%if @more_results.present? %>
-            <% @more_results.each do |result|%>
-
-              <a href="<%=url_for(result)%>" class="list-group-item list-group-item-action search-item">
-                <div class='row'>
-                  <div class='col-2 d-flex flex-column'>
-                    <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
-                  </div>
-                  <div class="col d-flex flex-column">
-                    <h5 class="search-title"><%= result.to_string %></h5>
-                    <div>
-                      <% result.displayed_tags.each do |tag| %>
-                        <span class="badge bg-primary"><%= tag %></span>
-                      <% end %>
+          <% if @more_results.present? %>
+            <% @more_results.each do |result| %>
+              <% unless result.class == Person and result.status == "student" and not user_signed_in? %>
+                <a href="<%= url_for(result) %>" class="list-group-item list-group-item-action search-item">
+                  <div class='row'>
+                    <div class='col-2 d-flex flex-column'>
+                      <%= image_tag(result.image_or_placeholder, class: "picture-rounded md") %>
+                    </div>
+                    <div class="col d-flex flex-column my-2">
+                      <h5 class="search-title"><%= result %></h5>
+                      <div>
+                        <% result.displayed_tags.each do |tag| %>
+                          <span class="badge bg-primary"><%= tag %></span>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-
+                </a>
+              <% end %>
             <% end %>
           <% end %>
         </div>
+        <%unless @exact_results.present? or @more_results.present? or @params.nil?%> 
+          <section>               
+            <p>Your search - <b><%= @params %></b> - did not match any items.</p>
+            <p>Suggestions:</p>
+            <ul>
+              <li>Make sure all words are spelled correctly.</li>
+              <li>Try different keywords.</li>
+              <li>Try more general keywords.</li>
+              <li>Try fewer or shorter keywords.</li>
+            </ul>
+          </section>
+        <%end %>
       </div>
     </div>
   </div>

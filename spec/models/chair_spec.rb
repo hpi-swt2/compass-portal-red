@@ -22,6 +22,6 @@ RSpec.describe Chair, type: :model do
   end
 
   it "has a string representation" do
-    expect(chair.to_string.blank?).to eq(false)
+    expect(chair.to_s.blank?).to eq(false)
   end
 end

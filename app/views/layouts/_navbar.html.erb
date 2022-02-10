@@ -1,24 +1,21 @@
+<%= javascript_pack_tag 'search_button', 'data-turbolinks-track': 'reload' %>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
   <div class="container-fluid">
     <a class="navbar-brand"><i class="fas fa-compass"></i> HPI Compass Portal</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" id="toggle-navigation" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to search_path, class: 'nav-link' do %>
-            <i class="fas fa-search"></i> Search
-          <% end %>
+          <button class="btn nav-link" onclick="redirectWithQuery('<%=search_path%>')"><i class="fas fa-search"></i> Search</button>
         </li>
         <li class="nav-item">
-          <%= link_to map_path, class: 'nav-link', data: {turbolinks: false} do %>
-            <i class="fas fa-map"></i> Map
-          <% end %>
+          <button class="btn nav-link" onclick="redirectWithQuery('<%=map_path%>')"><i class="fas fa-map"></i> Map</button>
         </li>
         <li class="nav-item">
-          <%= link_to protected_path, class: 'nav-link' do %>
-            <i class="fas fa-lock"></i> Protected page
+          <%= link_to options_path, class: 'nav-link' do %>
+            <i class="fas fa-list fa-lg"></i> Options Page
           <% end %>
         </li>
       </ul>

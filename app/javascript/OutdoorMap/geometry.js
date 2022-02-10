@@ -949,7 +949,7 @@ export const buildings = JSON.parse(`[
     {
        "type":"Feature",
        "properties":{
-          "name":"Libary",
+          "name":"Library",
           "campus":"UP Campus Griebnitzsee",
           "offset": [-27, 0]
        },

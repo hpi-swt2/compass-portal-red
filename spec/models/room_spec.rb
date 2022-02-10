@@ -28,7 +28,7 @@ RSpec.describe Room, type: :model do
     end
 
     it "has a string representation" do
-      expect(room.to_string.blank?).to eq(false)
+      expect(room.to_s.blank?).to eq(false)
     end
   end
 

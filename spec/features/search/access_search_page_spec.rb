@@ -96,4 +96,18 @@ RSpec.describe "Search Page", type: :feature do
       expect(page).to have_content course.module_category
     end
   end
+
+  it "doesn't show students as search results if the current user isn't signed in" do
+    create :person, status: 'student', first_name: 'john', last_name: 'student'
+    visit "#{search_path}?query=john&commit=Search"
+    expect(page).not_to have_link 'john student'
+  end
+
+  it "shows students as search results if the current user is signed in" do
+    user = create :user
+    create :person, status: 'student', first_name: 'john', last_name: 'student'
+    sign_in user
+    visit "#{search_path}?query=john&commit=Search"
+    expect(page).to have_link 'john student'
+  end
 end

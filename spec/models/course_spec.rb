@@ -26,6 +26,6 @@ RSpec.describe Course, type: :model do
   end
 
   it "has a string representation" do
-    expect(course.to_string.blank?).to eq(false)
+    expect(course.to_s.blank?).to eq(false)
   end
 end
