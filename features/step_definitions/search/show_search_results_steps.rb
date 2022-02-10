@@ -23,6 +23,14 @@ Then('I do not see the title for similar results') do
   expect(page).not_to have_text('Similar Results')
 end
 
+Then('I see the title for search suggestions') do
+  expect(page).to have_text('Suggestions')
+end
+
+Then('I do not see the title for search suggestions') do
+  expect(page).not_to have_text('Suggestions')
+end
+
 Then(/^I do not see (.*) in the list for (.*)$/) do |name, result_type|
   element = page.find('div', class: 'list-group', id: result_type)
   expect(element).not_to have_content(name)

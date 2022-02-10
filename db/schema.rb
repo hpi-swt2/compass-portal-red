@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2022_02_07_140303) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
+    t.string "image", default: "placeholder_course.png"
     t.index ["room_id"], name: "index_courses_on_room_id"
   end
 

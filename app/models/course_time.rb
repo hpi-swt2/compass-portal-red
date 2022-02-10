@@ -4,4 +4,8 @@ class CourseTime < ApplicationRecord
   validates :end_time, presence: true
 
   belongs_to :course
+
+  def full_time
+    "#{weekday}: #{start_time} - #{end_time}"
+  end
 end
