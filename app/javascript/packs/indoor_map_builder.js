@@ -31,9 +31,11 @@ const buildRoomLayer = (room) => {
     const popupRootNode = document.getElementById("popup_root")
     if(popupRootNode.hasChildNodes){
         try{
-            const currentRoomPopUp = popupRootNode.childNodes[0]
-            if(currentRoomPopUp){
-              popupRootNode.removeChild(currentRoomPopUp)
+          
+            const children = [...popupRootNode.childNodes]
+            console.log("Popup root node has child nodes. Removing them..", children)
+            if(children){
+              children.forEach(c => popupRootNode.removeChild(c))
             }
         }
         catch(e){
