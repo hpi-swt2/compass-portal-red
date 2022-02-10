@@ -1,3 +1,4 @@
+# The time of a course at HPI
 class CourseTime < ApplicationRecord
   validates :weekday, presence: true
   validates :start_time, presence: true
