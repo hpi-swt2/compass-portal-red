@@ -26,26 +26,31 @@ function clearText(btn) {
     btn.style.visibility = "hidden";
 }
 
-function sendRequest(field){
+function sendRequest(field) {
+    let page = window.location.href.split("/")[3].split("?")[0]
     $.ajax({
-        url: '/search?ajax=&query=' + field.value,
-        type: 'get',
-        beforeSend: function() {
+        url: "/search?ajax=" + page + "&query=" + encodeURIComponent(field.value),
+        type: "get",
+        beforeSend: function () {
         },
-        complete: function() {
+        complete: function () {
         },
-        success: function(json) {
-            $("#results")[0].innerHTML = json.html;
-            if (json.search === ""){
-                document.title = "Search –" + document.title.split("–")[1];
-                document.url = "/search"
+        success: function (json) {
+            if (page === "search") {
+                $("#results")[0].innerHTML = json.html;
+            } else if (page === "map") {
+                $("#map")[0].innerHTML = json.html;
+            }
+            if (json.search === "") {
+                document.title = page.charAt(0).toUpperCase() + page.slice(1) + " –" + document.title.split("–")[1];
+                document.url = "/" + page
             } else {
                 document.title = "Results for " + json.search + " –" + document.title.split("–")[1];
-                document.url = "/search?query=" + json.search
+                document.url = "/" + page + "?query=" + encodeURIComponent(json.search)
             }
-            window.history.pushState({"html":document.html, "pageTitle":document.title}, "", document.url);
+            window.history.pushState({"html": document.html, "pageTitle": document.title}, "", document.url);
         },
-        error: function(xhr, ajaxOptions, thrownError) {
+        error: function (xhr, ajaxOptions, thrownError) {
         }
     });
 }

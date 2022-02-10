@@ -1,19 +1,18 @@
 class SearchController < ApplicationController
   def index
     return if params[:query].nil?
-    return if params[:query].empty?
 
     unless params[:query] == ""
       @exact_results = add_results_for(params[:query])
       @more_results = more_results(params, @exact_results)
     end
 
-    @params = params[:query]
+    @query = params[:query]
     if params[:ajax].nil?
       @full_render = true
-      return
+    elsif params[:ajax] == "search"
+      render json: { html: render_to_string(partial: "partials/search_results"), search: @query }
     end
-    render json: { html: render_to_string(partial: "partials/search_results"), search: @params}
   end
 
   helper_method :index

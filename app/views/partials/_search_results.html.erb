@@ -49,9 +49,9 @@
     <% end %>
   <% end %>
 </div>
-<% unless @exact_results.present? or @more_results.present? or @params.nil? %>
+<% if not @query.empty? and @exact_results.empty?%>
   <section>
-    <p>Your search - <b><%= @params %></b> - did not match any items.</p>
+    <p>Your search - <b><%= @query %></b> - did not match any items.</p>
     <p>Suggestions:</p>
     <ul>
       <li>Make sure all words are spelled correctly.</li>

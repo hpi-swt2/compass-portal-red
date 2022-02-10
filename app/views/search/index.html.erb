@@ -1,11 +1,11 @@
-<% content_for :title, @params ? "Results for #{@params}" : "Search" %>
+<% content_for :title, @query ? "Results for #{@query}" : "Search" %>
 
 <%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
 <body onload="textEntered();">
 <div class="row">
   <div class="col-lg-6 col-md-9 col-12 mx-auto">
 
-    <%= render('partials/search_bar', :locals => { :path => search_path }) %>
+    <%= render('partials/search_bar') %>
 
     <div class="row">
       <div id="results" class="col">
