@@ -27,4 +27,10 @@ RSpec.describe "chairs/show", type: :view do
       expect(rendered).to have_css("img[src*='#{room.image}']")
     end
   end
+
+  it "renders a link to the map page with room id as parameter" do
+    chair.rooms = [FactoryBot.create(:room)]
+    render
+    expect(rendered).to have_link(href: map_path(room_id: chair.rooms[0]))
+  end
 end

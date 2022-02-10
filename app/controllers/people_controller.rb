@@ -72,7 +72,7 @@ class PeopleController < ApplicationController
   def person_params
     process_human_verified_attributes
     params.require(:person).permit(:first_name, :last_name, :title, :email, :status, :phone, :room, :website,
-                                   :image, :chair,
+                                   :image, :chair, :role,
                                    *Person.verification_attributes)
   end
 

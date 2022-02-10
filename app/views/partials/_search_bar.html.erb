@@ -1,13 +1,10 @@
 <div>
-    <%= form_with url: locals[:path], method: :get do |form| %>
-        <div class="row align-items-end mb-3">
-          <div class="col">
-            <div class="form-group">
-              <%= form.text_field :query, class: "form-control", autofocus: true, value: @params, 
-                id: "search", oninput: "textEntered(this)", onfocus: "toggleCenterClass(true)", onfocusout: "toggleCenterClass(false)", placeholder: "Ask me something ..." %>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      <%= button_to "\u2715".encode('utf-8'), { action: "index" }, class: "cancel-input", id: "cancel", method: :get %>
+  <div class="row align-items-end mb-3">
+    <div class="col">
+      <div class="form-group">
+        <input class="form-control" autofocus="autofocus" id="search" placeholder="Ask me something ..." onfocus="toggleCenterClass(true)" onfocusout="toggleCenterClass(false)" oninput="textEntered(this)" onsubmit="sendRequest(this)" type="text" name="query" value="<%= @query %>">
+      </div>
+    </div>
+  </div>
+  <%= button_tag "\u2715".encode('utf-8'), class: "cancel-input", id: "cancel", onclick: "clearText(this)" %>
 </div>

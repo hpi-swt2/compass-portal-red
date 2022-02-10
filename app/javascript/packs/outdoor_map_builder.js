@@ -5,9 +5,31 @@ import {
   PoIStyle,
   standardZoomLevel,
   styleMap,
-
+  redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
+
+function buildSearchResultMarkers() {
+  if (layers["Search Results"]) {
+    layers["Search Results"].clearLayers();
+  }
+  layers["Search Results"] = L.layerGroup().addTo(mymap);
+  for (const result of window.searchResults) {
+    const layer = L.geoJSON(result.geoJson);
+    const center = layer.getBounds().getCenter();
+
+    const marker = L.marker(center, { icon: redMarkerIcon });
+    marker.bindPopup(
+        `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
+    );
+    layers["Search Results"].addLayer(marker);
+  }
+  if (window.searchResults?.length) {
+    const searchResultsMarkers = L.featureGroup(layers["Search Results"].getLayers());
+    mymap.fitBounds(searchResultsMarkers.getBounds().pad(0.5));
+  }
+}
+
 var pointInPolygon = require("point-in-polygon");
 
 console.log("[MAP] Pre map init");
@@ -101,17 +123,7 @@ for (const feature of points_of_interest) {
   layers["Points of Interest"].addLayer(layer);
 }
 
-layers["Search Results"] = L.layerGroup().addTo(mymap);
-for (const result of window.searchResults) {
-  const layer = L.geoJSON(result.geoJson);
-  const center = layer.getBounds().getCenter();
-
-  const marker = L.marker(center, { icon: redMarkerIcon });
-  marker.bindPopup(
-    `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
-  );
-  layers["Search Results"].addLayer(marker);
-}
+buildSearchResultMarkers()
 
 // make names disappear when zoomed out
 var lastZoom;
@@ -175,10 +187,114 @@ L.control.layers(null, layers).addTo(mymap);
 
 console.log("[MAP] Layers built");
 
-// TomTom Routing API-key: peRlaISfnHGUKWZpRw4O11yc3B4Ay2t5
-// mapbox API key sk.eyJ1IjoicHZpaSIsImEiOiJja3g1MnhkdGQxMTlzMm5xa3FpNzlrcHYxIn0.ZX0lMZW2IofVpmIJQtHUmA
+function allBuildings() {
+  var results = []
+  for (const campus of campusNames) {
+    let buildingsOfCampus = layers[campus];
+    results.push(...buildingsOfCampus.getLayers())
+  }
+  return results
+}
 
-// mapbox token
+function buildingsByQuery(query) {
+  return allBuildings().filter((buildingLayer) => {
+    // The HPIGeocoder and the highlighting of buildings rely on this fact, which happens to always be the case.
+    // Please inform someone if this warning occurs :)
+    if(buildingLayer.getLayers().length > 1){
+      console.log("WARNING: Not only one inner building layer in:", buildingLayer);
+    }
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature;
+    return buildingInfo.properties.name && buildingInfo.properties.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+  })
+}
+
+function buildingAtLocation(location) {
+  // different representation of the position for the pointInPolygon-method
+  const locationArray = [location.lng, location.lat]
+  for(const buildingLayer of allBuildings()) {
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature
+    const polygonCoordinates = buildingInfo.geometry.coordinates[0];
+    if(pointInPolygon(locationArray, polygonCoordinates)) return buildingLayer
+    // The next line ensures that the buildings are highlighted and properly geocoded,
+    // when they are being routed to. This is because we route to the center of the building.
+    if(innerBuildingLayer.getCenter().toBounds(1).contains(location)) return buildingLayer
+  }
+  return undefined
+}
+
+const originalGeocoder = new L.Control.Geocoder.nominatim()
+
+const HPIGeocoder = {
+  getHPISuggestions(query){
+    return buildingsByQuery(query).map((buildingLayer) => {
+      const innerBuildingLayer = buildingLayer.getLayers()[0];
+      const buildingInfo = innerBuildingLayer.feature;
+      return {
+        name: buildingInfo.properties.name,
+        center: innerBuildingLayer.getCenter(),
+        bbox: innerBuildingLayer.getBounds()
+      }
+    });
+  },
+
+  buildingInfoAtLocation(location) {
+    if(!location) return undefined;
+    const buildingLayer = buildingAtLocation(location)
+    if(!buildingLayer) return undefined;
+    const innerBuildingLayer = buildingLayer.getLayers()[0];
+    const buildingInfo = innerBuildingLayer.feature;
+    return {
+      name: buildingInfo.properties.name,
+      center: innerBuildingLayer.getCenter(),
+      bbox: innerBuildingLayer.getBounds()
+    }
+  },
+
+  /**
+   * Performs a geocoding query and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  geocode(query, cb, context){
+    var that = this;
+    // This construction is used to append further suggestions to the ones given by the originalGeocoder
+    var callbackProxy = function(originalSuggestions) {
+      var hpiSuggestions = that.getHPISuggestions(query);
+      cb.call(context, hpiSuggestions.concat(originalSuggestions));
+    }
+    originalGeocoder.geocode(query, callbackProxy, context);
+  },
+  
+  /**
+   * Performs a geocoding query suggestion (this happens while typing) and returns the results to the callback in the provided context
+   * @param query the query
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  suggest(query, cb, context){
+    cb.call(context, this.getHPISuggestions(query));
+  },
+
+  /**
+   * Performs a reverse geocoding query and returns the results to the callback in the provided context
+   * @param location the coordinate to reverse geocode
+   * @param scale the map scale possibly used for reverse geocoding
+   * @param cb the callback function
+   * @param context the this context in the callback
+   */
+  reverse(location, scale, cb, context){
+    const buildingInfo = this.buildingInfoAtLocation(location);
+    
+    if (buildingInfo){
+      cb.call(context, [buildingInfo]);
+    } else {
+      originalGeocoder.reverse(location, scale, cb, context);
+    }
+  }
+}
 
 console.log(window.location.host + "/directions");
 
@@ -202,43 +318,37 @@ window.routingControl = L.Routing.control({
         icon: L.icon.glyph({ glyph: String.fromCharCode(65 + i) }),
       });
     },
-    geocoder: L.Control.Geocoder.nominatim(),
+    geocoder: HPIGeocoder,
   }),
   collapsible: true,
   show: false,
   routeWhileDragging: true,
   autoRoute: false,
   lineOptions: {
-    styles: [{ color: "blue" }],
-  },
+    styles: [{ color: 'blue' }]
+  }
+}).addTo(mymap)
+// when routing call happens, there will be the stop button in the navigation plan
+.on('routingstart', (e)=>{
+  console.log("routing start");
+  document.getElementById('StopNavigation').style.display = 'block';
+  document.getElementsByClassName('leaflet-routing-alternatives-container')[0].style.display = 'block';
+  document.getElementById('mobile-view-welcome-routing-text').style.display = 'none';
+  document.getElementsByClassName('leaflet-routing-geocoders')[0].style.width = '50%';
+  const roomPopup = document.getElementById('room_popup')
+  if (roomPopup) roomPopup.style.display = 'none';
+  document.getElementById('map-navigation-popup').style.display = "block"
 })
-  .addTo(mymap)
-  // when routing call happens, there will be the stop button in the navigation plan
-  .on("routingstart", (e) => {
-    console.log("routing start");
-    document.getElementById("StopNavigation").style.display = "block";
-    document.getElementsByClassName(
-      "leaflet-routing-alternatives-container"
-    )[0].style.display = "block";
-    document.getElementById("mobile-view-welcome-routing-text").style.display =
-      "none";
-    document.getElementsByClassName(
-      "leaflet-routing-geocoders"
-    )[0].style.width = "50%";
-    if (document.getElementById("map-popup"))
-      document.getElementById("map-popup").style.display = "none";
-    document.getElementById("map-navigation-popup").style.display = "block";
-  })
-  .on("waypointschanged", (e) => {
-    console.log("waypointschanged");
-    // we only highlight the destination of the current navigation route
-    changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
+.on('waypointschanged', (e)=>{
+  console.log("waypointschanged");
+  // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
+  changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
 
-    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
-    routingControl.show();
-    // always calculate the route to show the 'A' marker if only one waypoint is set
-    routingControl.route();
-  });
+  routingControl.show()
+  // always calculate the route to show the 'A' marker if only one waypoint is set
+  
+});
+
 
 let highlightedBuilding = null;
 
@@ -254,6 +364,7 @@ function setStyleForHighlightedBuilding() {
     }
   }
 }
+
 
 function changeHighlightedBuilding(position) {
   // reset the style of the previously highlighted building, if available
@@ -276,27 +387,11 @@ function changeHighlightedBuilding(position) {
   if (!position) {
     return;
   }
-  // different representation of the position for the pointInPolygon-method
-  position = [position.lng, position.lat];
 
-  // set the new style for the clicked destination
-  for (const campus of campusNames) {
-    let buildingsOfCampus = layers[campus]._layers;
-
-    for (const id in buildingsOfCampus) {
-      const buildingId = Number(id);
-      const polygonCoordinates =
-        buildingsOfCampus[buildingId]._layers[buildingId - 1].feature.geometry
-          .coordinates[0];
-
-      // if our point is within the building polygon, we change it's style and remember it as the currently highlighted building
-      if (pointInPolygon(position, polygonCoordinates)) {
-        highlightedBuilding = buildingsOfCampus[buildingId];
-        setStyleForHighlightedBuilding();
-        return;
-      }
-    }
-  }
+  const buildingLayer = buildingAtLocation(position)
+  highlightedBuilding = buildingLayer
+  setStyleForHighlightedBuilding()
+  return;
 }
 
 function buildNavigationButton() {
@@ -328,7 +423,8 @@ let parent = element.parentNode;
 let targetDiv = document.getElementById("routing-controller");
 targetDiv.appendChild(element);
 
-function navigateTo(position) {
+
+export function showMarker(position) {
   // .locate() function returns map, so chaining works
   mymap
     .locate()
@@ -343,9 +439,12 @@ function navigateTo(position) {
       routingControl.setWaypoints([previousStart, position]);
     });
 }
+export function startNavigation(){
+  routingControl.route()
+}
 
 function onMapClick(e) {
-  navigateTo(e.latlng);
+  showMarker(e.latlng)
 }
 
 // Build the stop buton and insert it into the routingControl-plan
@@ -392,4 +491,6 @@ if (coordinates != null) {
 // Per default, we don't want the stop button to be shown, as there is no route
 
 document.getElementById("StopNavigation").style.display = "none";
+
+window.buildSearchResultMarkers = buildSearchResultMarkers
 
