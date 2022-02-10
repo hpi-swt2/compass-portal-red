@@ -19,50 +19,56 @@ const buildRoomLayer = (room) => {
     roomLayer.bindTooltip(roomTooltip);
     roomLayer.addEventListener('click',  (event) =>  {
         // TODO: fix routing error in console
-        const popupRootNode = document.getElementById("popup_root")
-        if(popupRootNode.hasChildNodes){
-            try{
-                const currentRoomPopUp = popupRootNode.childNodes[0]
-                if(currentRoomPopUp){
-                  popupRootNode.removeChild(currentRoomPopUp)
-                }
-            }
-            catch(e){
-                console.error("Failed removing child node", e)
-            }
-        } 
-        const routingNode = document.getElementById('map-navigation-popup')
-        if(routingNode){
-          routingNode.style.display = "none"
-        }
-
-        const element = document.createElement('div')
-        element.innerHTML = `<div class="map-popup card shadow-sm p-2">
-        <div class="card-body fw-bold">
-        ⏳ Loading    
-        </div></div>`
-        popupRootNode.appendChild(element)
-
-        fetch("/map/room_popup/"+room.id).then(function (response) {
-            return response.text();
-        }).then(function (html) {
-            element.innerHTML = html
-            const navBtn = element.querySelector("#navigate_btn")
-            navBtn.onclick= function(){
-              console.log("Starting navigation", room)
-              popupRootNode.removeChild(element)
-              startNavigation()
-            }
-        }).catch(function (err) {
-            console.warn('Sum ting went wrong.', err);
-            element.innerHTML = 'Sum ting went wrong: \n'+err
-        })    
+        showRoomPopup(room.id)
     });
 
     layers[room.fullName] = roomLayer;
 
     return roomLayer;
   }
+
+  export function showRoomPopup(roomId){
+    const popupRootNode = document.getElementById("popup_root")
+    if(popupRootNode.hasChildNodes){
+        try{
+            const currentRoomPopUp = popupRootNode.childNodes[0]
+            if(currentRoomPopUp){
+              popupRootNode.removeChild(currentRoomPopUp)
+            }
+        }
+        catch(e){
+            console.error("Failed removing child node", e)
+        }
+    } 
+    const routingNode = document.getElementById('map-navigation-popup')
+    if(routingNode){
+      routingNode.style.display = "none"
+    }
+
+    const element = document.createElement('div')
+    element.innerHTML = `<div class="map-popup card shadow-sm p-2">
+    <div class="card-body fw-bold">
+    ⏳ Loading    
+    </div></div>`
+    popupRootNode.appendChild(element)
+
+    fetch("/map/room_popup/"+roomId).then(function (response) {
+        return response.text();
+    }).then(function (html) {
+        element.innerHTML = html
+        const navBtn = element.querySelector("#navigate_btn")
+        navBtn.onclick= function(){
+          console.log("Starting navigation", room)
+          popupRootNode.removeChild(element)
+          startNavigation()
+        }
+    }).catch(function (err) {
+        console.warn('Sum ting went wrong.', err);
+        element.innerHTML = 'Sum ting went wrong: \n'+err
+    })    
+  }
+
+
 const buildFloorLayer = (floor) => {
   // Add FloorLayer to layers
   const floorLayer = L.layerGroup();

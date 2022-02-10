@@ -26,6 +26,10 @@ RSpec.describe Room, type: :model do
     it "has a room type relation" do
       expect(room).to respond_to(:room_types)
     end
+
+    it "has a string representation" do
+      expect(room.to_s.blank?).to eq(false)
+    end
   end
 
   it "has a constructor that can create instances" do
