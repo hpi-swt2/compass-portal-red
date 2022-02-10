@@ -61,18 +61,19 @@ export const buildIndoorMap = () => {
     })
     // Needed for adding the red box
     const temp = {}
+    let alreadyActivatedBuilding = []
     for (const key in floorLayers) {
       // loop through the rooms of the current floor and check if the selected room is there by making an array of booleans
       // needs to be an array of bools since window.floorsToBuild[counter].rooms is an object and not an array so I cannot just
       // check if it includes a certain value
       for (let i = 0; i < window.floorsToBuild.length; i++) {
-        if (selected_room_name) {
-          // if there is a selected room then activate only the layer where this room is and make it red
-          window.floorsToBuild[i].floors.forEach((floor) => {
-            if (floor.name === key) {
-              const result = floor.rooms.map(
-                (room) => room.fullName === selected_room_name
-              )
+        window.floorsToBuild[i].floors.forEach((floor) => {
+          if (floor.name === key) {
+            const result = floor.rooms.map(
+              (room) => room.fullName === selected_room_name
+            )
+            if (selected_room_name) {
+              // if there is a selected room then activate only the layer where this room is and make it red
               if (result.includes(true)) {
                 temp[
                   `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
@@ -86,17 +87,21 @@ export const buildIndoorMap = () => {
               } else {
                 temp[`<span>${key}</span>`] = floorLayers[key]
               }
+            } else {
+              // if there is no selected room then activate one layer for every building
+              temp[`<span>${key}</span>`] = floorLayers[key]
+              if (
+                !alreadyActivatedBuilding.includes(
+                  window.floorsToBuild[i].building
+                )
+              ) {
+                // if there is no floor activated for this building already, activate the current one
+                alreadyActivatedBuilding.push(window.floorsToBuild[i].building)
+                mymap.addLayer(temp[`<span>${key}</span>`])
+              }
             }
-          })
-        } else {
-          // if no room is selected then just activate the layer of the first floor that's coming from the DB of every building
-          window.floorsToBuild[i].floors.forEach((undefined, index) => {
-            temp[`<span>${key}</span>`] = floorLayers[key]
-            if (index === 1) {
-              mymap.addLayer(temp[`<span>${key}</span>`])
-            }
-          })
-        }
+          }
+        })
       }
     }
     floorLayers = temp
