@@ -24,7 +24,8 @@ class SearchController < ApplicationController
   def add_results_for(query)
     Person.search(query) +
       Room.search(query) +
-      Chair.search(query)
+      Chair.search(query) +
+      Course.search(query)
   end
 
   def sort_by_priority(results, query)

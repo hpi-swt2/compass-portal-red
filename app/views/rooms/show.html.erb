@@ -1,7 +1,7 @@
 <% content_for :title, "#{@room.name}" %>
 <div class='detail'>
   <div class='row mb-3'>
-    <div class='col-3'> <%= image_tag(@room.image, class: "picture-rounded") %> </div>
+    <div class='col-3'> <%= render('partials/picture_circle', :locals => {:image => @room.image}) %> </div>
     <div class="col mx-3">
       <h1><%= @room.name %></h1>
       <span class="badge bg-primary">Room</span>

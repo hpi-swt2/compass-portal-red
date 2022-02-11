@@ -8,6 +8,7 @@ import {
   redMarkerIcon,
 } from '../constants'
 import { buildings } from '../OutdoorMap/geometry'
+import { showRoomPopup } from './indoor_map_builder'
 var pointInPolygon = require('point-in-polygon')
 
 console.log('[MAP] Pre map init')
@@ -107,9 +108,9 @@ for (const result of window.searchResults) {
   const center = layer.getBounds().getCenter()
 
   const marker = L.marker(center, { icon: redMarkerIcon })
-  marker.bindPopup(
-    `<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">${result.fullName}</a>`
-  )
+  marker.addEventListener('click', (event) => {
+    showRoomPopup(result.id)
+  })
   layers['Search Results'].addLayer(marker)
 }
 
