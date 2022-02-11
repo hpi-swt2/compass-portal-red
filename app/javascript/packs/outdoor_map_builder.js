@@ -31,12 +31,6 @@ function buildSearchResultMarkers() {
   }
 }
 
-if (window.searchResults?.length) {
-  const searchResultsMarkers = L.featureGroup(layers["Search Results"].getLayers());
-  mymap.fitBounds(searchResultsMarkers.getBounds().pad(0.5));
-}
-}
-
 var pointInPolygon = require("point-in-polygon");
 
 console.log("[MAP] Pre map init");
