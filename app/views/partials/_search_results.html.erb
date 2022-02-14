@@ -49,7 +49,7 @@
     <% end %>
   <% end %>
 </div>
-<% if not @query.empty? and @exact_results.empty? and @more_results.empty? %>
+<% if @query.present? and @exact_results.empty? and @more_results.empty? %>
   <section>
     <p>Your search - <b><%= @query %></b> - did not match any items.</p>
     <p>Suggestions:</p>
@@ -60,4 +60,7 @@
       <li>Try fewer or shorter keywords.</li>
     </ul>
   </section>
+<% end %>
+<% if @query.empty? %>
+  <%= render('partials/suggestions') %>
 <% end %>
