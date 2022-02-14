@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   def index
     return if params[:query].nil?
 
-    unless params[:query] == ""
+    unless params[:query].empty?
       @exact_results = add_results_for(params[:query])
       @more_results = more_results(params, @exact_results)
     end

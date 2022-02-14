@@ -28,20 +28,19 @@ function clearText(btn) {
 }
 
 function toggleCenterClass(flag) {
-  searchDiv = document.getElementById("search-div");
-  search = document.getElementById("search")
-  platypus = document.getElementById("platypus");
+  let searchDiv = document.getElementById("search-div");
+  let platypus = document.getElementById("platypus");
 
   if (flag) {
     searchDiv.classList.remove("center");
     platypus.style.display = "none";
   } else {
+    let search = document.getElementById("search");
     if (!search.value) {
       searchDiv.classList.add("center");
       platypus.style.display = "block";
     }
   }
-  
 }
 
 function sendRequest(field) {

@@ -3,22 +3,23 @@
 <%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
 <body onload="textEntered();">
 <div class="row">
-  <div id="search-div" class="col-lg-6 col-md-9 col-12 mx-auto center">
-
-    <div id="platypus" style="text-align:center">
-    <img src="/images/platypus.png" alt="Logo" width="244" height="115">
-    <h2 class="fw-light"></h2>
-    </div>
-
-    <%= render('partials/search_bar') %>
-
-    <div class="row">
-      <div id="results" class="col">
-        <%if @full_render.present? %>
-          <%= render('partials/search_results', :locals => {:exact_results => @exact_results, :more_results => @more_results}) %>
-        <%end %>
+    <div id="search-div" class="col-lg-6 col-md-9 col-12 mx-auto<% if @query.nil? %> center<% end %>">
+      <div id="platypus" style="text-align:center<% if @query.present? %>;display:none<% end %>">
+        <img src="/images/platypus.png" alt="Logo" width="244" height="115">
+        <h2 class="fw-light"></h2>
       </div>
+
+  <%= render('partials/search_bar') %>
+
+  <div class="row">
+    <div id="results" class="col">
+      <% if @full_render.present? %>
+        <%= render('partials/search_results', :locals => { :exact_results => @exact_results, :more_results => @more_results }) %>
+      <% else %>
+        <%= render('partials/suggestions') %>
+      <% end %>
     </div>
   </div>
-</div>
+  </div>
+  </div>
 </body>
