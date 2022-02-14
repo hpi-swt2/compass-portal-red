@@ -7,9 +7,7 @@ When('I am on the map page') do
 end
 
 When('I navigate to the {string} page') do |string|
-  if page.has_css? "button.navbar-toggler"
-    click_button 'toggle-navigation'
-  end
+  click_button 'toggle-navigation' if page.has_css? "button.navbar-toggler"
   click_button string
 end
 
