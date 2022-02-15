@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_143420) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "outer_shape_id", null: false
     t.string "image", default: "placeholder_room.png"
-    t.integer "floor_id", null: false
+    t.integer "floor_id"
     t.index ["floor_id"], name: "index_rooms_on_floor_id"
     t.index ["outer_shape_id"], name: "index_rooms_on_outer_shape_id"
   end

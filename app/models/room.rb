@@ -7,7 +7,7 @@ class Room < SearchableRecord
   has_and_belongs_to_many :tags
   has_many :people, dependent: :nullify
   has_many :courses, dependent: :nullify
-  belongs_to :floor
+  belongs_to :floor, optional: true
   belongs_to :outer_shape, class_name: 'Polyline'
   has_and_belongs_to_many :walls
   has_and_belongs_to_many :points
