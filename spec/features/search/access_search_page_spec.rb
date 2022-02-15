@@ -50,18 +50,18 @@ RSpec.describe "Search Page", type: :feature do
       expect(page).to have_link course2.name
     end
 
+    it "displays icons for search results" do
+      create :chair
+      visit "#{search_path}?query=Enterprise&commit=Search"
+      expect(page).to have_css("//img[@class = 'picture-circle']")
+      expect(page).to have_css("img[src*='/assets/placeholder_chair']")
+    end
+
     it "renders a list containing only attributes searched for" do
       create :room
       create :chair
       visit "#{search_path}?query=Enterprise&commit=Search"
       expect(page).not_to have_link 'H-E.42'
-    end
-
-    it "displays icons for search results" do
-      create :chair
-      visit "#{search_path}?query=Enterprise&commit=Search"
-      expect(page).to have_css("//img[@class = 'picture-rounded md']")
-      expect(page).to have_css("img[src*='/assets/placeholder_chair']")
     end
 
     it "displays additional search results based on search" do

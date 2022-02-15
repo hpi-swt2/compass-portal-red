@@ -5,7 +5,7 @@ FactoryBot.define do
     first_name { "Michael" }
     title { "Dr." }
     status { "Chair Representative" }
-    informations { [ Information.create(key: 'telegram', value: '@perscheid') ]}
+    informations { [ Information.create(key: 'telegram', value: '@perscheid') ] }
 
     after(:build) do |person|
       person.image.attach(
