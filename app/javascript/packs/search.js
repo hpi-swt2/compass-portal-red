@@ -31,6 +31,22 @@ function clearText(btn) {
   btn.style.visibility = "hidden";
 }
 
+function toggleCenterClass(flag) {
+  let searchDiv = document.getElementById("search-div");
+  let platypus = document.getElementById("platypus");
+
+  if (flag) {
+    searchDiv.classList.remove("center");
+    platypus.style.display = "none";
+  } else {
+    let search = document.getElementById("search");
+    if (!search.value) {
+      searchDiv.classList.add("center");
+      platypus.style.display = "block";
+    }
+  }
+}
+
 function sendRequest(field) {
   let page = window.location.href.split("/")[3].split("?")[0]
   $.ajax({
@@ -65,6 +81,8 @@ function sendRequest(field) {
   });
 }
 
-window.textEntered = textEntered
-window.clearText = clearText
-window.sendRequest = sendRequest
+window.textEntered = textEntered;
+window.toggleCenterClass = toggleCenterClass;
+window.clearText = clearText;
+window.sendRequest = sendRequest;
+

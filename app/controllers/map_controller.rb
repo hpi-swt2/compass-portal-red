@@ -10,6 +10,10 @@ class MapController < SearchController
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
     @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
+
+    gon.selected_room_name = @selected_room? @selected_room.full_name : nil
+    gon.coordinates = @coordinates
+    gon.points_of_interest = @points_of_interest
   end
 
   def map_params
@@ -17,6 +21,7 @@ class MapController < SearchController
   end
 
   def navigation
+    puts("navigation")
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
 
@@ -24,6 +29,10 @@ class MapController < SearchController
     long1, lat1 = p1.split(",")
 
     @coordinates = [{ lat: lat1.to_f, lng: long1.to_f }]
+
+    gon.selected_room_name = @selected_room? @selected_room.full_name : nil
+    gon.coordinates = @coordinates
+    gon.points_of_interest = @points_of_interest
 
     render action: "index"
   end

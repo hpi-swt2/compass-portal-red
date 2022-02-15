@@ -35,16 +35,8 @@
         <% end %>
       ]
   </script>
-  <%= render('partials/map_js') %>
-
-    <% # Inject coordinates of selected room %>
-    <script type="text/javascript" charset="utf-8">
-        selected_room_name = "<%= @selected_room? @selected_room.full_name : nil %>"
-        coordinates = <%= raw(JSON.generate(@coordinates)) %>
-        points_of_interest = <%= raw(JSON.generate(@points_of_interest)) %>
-    </script>
   <% end %>
-
+  <%= render('partials/map_js') %>
 <%= javascript_pack_tag 'search', 'data-turbolinks-track': 'reload' %>
 <body onload="textEntered();">
 <div class="leaflet">
