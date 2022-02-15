@@ -115,9 +115,9 @@ export const buildIndoorMap = () => {
         window.floorsToBuild[i].floors.forEach((floor) => {
           if (floor.name === key) {
             const result = floor.rooms.map(
-              (room) => room.fullName === selected_room_name
+              (room) => room.fullName === gon.selected_room_name
             )
-            if (selected_room_name) {
+            if (gon.selected_room_name) {
               // if there is a selected room then activate only the layer where this room is and make it red
               if (result.includes(true)) {
                 temp[
