@@ -11,8 +11,8 @@
     </div>
   </div>
   <div class="d-flex flex-row justify-content-start iconbuttons mb-3">
-    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4', :id => "show_on_map_btn"}), map_path(:room_id => @room.id) %>
-    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-location-arrow', :id => "navigate_btn"}), root_path %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Show on map', :icon_class => 'fa-map', :margin => 'me-4'}), map_path(:room_id => @room.id) %>
+    <%= link_to render('partials/iconbutton', :locals => {:text => 'Navigate', :icon_class => 'fa-route'}), navigation_path(:coordinate => @room.to_navigation) %>
   </div>
   <div class='row'>
     <div class='col-3'>

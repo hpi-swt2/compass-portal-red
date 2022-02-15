@@ -1,6 +1,6 @@
 import { IndoorStyle } from '../constants'
 import { startNavigation } from './outdoor_map_builder'
-const buildRoomLayer = (room) => {
+function buildRoomLayer (room)  {
   if (mymap == null)
     throw Error('Map not initialized before buildRoomLayer was called.')
 
@@ -28,21 +28,24 @@ const buildRoomLayer = (room) => {
   return roomLayer
 }
 
-export function showRoomPopup(roomId) {
-  const popupRootNode = document.getElementById('popup_root')
-  if (popupRootNode.hasChildNodes) {
-    try {
-      const currentRoomPopUp = popupRootNode.childNodes[0]
-      if (currentRoomPopUp) {
-        popupRootNode.removeChild(currentRoomPopUp)
+export function showRoomPopup(roomId){
+  const popupRootNode = document.getElementById("popup_root")
+  if(popupRootNode.hasChildNodes){
+      try{
+        
+          const children = [...popupRootNode.childNodes]
+          console.log("Popup root node has child nodes. Removing them..", children)
+          if(children){
+            children.forEach(c => popupRootNode.removeChild(c))
+          }
       }
-    } catch (e) {
-      console.error('Failed removing child node', e)
-    }
-  }
+      catch(e){
+          console.error("Failed removing child node", e)
+      }
+  } 
   const routingNode = document.getElementById('map-navigation-popup')
-  if (routingNode) {
-    routingNode.style.display = 'none'
+  if(routingNode){
+    routingNode.style.display = "none"
   }
 
   const element = document.createElement('div')
@@ -71,7 +74,7 @@ export function showRoomPopup(roomId) {
     })
 }
 
-const buildFloorLayer = (floor) => {
+function buildFloorLayer (floor) {
   // Add FloorLayer to layers
   const floorLayer = L.layerGroup()
   layers[floor.name] = floorLayer
@@ -83,7 +86,7 @@ const buildFloorLayer = (floor) => {
   return floorLayer
 }
 
-export const buildIndoorMap = () => {
+export function buildIndoorMap(){
   console.log('[INDOOR] Indoor map start')
 
   if (mymap == null) {
@@ -112,9 +115,9 @@ export const buildIndoorMap = () => {
         window.floorsToBuild[i].floors.forEach((floor) => {
           if (floor.name === key) {
             const result = floor.rooms.map(
-              (room) => room.fullName === selected_room_name
+              (room) => room.fullName === gon.selected_room_name
             )
-            if (selected_room_name) {
+            if (gon.selected_room_name) {
               // if there is a selected room then activate only the layer where this room is and make it red
               if (result.includes(true)) {
                 temp[
@@ -123,7 +126,7 @@ export const buildIndoorMap = () => {
                 // activating the layer with the selected room by default
                 mymap.addLayer(
                   temp[
-                    `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
+                  `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
                   ]
                 )
               } else {
@@ -149,7 +152,7 @@ export const buildIndoorMap = () => {
     floorLayers = temp
 
     // converts every string to snake case (that_is_this_case)
-    const snakeCase = (string) => {
+    function snakeCase (string) {
       return string
         .replace(/\W+/g, ' ')
         .split(/ |\B(?=[A-Z])/)
@@ -193,5 +196,3 @@ export const buildIndoorMap = () => {
     .forEach((el) => (el.style.display = 'none'))
   console.log('[INDOOR] Indoor map done')
 }
-
-buildIndoorMap()

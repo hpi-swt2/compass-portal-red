@@ -8,7 +8,7 @@ import {
   redMarkerIcon
 } from "../constants";
 import { buildings } from "../OutdoorMap/geometry";
-import { showRoomPopup } from "./indoor_map_builder";
+import { showRoomPopup, buildIndoorMap } from "./indoor_map_builder";
 
 function buildSearchResultMarkers() {
   if (layers["Search Results"]) {
@@ -20,7 +20,7 @@ function buildSearchResultMarkers() {
     const center = layer.getBounds().getCenter();
 
     const marker = L.marker(center, { icon: redMarkerIcon });
-    marker.addEventListener('click',  (event) =>  {
+    marker.addEventListener('click', (event) => {
       showRoomPopup(result.id)
     });
     layers["Search Results"].addLayer(marker);
@@ -103,9 +103,10 @@ for (const feature of buildings) {
   layers[feature.properties.campus].addLayer(layer)
 }
 
-layers['Points of Interest'] = L.layerGroup().addTo(mymap)
-for (const feature of points_of_interest) {
-  let layerStyle
+layers["Points of Interest"] = L.layerGroup().addTo(mymap);
+
+for (const feature of gon.points_of_interest) {
+  let layerStyle;
   switch (feature.properties.type) {
     case 'Entrance':
       layerStyle = EntranceStyle
@@ -225,7 +226,7 @@ function buildingsByQuery(query) {
     return (
       buildingInfo.properties.name &&
       buildingInfo.properties.name.toLowerCase().indexOf(query.toLowerCase()) >
-        -1
+      -1
     )
   })
 }
@@ -318,8 +319,6 @@ const HPIGeocoder = {
   },
 }
 
-console.log(window.location.host + '/directions')
-
 // routingControl does everything related to navigation
 window.routingControl = L.Routing.control({
   // the router is responsible for calculating the route
@@ -354,7 +353,6 @@ window.routingControl = L.Routing.control({
   .addTo(mymap)
   // when routing call happens, there will be the stop button in the navigation plan
   .on('routingstart', (e) => {
-    console.log('routing start')
     document.getElementById('StopNavigation').style.display = 'block'
     document.getElementsByClassName(
       'leaflet-routing-alternatives-container'
@@ -369,12 +367,14 @@ window.routingControl = L.Routing.control({
     document.getElementById('map-navigation-popup').style.display = 'block'
   })
   .on('waypointschanged', (e) => {
-    console.log('waypointschanged')
-    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
-    changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng)
+    // we only highlight the destination of the current navigation route
+    changeHighlightedBuilding(routingControl.getWaypoints()[1].latLng);
 
+    // this handler is called whenever the waypoints are changed in any way (search bar or clicking in the map)
     routingControl.show()
+
     // always calculate the route to show the 'A' marker if only one waypoint is set
+    routingControl.route();
   })
 
 let highlightedBuilding = null
@@ -431,7 +431,7 @@ function buildNavigationButton() {
       onclick="
         document.getElementById('map-navigation-popup').style.display = 'inline';
         event.stopPropagation();
-        document.getElementById('map-popup').style.display = 'none';"
+        document.getElementById('room_popup').style.display = 'none';"
     >
     </i>
   `
@@ -504,16 +504,18 @@ mymap.on('click', onMapClick)
 function onLocationFound(e) {
   routingControl.setWaypoints([
     e.latlng,
-    L.latLng(coordinates[0].lat, coordinates[0].lng),
-  ])
+    L.latLng(gon.coordinates[0].lat, gon.coordinates[0].lng),
+  ]);
 }
 
-if (coordinates != null) {
-  mymap.on('locationfound', onLocationFound)
-  lc.start()
+if (gon.coordinates != null) {
+  mymap.on("locationfound", onLocationFound);
+  lc.start();
 }
 // Per default, we don't want the stop button to be shown, as there is no route
 
 document.getElementById("StopNavigation").style.display = "none";
 
 window.buildSearchResultMarkers = buildSearchResultMarkers
+
+buildIndoorMap()

@@ -5,6 +5,7 @@
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "colors";
+@import "values";
 
 @media only screen and (min-width: 400px) {
   .search-item {
@@ -85,7 +86,14 @@
   top: -3rem;
   float: right;
   margin-right: 5px;
-  visibility: hidden;
+}
+
+/* This is to center the search vertically */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 400px) {

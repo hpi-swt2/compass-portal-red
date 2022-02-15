@@ -2,7 +2,14 @@
   <div class="row align-items-end mb-3">
     <div class="col">
       <div class="form-group">
-        <input class="form-control" autofocus="autofocus" id="search" oninput="textEntered(this)" onsubmit="sendRequest(this)" type="text" name="query" value="<%= @query %>">
+        <input class="form-control" id="search" placeholder="Ask me something ..." 
+            onfocus="toggleCenterClass(true)" 
+            onfocusout="toggleCenterClass(false)" 
+            oninput="textEntered(this)" 
+            onsubmit="sendRequest(this)" 
+            type="text" 
+            name="query" 
+            value="<%= @query %>">
       </div>
     </div>
   </div>
