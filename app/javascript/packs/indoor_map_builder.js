@@ -28,21 +28,24 @@ const buildRoomLayer = (room) => {
   return roomLayer
 }
 
-export function showRoomPopup(roomId) {
-  const popupRootNode = document.getElementById('popup_root')
-  if (popupRootNode.hasChildNodes) {
-    try {
-      const currentRoomPopUp = popupRootNode.childNodes[0]
-      if (currentRoomPopUp) {
-        popupRootNode.removeChild(currentRoomPopUp)
+export function showRoomPopup(roomId){
+  const popupRootNode = document.getElementById("popup_root")
+  if(popupRootNode.hasChildNodes){
+      try{
+        
+          const children = [...popupRootNode.childNodes]
+          console.log("Popup root node has child nodes. Removing them..", children)
+          if(children){
+            children.forEach(c => popupRootNode.removeChild(c))
+          }
       }
-    } catch (e) {
-      console.error('Failed removing child node', e)
-    }
-  }
+      catch(e){
+          console.error("Failed removing child node", e)
+      }
+  } 
   const routingNode = document.getElementById('map-navigation-popup')
-  if (routingNode) {
-    routingNode.style.display = 'none'
+  if(routingNode){
+    routingNode.style.display = "none"
   }
 
   const element = document.createElement('div')
@@ -112,9 +115,9 @@ export const buildIndoorMap = () => {
         window.floorsToBuild[i].floors.forEach((floor) => {
           if (floor.name === key) {
             const result = floor.rooms.map(
-              (room) => room.fullName === selected_room_name
+              (room) => room.fullName === gon.selected_room_name
             )
-            if (selected_room_name) {
+            if (gon.selected_room_name) {
               // if there is a selected room then activate only the layer where this room is and make it red
               if (result.includes(true)) {
                 temp[

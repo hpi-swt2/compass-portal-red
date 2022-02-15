@@ -103,9 +103,10 @@ for (const feature of buildings) {
   layers[feature.properties.campus].addLayer(layer)
 }
 
-layers['Points of Interest'] = L.layerGroup().addTo(mymap)
-for (const feature of points_of_interest) {
-  let layerStyle
+layers["Points of Interest"] = L.layerGroup().addTo(mymap);
+
+for (const feature of gon.points_of_interest) {
+  let layerStyle;
   switch (feature.properties.type) {
     case 'Entrance':
       layerStyle = EntranceStyle
@@ -504,13 +505,13 @@ mymap.on('click', onMapClick)
 function onLocationFound(e) {
   routingControl.setWaypoints([
     e.latlng,
-    L.latLng(coordinates[0].lat, coordinates[0].lng),
-  ])
+    L.latLng(gon.coordinates[0].lat, gon.coordinates[0].lng),
+  ]);
 }
 
-if (coordinates != null) {
-  mymap.on('locationfound', onLocationFound)
-  lc.start()
+if (gon.coordinates != null) {
+  mymap.on("locationfound", onLocationFound);
+  lc.start();
 }
 // Per default, we don't want the stop button to be shown, as there is no route
 
