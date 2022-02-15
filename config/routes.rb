@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   # starts the navigation from the current location to the provided coordinate-position
   # example: /navigation/13p12976840232745%2C52p393810752008136
   # navigation/<LONG1>%2C<LAT1>
-  get '/navigation/:coordinate', to: 'map#navigation', :as => :navigation
+  get '/navigation/:coordinate', to: 'map#navigation', as: :navigation
 
   # '/options'
   get '/options', to: 'options#index'

@@ -11,26 +11,26 @@ class MapController < SearchController
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
     @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
 
-    gon.selected_room_name = @selected_room? @selected_room.full_name : nil
+    gon.selected_room_name = @selected_room ? @selected_room.full_name : nil
     gon.coordinates = @coordinates
     gon.points_of_interest = @points_of_interest
   end
 
   def map_params
-    params.permit(:room_id, :query)
+    params.permit(:room_id, :query, :coordinate)
   end
 
   def navigation
-    puts("navigation")
     @buildings = Building.all
     @points_of_interest = PointOfInterest.all.map(&:to_geojson)
+    @selected_room = Room.find(map_params[:room_id]) if map_params[:room_id].present?
 
     p1 = params[:coordinate].tr('p', '.')
     long1, lat1 = p1.split(",")
 
     @coordinates = [{ lat: lat1.to_f, lng: long1.to_f }]
 
-    gon.selected_room_name = @selected_room? @selected_room.full_name : nil
+    gon.selected_room_name = @selected_room ? @selected_room.full_name : nil
     gon.coordinates = @coordinates
     gon.points_of_interest = @points_of_interest
 
