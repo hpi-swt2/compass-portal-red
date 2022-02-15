@@ -1,6 +1,6 @@
 import { IndoorStyle } from '../constants'
 import { startNavigation } from './outdoor_map_builder'
-const buildRoomLayer = (room) => {
+function buildRoomLayer (room)  {
   if (mymap == null)
     throw Error('Map not initialized before buildRoomLayer was called.')
 
@@ -74,7 +74,7 @@ export function showRoomPopup(roomId){
     })
 }
 
-const buildFloorLayer = (floor) => {
+function buildFloorLayer (floor) {
   // Add FloorLayer to layers
   const floorLayer = L.layerGroup()
   layers[floor.name] = floorLayer
@@ -86,7 +86,7 @@ const buildFloorLayer = (floor) => {
   return floorLayer
 }
 
-export const buildIndoorMap = () => {
+export function buildIndoorMap(){
   console.log('[INDOOR] Indoor map start')
 
   if (mymap == null) {
@@ -126,7 +126,7 @@ export const buildIndoorMap = () => {
                 // activating the layer with the selected room by default
                 mymap.addLayer(
                   temp[
-                    `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
+                  `<span style='background-color: #e0938d; padding: 5px; border-radius: 10px;'>${key}</span>`
                   ]
                 )
               } else {
@@ -152,7 +152,7 @@ export const buildIndoorMap = () => {
     floorLayers = temp
 
     // converts every string to snake case (that_is_this_case)
-    const snakeCase = (string) => {
+    function snakeCase (string) {
       return string
         .replace(/\W+/g, ' ')
         .split(/ |\B(?=[A-Z])/)
@@ -196,5 +196,3 @@ export const buildIndoorMap = () => {
     .forEach((el) => (el.style.display = 'none'))
   console.log('[INDOOR] Indoor map done')
 }
-
-buildIndoorMap()
