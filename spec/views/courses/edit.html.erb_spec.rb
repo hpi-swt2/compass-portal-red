@@ -1,17 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "courses/edit", type: :view do
-  before do
-    @course = assign(:course, Course.create!(
-                                name: "MyString",
-                                module_category: "MyString"
-                              ))
-  end
+  let(:course) { create(:course) }
+
+  before { assign(:course, course) }
 
   it "renders the edit course form" do
     render
 
-    assert_select "form[action=?][method=?]", course_path(@course), "post" do
+    assert_select "form[action=?][method=?]", course_path(course), "post" do
 
       assert_select "input[name=?]", "course[name]"
 

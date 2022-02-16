@@ -1,4 +1,4 @@
-.map-popup {
+.room-popup {
   width: 90%;
   position: fixed !important;
   bottom: 2rem;
@@ -7,7 +7,7 @@
 }
 
 @media only screen and (max-width: 400px) {
-  .map-popup {
+  .room-popup {
     bottom: 5rem;
 
     .iconbuttons {

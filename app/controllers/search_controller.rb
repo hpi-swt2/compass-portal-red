@@ -1,34 +1,37 @@
 class SearchController < ApplicationController
   def index
     return if params[:query].nil?
-    return if params[:query].empty?
 
-    @exact_results = add_results_for(params[:query])
-    @more_results = more_results(params, @exact_results)
+    unless params[:query].empty?
+      @exact_results = add_results_for(params[:query])
+      @more_results = more_results(params[:query], @exact_results)
+    end
 
-    @params = params[:query]
+    @query = params[:query]
+    handle_ajax
   end
 
   helper_method :index
 
   private
 
-  def more_results(params, exact_results)
-    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
+  def more_results(query, exact_results)
+    words_in_query = query.scan(/[A-Za-z0-9]+/)
 
     more_results = words_in_query.flat_map { |word| add_results_for(word) }
     related_results = (exact_results + more_results).uniq.map(&:related_searchable_records).flatten
-    sort(more_results + related_results, related_results, params[:query]) - exact_results
+    sort(more_results + related_results, related_results, query) - exact_results
   end
 
   def add_results_for(query)
     Person.search(query) +
       Room.search(query) +
-      Chair.search(query)
+      Chair.search(query) +
+      Course.search(query)
   end
 
   def sort_by_priority(results, query)
-    words_in_query = params[:query].scan(/[A-Za-z0-9]+/)
+    words_in_query = query.scan(/[A-Za-z0-9]+/)
     matching_tag_results = words_in_query.flat_map { |word| Room.search_by_tags(word) }.uniq
     results_without_tags = results - matching_tag_results
     prioritized_results = results
@@ -72,5 +75,15 @@ class SearchController < ApplicationController
   def sort(more_results, related_results, query)
     results = sort_by_frequency(more_results, related_results)
     sort_by_priority(results, query)
+  end
+
+  def handle_ajax
+    if params[:ajax].nil?
+      @full_render = true
+    elsif params[:ajax] == "search"
+      render json: { html: render_to_string(partial: "partials/search_results"), search: @query }
+    elsif params[:ajax] == "map"
+      render json: { html: render_to_string(partial: "partials/map_js"), search: @query }
+    end
   end
 end

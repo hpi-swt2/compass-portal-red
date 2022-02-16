@@ -39,6 +39,16 @@ class Room < SearchableRecord
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
   end
 
+  def to_navigation
+    # get coordinates of room and calculate the center of mass return this for navigation
+    geojson = to_geojson.first[:geometry]
+    coordinates = geojson[:type] == 'LineString' ? geojson[:coordinates] : geojson[:coordinates].first
+    coordinate = coordinates.transpose.map do |c|
+      c.sum / c.size
+    end
+    "#{coordinate.first.to_s.tr('.', 'p')},#{coordinate.second.to_s.tr('.', 'p')}"
+  end
+
   def self.searchable_attributes
     %w[number full_name room_types.name tags.name floors.name]
   end

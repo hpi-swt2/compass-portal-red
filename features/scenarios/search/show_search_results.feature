@@ -44,3 +44,13 @@ Feature: Basic search functionality
     When I enter "Chair Representative"
     And I start the search
     Then I see the search result "Dr. Michael Perscheid"
+
+  Scenario: searching for something without any matches
+    Given I am on the search page
+    When I enter "OMG"
+    And I start the search
+    Then I see the title for search suggestions
+
+  Scenario: visiting the search page
+    Given I am on the search page
+    Then I do not see the title for search suggestions
