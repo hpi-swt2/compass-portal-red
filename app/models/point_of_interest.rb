@@ -3,6 +3,13 @@ class PointOfInterest < ApplicationRecord
   validates :name, presence: true
 
   belongs_to :point
+  has_one_attached :image, dependent: :destroy
+
+  PLACEHOLDER_IMAGE_LINK = "placeholder_poi.png".freeze
+
+  def image_or_placeholder
+    image.attached? ? image : PLACEHOLDER_IMAGE_LINK
+  end
 
   def to_geojson
     {

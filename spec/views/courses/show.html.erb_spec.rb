@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "courses/show", type: :view do
-  let(:course) { FactoryBot.create(:course) }
+  let(:course) { create(:course) }
 
   before { assign(:course, course) }
 
