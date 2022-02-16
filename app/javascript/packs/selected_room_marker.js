@@ -4,7 +4,8 @@ const { indoorZoomLevel } = require("../constants");
 // TODO: Find nicer solution (e.g. JS CustomEvent)
 setTimeout(() => {
   console.log('[SELECTED_ROOM] Selected room start');
-  const room = layers[`${selected_room_name}`];
+  const room = layers[`${gon.selected_room_name}`];
+  
   // TODO: Add message?
   if(!room) return;
 

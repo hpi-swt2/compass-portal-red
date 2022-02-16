@@ -46,7 +46,7 @@ gem 'omniauth' # https://github.com/omniauth/omniauth
 gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_connect
 
 gem 'open_uri_redirections'
-
+gem 'jquery-rails'
 #
 # Gems that are loaded depending on the environment (development/test/production)
 #
@@ -117,3 +117,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Pass variables from controller to JS
+gem 'gon'

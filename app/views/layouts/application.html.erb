@@ -3,8 +3,11 @@
   <head>
     <link rel="manifest" href="/manifest.json">
     <% title = yield(:title) %>
+    <% # if you change the – also changes might be needed in app/javascript/packs/search.js %>
     <title><%= title + " – " if title.present? %>HPI Compass Portal</title>
+    <%= Gon::Base.render_data %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+     <%= include_gon %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
