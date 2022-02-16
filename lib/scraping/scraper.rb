@@ -87,7 +87,7 @@ class Scraper
 
   # Save room on person
   def self.add_room(person, room, problem_checker)
-    room = Room.find_or_create_by(number: room)
-    person.room = room unless problem_checker.check_for_conflict(person, "room")
+    room_obj = Room.find_or_create_by(full_name: room)
+    person.room = room_obj unless problem_checker.check_for_conflict(person, "room_id")
   end
 end

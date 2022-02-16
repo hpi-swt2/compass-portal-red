@@ -18,9 +18,11 @@
     <div class='col-3'>
       floor
     </div>
-    <div class='col'>
-      <%= @room.floor.name %>
-    </div>
+    <% if @room.floor.present? %>
+      <div class='col'>
+        <%= @room.floor.name %>
+      </div>
+    <% end %>
   </div>
   <% if @room.chairs.present? %>
     <div class='row'>
