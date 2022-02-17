@@ -53,6 +53,14 @@ RSpec.describe "rooms/show", type: :view do
     end
   end
 
+  it "shows details of existing courses" do
+    room.courses << [create(:course), create(:course)]
+    render
+    room.courses.each do |course|
+      expect(rendered).to have_link(course.name, href: course_path(course))
+    end
+  end
+
   it "renders a link to the map page with room id as parameter" do
     render
     expect(rendered).to have_link(href: map_path(room_id: room.id))

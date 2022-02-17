@@ -29,7 +29,7 @@
     <% @people.each do |person| %>
       <tr>
         <td>
-          <%= image_tag person.image_or_placeholder, class: "picture-rounded sm" %>
+          <%= render('partials/picture_circle', :locals => {:image => person.image_or_placeholder}) %>
         </td>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>

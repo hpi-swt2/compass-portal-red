@@ -1,17 +1,19 @@
 // Place all the styles related to the search controller here.
 
-@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import '@fortawesome/fontawesome-free/scss/solid.scss';
-@import '@fortawesome/fontawesome-free/scss/brands.scss';
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "colors";
+@import "values";
 
 @media only screen and (min-width: 400px) {
   .search-item {
     margin-bottom: 0.5rem;
     border-radius: 1rem !important;
 
-    .col-2, .col {
+    .col-2,
+    .col {
       justify-content: center;
     }
   }
@@ -25,16 +27,16 @@
       margin-bottom: 0.1rem !important;
     }
 
-    .col-2, .col {
+    .col-2,
+    .col {
       justify-content: start;
     }
-  
+
     .col-2 {
       padding: 0 !important;
     }
   }
 }
-
 
 .search-item {
   border: none !important;
@@ -43,7 +45,7 @@
     @extend %fa-icon;
     @extend .fas;
     width: 1.25em;
-    text-align:center;
+    text-align: center;
     padding-right: 2px;
     color: $gray;
 
@@ -53,13 +55,13 @@
       }
     }
 
-    &.--room{
+    &.--room {
       &:before {
         content: fa-content($fa-var-door-open);
       }
     }
 
-    &.--chair{
+    &.--chair {
       &:before {
         content: fa-content($fa-var-users);
       }
@@ -67,16 +69,16 @@
   }
 }
 
-.form-control{
+.form-control {
   border-radius: 20px !important;
 }
 
-.form-control:focus{
+.form-control:focus {
   box-shadow: none !important;
 }
 
-.cancel-input{
-  background: #F4F4F4;
+.cancel-input {
+  background: #f4f4f4;
   color: #444444;
   border: 0;
   border-radius: 20px;
@@ -84,14 +86,17 @@
   top: -3rem;
   float: right;
   margin-right: 5px;
-  visibility: hidden;
 }
 
-.col{
-  height: 38px;
+/* This is to center the search vertically */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 400px) {
   .container.mt-5.mb-5 {
     margin-top: 1.5rem !important;
   }

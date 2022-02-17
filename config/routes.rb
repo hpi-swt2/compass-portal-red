@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :floors
   resources :people
   resources :person_urls
+  resources :point_of_interests
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
@@ -30,6 +31,12 @@ Rails.application.routes.draw do
   # '/map'
   get '/map', to: 'map#index'
   get '/directions/:profile/:coordinates', to: 'map#directions'
+  get '/map/room_popup/:room_id', to: 'map#room_popup'
+
+  # starts the navigation from the current location to the provided coordinate-position
+  # example: /navigation/13p12976840232745%2C52p393810752008136
+  # navigation/<LONG1>%2C<LAT1>
+  get '/navigation/:coordinate', to: 'map#navigation', as: :navigation
 
   # '/options'
   get '/options', to: 'options#index'

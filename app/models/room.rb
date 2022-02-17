@@ -25,14 +25,28 @@ class Room < SearchableRecord
     self.outer_shape ||= Polyline.new # if no outer shape exists yet, create an empty one
   end
 
-  def to_string
+  def to_s
     name
+  end
+
+  def related_searchable_records
+    people + chairs
   end
 
   def to_geojson
     walls.map(&:to_geojson) +
       points.map(&:to_geojson) +
       [ outer_shape.to_geojson.merge({ properties: { class: "outer-shape" } }) ]
+  end
+
+  def to_navigation
+    # get coordinates of room and calculate the center of mass return this for navigation
+    geojson = to_geojson.first[:geometry]
+    coordinates = geojson[:type] == 'LineString' ? geojson[:coordinates] : geojson[:coordinates].first
+    coordinate = coordinates.transpose.map do |c|
+      c.sum / c.size
+    end
+    "#{coordinate.first.to_s.tr('.', 'p')},#{coordinate.second.to_s.tr('.', 'p')}"
   end
 
   def self.searchable_attributes

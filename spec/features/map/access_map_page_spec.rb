@@ -7,7 +7,7 @@ RSpec.describe "Map Page", type: :feature do
 
   it "is accessible through navbar" do
     visit root_path
-    expect(page).to have_link(nil, href: map_path)
+    expect(page).to have_selector(:link_or_button, 'Map')
   end
 
   it "contains a leaflet container" do
@@ -20,12 +20,12 @@ RSpec.describe "Map Page", type: :feature do
 
     visit map_path(room_id: room.id)
 
-    expect(page).to have_css('.map-popup')
+    expect(page).to have_css('.room-popup')
     expect(page).to have_link(href: room_path(room))
   end
 
   it "renders no popup if no room is selected" do
     visit map_path
-    expect(page).to have_no_css('.map-popup')
+    expect(page).to have_no_css('.room-popup')
   end
 end

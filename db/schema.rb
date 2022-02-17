@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_26_163131) do
+ActiveRecord::Schema.define(version: 2022_02_09_135614) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2022_01_26_163131) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "room_id"
+    t.string "image", default: "placeholder_course.png"
     t.index ["room_id"], name: "index_courses_on_room_id"
   end
 
@@ -160,6 +161,7 @@ ActiveRecord::Schema.define(version: 2022_01_26_163131) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
     t.string "name"
+    t.string "image", default: "placeholder_poi.png"
     t.index ["point_id"], name: "index_point_of_interests_on_point_id"
   end
 

@@ -1,12 +1,13 @@
 name: Acceptance tests
 
 on:
+  push:
   # Allow manual triggering
   workflow_dispatch:
 
 jobs:
   # Name of the job
-  rspec-test:
+  cucumber-test:
     runs-on: ubuntu-latest
 
     # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers

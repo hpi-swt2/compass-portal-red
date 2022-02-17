@@ -46,7 +46,7 @@ gem 'omniauth' # https://github.com/omniauth/omniauth
 gem 'omniauth_openid_connect' # https://github.com/m0n9oose/omniauth_openid_connect
 
 gem 'open_uri_redirections'
-
+gem 'jquery-rails'
 #
 # Gems that are loaded depending on the environment (development/test/production)
 #
@@ -91,7 +91,7 @@ group :development do
   gem 'better_errors' # https://github.com/BetterErrors/better_errors
   # binding_of_caller is optional, but is necessary to use Better Errors' advanced features
   gem 'binding_of_caller' # https://github.com/banister/binding_of_caller
-  # Generate a diagram based on your application's Active Record models by calling 'bundle exec erd'. Dependency: graphviz
+  # Generate a diagram based on your application's models by calling 'bundle exec erd'. Dependency: graphviz
   gem 'rails-erd' # https://github.com/voormedia/rails-erd
 end
 
@@ -117,3 +117,6 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Pass variables from controller to JS
+gem 'gon'
